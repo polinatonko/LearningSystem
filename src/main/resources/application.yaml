@@ -3,3 +3,6 @@ spring:
     name: LearningSystem
   profiles:
     active: local
+  jpa:
+    hibernate:
+      ddl-auto: none
