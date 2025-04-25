@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: LearningSystem
+  profiles:
+    active: local
