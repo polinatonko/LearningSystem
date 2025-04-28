@@ -1,0 +1,12 @@
+spring:
+  config:
+    import: secrets-local.yaml
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:db
+
+logging:
+  level:
+    liquibase: debug
