@@ -2,9 +2,9 @@ databaseChangeLog:
   - include:
       file: classpath:db/changelog/init/001-create-student-table.xml
   - include:
-      file: classpath:db/changelog/init/002-create-course-table.xml
+      file: classpath:db/changelog/init/002-create-course-settings-table.xml
   - include:
-      file: classpath:db/changelog/init/003-create-course-settings-table.xml
+      file: classpath:db/changelog/init/003-create-course-table.xml
   - include:
       file: classpath:db/changelog/init/004-create-student-course-table.xml
   - include:

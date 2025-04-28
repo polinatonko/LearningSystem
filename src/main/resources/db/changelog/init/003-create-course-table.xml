@@ -17,11 +17,15 @@
             </column>
             <column name="description" type="clob"/>
             <column name="price" type="number"/>
-            <column name="publish_date" type="datetime" defaultValueComputed="current_timestamp">
+            <column name="coins_paid" type="number" defaultValueNumeric="0">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
+        <addForeignKeyConstraint baseTableName="course" baseColumnNames="id"
+                                 constraintName="fk_course_settings"
+                                 referencedTableName="course_settings" referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
     </changeSet>
 
 </databaseChangeLog>

@@ -19,11 +19,6 @@
             </column>
         </createTable>
 
-        <addForeignKeyConstraint baseTableName="course_settings" baseColumnNames="id"
-                                 constraintName="fk_course_settings"
-                                 referencedTableName="course" referencedColumnNames="id"
-                                 onDelete="CASCADE"/>
-
     </changeSet>
 
 </databaseChangeLog>
