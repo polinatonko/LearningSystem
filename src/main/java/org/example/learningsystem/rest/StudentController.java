@@ -37,7 +37,7 @@ public class StudentController {
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Get student via id")
+    @Operation(summary = "Get student by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Student was retrieved"),
             @ApiResponse(responseCode = "400", description = "Invalid value of path variable"),

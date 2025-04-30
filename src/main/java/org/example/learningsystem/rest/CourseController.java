@@ -53,7 +53,7 @@ public class CourseController {
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Get course via id")
+    @Operation(summary = "Get course by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Course was retrieved"),
             @ApiResponse(responseCode = "400", description = "Invalid value of path variable"),

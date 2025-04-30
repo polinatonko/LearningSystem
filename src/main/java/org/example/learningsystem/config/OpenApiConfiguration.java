@@ -11,7 +11,7 @@ public class OpenApiConfiguration {
     public OpenAPI openAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Learning Management System")
+                        .title("LearningManagementSystem")
                         .description("API provides a functionality for managing the learning system and allows " +
                                 "Students to enroll in variety of Courses using\n" +
                                 "virtual coins.")

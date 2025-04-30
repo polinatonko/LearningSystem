@@ -1,6 +1,6 @@
 spring:
   application:
-    name: LearningSystem
+    name: LearningManagementSystem
   profiles:
     active: local
   jpa:
