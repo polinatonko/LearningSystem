@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.domain.Course;
 import org.example.learningsystem.dto.course.CourseRequest;
@@ -36,7 +37,7 @@ public class CourseController {
             @ApiResponse(responseCode = "201", description = "Course was created"),
             @ApiResponse(responseCode = "400", description = "Invalid body")
     })
-    public CourseResponse create(@RequestBody CourseRequest courseRequest) {
+    public CourseResponse create(@RequestBody @Valid CourseRequest courseRequest) {
         var course = courseService.create(courseMapper.requestToCourse(courseRequest));
         return toResponse(course);
     }
@@ -94,7 +95,7 @@ public class CourseController {
             @ApiResponse(responseCode = "400", description = "Invalid request body or value of path variable"),
             @ApiResponse(responseCode = "404", description = "Course was not found")
     })
-    public CourseResponse update(@PathVariable UUID id, @RequestBody CourseRequest courseRequest) {
+    public CourseResponse update(@PathVariable UUID id, @RequestBody @Valid CourseRequest courseRequest) {
         var course = courseMapper.requestToCourse(courseRequest);
         course.setId(id);
         var updatedCourse = courseService.update(course);

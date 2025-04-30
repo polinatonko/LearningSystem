@@ -1,20 +1,29 @@
 package org.example.learningsystem.dto.course;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 public record CourseResponse(
+        @NotNull
         UUID id,
+        @NotBlank
         String title,
         String description,
+        @Min(0)
         BigDecimal price,
+        @NotNull
+        @Min(0)
         BigDecimal coinsPaid,
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
         LocalDateTime startDate,
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
         LocalDateTime endDate,
+        @NotNull
         Boolean isPublic
 ) {}

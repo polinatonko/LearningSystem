@@ -3,9 +3,12 @@ package org.example.learningsystem.rest;
 import org.example.learningsystem.dto.ApiError;
 import org.example.learningsystem.exception.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageConversionException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -13,6 +16,31 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ApiError handleException(Exception e) {
         return new ApiError(e.getMessage());
+    }
+
+    @ExceptionHandler(HttpMessageConversionException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiError handleHttpMessageConversionException(HttpMessageConversionException e) {
+        return new ApiError(e.getMostSpecificCause().getMessage(), HttpStatus.BAD_REQUEST.value());
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiError handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        var errors = e.getBindingResult().getFieldErrors()
+                .stream()
+                .map(err -> err.getField() + ": " + err.getDefaultMessage())
+                .toList();
+        var errMessage = String.format("Validation failed: %s", String.join("; ", errors));
+        return new ApiError(errMessage, HttpStatus.BAD_REQUEST.value());
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiError handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
+
+        var errMessage = String.format("Argument type mismatch: %s: %s", e.getName(), e.getMostSpecificCause().getMessage());
+        return new ApiError(errMessage, HttpStatus.BAD_REQUEST.value());
     }
 
     @ExceptionHandler(EntityNotFoundException.class)

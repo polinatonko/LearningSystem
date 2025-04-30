@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.domain.Student;
 import org.example.learningsystem.dto.student.StudentRequest;
@@ -30,7 +31,7 @@ public class StudentController {
             @ApiResponse(responseCode = "201", description = "Student was created"),
             @ApiResponse(responseCode = "400", description = "Invalid body")
     })
-    public StudentResponse create(@RequestBody StudentRequest studentRequest) {
+    public StudentResponse create(@RequestBody @Valid StudentRequest studentRequest) {
         var student = studentService.create(studentMapper.requestToStudent(studentRequest));
         return toResponse(student);
     }
@@ -54,7 +55,7 @@ public class StudentController {
             @ApiResponse(responseCode = "400", description = "Invalid request body or value of path variable"),
             @ApiResponse(responseCode = "404", description = "Student was not found")
     })
-    public StudentResponse update(@PathVariable UUID id, @RequestBody StudentRequest studentRequest) {
+    public StudentResponse update(@PathVariable UUID id, @RequestBody @Valid StudentRequest studentRequest) {
         var student = studentMapper.requestToStudent(studentRequest);
         student.setId(id);
         var updatedStudent = studentService.update(student);
