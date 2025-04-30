@@ -13,53 +13,53 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class CourseServiceImpl implements CourseService {
-    private final CourseRepository courseRepository;
+    private final CourseRepository repository;
     private final StudentService studentService;
 
     @Override
     public Course create(Course course) {
-        return courseRepository.save(course);
+        return repository.save(course);
     }
 
     @Override
     public void enrollStudent(UUID studentId, UUID courseId) {
-        var course = findByIdOrThrow(courseId);
+        var course = findById(courseId);
         var student = studentService.getById(studentId);
         course.addStudent(student);
-        courseRepository.save(course);
+        repository.save(course);
     }
 
     @Override
     public Course getById(UUID id) {
-        return findByIdOrThrow(id);
+        return findById(id);
     }
 
     @Override
     public List<Course> getAll() {
-        return courseRepository.findAll();
+        return repository.findAll();
     }
 
     @Override
     public Course update(Course course) {
-        findByIdOrThrow(course.getId());
-        return courseRepository.save(course);
+        findById(course.getId());
+        return repository.save(course);
     }
 
     @Override
     public void delete(UUID id) {
-        courseRepository.deleteById(id);
+        repository.deleteById(id);
     }
 
     @Override
     public void unenrollStudent(UUID courseId, UUID studentId) {
-        var course = findByIdOrThrow(courseId);
+        var course = findById(courseId);
         var student = studentService.getById(studentId);
         course.removeStudent(student);
-        courseRepository.save(course);
+        repository.save(course);
     }
 
-    private Course findByIdOrThrow(UUID id) {
-        return courseRepository.findById(id)
+    private Course findById(UUID id) {
+        return repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(Course.class.getName(), id));
     }
 }

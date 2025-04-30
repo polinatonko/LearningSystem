@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public record CourseResponse(
+public record CourseResponseDto(
         @NotNull
         UUID id,
         @NotBlank

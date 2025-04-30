@@ -7,8 +7,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.domain.Student;
-import org.example.learningsystem.dto.student.StudentRequest;
-import org.example.learningsystem.dto.student.StudentResponse;
+import org.example.learningsystem.dto.student.StudentRequestDto;
+import org.example.learningsystem.dto.student.StudentResponseDto;
 import org.example.learningsystem.mapper.StudentMapper;
 import org.example.learningsystem.service.student.StudentService;
 import org.springframework.http.HttpStatus;
@@ -21,8 +21,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Tag(name = "Student Controller")
 public class StudentController {
-    private final StudentService studentService;
-    private final StudentMapper studentMapper;
+    private final StudentService service;
+    private final StudentMapper mapper;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -31,8 +31,8 @@ public class StudentController {
             @ApiResponse(responseCode = "201", description = "Student was created"),
             @ApiResponse(responseCode = "400", description = "Invalid body")
     })
-    public StudentResponse create(@RequestBody @Valid StudentRequest studentRequest) {
-        var student = studentService.create(studentMapper.requestToStudent(studentRequest));
+    public StudentResponseDto create(@RequestBody @Valid StudentRequestDto studentRequestDto) {
+        var student = service.create(mapper.toEntity(studentRequestDto));
         return toResponse(student);
     }
 
@@ -43,8 +43,8 @@ public class StudentController {
             @ApiResponse(responseCode = "400", description = "Invalid value of path variable"),
             @ApiResponse(responseCode = "404", description = "Student was not found")
     })
-    public StudentResponse get(@PathVariable UUID id) {
-        var student = studentService.getById(id);
+    public StudentResponseDto get(@PathVariable UUID id) {
+        var student = service.getById(id);
         return toResponse(student);
     }
 
@@ -55,10 +55,10 @@ public class StudentController {
             @ApiResponse(responseCode = "400", description = "Invalid request body or value of path variable"),
             @ApiResponse(responseCode = "404", description = "Student was not found")
     })
-    public StudentResponse update(@PathVariable UUID id, @RequestBody @Valid StudentRequest studentRequest) {
-        var student = studentMapper.requestToStudent(studentRequest);
+    public StudentResponseDto update(@PathVariable UUID id, @RequestBody @Valid StudentRequestDto studentRequestDto) {
+        var student = mapper.toEntity(studentRequestDto);
         student.setId(id);
-        var updatedStudent = studentService.update(student);
+        var updatedStudent = service.update(student);
         return toResponse(updatedStudent);
     }
 
@@ -67,10 +67,10 @@ public class StudentController {
     @Operation(summary = "Delete course")
     @ApiResponse(responseCode = "204", description = "Student was deleted or doesn't exist")
     public void delete(@PathVariable UUID id) {
-        studentService.delete(id);
+        service.delete(id);
     }
 
-    private StudentResponse toResponse(Student student) {
-        return studentMapper.studentToResponse(student);
+    private StudentResponseDto toResponse(Student student) {
+        return mapper.toDto(student);
     }
 }

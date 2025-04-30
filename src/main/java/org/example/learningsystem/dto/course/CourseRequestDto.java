@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public record CourseRequest(
+public record CourseRequestDto(
         UUID id,
         @NotBlank
         String title,

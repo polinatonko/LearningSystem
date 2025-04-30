@@ -12,41 +12,41 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService {
-    private final StudentRepository studentRepository;
+    private final StudentRepository repository;
 
     @Override
     public Student create(Student student) {
-        return studentRepository.save(student);
+        return repository.save(student);
     }
 
     @Override
     public Student getById(UUID id) {
-        return findByIdOrThrowException(id);
+        return findById(id);
     }
 
     @Override
     public List<Student> getByCourseId(UUID courseId) {
-        return studentRepository.findByCoursesId(courseId);
+        return repository.findByCoursesId(courseId);
     }
 
     @Override
     public List<Student> getAll() {
-        return studentRepository.findAll();
+        return repository.findAll();
     }
 
     @Override
     public Student update(Student student) {
-        findByIdOrThrowException(student.getId());
-        return studentRepository.save(student);
+        findById(student.getId());
+        return repository.save(student);
     }
 
     @Override
     public void delete(UUID id) {
-        studentRepository.deleteById(id);
+        repository.deleteById(id);
     }
 
-    private Student findByIdOrThrowException(UUID id) {
-        return studentRepository.findById(id)
+    private Student findById(UUID id) {
+        return repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(Student.class.getName(), id));
     }
 }
