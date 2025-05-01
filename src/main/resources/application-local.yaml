@@ -11,4 +11,4 @@ spring:
 
 logging:
   level:
-    liquibase: debug
+    liquibase: info

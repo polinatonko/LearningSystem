@@ -1,8 +1,7 @@
-package org.example.learningsystem.rest;
+package org.example.learningsystem.exception.handler;
 
-import org.example.learningsystem.dto.ErrorResponseDto;
+import org.example.learningsystem.exception.response.ErrorResponse;
 import org.example.learningsystem.exception.EntityNotFoundException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -18,42 +17,42 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(INTERNAL_SERVER_ERROR)
-    public ErrorResponseDto handleException(Exception e) {
-        return toDto(e.getMessage(), INTERNAL_SERVER_ERROR);
+    public ErrorResponse handleException(Exception e) {
+        return toDto(e.getMessage());
     }
 
     @ExceptionHandler(HttpMessageConversionException.class)
     @ResponseStatus(BAD_REQUEST)
-    public ErrorResponseDto handleHttpMessageConversionException(HttpMessageConversionException e) {
-        return toDto(e.getMostSpecificCause().getMessage(), BAD_REQUEST);
+    public ErrorResponse handleHttpMessageConversionException(HttpMessageConversionException e) {
+        return toDto(e.getMostSpecificCause().getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(BAD_REQUEST)
-    public ErrorResponseDto handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+    public ErrorResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         var errors = e.getBindingResult().getFieldErrors()
                 .stream()
                 .map(err -> err.getField() + ": " + err.getDefaultMessage())
                 .toList();
         var errMessage = String.format("Validation failed: %s", String.join("; ", errors));
-        return toDto(errMessage, BAD_REQUEST);
+        return toDto(errMessage);
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     @ResponseStatus(BAD_REQUEST)
-    public ErrorResponseDto handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
+    public ErrorResponse handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
         var errMessage = String.format("Argument type mismatch: %s: %s",
                 e.getName(), e.getMostSpecificCause().getMessage());
-        return toDto(errMessage, BAD_REQUEST);
+        return toDto(errMessage);
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(NOT_FOUND)
-    public ErrorResponseDto handleEntityNotFoundException(EntityNotFoundException e) {
-        return toDto(e.getMessage(), NOT_FOUND);
+    public ErrorResponse handleEntityNotFoundException(EntityNotFoundException e) {
+        return toDto(e.getMessage());
     }
 
-    private static ErrorResponseDto toDto(String message, HttpStatus status) {
-        return new ErrorResponseDto(message, status.value());
+    private static ErrorResponse toDto(String message) {
+        return new ErrorResponse(message);
     }
 }

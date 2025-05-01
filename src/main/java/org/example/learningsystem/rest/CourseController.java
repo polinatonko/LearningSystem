@@ -40,8 +40,9 @@ public class CourseController {
             @ApiResponse(responseCode = "400", description = "Invalid body")
     })
     public CourseResponseDto create(@RequestBody @Valid CourseRequestDto courseRequestDto) {
-        var course = service.create(mapper.toEntity(courseRequestDto));
-        return toResponse(course);
+        var course = mapper.toEntity(courseRequestDto);
+        var savedCourse = service.create(course);
+        return toResponse(savedCourse);
     }
 
     @PostMapping("/{id}/students/{studentId}")

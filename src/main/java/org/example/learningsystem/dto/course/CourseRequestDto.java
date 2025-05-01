@@ -17,9 +17,9 @@ public record CourseRequestDto(
         BigDecimal price,
         @Min(0)
         BigDecimal coinsPaid,
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd HH:mm:ss")
         LocalDateTime startDate,
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd HH:mm:ss")
         LocalDateTime endDate,
         Boolean isPublic
 ) {}
