@@ -12,7 +12,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
-@ToString(exclude = "courses")
+@ToString(exclude = "enrollments")
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -22,9 +22,6 @@ public class Student {
     private String email;
     private LocalDate dateOfBirth;
     private BigDecimal coins = BigDecimal.ZERO;
-    @ManyToMany
-    @JoinTable(name = "student_course",
-            joinColumns = {@JoinColumn(name = "student_id")},
-            inverseJoinColumns = {@JoinColumn(name = "course_id")})
-    private Set<Course> courses;
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private Set<Enrollment> enrollments;
 }

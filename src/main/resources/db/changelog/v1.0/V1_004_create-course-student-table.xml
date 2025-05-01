@@ -4,25 +4,25 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <include file="/db/changelog/init/shared-properties.xml"/>
+    <include file="/db/changelog/v1.0/shared-properties.xml"/>
 
-    <changeSet id="create-student-course-table" author="polinatonko">
+    <changeSet id="create-course-student-table" author="polinatonko">
 
-        <createTable tableName="student_course">
-            <column name="student_id" type="uuid" defaultValueComputed="${uuid_function}">
+        <createTable tableName="course_student">
+            <column name="course_id" type="uuid">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="course_id" type="uuid">
+            <column name="student_id" type="uuid" defaultValueComputed="${uuid_function}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
         </createTable>
 
-        <addForeignKeyConstraint baseTableName="student_course" baseColumnNames="student_id"
-                                 constraintName="fk_student_course_st"
+        <addForeignKeyConstraint baseTableName="course_student" baseColumnNames="student_id"
+                                 constraintName="fk_course_student_st"
                                  referencedTableName="student" referencedColumnNames="id"
                                  onDelete="CASCADE"/>
-        <addForeignKeyConstraint baseTableName="student_course" baseColumnNames="course_id"
-                                 constraintName="fk_student_course_c"
+        <addForeignKeyConstraint baseTableName="course_student" baseColumnNames="course_id"
+                                 constraintName="fk_course_student_c"
                                  referencedTableName="course" referencedColumnNames="id"
                                  onDelete="CASCADE"/>
 

@@ -1,11 +1,11 @@
 databaseChangeLog:
   - include:
-      file: classpath:db/changelog/init/001-create-student-table.xml
+      file: classpath:db/changelog/v1.0/V1_001_create-student-table.xml
   - include:
-      file: classpath:db/changelog/init/002-create-course-settings-table.xml
+      file: classpath:db/changelog/v1.0/V1_002_create-course-table.xml
   - include:
-      file: classpath:db/changelog/init/003-create-course-table.xml
+      file: classpath:db/changelog/v1.0/V1_003_create-course-settings-table.xml
   - include:
-      file: classpath:db/changelog/init/004-create-student-course-table.xml
+      file: classpath:db/changelog/v1.0/V1_004_create-course-student-table.xml
   - include:
-      file: classpath:db/changelog/init/005-create-lesson-table.xml
+      file: classpath:db/changelog/v1.0/V1_005_create-lesson-table.xml

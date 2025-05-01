@@ -4,7 +4,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <include file="/db/changelog/init/shared-properties.xml"/>
+    <include file="/db/changelog/v1.0/shared-properties.xml"/>
 
     <changeSet id="create-course-settings-table" author="polinatonko">
 
@@ -18,6 +18,11 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+
+        <addForeignKeyConstraint baseTableName="course_settings" baseColumnNames="id"
+                                 constraintName="fk_course_settings"
+                                 referencedTableName="course" referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
 
     </changeSet>
 

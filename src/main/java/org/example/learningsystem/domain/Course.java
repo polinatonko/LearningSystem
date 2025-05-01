@@ -8,33 +8,28 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
+@Table(name = "course")
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
-@ToString(exclude = {"settings", "lessons", "students"})
+@ToString(exclude = {"settings", "lessons", "enrollments"})
 public class Course {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String title;
     private String description;
     private BigDecimal price = BigDecimal.ZERO;
     private BigDecimal coinsPaid = BigDecimal.ZERO;
-    @OneToOne(optional = false, cascade = CascadeType.ALL)
-    @MapsId
-    @JoinColumn(name = "id")
+    @OneToOne(mappedBy = "course", cascade = CascadeType.ALL)
     private CourseSettings settings;
     @OneToMany(mappedBy = "course")
     private Set<Lesson> lessons;
-    @ManyToMany(mappedBy = "courses")
-    private Set<Student> students;
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+    private Set<Enrollment> enrollments;
 
-    public void addStudent(Student student) {
-        students.add(student);
-        student.getCourses().add(this);
-    }
-
-    public void removeStudent(Student student) {
-        students.remove(student);
-        student.getCourses().remove(this);
+    public void setSettings(CourseSettings settings) {
+        this.settings = settings;
+        settings.setCourse(this);
     }
 }

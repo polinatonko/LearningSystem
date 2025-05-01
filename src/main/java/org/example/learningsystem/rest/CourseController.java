@@ -13,6 +13,7 @@ import org.example.learningsystem.dto.student.StudentResponseDto;
 import org.example.learningsystem.mapper.CourseMapper;
 import org.example.learningsystem.mapper.StudentMapper;
 import org.example.learningsystem.service.course.CourseService;
+import org.example.learningsystem.service.course.EnrollmentService;
 import org.example.learningsystem.service.student.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,7 @@ import java.util.UUID;
 public class CourseController {
     private final CourseService service;
     private final CourseMapper mapper;
+    private final EnrollmentService enrollmentService;
     private final StudentService studentService;
     private final StudentMapper studentMapper;
 
@@ -49,7 +51,7 @@ public class CourseController {
             @ApiResponse(responseCode = "400", description = "Invalid values of path variables")
     })
     public void enrollStudentInCourse(@PathVariable UUID id, @PathVariable UUID studentId) {
-        service.enrollStudent(studentId, id);
+        enrollmentService.enrollStudent(id, studentId);
     }
 
     @GetMapping("/{id}")
@@ -115,7 +117,7 @@ public class CourseController {
             @ApiResponse(responseCode = "404", description = "Course or student was not found")
     })
     public void unenrollStudentFromCourse(@PathVariable UUID id, @PathVariable UUID studentId) {
-        service.unenrollStudent(id, studentId);
+        enrollmentService.unenrollStudent(id, studentId);
     }
 
     private CourseResponseDto toResponse(Course course) {

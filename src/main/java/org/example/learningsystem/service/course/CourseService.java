@@ -7,10 +7,8 @@ import java.util.UUID;
 
 public interface CourseService {
     Course create(Course course);
-    void enrollStudent(UUID studentId, UUID courseId);
     Course getById(UUID id);
     List<Course> getAll();
     Course update(Course course);
     void delete(UUID id);
-    void unenrollStudent(UUID courseId, UUID studentId);
 }
