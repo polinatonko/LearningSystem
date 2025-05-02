@@ -9,3 +9,22 @@ spring:
 
 springdoc:
   override-with-generic-response: false
+  show-actuator: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+  info:
+    env:
+      enabled: true
+
+info:
+  application:
+    name: LearningManagementSystem
+    description: API provides a functionality for managing the learning system and allows students to enroll in variety of courses
+    version: 0.1.0
