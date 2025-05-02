@@ -25,7 +25,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> getByCourseId(UUID courseId) {
+    public List<Student> getAllByCourseId(UUID courseId) {
         return repository.findByEnrollmentsCourseId(courseId);
     }
 

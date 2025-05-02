@@ -9,11 +9,15 @@ import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.domain.Course;
 import org.example.learningsystem.dto.course.CourseRequestDto;
 import org.example.learningsystem.dto.course.CourseResponseDto;
+import org.example.learningsystem.dto.lesson.LessonRequestDto;
+import org.example.learningsystem.dto.lesson.LessonResponseDto;
 import org.example.learningsystem.dto.student.StudentResponseDto;
 import org.example.learningsystem.mapper.CourseMapper;
+import org.example.learningsystem.mapper.LessonMapper;
 import org.example.learningsystem.mapper.StudentMapper;
 import org.example.learningsystem.service.course.CourseService;
 import org.example.learningsystem.service.course.EnrollmentService;
+import org.example.learningsystem.service.lesson.LessonService;
 import org.example.learningsystem.service.student.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +33,8 @@ public class CourseController {
     private final CourseService service;
     private final CourseMapper mapper;
     private final EnrollmentService enrollmentService;
+    private final LessonService lessonService;
+    private final LessonMapper lessonMapper;
     private final StudentService studentService;
     private final StudentMapper studentMapper;
 
@@ -53,6 +59,20 @@ public class CourseController {
     })
     public void enrollStudentInCourse(@PathVariable UUID id, @PathVariable UUID studentId) {
         enrollmentService.enrollStudent(id, studentId);
+    }
+
+    @PostMapping("/{id}/lessons")
+    @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "Create lesson in course")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Lesson was created"),
+            @ApiResponse(responseCode = "400", description = "Invalid body")
+    })
+    public LessonResponseDto createLesson(@PathVariable UUID id, @RequestBody @Valid LessonRequestDto lessonRequestDto) {
+        var lesson = lessonMapper.toEntity(lessonRequestDto);
+        lesson.getCourse().setId(id);
+        var createdLesson = lessonService.create(lesson);
+        return lessonMapper.toDto(createdLesson);
     }
 
     @GetMapping("/{id}")
@@ -83,8 +103,20 @@ public class CourseController {
             @ApiResponse(responseCode = "404", description = "Course was not found")
     })
     public List<StudentResponseDto> getStudents(@PathVariable UUID id) {
-        var students = studentService.getByCourseId(id);
+        var students = studentService.getAllByCourseId(id);
         return studentMapper.toDtos(students);
+    }
+
+    @GetMapping("/{id}/lessons")
+    @Operation(summary = "Get all lessons in course")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lessons were retrieved"),
+            @ApiResponse(responseCode = "400", description = "Invalid value of path variable"),
+            @ApiResponse(responseCode = "404", description = "Course was not found")
+    })
+    public List<LessonResponseDto> getLessons(@PathVariable UUID id) {
+        var lessons = lessonService.getAllByCourseId(id);
+        return lessonMapper.toDtos(lessons);
     }
 
     @PutMapping("/{id}")
