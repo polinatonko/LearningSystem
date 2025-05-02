@@ -2,6 +2,7 @@ package org.example.learningsystem.exception.handler;
 
 import org.example.learningsystem.exception.response.ErrorResponse;
 import org.example.learningsystem.exception.EntityNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -18,13 +19,13 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(INTERNAL_SERVER_ERROR)
     public ErrorResponse handleException(Exception e) {
-        return toDto(e.getMessage());
+        return toDto(e.getMessage(), INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(HttpMessageConversionException.class)
     @ResponseStatus(BAD_REQUEST)
     public ErrorResponse handleHttpMessageConversionException(HttpMessageConversionException e) {
-        return toDto(e.getMostSpecificCause().getMessage());
+        return toDto(e.getMostSpecificCause().getMessage(), BAD_REQUEST);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -35,7 +36,7 @@ public class GlobalExceptionHandler {
                 .map(err -> err.getField() + ": " + err.getDefaultMessage())
                 .toList();
         var errMessage = String.format("Validation failed: %s", String.join("; ", errors));
-        return toDto(errMessage);
+        return toDto(errMessage, BAD_REQUEST);
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
@@ -43,16 +44,16 @@ public class GlobalExceptionHandler {
     public ErrorResponse handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
         var errMessage = String.format("Argument type mismatch: %s: %s",
                 e.getName(), e.getMostSpecificCause().getMessage());
-        return toDto(errMessage);
+        return toDto(errMessage, BAD_REQUEST);
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(NOT_FOUND)
     public ErrorResponse handleEntityNotFoundException(EntityNotFoundException e) {
-        return toDto(e.getMessage());
+        return toDto(e.getMessage(), NOT_FOUND);
     }
 
-    private static ErrorResponse toDto(String message) {
-        return new ErrorResponse(message);
+    private static ErrorResponse toDto(String message, HttpStatus status) {
+        return new ErrorResponse(message, status.value());
     }
 }

@@ -16,9 +16,6 @@ public interface CourseMapper {
     @Mapping(target = "isPublic", source = "course.settings.isPublic")
     CourseResponseDto toDto(Course course);
 
-    @Mapping(target = "startDate", source = "course.settings.startDate")
-    @Mapping(target = "endDate", source = "course.settings.endDate")
-    @Mapping(target = "isPublic", source = "course.settings.isPublic")
     List<CourseResponseDto> toDtos(List<Course> courses);
 
     @Mapping(target = "settings.startDate", source = "startDate")

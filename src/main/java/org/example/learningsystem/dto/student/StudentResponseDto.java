@@ -7,6 +7,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import static org.example.learningsystem.utils.DataFormatUtils.DATE_FORMAT;
+
 public record StudentResponseDto(
         @NotNull
         UUID id,
@@ -19,7 +21,7 @@ public record StudentResponseDto(
         @Email
         String email,
         @NotNull
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
+        @JsonFormat(pattern = DATE_FORMAT)
         LocalDate dateOfBirth,
         @NotNull
         @Min(0)
