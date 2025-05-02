@@ -2,7 +2,7 @@ package org.example.learningsystem.service.course;
 
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.domain.Course;
-import org.example.learningsystem.exception.EntityNotFoundException;
+import org.example.learningsystem.exception.logic.EntityNotFoundException;
 import org.example.learningsystem.repository.CourseRepository;
 import org.example.learningsystem.repository.EnrollmentRepository;
 import org.example.learningsystem.service.student.StudentService;

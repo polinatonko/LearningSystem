@@ -1,4 +1,4 @@
-package org.example.learningsystem.exception;
+package org.example.learningsystem.exception.logic;
 
 import java.util.UUID;
 

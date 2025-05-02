@@ -2,7 +2,7 @@ package org.example.learningsystem.service.student;
 
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.domain.Student;
-import org.example.learningsystem.exception.EntityNotFoundException;
+import org.example.learningsystem.exception.logic.EntityNotFoundException;
 import org.example.learningsystem.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
