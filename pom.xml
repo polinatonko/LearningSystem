@@ -22,6 +22,7 @@
 		<springdoc.version>2.8.6</springdoc.version>
 		<liquibase.version>4.31.1</liquibase.version>
 		<git.commit-id.version>9.0.1</git.commit-id.version>
+		<mailtrap.version>1.0.0</mailtrap.version>
 	</properties>
 
 	<dependencies>
@@ -52,6 +53,12 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
+		</dependency>
+		<!-- Sending emails -->
+		<dependency>
+			<groupId>io.mailtrap</groupId>
+			<artifactId>mailtrap-java</artifactId>
+			<version>${mailtrap.version}</version>
 		</dependency>
 		<!-- Docs -->
 		<dependency>

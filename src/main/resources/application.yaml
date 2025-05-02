@@ -6,6 +6,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+    open-in-view: false
 
 springdoc:
   override-with-generic-response: false
@@ -28,3 +29,8 @@ info:
     name: LearningManagementSystem
     description: API provides a functionality for managing the learning system and allows students to enroll in variety of courses
     version: 0.1.0
+
+notification:
+  reminder:
+    cron: 0 * * * * *
+    daysBefore: 1
