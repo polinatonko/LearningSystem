@@ -127,8 +127,8 @@ public class CourseController {
             @ApiResponse(responseCode = "404", description = "Course was not found")
     })
     public CourseResponseDto update(@PathVariable UUID id, @RequestBody @Valid CourseRequestDto courseRequestDto) {
-        var course = mapper.toEntity(courseRequestDto);
-        course.setId(id);
+        var course = service.getById(id);
+        mapper.toEntity(courseRequestDto, course);
         var updatedCourse = service.update(course);
         return toResponse(updatedCourse);
     }

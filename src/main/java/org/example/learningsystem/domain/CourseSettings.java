@@ -8,9 +8,12 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "course_settings")
+@Builder
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
 public class CourseSettings {
     @Id

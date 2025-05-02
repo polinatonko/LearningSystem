@@ -3,9 +3,8 @@ package org.example.learningsystem.service.course;
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.domain.Course;
 import org.example.learningsystem.exception.logic.EntityNotFoundException;
+import org.example.learningsystem.exception.logic.ValidationException;
 import org.example.learningsystem.repository.CourseRepository;
-import org.example.learningsystem.repository.EnrollmentRepository;
-import org.example.learningsystem.service.student.StudentService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -16,11 +15,10 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CourseServiceImpl implements CourseService {
     private final CourseRepository repository;
-    private final EnrollmentRepository enrollmentRepository;
-    private final StudentService studentService;
 
     @Override
     public Course create(Course course) {
+        validate(course);
         return repository.save(course);
     }
 
@@ -44,6 +42,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Course update(Course course) {
         findById(course.getId());
+        validate(course);
         return repository.save(course);
     }
 
@@ -55,5 +54,15 @@ public class CourseServiceImpl implements CourseService {
     private Course findById(UUID id) {
         return repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(Course.class.getName(), id));
+    }
+
+    private void validate(Course course) {
+        var settings = course.getSettings();
+        if (settings == null || settings.getStartDate() == null || settings.getEndDate() == null) {
+            return;
+        }
+        if (settings.getStartDate().isAfter(settings.getEndDate())) {
+            throw new ValidationException.InvalidCourseDurationException();
+        }
     }
 }

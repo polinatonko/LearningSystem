@@ -3,9 +3,11 @@ package org.example.learningsystem.service.student;
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.domain.Student;
 import org.example.learningsystem.exception.logic.EntityNotFoundException;
+import org.example.learningsystem.exception.logic.ValidationException;
 import org.example.learningsystem.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,6 +18,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student create(Student student) {
+        validate(student);
         return repository.save(student);
     }
 
@@ -36,6 +39,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student update(Student student) {
+        validate(student);
         findById(student.getId());
         return repository.save(student);
     }
@@ -48,5 +52,12 @@ public class StudentServiceImpl implements StudentService {
     private Student findById(UUID id) {
         return repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(Student.class.getName(), id));
+    }
+
+    private void validate(Student student) {
+        var now = LocalDate.now();
+        if (now.minusYears(12).isBefore(student.getDateOfBirth())) {
+            throw new ValidationException.InsufficientBirthDateException();
+        }
     }
 }

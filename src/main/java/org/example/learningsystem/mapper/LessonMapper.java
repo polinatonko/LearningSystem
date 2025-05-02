@@ -5,6 +5,7 @@ import org.example.learningsystem.dto.lesson.LessonRequestDto;
 import org.example.learningsystem.dto.lesson.LessonResponseDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
@@ -17,4 +18,7 @@ public interface LessonMapper {
 
     @Mapping(target = "course.id", source = "courseId")
     Lesson toEntity(LessonRequestDto dto);
+
+    @Mapping(target = "course.id", source = "courseId")
+    void toEntity(LessonRequestDto dto, @MappingTarget Lesson lesson);
 }

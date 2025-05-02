@@ -12,6 +12,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
+@NoArgsConstructor
 @ToString(exclude = "enrollments")
 public class Student {
     @Id
@@ -21,7 +22,15 @@ public class Student {
     private String lastName;
     private String email;
     private LocalDate dateOfBirth;
-    private BigDecimal coins = BigDecimal.ZERO;
+    private BigDecimal coins;
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private Set<Enrollment> enrollments;
+
+    public Student(String firstName, String lastName, String email, LocalDate dateOfBirth, BigDecimal coins) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.dateOfBirth = dateOfBirth;
+        this.coins = coins;
+    }
 }

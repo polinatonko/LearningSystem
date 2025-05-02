@@ -56,8 +56,8 @@ public class StudentController {
             @ApiResponse(responseCode = "404", description = "Student was not found")
     })
     public StudentResponseDto update(@PathVariable UUID id, @RequestBody @Valid StudentRequestDto studentRequestDto) {
-        var student = mapper.toEntity(studentRequestDto);
-        student.setId(id);
+        var student = service.getById(id);
+        mapper.toEntity(studentRequestDto, student);
         var updatedStudent = service.update(student);
         return toResponse(updatedStudent);
     }

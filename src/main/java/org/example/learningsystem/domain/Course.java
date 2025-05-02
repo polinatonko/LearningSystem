@@ -12,6 +12,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
+@NoArgsConstructor
 @ToString(exclude = {"settings", "lessons", "enrollments"})
 public class Course {
     @Id
@@ -31,5 +32,11 @@ public class Course {
     public void setSettings(CourseSettings settings) {
         this.settings = settings;
         settings.setCourse(this);
+    }
+
+    public Course(String title, String description, BigDecimal price) {
+        this.title = title;
+        this.description = description;
+        this.price = price;
     }
 }
