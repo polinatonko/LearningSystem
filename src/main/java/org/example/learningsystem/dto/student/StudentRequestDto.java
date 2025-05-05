@@ -24,4 +24,5 @@ public record StudentRequestDto(
         LocalDate dateOfBirth,
         @Min(0)
         BigDecimal coins
-) {}
+) {
+}

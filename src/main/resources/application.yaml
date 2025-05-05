@@ -1,12 +1,13 @@
 spring:
   application:
     name: LearningManagementSystem
-  profiles:
-    active: local
+    version: 1.0.0
   jpa:
     hibernate:
       ddl-auto: none
     open-in-view: false
+  liquibase:
+    change-log: classpath:db/changelog/app_migrations.xml
 
 springdoc:
   override-with-generic-response: false
@@ -28,9 +29,8 @@ info:
   application:
     name: LearningManagementSystem
     description: API provides a functionality for managing the learning system and allows students to enroll in variety of courses
-    version: 0.1.0
 
-notification:
+course:
   reminder:
     cron: 0 * * * * *
     daysBefore: 1

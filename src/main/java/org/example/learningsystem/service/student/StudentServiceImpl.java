@@ -3,23 +3,24 @@ package org.example.learningsystem.service.student;
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.domain.Student;
 import org.example.learningsystem.exception.logic.EntityNotFoundException;
-import org.example.learningsystem.exception.logic.ValidationException;
 import org.example.learningsystem.repository.StudentRepository;
+import org.example.learningsystem.validator.EntityValidator;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService {
-    private final StudentRepository repository;
+
+    private final StudentRepository studentRepository;
+    private final EntityValidator<Student> studentValidator;
 
     @Override
     public Student create(Student student) {
-        validate(student);
-        return repository.save(student);
+        studentValidator.validate(student);
+        return studentRepository.save(student);
     }
 
     @Override
@@ -29,35 +30,28 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Student> getAllByCourseId(UUID courseId) {
-        return repository.findByEnrollmentsCourseId(courseId);
+        return studentRepository.findAllByEnrollmentsCourseId(courseId);
     }
 
     @Override
     public List<Student> getAll() {
-        return repository.findAll();
+        return studentRepository.findAll();
     }
 
     @Override
     public Student update(Student student) {
-        validate(student);
+        studentValidator.validate(student);
         findById(student.getId());
-        return repository.save(student);
+        return studentRepository.save(student);
     }
 
     @Override
     public void delete(UUID id) {
-        repository.deleteById(id);
+        studentRepository.deleteById(id);
     }
 
     private Student findById(UUID id) {
-        return repository.findById(id)
+        return studentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(Student.class.getName(), id));
-    }
-
-    private void validate(Student student) {
-        var now = LocalDate.now();
-        if (now.minusYears(12).isBefore(student.getDateOfBirth())) {
-            throw new ValidationException.InsufficientBirthDateException();
-        }
     }
 }

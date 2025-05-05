@@ -1,11 +1,21 @@
 package org.example.learningsystem.domain;
 
 import jakarta.persistence.*;
-import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.Set;
 import java.util.UUID;
+
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.Generated;
+
+import static jakarta.persistence.CascadeType.ALL;
+import static jakarta.persistence.GenerationType.UUID;
 
 @Entity
 @Table(name = "course")
@@ -14,19 +24,21 @@ import java.util.UUID;
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor
 @ToString(exclude = {"settings", "lessons", "enrollments"})
+@DynamicInsert
 public class Course {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = UUID)
     private UUID id;
     private String title;
     private String description;
-    private BigDecimal price = BigDecimal.ZERO;
-    private BigDecimal coinsPaid = BigDecimal.ZERO;
-    @OneToOne(mappedBy = "course", cascade = CascadeType.ALL)
+    private BigDecimal price;
+    private BigDecimal coinsPaid;
+    @OneToOne(mappedBy = "course", cascade = ALL)
     private CourseSettings settings;
     @OneToMany(mappedBy = "course")
     private Set<Lesson> lessons;
-    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "course", cascade = ALL)
     private Set<Enrollment> enrollments;
 
     public void setSettings(CourseSettings settings) {
@@ -34,9 +46,10 @@ public class Course {
         settings.setCourse(this);
     }
 
-    public Course(String title, String description, BigDecimal price) {
+    public Course(String title, String description, BigDecimal price, BigDecimal coinsPaid) {
         this.title = title;
         this.description = description;
         this.price = price;
+        this.coinsPaid = coinsPaid;
     }
 }

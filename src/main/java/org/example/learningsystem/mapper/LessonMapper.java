@@ -11,14 +11,15 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface LessonMapper {
+
     @Mapping(target = "courseId", source = "course.id")
     LessonResponseDto toDto(Lesson lesson);
 
     List<LessonResponseDto> toDtos(List<Lesson> lessons);
 
     @Mapping(target = "course.id", source = "courseId")
-    Lesson toEntity(LessonRequestDto dto);
+    Lesson toEntity(LessonRequestDto lessonRequestDto);
 
     @Mapping(target = "course.id", source = "courseId")
-    void toEntity(LessonRequestDto dto, @MappingTarget Lesson lesson);
+    void toEntity(LessonRequestDto lessonRequestDto, @MappingTarget Lesson lesson);
 }

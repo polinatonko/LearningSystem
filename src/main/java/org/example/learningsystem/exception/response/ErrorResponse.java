@@ -11,6 +11,7 @@ public record ErrorResponse(
         Integer code,
         @JsonFormat(pattern = DATE_TIME_FORMAT)
         LocalDateTime timestamp) {
+
     public ErrorResponse(String message, Integer code) {
         this(message, code, LocalDateTime.now());
     }

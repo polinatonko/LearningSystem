@@ -1,7 +1,15 @@
 package org.example.learningsystem.domain;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.Table;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "course_student")
@@ -11,6 +19,7 @@ import lombok.*;
 @ToString(of = "id")
 @NoArgsConstructor
 public class Enrollment {
+
     @EmbeddedId
     private EnrollmentId id;
 

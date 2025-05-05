@@ -4,7 +4,6 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <property name="uuid_function" value="random_uuid()" dbms="h2"/>
-    <property name="uuid_function" value="uid.uuid_generate_v4()" dbms="postgresql"/>
+    <include file="classpath:db/changelog/changelog-1.0.0.xml"/>
 
 </databaseChangeLog>

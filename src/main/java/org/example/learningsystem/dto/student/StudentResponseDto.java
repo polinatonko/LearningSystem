@@ -1,29 +1,22 @@
 package org.example.learningsystem.dto.student;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.validation.constraints.*;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
-import static org.example.learningsystem.utils.DataFormatUtils.DATE_FORMAT;
-
+@Schema
 public record StudentResponseDto(
-        @NotNull
         UUID id,
-        @Size(max = 30)
+        @Schema(maxLength = 30)
         String firstName,
-        @Size(max = 30)
+        @Schema(maxLength = 30)
         String lastName,
-        @NotBlank
-        @Size(max = 254)
-        @Email
+        @Schema(maxLength = 254, example = "example@gmail.com")
         String email,
-        @NotNull
-        @JsonFormat(pattern = DATE_FORMAT)
         LocalDate dateOfBirth,
-        @NotNull
-        @Min(0)
+        @Schema(minimum = "0")
         BigDecimal coins
-) {}
+) {
+}

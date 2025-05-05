@@ -1,18 +1,16 @@
 package org.example.learningsystem.dto.lesson;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.UUID;
 
+@Schema
 public record LessonResponseDto(
-        @NotNull
         UUID id,
-        @NotBlank
+        @Schema(pattern = ".*[^\\s]+.*")
         String title,
-        @Min(0)
+        @Schema(minimum = "0")
         Integer duration,
-        @NotNull
         UUID courseId
-) {}
+) {
+}

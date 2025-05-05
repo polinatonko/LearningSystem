@@ -12,4 +12,5 @@ public record LessonRequestDto(
         @Min(0)
         Integer duration,
         UUID courseId
-) {}
+) {
+}

@@ -12,11 +12,12 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class LessonServiceImpl implements LessonService {
-    private final LessonRepository repository;
+
+    private final LessonRepository lessonRepository;
 
     @Override
     public Lesson create(Lesson lesson) {
-        return repository.save(lesson);
+        return lessonRepository.save(lesson);
     }
 
     @Override
@@ -26,27 +27,27 @@ public class LessonServiceImpl implements LessonService {
 
     @Override
     public List<Lesson> getAllByCourseId(UUID courseId) {
-        return repository.findAllByCourseId(courseId);
+        return lessonRepository.findAllByCourseId(courseId);
     }
 
     @Override
     public List<Lesson> getAll() {
-        return repository.findAll();
+        return lessonRepository.findAll();
     }
 
     @Override
     public Lesson update(Lesson lesson) {
         findById(lesson.getId());
-        return repository.save(lesson);
+        return lessonRepository.save(lesson);
     }
 
     @Override
     public void delete(UUID id) {
-        repository.deleteById(id);
+        lessonRepository.deleteById(id);
     }
 
     private Lesson findById(UUID id) {
-        return repository.findById(id)
+        return lessonRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(Lesson.class.getName(), id));
     }
 }

@@ -24,4 +24,5 @@ public record CourseRequestDto(
         @JsonFormat(pattern = DATE_TIME_FORMAT)
         LocalDateTime endDate,
         Boolean isPublic
-) {}
+) {
+}
