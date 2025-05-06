@@ -1,6 +1,6 @@
 package org.example.learningsystem.builder;
 
-import org.example.learningsystem.domain.Student;
+import org.example.learningsystem.student.model.Student;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

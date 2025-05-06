@@ -1,7 +1,7 @@
 package org.example.learningsystem.builder;
 
-import org.example.learningsystem.domain.Course;
-import org.example.learningsystem.domain.CourseSettings;
+import org.example.learningsystem.course.model.Course;
+import org.example.learningsystem.course.model.CourseSettings;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
