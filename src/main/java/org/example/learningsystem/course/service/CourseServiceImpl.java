@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.exception.logic.EntityNotFoundException;
 import org.example.learningsystem.course.repository.CourseRepository;
-import org.example.learningsystem.util.validator.EntityValidator;
+import org.example.learningsystem.core.util.validator.EntityValidator;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

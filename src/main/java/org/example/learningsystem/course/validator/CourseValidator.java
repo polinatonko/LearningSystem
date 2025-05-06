@@ -4,7 +4,7 @@ import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.course.model.CourseSettings;
 import org.example.learningsystem.course.exception.InvalidCourseDurationException;
 import org.example.learningsystem.exception.validation.IllegalNullValueException;
-import org.example.learningsystem.util.validator.EntityValidator;
+import org.example.learningsystem.core.util.validator.EntityValidator;
 import org.springframework.stereotype.Component;
 
 import static java.util.Objects.isNull;

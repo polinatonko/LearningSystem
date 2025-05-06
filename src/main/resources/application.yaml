@@ -1,7 +1,7 @@
 spring:
   application:
     name: LearningManagementSystem
-    version: 1.0.0
+    version: @project.version@
   jpa:
     hibernate:
       ddl-auto: none

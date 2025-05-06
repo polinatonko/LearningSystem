@@ -2,7 +2,7 @@ package org.example.learningsystem.student.validator;
 
 import org.example.learningsystem.student.model.Student;
 import org.example.learningsystem.student.exception.InsufficientBirthDateException;
-import org.example.learningsystem.util.validator.EntityValidator;
+import org.example.learningsystem.core.util.validator.EntityValidator;
 import org.springframework.stereotype.Component;
 
 import static java.time.LocalDate.now;

@@ -1,4 +1,4 @@
-package org.example.learningsystem.logging;
+package org.example.learningsystem.core.logging;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;

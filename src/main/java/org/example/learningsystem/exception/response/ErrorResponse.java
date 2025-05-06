@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
 
-import static org.example.learningsystem.util.format.DataFormatUtils.DATE_TIME_FORMAT;
+import static org.example.learningsystem.core.util.format.DataFormatUtils.DATE_TIME_FORMAT;
 
 public record ErrorResponse(
         String message,

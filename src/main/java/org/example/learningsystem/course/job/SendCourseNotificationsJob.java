@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import static java.util.Objects.nonNull;
-import static org.example.learningsystem.util.format.DataFormatUtils.EMAIL_DATE_TIME_FORMAT;
+import static org.example.learningsystem.core.util.format.DataFormatUtils.EMAIL_DATE_TIME_FORMAT;
 
 @Component
 @RequiredArgsConstructor

@@ -1,4 +1,4 @@
-package org.example.learningsystem.util.validator;
+package org.example.learningsystem.core.util.validator;
 
 public interface EntityValidator<T> {
 

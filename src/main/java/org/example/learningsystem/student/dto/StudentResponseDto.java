@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
-import static org.example.learningsystem.util.format.DataFormatUtils.DATE_FORMAT;
+import static org.example.learningsystem.core.util.format.DataFormatUtils.DATE_FORMAT;
 
 @Schema
 public record StudentResponseDto(

@@ -1,4 +1,4 @@
-package org.example.learningsystem.util.format;
+package org.example.learningsystem.core.util.format;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
