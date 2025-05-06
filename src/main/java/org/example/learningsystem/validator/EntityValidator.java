@@ -2,5 +2,7 @@ package org.example.learningsystem.validator;
 
 public interface EntityValidator<T> {
 
-    void validate(T entity);
+    void validateForInsert(T entity);
+
+    void validateForUpdate(T entity);
 }

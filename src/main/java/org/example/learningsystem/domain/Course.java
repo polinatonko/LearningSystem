@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.Generated;
 
 import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.GenerationType.UUID;
@@ -36,7 +35,7 @@ public class Course {
     private BigDecimal coinsPaid;
     @OneToOne(mappedBy = "course", cascade = ALL)
     private CourseSettings settings;
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", cascade = ALL)
     private Set<Lesson> lessons;
     @OneToMany(mappedBy = "course", cascade = ALL)
     private Set<Enrollment> enrollments;

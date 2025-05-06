@@ -80,8 +80,7 @@ public class CourseController {
     })
     public LessonResponseDto createLesson(@PathVariable UUID id, @RequestBody @Valid LessonRequestDto lessonRequestDto) {
         var lesson = lessonMapper.toEntity(lessonRequestDto);
-        lesson.getCourse().setId(id);
-        var createdLesson = lessonService.create(lesson);
+        var createdLesson = lessonService.create(id, lesson);
         return lessonMapper.toDto(createdLesson);
     }
 

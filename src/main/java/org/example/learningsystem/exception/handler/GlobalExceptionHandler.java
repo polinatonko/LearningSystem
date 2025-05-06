@@ -2,6 +2,7 @@ package org.example.learningsystem.exception.handler;
 
 import org.example.learningsystem.exception.response.ErrorResponse;
 import org.example.learningsystem.exception.logic.EntityNotFoundException;
+import org.example.learningsystem.exception.validation.IllegalNullValueException;
 import org.example.learningsystem.exception.validation.InsufficientBirthDateException;
 import org.example.learningsystem.exception.validation.InvalidCourseDurationException;
 import org.springframework.http.HttpStatus;
@@ -28,7 +29,11 @@ public class GlobalExceptionHandler {
         return toDto(message, INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler({InsufficientBirthDateException.class, InvalidCourseDurationException.class})
+    @ExceptionHandler({
+            InsufficientBirthDateException.class,
+            InvalidCourseDurationException.class,
+            IllegalNullValueException.class
+    })
     @ResponseStatus(BAD_REQUEST)
     public ErrorResponse handleValidationException(RuntimeException e) {
         var errorMessage = e.getMessage();

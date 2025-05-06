@@ -1,6 +1,7 @@
 package org.example.learningsystem.dto.student;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
@@ -21,6 +22,7 @@ public record StudentRequestDto(
         String email,
         @NotNull
         @JsonFormat(pattern = DATE_FORMAT)
+        @Schema(pattern = "YYYY/MM/dd")
         LocalDate dateOfBirth,
         @Min(0)
         BigDecimal coins

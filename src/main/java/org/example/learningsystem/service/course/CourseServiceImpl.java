@@ -21,7 +21,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course create(Course course) {
-        courseValidator.validate(course);
+        courseValidator.validateForInsert(course);
         return courseRepository.save(course);
     }
 
@@ -46,7 +46,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Course update(Course course) {
         findById(course.getId());
-        courseValidator.validate(course);
+        courseValidator.validateForUpdate(course);
         return courseRepository.save(course);
     }
 

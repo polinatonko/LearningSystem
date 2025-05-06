@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public interface LessonService {
 
-    Lesson create(Lesson lesson);
+    Lesson create(UUID courseId, Lesson lesson);
 
     Lesson getById(UUID id);
 

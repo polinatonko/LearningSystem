@@ -19,7 +19,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student create(Student student) {
-        studentValidator.validate(student);
+        studentValidator.validateForInsert(student);
         return studentRepository.save(student);
     }
 
@@ -40,7 +40,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student update(Student student) {
-        studentValidator.validate(student);
+        studentValidator.validateForUpdate(student);
         findById(student.getId());
         return studentRepository.save(student);
     }

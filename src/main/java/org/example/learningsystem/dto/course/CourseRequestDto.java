@@ -1,6 +1,7 @@
 package org.example.learningsystem.dto.course;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 
@@ -20,8 +21,10 @@ public record CourseRequestDto(
         @Min(0)
         BigDecimal coinsPaid,
         @JsonFormat(pattern = DATE_TIME_FORMAT)
+        @Schema(pattern = "YYYY/MM/dd HH:MM:ss")
         LocalDateTime startDate,
         @JsonFormat(pattern = DATE_TIME_FORMAT)
+        @Schema(pattern = "YYYY/MM/dd HH:MM:ss")
         LocalDateTime endDate,
         Boolean isPublic
 ) {

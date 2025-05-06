@@ -6,6 +6,7 @@ import org.example.learningsystem.dto.lesson.LessonResponseDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ public interface LessonMapper {
     @Mapping(target = "course.id", source = "courseId")
     Lesson toEntity(LessonRequestDto lessonRequestDto);
 
-    @Mapping(target = "course.id", source = "courseId")
+    @Mapping(target = "course.id", source = "courseId",
+            nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void toEntity(LessonRequestDto lessonRequestDto, @MappingTarget Lesson lesson);
 }
