@@ -1,0 +1,11 @@
+applications:
+  - name: learningsystem
+    random-route: true
+    path: ./target/learning-system-1.0.0.jar
+    memory: 1500M
+    buildpacks:
+      - sap_java_buildpack_jakarta
+    env:
+      SPRING_PROFILES_ACTIVE: cloud
+      JBP_CONFIG_COMPONENTS: "jres: ['com.sap.xs.java.buildpack.jdk.SAPMachineJDK']"
+      JBP_CONFIG_SAP_MACHINE_JDK: "{ version: 21.+ }"

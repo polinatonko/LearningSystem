@@ -1,4 +1,5 @@
 target/
+src/main/resources/secrets-cloud.yaml
 src/main/resources/secrets-local.yaml
 
 ### IntelliJ IDEA ###
