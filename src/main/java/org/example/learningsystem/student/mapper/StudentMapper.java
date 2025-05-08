@@ -10,7 +10,9 @@ import org.mapstruct.NullValueCheckStrategy;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
+
+@Mapper(componentModel = SPRING)
 public interface StudentMapper {
 
     StudentResponseDto toDto(Student student);
@@ -20,6 +22,7 @@ public interface StudentMapper {
     @Mapping(target = "coins", nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
     Student toEntity(StudentRequestDto studentRequestDto);
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "coins", nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
     void toEntity(StudentRequestDto studentRequestDto, @MappingTarget Student student);
 }

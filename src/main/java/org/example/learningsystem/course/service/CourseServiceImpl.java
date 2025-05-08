@@ -18,6 +18,7 @@ public class CourseServiceImpl implements CourseService {
 
     private final CourseRepository courseRepository;
     private final EntityValidator<Course> courseValidator;
+    private final int DAYS_BEFORE = 1;
 
     @Override
     public Course create(Course course) {
@@ -37,7 +38,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public List<Course> getUpcoming(int days) {
-        var nextDay = now().plusDays(1);
+        var nextDay = now().plusDays(DAYS_BEFORE);
         var startDate = nextDay.atStartOfDay();
         var endDate = startDate.plusDays(days);
         return courseRepository.findAllBySettingsStartDateBetween(startDate, endDate);

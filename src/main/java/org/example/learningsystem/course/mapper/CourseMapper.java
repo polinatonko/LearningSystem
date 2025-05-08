@@ -11,7 +11,9 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
+
+@Mapper(componentModel = SPRING)
 public interface CourseMapper {
 
     @Mapping(target = "startDate", source = "course.settings.startDate")
@@ -27,6 +29,7 @@ public interface CourseMapper {
     @Mapping(target = "coinsPaid", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     Course toEntity(CourseRequestDto courseRequestDto);
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "settings.startDate", source = "startDate")
     @Mapping(target = "settings.endDate", source = "endDate")
     @Mapping(target = "settings.isPublic", source = "isPublic", nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)

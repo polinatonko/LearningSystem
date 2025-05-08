@@ -13,6 +13,7 @@ import static java.util.Objects.nonNull;
 @Component
 public class CourseValidator implements EntityValidator<Course> {
 
+    @Override
     public void validateForInsert(Course course) {
         var settings = course.getSettings();
         validateSettings(settings);

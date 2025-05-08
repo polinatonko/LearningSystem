@@ -16,15 +16,14 @@ import java.util.List;
 public class EmailServiceImpl implements EmailService {
 
     private final EmailServerProperties emailServerProperties;
-    private final MailtrapConfig mailtrapConfig;
     private final MailtrapClient client;
+    private final static String EMAIL_CATEGORY = "Integration test";
 
     public EmailServiceImpl(
             EmailServerProperties emailServerProperties,
             MailtrapConfig mailtrapConfig) {
         this.emailServerProperties = emailServerProperties;
-        this.mailtrapConfig = mailtrapConfig;
-        this.client = MailtrapClientFactory.createMailtrapClient(this.mailtrapConfig);
+        this.client = MailtrapClientFactory.createMailtrapClient(mailtrapConfig);
     }
 
     public void send(String to, String subject, String text) {
@@ -48,7 +47,7 @@ public class EmailServiceImpl implements EmailService {
                 .to(List.of(new Address(to)))
                 .subject(subject)
                 .text(text)
-                .category("Integration Test")
+                .category(EMAIL_CATEGORY)
                 .build();
     }
 }

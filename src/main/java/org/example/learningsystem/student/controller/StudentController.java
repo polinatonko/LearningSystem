@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
 import java.util.UUID;
 
 import static org.springframework.http.HttpStatus.CREATED;
@@ -42,8 +43,9 @@ public class StudentController {
             @ApiResponse(responseCode = "400", description = "Invalid body")
     })
     public StudentResponseDto create(@RequestBody @Valid StudentRequestDto studentRequestDto) {
-        var student = studentService.create(studentMapper.toEntity(studentRequestDto));
-        return studentMapper.toDto(student);
+        var student = studentMapper.toEntity(studentRequestDto);
+        var savedStudent = studentService.create(student);
+        return studentMapper.toDto(savedStudent);
     }
 
     @GetMapping("/{id}")
@@ -56,6 +58,14 @@ public class StudentController {
     public StudentResponseDto getById(@PathVariable UUID id) {
         var student = studentService.getById(id);
         return studentMapper.toDto(student);
+    }
+
+    @GetMapping
+    @Operation(summary = "Get all students")
+    @ApiResponse(responseCode = "200", description = "Students were retrieved")
+    public List<StudentResponseDto> getAll() {
+        var students = studentService.getAll();
+        return studentMapper.toDtos(students);
     }
 
     @PutMapping("/{id}")
