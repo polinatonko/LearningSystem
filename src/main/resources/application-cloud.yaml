@@ -1,3 +1,14 @@
 spring:
   config:
     import: secrets-cloud.yaml
+
+  datasource:
+    driver-class-name: com.sap.db.jdbc.Driver
+    url: ${vcap.services.learning-system-hana-schema.credentials.url}
+    username: ${vcap.services.learning-system-hana-schema.credentials.user}
+    password: ${vcap.services.learning-system-hana-schema.credentials.password}
+
+feature-flags:
+  uri: ${vcap.services.learning-system-feature-flags.credentials.uri}
+  username: ${vcap.services.learning-system-feature-flags.credentials.username}
+  password: ${vcap.services.learning-system-feature-flags.credentials.password}
