@@ -21,9 +21,9 @@
 		<mapstruct.version>1.6.3</mapstruct.version>
 		<springdoc.version>2.8.6</springdoc.version>
 		<git.commit-id.version>9.0.1</git.commit-id.version>
-		<mailtrap.version>1.0.0</mailtrap.version>
 		<ngdbc.version>2.24.7</ngdbc.version>
 		<liquibase.ext.version>4.31.1</liquibase.ext.version>
+		<spring.retry.version>2.0.11</spring.retry.version>
 	</properties>
 
 	<dependencies>
@@ -35,6 +35,10 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -65,11 +69,11 @@
 			<artifactId>liquibase-hanadb</artifactId>
 			<version>${liquibase.ext.version}</version>
 		</dependency>
-		<!-- Sending emails -->
+		<!-- Retrying -->
 		<dependency>
-			<groupId>io.mailtrap</groupId>
-			<artifactId>mailtrap-java</artifactId>
-			<version>${mailtrap.version}</version>
+			<groupId>org.springframework.retry</groupId>
+			<artifactId>spring-retry</artifactId>
+			<version>${spring.retry.version}</version>
 		</dependency>
 		<!-- Docs -->
 		<dependency>

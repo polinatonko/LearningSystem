@@ -1,54 +1,49 @@
 package org.example.learningsystem.email.service;
 
-import io.mailtrap.client.MailtrapClient;
-import io.mailtrap.config.MailtrapConfig;
-import io.mailtrap.factory.MailtrapClientFactory;
-import io.mailtrap.model.request.emails.Address;
-import io.mailtrap.model.request.emails.MailtrapMail;
-import lombok.extern.slf4j.Slf4j;
 import org.example.learningsystem.email.config.EmailServerProperties;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.util.Properties;
 
 @Component
-@Slf4j
 public class EmailServiceImpl implements EmailService {
 
-    private final EmailServerProperties emailServerProperties;
-    private final MailtrapConfig mailtrapConfig;
-    private final MailtrapClient client;
-
-    public EmailServiceImpl(
-            EmailServerProperties emailServerProperties,
-            MailtrapConfig mailtrapConfig) {
-        this.emailServerProperties = emailServerProperties;
-        this.mailtrapConfig = mailtrapConfig;
-        this.client = MailtrapClientFactory.createMailtrapClient(this.mailtrapConfig);
+    public void send(String to, String subject, String text, EmailServerProperties serverProperties) {
+        var sender = getSender(serverProperties);
+        var message = buildMessage(to, serverProperties.getFrom(), subject, text);
+        sender.send(message);
     }
 
-    public void send(String to, String subject, String text) {
-        var mail = buildMail(to, subject, text);
-        trySendMail(mail);
+    private JavaMailSender getSender(EmailServerProperties serverProperties) {
+        var mailSender = new JavaMailSenderImpl();
+        mailSender.setHost(serverProperties.getHost());
+        mailSender.setPort(Integer.parseInt(serverProperties.getPort()));
+        mailSender.setUsername(serverProperties.getUser());
+        mailSender.setPassword(serverProperties.getPassword());
+
+        var mailProperties = mailSender.getJavaMailProperties();
+        fillMailProperties(mailProperties, serverProperties);
+
+        return mailSender;
     }
 
-    private void trySendMail(MailtrapMail mail) {
-        try {
-            client.send(mail);
-        }
-        catch (Exception e) {
-            log.error(e.getMessage());
-        }
+    private void fillMailProperties(Properties properties, EmailServerProperties serverProperties) {
+        properties.put("mail.transport.protocol", serverProperties.getProtocol());
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
     }
 
-    private MailtrapMail buildMail(String to, String subject, String text) {
-        var fromAddress = new Address(emailServerProperties.getFrom(), emailServerProperties.getName());
-        return MailtrapMail.builder()
-                .from(fromAddress)
-                .to(List.of(new Address(to)))
-                .subject(subject)
-                .text(text)
-                .category("Integration Test")
-                .build();
+    private SimpleMailMessage buildMessage(String to, String from, String subject, String text) {
+        var message = new SimpleMailMessage();
+        message.setTo(to);
+        message.setFrom(from);
+        message.setSubject(subject);
+        message.setText(text);
+
+        return message;
     }
+
 }
