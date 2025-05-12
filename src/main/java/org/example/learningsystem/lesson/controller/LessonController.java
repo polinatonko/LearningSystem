@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.lesson.dto.LessonRequestDto;
 import org.example.learningsystem.lesson.dto.LessonResponseDto;
@@ -59,7 +60,7 @@ public class LessonController {
             @ApiResponse(responseCode = "400", description = "Invalid request body or value of path variable"),
             @ApiResponse(responseCode = "404", description = "Lesson was not found")
     })
-    public LessonResponseDto updateById(@PathVariable UUID id, @RequestBody LessonRequestDto lessonRequestDto) {
+    public LessonResponseDto updateById(@PathVariable UUID id, @RequestBody @Valid LessonRequestDto lessonRequestDto) {
         var lesson = lessonService.getById(id);
         lessonMapper.toEntity(lessonRequestDto, lesson);
         var updatedLesson = lessonService.update(lesson);

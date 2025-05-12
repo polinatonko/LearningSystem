@@ -25,8 +25,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(INTERNAL_SERVER_ERROR)
     public ErrorResponse handleException(Exception e) {
-        var message = e.getMessage();
-        return toDto(message, INTERNAL_SERVER_ERROR);
+        var errorMessage = e.getMessage();
+        return toDto(errorMessage, INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler({

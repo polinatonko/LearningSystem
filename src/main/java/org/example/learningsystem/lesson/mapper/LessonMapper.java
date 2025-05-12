@@ -10,7 +10,9 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
+
+@Mapper(componentModel = SPRING)
 public interface LessonMapper {
 
     @Mapping(target = "courseId", source = "course.id")
@@ -21,6 +23,7 @@ public interface LessonMapper {
     @Mapping(target = "course.id", source = "courseId")
     Lesson toEntity(LessonRequestDto lessonRequestDto);
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "course.id", source = "courseId",
             nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void toEntity(LessonRequestDto lessonRequestDto, @MappingTarget Lesson lesson);
