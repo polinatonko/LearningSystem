@@ -6,6 +6,7 @@ import org.example.learningsystem.core.destination.dto.AccessTokenResponseDto;
 import org.example.learningsystem.core.destination.dto.SmtpDestinationResponseDto;
 import org.example.learningsystem.email.config.EmailServerProperties;
 import org.springframework.context.annotation.Profile;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,6 @@ import org.springframework.web.client.RestClient;
 import java.util.Map;
 
 import static java.util.Objects.nonNull;
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @Service
 @RequiredArgsConstructor
@@ -28,7 +28,6 @@ public class DestinationServiceImpl implements DestinationService {
     private static final String ACCESS_TOKEN_URI = "%s/oauth/token";
     private static final String DESTINATION_URI = "%s/destination-configuration/v1/instanceDestinations/%s";
     private static final String SMTP_DESTINATION = "smtp-destination";
-    private static final String BEARER_AUTH_HEADER = "Bearer %s";
 
     @Retryable(retryFor = HttpStatusCodeException.class)
     public EmailServerProperties getEmailServerProperties() {
@@ -42,11 +41,12 @@ public class DestinationServiceImpl implements DestinationService {
     private <T> T tryGetDestination(String destinationName, Class<T> responseType) {
         var uri = DESTINATION_URI.formatted(destinationServiceProperties.getUri(), destinationName);
         var accessToken = getAccessToken();
-        var authHeader = BEARER_AUTH_HEADER.formatted(accessToken);
+        var requestHeaders = new HttpHeaders();
+        requestHeaders.setBearerAuth(accessToken);
 
         return restClient.get()
                 .uri(uri)
-                .header(AUTHORIZATION, authHeader)
+                .headers(headers -> headers.addAll(requestHeaders))
                 .retrieve()
                 .body(responseType);
     }
