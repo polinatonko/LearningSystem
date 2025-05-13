@@ -10,6 +10,7 @@ import org.example.learningsystem.course.exception.InsufficientFundsException;
 import org.example.learningsystem.course.repository.CourseEnrollmentRepository;
 import org.example.learningsystem.course.service.CourseServiceImpl;
 import org.example.learningsystem.course.service.CourseEnrollmentServiceImpl;
+import org.example.learningsystem.course.validator.CourseEnrollmentValidator;
 import org.example.learningsystem.student.model.Student;
 import org.example.learningsystem.student.service.StudentServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,6 +37,7 @@ class CourseEnrollmentServiceImplTest {
     @Mock
     public CourseServiceImpl courseService;
     @InjectMocks
+    public CourseEnrollmentValidator enrollmentValidator;
     public CourseEnrollmentServiceImpl enrollmentService;
     @Mock
     public StudentServiceImpl studentService;
@@ -44,6 +46,8 @@ class CourseEnrollmentServiceImplTest {
 
     @BeforeEach
     void setup() {
+        enrollmentService = new CourseEnrollmentServiceImpl(courseService, enrollmentRepository, enrollmentValidator, studentService);
+
         course = new CourseBuilder()
                 .id(UUID.randomUUID())
                 .isPublic(true)

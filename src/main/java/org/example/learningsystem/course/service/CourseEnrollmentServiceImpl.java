@@ -7,7 +7,6 @@ import org.example.learningsystem.course.model.CourseEnrollment;
 import org.example.learningsystem.course.model.CourseEnrollmentId;
 import org.example.learningsystem.course.validator.CourseEnrollmentValidator;
 import org.example.learningsystem.student.model.Student;
-import org.example.learningsystem.course.exception.DuplicateEnrollmentException;
 import org.example.learningsystem.course.repository.CourseEnrollmentRepository;
 import org.example.learningsystem.student.service.StudentService;
 import org.springframework.stereotype.Service;
@@ -28,14 +27,11 @@ public class CourseEnrollmentServiceImpl implements CourseEnrollmentService {
     public void enrollStudent(UUID courseId, UUID studentId) {
         var course = courseService.getById(courseId);
         var student = studentService.getById(studentId);
+        var enrollment = new CourseEnrollment(course, student);
 
-        courseEnrollmentValidator.validateCourseAvailability(course);
-        courseEnrollmentValidator.validateStudentBalance(course, student);
-        checkDuplicateEnrollment(courseId, studentId);
+        courseEnrollmentValidator.validateForInsert(enrollment);
 
         transferCoins(course, student);
-
-        var enrollment = new CourseEnrollment(course, student);
         courseEnrollmentRepository.save(enrollment);
     }
 
@@ -43,12 +39,6 @@ public class CourseEnrollmentServiceImpl implements CourseEnrollmentService {
     public void unenrollStudent(UUID courseId, UUID studentId) {
         var id = new CourseEnrollmentId(courseId, studentId);
         courseEnrollmentRepository.deleteById(id);
-    }
-
-    private void checkDuplicateEnrollment(UUID courseId, UUID studentId) {
-        if (courseEnrollmentRepository.existsByCourseIdAndStudentId(courseId, studentId)) {
-            throw new DuplicateEnrollmentException(courseId, studentId);
-        }
     }
 
     private void transferCoins(Course course, Student student) {
