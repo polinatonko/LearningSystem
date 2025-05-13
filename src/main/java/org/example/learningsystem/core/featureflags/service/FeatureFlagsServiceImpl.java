@@ -2,6 +2,7 @@ package org.example.learningsystem.core.featureflags.service;
 
 import java.util.Base64;
 
+import org.example.learningsystem.core.featureflags.exception.FeatureFlagTypeMismatchException;
 import org.example.learningsystem.core.featureflags.config.FeatureFlagsProperties;
 import org.example.learningsystem.core.featureflags.dto.FlagDto;
 import org.springframework.context.annotation.Profile;
@@ -20,23 +21,36 @@ import static org.springframework.http.HttpStatus.OK;
 @Profile("cloud")
 public class FeatureFlagsServiceImpl implements FeatureFlagsService {
 
-    private final RestClient restClient;
+    private final FeatureFlagsProperties properties;
     private final String authorizationHeader;
+    private final RestClient restClient = RestClient.create();
+    private static final Base64.Encoder encoder = Base64.getEncoder();
     private static final String BOOLEAN_FLAG_TYPE = "BOOLEAN";
-    private static final String EVALUATE_FLAG_URI = "%s/api/v2/evaluate";
-    private static final String FLAG_SEGMENT = "/%s";
+    private static final String EVALUATE_FLAG_URI = "%s/api/v2/evaluate/%s";
+    private static final String BASIC_AUTH_HEADER = "Basic %s";
 
     public FeatureFlagsServiceImpl(FeatureFlagsProperties featureFlagsProperties) {
-        var uri = EVALUATE_FLAG_URI.formatted(featureFlagsProperties.getUri());
-        restClient = RestClient.create(uri);
-        authorizationHeader = buildAuthorizationHeader(featureFlagsProperties.getUsername(),
-                featureFlagsProperties.getPassword());
+        properties = featureFlagsProperties;
+        authorizationHeader = buildAuthorizationHeader(properties.getUsername(), properties.getPassword());
     }
 
     @Override
     @Retryable(retryFor = HttpStatusCodeException.class, maxAttempts = 5)
     public FlagDto getFeatureFlag(String featureName) {
         return tryGetFlag(featureName);
+    }
+
+    @Override
+    @Retryable(retryFor = HttpStatusCodeException.class, maxAttempts = 5)
+    public boolean getBooleanFeatureFlag(String featureName) {
+        var flagResponse = getFeatureFlag(featureName);
+
+        if (isNull(flagResponse) || flagResponse.httpStatus() != OK.value()) {
+            return false;
+        } else if (!flagResponse.type().equals(BOOLEAN_FLAG_TYPE)) {
+            throw new FeatureFlagTypeMismatchException(BOOLEAN_FLAG_TYPE, featureName);
+        }
+        return Boolean.parseBoolean(flagResponse.variation());
     }
 
     @Recover
@@ -47,21 +61,8 @@ public class FeatureFlagsServiceImpl implements FeatureFlagsService {
         throw e;
     }
 
-    @Override
-    public boolean getBooleanFeatureFlag(String featureName) {
-        var flagResponse = getFeatureFlag(featureName);
-
-        if (isNull(flagResponse) || flagResponse.httpStatus() != OK.value()) {
-            return false;
-        } else if (!flagResponse.type().equals(BOOLEAN_FLAG_TYPE)) {
-            throw new UnsupportedOperationException("Requested feature flag must be of type %s [featureName=%s]"
-                    .formatted(BOOLEAN_FLAG_TYPE, featureName));
-        }
-        return Boolean.parseBoolean(flagResponse.variation());
-    }
-
     private FlagDto tryGetFlag(String featureName) {
-        var path = FLAG_SEGMENT.formatted(featureName);
+        var path = EVALUATE_FLAG_URI.formatted(properties.getUri(), featureName);
 
         return restClient.get()
                 .uri(path)
@@ -71,10 +72,9 @@ public class FeatureFlagsServiceImpl implements FeatureFlagsService {
     }
 
     private String buildAuthorizationHeader(String username, String password) {
-        var auth = "%s:%s".formatted(username, password);
-        var encoder = Base64.getEncoder();
-        var encodedAuth = encoder.encodeToString(auth.getBytes());
-        return "Basic ".concat(encodedAuth);
+        var credentials = "%s:%s".formatted(username, password);
+        var encodedCredentials = encoder.encodeToString(credentials.getBytes());
+        return BASIC_AUTH_HEADER.formatted(encodedCredentials);
     }
 
 }

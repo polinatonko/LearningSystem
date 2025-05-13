@@ -1,7 +1,7 @@
 applications:
-  - name: learning-system
+  - name: lms
     random-route: true
-    path: ./target/learning-system-1.0.0.jar
+    path: ./target/learning-system-1.1.0.jar
     memory: 1500M
     buildpacks:
       - sap_java_buildpack_jakarta

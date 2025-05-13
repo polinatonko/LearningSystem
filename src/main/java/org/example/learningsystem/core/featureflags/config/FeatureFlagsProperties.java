@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 public class FeatureFlagsProperties {
+
     private String uri;
     private String username;
     private String password;

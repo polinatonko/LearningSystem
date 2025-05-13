@@ -23,9 +23,11 @@ destination-service:
   client_secret: ${vcap.services.lms-destination-service.credentials.clientsecret}
 
 mail:
-  from: ${vcap.services.learning-system-user-service.credentials.from}
-  user: ${vcap.services.learning-system-user-service.credentials.user}
-  password: ${vcap.services.learning-system-user-service.credentials.password}
-  host: ${vcap.services.learning-system-user-service.credentials.host}
-  port: ${vcap.services.learning-system-user-service.credentials.port}
-  protocol: ${vcap.services.learning-system-user-service.credentials.protocol}
+  from: ${vcap.services.lms-user-service.credentials.from}
+  user: ${vcap.services.lms-user-service.credentials.user}
+  password: ${vcap.services.lms-user-service.credentials.password}
+  host: ${vcap.services.lms-user-service.credentials.host}
+  port: ${vcap.services.lms-user-service.credentials.port}
+  protocol: ${vcap.services.lms-user-service.credentials.protocol}
+  auth: ${vcap.services.lms-user-service.credentials.auth}
+  start-tls: ${vcap.services.lms-user-service.credentials.startTls}

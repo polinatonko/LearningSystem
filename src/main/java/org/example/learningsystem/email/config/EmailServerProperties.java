@@ -17,6 +17,7 @@ import org.springframework.validation.annotation.Validated;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EmailServerProperties {
+
     @NotNull
     private String from;
     @NotNull
@@ -29,4 +30,8 @@ public class EmailServerProperties {
     private String port;
     @NotNull
     private String protocol;
+    @NotNull
+    private String auth;
+    @NotNull
+    private String startTls;
 }

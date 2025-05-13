@@ -28,19 +28,21 @@ public class DestinationServiceImpl implements DestinationService {
     private static final String ACCESS_TOKEN_URI = "%s/oauth/token";
     private static final String DESTINATION_URI = "%s/destination-configuration/v1/instanceDestinations/%s";
     private static final String SMTP_DESTINATION = "smtp-destination";
+    private static final String BEARER_AUTH_HEADER = "Bearer %s";
 
     @Retryable(retryFor = HttpStatusCodeException.class)
     public EmailServerProperties getEmailServerProperties() {
         var smtpDestination = tryGetDestination(SMTP_DESTINATION, SmtpDestinationResponseDto.class);
 
         return new EmailServerProperties(smtpDestination.from(), smtpDestination.user(), smtpDestination.password(),
-                smtpDestination.host(), smtpDestination.port(), smtpDestination.protocol());
+                smtpDestination.host(), smtpDestination.port(), smtpDestination.protocol(),
+                smtpDestination.auth(), smtpDestination.startTls());
     }
 
     private <T> T tryGetDestination(String destinationName, Class<T> responseType) {
         var uri = DESTINATION_URI.formatted(destinationServiceProperties.getUri(), destinationName);
         var accessToken = getAccessToken();
-        var authHeader = "Bearer ".concat(accessToken);
+        var authHeader = BEARER_AUTH_HEADER.formatted(accessToken);
 
         return restClient.get()
                 .uri(uri)

@@ -1,9 +1,11 @@
 package org.example.learningsystem.email.service;
 
 import org.example.learningsystem.email.config.EmailServerProperties;
+import org.springframework.mail.MailSendException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Component;
 
 import java.util.Properties;
@@ -11,6 +13,11 @@ import java.util.Properties;
 @Component
 public class EmailServiceImpl implements EmailService {
 
+    private static final String MAIL_TRANSPORT_PROTOCOL = "mail.transport.protocol";
+    private static final String MAIL_SMTP_AUTH = "mail.smtp.auth";
+    private static final String MAIL_SMTP_STARTTLS_ENABLE = "mail.smtp.starttls.enable";
+
+    @Retryable(retryFor = MailSendException.class)
     public void send(String to, String subject, String text, EmailServerProperties serverProperties) {
         var sender = getSender(serverProperties);
         var message = buildMessage(to, serverProperties.getFrom(), subject, text);
@@ -31,9 +38,9 @@ public class EmailServiceImpl implements EmailService {
     }
 
     private void fillMailProperties(Properties properties, EmailServerProperties serverProperties) {
-        properties.put("mail.transport.protocol", serverProperties.getProtocol());
-        properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put(MAIL_TRANSPORT_PROTOCOL, serverProperties.getProtocol());
+        properties.put(MAIL_SMTP_AUTH, serverProperties.getAuth());
+        properties.put(MAIL_SMTP_STARTTLS_ENABLE, serverProperties.getStartTls());
     }
 
     private SimpleMailMessage buildMessage(String to, String from, String subject, String text) {
