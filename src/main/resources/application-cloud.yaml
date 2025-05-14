@@ -6,7 +6,6 @@ spring:
     password: ${vcap.services.lms-hana-schema.credentials.password}
 
   jpa:
-    show-sql: true
     properties:
       hibernate:
         dialect: org.hibernate.dialect.HANAColumnStoreDialect
@@ -30,4 +29,4 @@ mail:
   port: ${vcap.services.lms-user-service.credentials.port}
   protocol: ${vcap.services.lms-user-service.credentials.protocol}
   auth: ${vcap.services.lms-user-service.credentials.auth}
-  start-tls: ${vcap.services.lms-user-service.credentials.startTls}
+  start-tls-enable: ${vcap.services.lms-user-service.credentials.startTls}

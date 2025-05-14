@@ -22,7 +22,7 @@
 		<springdoc.version>2.8.6</springdoc.version>
 		<git.commit-id.version>9.0.1</git.commit-id.version>
 		<ngdbc.version>2.24.7</ngdbc.version>
-		<liquibase.ext.version>4.31.1</liquibase.ext.version>
+		<liquibase-hanadb.version>4.31.1</liquibase-hanadb.version>
 	</properties>
 
 	<dependencies>
@@ -66,12 +66,17 @@
 		<dependency>
 			<groupId>org.liquibase.ext</groupId>
 			<artifactId>liquibase-hanadb</artifactId>
-			<version>${liquibase.ext.version}</version>
+			<version>${liquibase-hanadb.version}</version>
 		</dependency>
 		<!-- Retrying -->
 		<dependency>
 			<groupId>org.springframework.retry</groupId>
 			<artifactId>spring-retry</artifactId>
+		</dependency>
+		<!-- Caching -->
+		<dependency>
+			<groupId>com.github.ben-manes.caffeine</groupId>
+			<artifactId>caffeine</artifactId>
 		</dependency>
 		<!-- Security -->
 		<dependency>

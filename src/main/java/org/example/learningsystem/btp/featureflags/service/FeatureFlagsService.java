@@ -4,7 +4,7 @@ import org.example.learningsystem.btp.featureflags.dto.FlagDto;
 
 public interface FeatureFlagsService {
 
-    FlagDto getFeatureFlag(String featureName);
+    FlagDto getFeatureFlag(String name);
 
-    boolean getBooleanFeatureFlag(String featureName);
+    boolean getBooleanFeatureFlag(String name);
 }

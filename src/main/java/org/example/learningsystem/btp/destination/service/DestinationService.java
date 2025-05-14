@@ -1,8 +1,8 @@
 package org.example.learningsystem.btp.destination.service;
 
-import org.example.learningsystem.email.config.EmailServerProperties;
+import org.example.learningsystem.btp.destination.dto.DestinationDto;
 
 public interface DestinationService {
 
-    EmailServerProperties getEmailServerProperties();
+    DestinationDto getDestinationByName(String name);
 }

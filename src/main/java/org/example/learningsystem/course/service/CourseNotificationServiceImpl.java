@@ -17,8 +17,6 @@ import static org.example.learningsystem.core.util.format.DataFormatUtils.EMAIL_
 @RequiredArgsConstructor
 public class CourseNotificationServiceImpl implements CourseNotificationService {
 
-    private final EmailService emailService;
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(EMAIL_DATE_TIME_FORMAT);
     private static final String MAIL_SUBJECT = "Upcoming course reminder";
     private static final String MAIL_HEADER = "Hello, %s %s!";
     private static final String MAIL_BODY = """
@@ -28,6 +26,8 @@ public class CourseNotificationServiceImpl implements CourseNotificationService 
             
             Need help to get started? Reply to this email.
             """;
+    private final EmailService emailService;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(EMAIL_DATE_TIME_FORMAT);
 
     @Override
     public void sendCourseNotifications(Course course, EmailServerProperties emailServerProperties) {

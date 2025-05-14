@@ -1,11 +1,8 @@
 package org.example.learningsystem.btp.destination.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
-public record AccessTokenResponseDto(
-        @JsonProperty("access_token") String accessToken,
-        @JsonProperty("token_type") String tokenType,
-        @JsonProperty("expires_in") Integer expiresIn,
-        String scope,
-        String jti) {
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+public record AccessTokenResponseDto(String accessToken, String tokenType, Integer expiresIn, String scope, String jti) {
 }

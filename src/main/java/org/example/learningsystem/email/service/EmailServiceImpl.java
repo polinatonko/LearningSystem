@@ -2,7 +2,7 @@ package org.example.learningsystem.email.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.learningsystem.email.config.EmailServerProperties;
-import org.springframework.mail.MailException;
+import org.springframework.mail.MailSendException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -20,7 +20,7 @@ public class EmailServiceImpl implements EmailService {
     private static final String MAIL_SMTP_AUTH = "mail.smtp.auth";
     private static final String MAIL_SMTP_STARTTLS_ENABLE = "mail.smtp.starttls.enable";
 
-    @Retryable(retryFor = MailException.class)
+    @Retryable(retryFor = MailSendException.class)
     public void send(String to, String subject, String text, EmailServerProperties serverProperties) {
         var sender = getSender(serverProperties);
         var message = buildMessage(to, serverProperties.getFrom(), subject, text);
@@ -28,8 +28,8 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Recover
-    public void recover(MailException e, String to, String subject, String text, EmailServerProperties serverProperties) {
-        log.error("Error during sending email to {}: {}", to, e.getMessage());
+    public void recover(MailSendException e, String to, String subject, String text, EmailServerProperties serverProperties) {
+        log.error("Failed to send email [subject = {}, to = {}]: {}", subject, to, e.getMessage());
     }
 
     private JavaMailSender getSender(EmailServerProperties serverProperties) {
@@ -48,7 +48,7 @@ public class EmailServiceImpl implements EmailService {
     private void fillMailProperties(Properties properties, EmailServerProperties serverProperties) {
         properties.put(MAIL_TRANSPORT_PROTOCOL, serverProperties.getProtocol());
         properties.put(MAIL_SMTP_AUTH, serverProperties.getAuth());
-        properties.put(MAIL_SMTP_STARTTLS_ENABLE, serverProperties.getStartTls());
+        properties.put(MAIL_SMTP_STARTTLS_ENABLE, serverProperties.getStartTlsEnable());
     }
 
     private SimpleMailMessage buildMessage(String to, String from, String subject, String text) {

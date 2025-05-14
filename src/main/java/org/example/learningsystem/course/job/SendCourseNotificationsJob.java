@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.course.service.CourseNotificationService;
 import org.example.learningsystem.course.service.CourseService;
 import org.example.learningsystem.course.config.CourseReminderProperties;
-import org.example.learningsystem.course.service.EmailServerPropertiesResolver;
+import org.example.learningsystem.email.service.EmailServerPropertiesResolver;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +23,7 @@ public class SendCourseNotificationsJob {
             return;
         }
 
-        var emailProperties = emailServerPropertiesResolver.getEmailServerProperties();
+        var emailProperties = emailServerPropertiesResolver.resolve();
         var upcomingCourses = courseService.getUpcoming(reminderProperties.getDaysBefore());
 
         for (var course : upcomingCourses) {

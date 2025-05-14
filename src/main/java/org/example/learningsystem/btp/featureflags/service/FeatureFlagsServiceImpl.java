@@ -8,10 +8,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.retry.annotation.Recover;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestClient;
 
 import static java.util.Objects.isNull;
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
 
@@ -19,54 +22,58 @@ import static org.springframework.http.HttpStatus.OK;
 @Profile("cloud")
 public class FeatureFlagsServiceImpl implements FeatureFlagsService {
 
-    private final FeatureFlagsProperties properties;
-    private final RestClient restClient;
     private static final String BOOLEAN_FLAG_TYPE = "BOOLEAN";
     private static final String EVALUATE_FLAG_URI = "%s/api/v2/evaluate/%s";
+    private final FeatureFlagsProperties properties;
+    private final RestClient restClient;
 
-    public FeatureFlagsServiceImpl(FeatureFlagsProperties featureFlagsProperties) {
+    public FeatureFlagsServiceImpl(FeatureFlagsProperties featureFlagsProperties,
+                                   RestClient.Builder restClientBuilder) {
         properties = featureFlagsProperties;
-
-        var requestHeaders = new HttpHeaders();
-        requestHeaders.setBasicAuth(properties.getUsername(), properties.getPassword());
-
-        restClient = RestClient.builder()
-                .defaultHeaders(headers -> headers.addAll(requestHeaders))
-                .build();
+        restClient = restClientBuilder.build();
     }
 
     @Override
-    @Retryable(retryFor = HttpStatusCodeException.class, maxAttempts = 5)
-    public FlagDto getFeatureFlag(String featureName) {
-        return tryGetFlag(featureName);
+    @Retryable(retryFor = {
+            HttpServerErrorException.BadGateway.class,
+            HttpServerErrorException.GatewayTimeout.class,
+            HttpServerErrorException.ServiceUnavailable.class})
+    public FlagDto getFeatureFlag(String name) {
+        return tryGetFlag(name);
     }
 
     @Override
-    @Retryable(retryFor = HttpStatusCodeException.class, maxAttempts = 5)
-    public boolean getBooleanFeatureFlag(String featureName) {
-        var flagResponse = getFeatureFlag(featureName);
+    @Retryable(retryFor = {
+            HttpServerErrorException.BadGateway.class,
+            HttpServerErrorException.GatewayTimeout.class,
+            HttpServerErrorException.ServiceUnavailable.class})
+    public boolean getBooleanFeatureFlag(String name) {
+        var flagResponse = getFeatureFlag(name);
 
         if (isNull(flagResponse) || flagResponse.httpStatus() != OK.value()) {
             return false;
         } else if (!flagResponse.type().equals(BOOLEAN_FLAG_TYPE)) {
-            throw new FeatureFlagTypeMismatchException(BOOLEAN_FLAG_TYPE, featureName);
+            throw new FeatureFlagTypeMismatchException(BOOLEAN_FLAG_TYPE, name);
         }
         return Boolean.parseBoolean(flagResponse.variation());
     }
 
     @Recover
-    public FlagDto recover(HttpStatusCodeException e, String featureName) {
+    public FlagDto recover(HttpServerErrorException e, String name) {
         if (e.getStatusCode() == NOT_FOUND) {
             return null;
         }
         throw e;
     }
 
-    private FlagDto tryGetFlag(String featureName) {
-        var path = EVALUATE_FLAG_URI.formatted(properties.getUri(), featureName);
+    private FlagDto tryGetFlag(String name) {
+        var path = EVALUATE_FLAG_URI.formatted(properties.getUri(), name);
+        var authorizationHeader = HttpHeaders.encodeBasicAuth(
+                properties.getUsername(), properties.getPassword(), null);
 
         return restClient.get()
                 .uri(path)
+                .header(AUTHORIZATION, authorizationHeader)
                 .retrieve()
                 .body(FlagDto.class);
     }
