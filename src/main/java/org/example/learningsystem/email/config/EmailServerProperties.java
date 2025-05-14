@@ -1,10 +1,7 @@
 package org.example.learningsystem.email.config;
 
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
@@ -16,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class EmailServerProperties {
 
     @NotNull

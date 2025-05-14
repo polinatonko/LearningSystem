@@ -1,4 +1,4 @@
-package org.example.learningsystem.core.destination.config;
+package org.example.learningsystem.btp.destination.config;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

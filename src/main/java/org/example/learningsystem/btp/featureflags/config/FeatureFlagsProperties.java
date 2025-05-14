@@ -1,4 +1,4 @@
-package org.example.learningsystem.core.featureflags.config;
+package org.example.learningsystem.btp.featureflags.config;
 
 import lombok.Getter;
 import lombok.Setter;

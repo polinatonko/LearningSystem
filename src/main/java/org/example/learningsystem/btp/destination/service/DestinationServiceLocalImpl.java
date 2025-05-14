@@ -1,4 +1,4 @@
-package org.example.learningsystem.core.destination.service;
+package org.example.learningsystem.btp.destination.service;
 
 import org.example.learningsystem.email.config.EmailServerProperties;
 import org.springframework.context.annotation.Profile;

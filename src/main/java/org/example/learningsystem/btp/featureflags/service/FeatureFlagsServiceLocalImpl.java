@@ -1,6 +1,6 @@
-package org.example.learningsystem.core.featureflags.service;
+package org.example.learningsystem.btp.featureflags.service;
 
-import org.example.learningsystem.core.featureflags.dto.FlagDto;
+import org.example.learningsystem.btp.featureflags.dto.FlagDto;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 

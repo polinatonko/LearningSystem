@@ -34,8 +34,6 @@ public class CourseServiceImpl implements CourseService {
     @Override
     @Cacheable
     public Course getById(UUID id) {
-        System.out.println("inside get " + id);
-
         return findById(id);
     }
 

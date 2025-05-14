@@ -1,13 +1,12 @@
-package org.example.learningsystem.core.destination.service;
+package org.example.learningsystem.btp.destination.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.learningsystem.core.destination.config.DestinationServiceProperties;
-import org.example.learningsystem.core.destination.dto.AccessTokenResponseDto;
-import org.example.learningsystem.core.destination.dto.SmtpDestinationResponseDto;
+import org.example.learningsystem.btp.destination.config.DestinationServiceProperties;
+import org.example.learningsystem.btp.destination.dto.AccessTokenResponseDto;
+import org.example.learningsystem.btp.destination.dto.SmtpDestinationResponseDto;
 import org.example.learningsystem.email.config.EmailServerProperties;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
@@ -17,6 +16,10 @@ import org.springframework.web.client.RestClient;
 import java.util.Map;
 
 import static java.util.Objects.nonNull;
+import static org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames.CLIENT_ID;
+import static org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames.CLIENT_SECRET;
+import static org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames.GRANT_TYPE;
+import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +31,7 @@ public class DestinationServiceImpl implements DestinationService {
     private static final String ACCESS_TOKEN_URI = "%s/oauth/token";
     private static final String DESTINATION_URI = "%s/destination-configuration/v1/instanceDestinations/%s";
     private static final String SMTP_DESTINATION = "smtp-destination";
+    private static final String CLIENT_CREDENTIALS = "client_credentials";
 
     @Retryable(retryFor = HttpStatusCodeException.class)
     public EmailServerProperties getEmailServerProperties() {
@@ -60,9 +64,10 @@ public class DestinationServiceImpl implements DestinationService {
 
     private MultiValueMap<String, String> buildCredentialsMap(DestinationServiceProperties destinationServiceProperties) {
         var clientCredentialsMap = Map.of(
-                "grant_type", "client_credentials",
-                "client_id", destinationServiceProperties.getClientId(),
-                "client_secret", destinationServiceProperties.getClientSecret());
+                GRANT_TYPE, CLIENT_CREDENTIALS,
+                CLIENT_ID, destinationServiceProperties.getClientId(),
+                CLIENT_SECRET, destinationServiceProperties.getClientSecret());
+
         return MultiValueMap.fromSingleValue(clientCredentialsMap);
     }
 
@@ -70,7 +75,7 @@ public class DestinationServiceImpl implements DestinationService {
         var response = restClient.post()
                 .uri(uri)
                 .body(body)
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .contentType(APPLICATION_FORM_URLENCODED)
                 .retrieve()
                 .body(AccessTokenResponseDto.class);
         return nonNull(response) ? response.accessToken() : null;

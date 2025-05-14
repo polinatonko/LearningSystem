@@ -23,7 +23,6 @@
 		<git.commit-id.version>9.0.1</git.commit-id.version>
 		<ngdbc.version>2.24.7</ngdbc.version>
 		<liquibase.ext.version>4.31.1</liquibase.ext.version>
-		<spring.retry.version>2.0.11</spring.retry.version>
 	</properties>
 
 	<dependencies>
@@ -73,7 +72,11 @@
 		<dependency>
 			<groupId>org.springframework.retry</groupId>
 			<artifactId>spring-retry</artifactId>
-			<version>${spring.retry.version}</version>
+		</dependency>
+		<!-- Security -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-core</artifactId>
 		</dependency>
 		<!-- Docs -->
 		<dependency>

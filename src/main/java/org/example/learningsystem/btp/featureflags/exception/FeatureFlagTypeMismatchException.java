@@ -1,4 +1,4 @@
-package org.example.learningsystem.core.featureflags.exception;
+package org.example.learningsystem.btp.featureflags.exception;
 
 public class FeatureFlagTypeMismatchException extends UnsupportedOperationException {
 

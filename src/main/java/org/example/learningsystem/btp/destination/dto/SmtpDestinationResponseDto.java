@@ -1,4 +1,4 @@
-package org.example.learningsystem.core.destination.dto;
+package org.example.learningsystem.btp.destination.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

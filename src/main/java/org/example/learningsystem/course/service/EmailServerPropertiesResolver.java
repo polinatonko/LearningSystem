@@ -1,8 +1,8 @@
 package org.example.learningsystem.course.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.learningsystem.core.destination.service.DestinationService;
-import org.example.learningsystem.core.featureflags.service.FeatureFlagsService;
+import org.example.learningsystem.btp.destination.service.DestinationService;
+import org.example.learningsystem.btp.featureflags.service.FeatureFlagsService;
 import org.example.learningsystem.email.config.EmailServerProperties;
 import org.springframework.stereotype.Service;
 
