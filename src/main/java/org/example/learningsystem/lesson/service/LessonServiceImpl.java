@@ -59,7 +59,7 @@ public class LessonServiceImpl implements LessonService {
 
     @Override
     @CacheEvict
-    public void delete(UUID id) {
+    public void deleteById(UUID id) {
         lessonRepository.deleteById(id);
     }
 

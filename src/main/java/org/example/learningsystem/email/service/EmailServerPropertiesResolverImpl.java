@@ -20,14 +20,14 @@ public class EmailServerPropertiesResolverImpl implements EmailServerPropertiesR
 
     @Override
     public EmailServerProperties resolve() {
-        return !featureFlagsService.getBooleanFeatureFlag(FLAG_DESTINATION_ENABLED)
+        return featureFlagsService.getBooleanByName(FLAG_DESTINATION_ENABLED)
                 ? getPropertiesFromDestinationService()
                 : emailServerProperties;
     }
 
     private EmailServerProperties getPropertiesFromDestinationService() {
-        var properties = destinationService.getDestinationByName(SMTP_DESTINATION);
-        return destinationConverter.tryConvert(properties, EmailServerProperties.class);
+        var destination = destinationService.getByName(SMTP_DESTINATION);
+        return destinationConverter.tryConvert(destination, EmailServerProperties.class);
     }
 
 }

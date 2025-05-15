@@ -54,7 +54,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     @CacheEvict
-    public void delete(UUID id) {
+    public void deleteById(UUID id) {
         studentRepository.deleteById(id);
     }
 

@@ -60,7 +60,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     @CacheEvict
-    public void delete(UUID id) {
+    public void deleteById(UUID id) {
         courseRepository.deleteById(id);
     }
 
