@@ -13,7 +13,10 @@ import java.util.Map;
 
 import static java.util.Objects.nonNull;
 import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED;
-import static org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames.*;
+import static org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames.CLIENT_ID;
+import static org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames.CLIENT_SECRET;
+import static org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames.GRANT_TYPE;
+import static org.springframework.security.oauth2.core.AuthorizationGrantType.CLIENT_CREDENTIALS;
 
 @Service
 @CacheConfig(cacheNames = "accessTokens")
@@ -21,7 +24,6 @@ import static org.springframework.security.oauth2.core.endpoint.OAuth2ParameterN
 public class AccessTokenServiceImpl implements AccessTokenService {
 
     private static final String ACCESS_TOKEN_URI = "%s/oauth/token";
-    private static final String CLIENT_CREDENTIALS = "client_credentials";
     private final RestClient restClient;
 
     public AccessTokenServiceImpl(RestClient.Builder restClientBuilder) {
@@ -30,7 +32,7 @@ public class AccessTokenServiceImpl implements AccessTokenService {
 
     @Override
     @Cacheable(key = "#clientId")
-    public String getAccessTokenCacheable(String url, String clientId, String clientSecret) {
+    public String getCacheable(String url, String clientId, String clientSecret) {
         var accessTokenUri = ACCESS_TOKEN_URI.formatted(url);
         var body = buildCredentialsMap(clientId, clientSecret);
 
@@ -46,7 +48,7 @@ public class AccessTokenServiceImpl implements AccessTokenService {
 
     private MultiValueMap<String, String> buildCredentialsMap(String clientId, String clientSecret) {
         var clientCredentialsMap = Map.of(
-                GRANT_TYPE, CLIENT_CREDENTIALS,
+                GRANT_TYPE, CLIENT_CREDENTIALS.getValue(),
                 CLIENT_ID, clientId,
                 CLIENT_SECRET, clientSecret);
 

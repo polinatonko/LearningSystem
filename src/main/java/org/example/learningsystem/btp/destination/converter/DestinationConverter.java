@@ -4,11 +4,13 @@ import org.example.learningsystem.btp.destination.annotation.DestinationProperty
 import org.example.learningsystem.btp.destination.dto.DestinationDto;
 import org.example.learningsystem.btp.destination.exception.MissingNoArgsConstructorException;
 import org.example.learningsystem.btp.destination.exception.MissingPropertyException;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
 
 @Component
+@Profile("cloud")
 public class DestinationConverter {
 
     public <T> T tryConvert(DestinationDto destination, Class<T> desiredType) {

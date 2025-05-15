@@ -13,11 +13,10 @@ import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestClient;
 
 @Service
-@Profile("!cloud")
+@Profile("cloud")
 public class DestinationServiceImpl implements DestinationService {
 
     private static final String DESTINATION_URI = "%s/destination-configuration/v1/instanceDestinations/%s";
-    private static final String SMTP_DESTINATION = "smtp-destination";
     private final AccessTokenService accessTokenService;
     private final DestinationServiceProperties properties;
     private final RestClient restClient;
@@ -36,18 +35,18 @@ public class DestinationServiceImpl implements DestinationService {
             HttpServerErrorException.BadGateway.class,
             HttpServerErrorException.GatewayTimeout.class,
             HttpServerErrorException.ServiceUnavailable.class}, maxAttempts = 2)
-    public DestinationDto getDestinationByName(String name) {
+    public DestinationDto getByName(String name) {
         return tryGetDestination(name);
     }
 
     @Recover
-    public DestinationDto recoverDestinationDto(HttpClientErrorException.Unauthorized e, String name) {
+    public DestinationDto recover(HttpClientErrorException.Unauthorized e, String name) {
         accessTokenService.evictCache(properties.getClientId());
-        return getDestinationByName(name);
+        return getByName(name);
     }
 
     private DestinationDto tryGetDestination(String destinationName) {
-        var accessToken = accessTokenService.getAccessTokenCacheable(
+        var accessToken = accessTokenService.getCacheable(
                 properties.getUrl(), properties.getClientId(), properties.getClientSecret());
         var requestHeaders = new HttpHeaders();
         requestHeaders.setBearerAuth(accessToken);

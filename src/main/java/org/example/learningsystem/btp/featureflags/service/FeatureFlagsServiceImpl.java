@@ -8,9 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.retry.annotation.Recover;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
-import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestClient;
 
 import static java.util.Objects.isNull;
@@ -38,7 +36,7 @@ public class FeatureFlagsServiceImpl implements FeatureFlagsService {
             HttpServerErrorException.BadGateway.class,
             HttpServerErrorException.GatewayTimeout.class,
             HttpServerErrorException.ServiceUnavailable.class})
-    public FlagDto getFeatureFlag(String name) {
+    public FlagDto getByName(String name) {
         return tryGetFlag(name);
     }
 
@@ -47,8 +45,8 @@ public class FeatureFlagsServiceImpl implements FeatureFlagsService {
             HttpServerErrorException.BadGateway.class,
             HttpServerErrorException.GatewayTimeout.class,
             HttpServerErrorException.ServiceUnavailable.class})
-    public boolean getBooleanFeatureFlag(String name) {
-        var flagResponse = getFeatureFlag(name);
+    public boolean getBooleanByName(String name) {
+        var flagResponse = getByName(name);
 
         if (isNull(flagResponse) || flagResponse.httpStatus() != OK.value()) {
             return false;

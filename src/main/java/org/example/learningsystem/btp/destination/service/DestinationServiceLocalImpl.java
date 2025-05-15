@@ -5,11 +5,11 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
-@Profile("cloud")
+@Profile("!cloud")
 public class DestinationServiceLocalImpl implements DestinationService {
 
     @Override
-    public DestinationDto getDestinationByName(String name) {
+    public DestinationDto getByName(String name) {
         return null;
     }
 

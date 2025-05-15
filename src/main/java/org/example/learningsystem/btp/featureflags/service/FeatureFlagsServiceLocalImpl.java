@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 public class FeatureFlagsServiceLocalImpl implements FeatureFlagsService {
 
     @Override
-    public FlagDto getFeatureFlag(String name) {
+    public FlagDto getByName(String name) {
         return null;
     }
 
     @Override
-    public boolean getBooleanFeatureFlag(String name) {
+    public boolean getBooleanByName(String name) {
         return false;
     }
 }
