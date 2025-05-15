@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <property name="uuid_type" value="varbinary(16)" dbms="hana"/>
+    <property name="uuid_type" value="uuid" dbms="!hana"/>
+
+    <changeSet id="changeset-1.1.0_001" author="polinatonko">
+
+        <dropForeignKeyConstraint baseTableName="course_student" constraintName="fk_course_student_st"/>
+        <addColumn tableName="student">
+            <column name="new_id" type="${uuid_type}"/>
+        </addColumn>
+        <update tableName="student">
+            <column name="new_id" valueComputed="id"/>
+        </update>
+        <addNotNullConstraint tableName="student" columnName="new_id"/>
+        <dropPrimaryKey tableName="student" dropIndex="true"/>
+        <dropColumn tableName="student" columnName="id"/>
+        <addPrimaryKey tableName="student" columnNames="new_id"/>
+        <renameColumn tableName="student" oldColumnName="new_id" newColumnName="id"/>
+
+    </changeSet>
+
+    <changeSet id="changeset-1.1.0_002" author="polinatonko">
+
+        <dropForeignKeyConstraint baseTableName="course_student" constraintName="fk_course_student_c"/>
+        <dropForeignKeyConstraint baseTableName="course_settings" constraintName="fk_course_settings"/>
+        <dropForeignKeyConstraint baseTableName="lesson" constraintName="fk_lesson_course"/>
+        <addColumn tableName="course">
+            <column name="new_id" type="${uuid_type}"/>
+        </addColumn>
+        <addNotNullConstraint tableName="course" columnName="new_id"/>
+        <dropPrimaryKey tableName="course" dropIndex="true"/>
+        <dropColumn tableName="course" columnName="id"/>
+        <addPrimaryKey tableName="course" columnNames="new_id"/>
+        <renameColumn tableName="course" oldColumnName="new_id" newColumnName="id"/>
+
+    </changeSet>
+
+    <changeSet id="changeset-1.1.0_003" author="polinatonko">
+
+        <addColumn tableName="course_settings">
+            <column name="new_id" type="${uuid_type}"/>
+        </addColumn>
+        <addNotNullConstraint tableName="course_settings" columnName="new_id"/>
+        <dropPrimaryKey tableName="course_settings" dropIndex="true"/>
+        <dropColumn tableName="course_settings" columnName="id"/>
+        <addPrimaryKey tableName="course_settings" columnNames="new_id"/>
+        <renameColumn tableName="course_settings" oldColumnName="new_id" newColumnName="id"/>
+        <addForeignKeyConstraint baseTableName="course_settings" baseColumnNames="id" constraintName="fk_course_settings"
+                                 referencedTableName="course"
+                                 referencedColumnNames="id"/>
+
+    </changeSet>
+
+    <changeSet id="changeset-1.1.0_004" author="polinatonko">
+
+        <addColumn tableName="course_student">
+            <column name="new_course_id" type="${uuid_type}"/>
+        </addColumn>
+        <addNotNullConstraint tableName="course_student" columnName="new_course_id"/>
+        <dropPrimaryKey tableName="course_student" dropIndex="true"/>
+        <dropColumn tableName="course_student" columnName="course_id"/>
+        <renameColumn tableName="course_student" oldColumnName="new_course_id" newColumnName="course_id"/>
+        <addForeignKeyConstraint baseTableName="course_student" baseColumnNames="course_id" constraintName="fk_course_student_c"
+                                 referencedTableName="course"
+                                 referencedColumnNames="id"/>
+
+    </changeSet>
+
+    <changeSet id="changeset-1.1.0_005" author="polinatonko">
+
+        <addColumn tableName="course_student">
+            <column name="new_student_id" type="${uuid_type}"/>
+        </addColumn>
+        <addNotNullConstraint tableName="course_student" columnName="new_student_id"/>
+        <dropColumn tableName="course_student" columnName="student_id"/>
+        <renameColumn tableName="course_student" oldColumnName="new_student_id" newColumnName="student_id"/>
+        <addForeignKeyConstraint baseTableName="course_student" baseColumnNames="student_id" constraintName="fk_course_student_st"
+                                 referencedTableName="student"
+                                 referencedColumnNames="id"/>
+
+    </changeSet>
+
+    <changeSet id="changeset-1.1.0_006" author="polinatonko">
+
+        <addPrimaryKey tableName="course_student" columnNames="course_id,student_id" constraintName="pk_course_student"/>
+
+    </changeSet>
+
+    <changeSet id="changeset-1.1.0_007" author="polinatonko">
+
+        <addColumn tableName="lesson">
+            <column name="new_id" type="${uuid_type}"/>
+        </addColumn>
+        <addNotNullConstraint tableName="lesson" columnName="new_id"/>
+        <dropPrimaryKey tableName="lesson" dropIndex="true"/>
+        <dropColumn tableName="lesson" columnName="id"/>
+        <addPrimaryKey tableName="lesson" columnNames="new_id"/>
+        <renameColumn tableName="lesson" oldColumnName="new_id" newColumnName="id"/>
+        <addForeignKeyConstraint baseTableName="lesson" baseColumnNames="course_id" constraintName="fk_lesson_course"
+                                 referencedTableName="course"
+                                 referencedColumnNames="id"/>
+
+    </changeSet>
+
+</databaseChangeLog>

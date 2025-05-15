@@ -26,6 +26,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 public class CourseEnrollmentTest {
+
+    private static final String ENROLLMENT_URL = "/courses/{id}/students/{studentId}";
     @Autowired
     private MockMvc mockMvc;
     @Autowired
@@ -33,7 +35,6 @@ public class CourseEnrollmentTest {
     @Autowired
     private StudentService studentService;
     private Course course;
-    private static final String ENROLLMENT_URL = "/courses/{id}/students/{studentId}";
 
     @BeforeEach
     void setup() {

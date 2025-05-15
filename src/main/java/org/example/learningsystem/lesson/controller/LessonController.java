@@ -72,6 +72,6 @@ public class LessonController {
     @Operation(summary = "Delete lesson")
     @ApiResponse(responseCode = "204", description = "Lesson was deleted or doesn't exist")
     public void deleteById(@PathVariable UUID id) {
-        lessonService.delete(id);
+        lessonService.deleteById(id);
     }
 }

@@ -87,6 +87,6 @@ public class StudentController {
     @Operation(summary = "Delete course")
     @ApiResponse(responseCode = "204", description = "Student was deleted or doesn't exist")
     public void deleteById(@PathVariable UUID id) {
-        studentService.delete(id);
+        studentService.deleteById(id);
     }
 }
