@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="changeset-1.0.0_001" author="polinatonko">
+
+        <createTable tableName="student">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="first_name" type="varchar(30)"/>
+            <column name="last_name" type="varchar(30)"/>
+            <column name="email" type="varchar(254)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="date_of_birth" type="date"/>
+            <column name="coins" type="number" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="changeset-1.0.0_002" author="polinatonko">
+
+        <createTable tableName="course">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="title" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(1000)"/>
+            <column name="price" type="number"/>
+            <column name="coins_paid" type="number" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="changeset-1.0.0_003" author="polinatonko">
+
+        <createTable tableName="course_settings">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="start_date" type="datetime"/>
+            <column name="end_date" type="datetime"/>
+            <column name="is_public" type="bool" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="course_settings" baseColumnNames="id"
+                                 constraintName="fk_course_settings"
+                                 referencedTableName="course" referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+
+    </changeSet>
+
+    <changeSet id="changeset-1.0.0_004" author="polinatonko">
+
+        <createTable tableName="course_student">
+            <column name="course_id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="student_id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="course_student" baseColumnNames="student_id"
+                                 constraintName="fk_course_student_st"
+                                 referencedTableName="student" referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="course_student" baseColumnNames="course_id"
+                                 constraintName="fk_course_student_c"
+                                 referencedTableName="course" referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+
+    </changeSet>
+
+    <changeSet id="changeset-1.0.0_005" author="polinatonko">
+
+        <createTable tableName="lesson">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="title" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="duration" type="int"/>
+            <column name="course_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="lesson" baseColumnNames="course_id"
+                                 constraintName="fk_lesson_course"
+                                 referencedTableName="course" referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,6 @@
+target/
+src/main/resources/secrets-local.yaml
+
+### IntelliJ IDEA ###
+.idea
+.iml
