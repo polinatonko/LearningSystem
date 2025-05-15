@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.Field;
 
 @Component
-@Profile("cloud")
+//@Profile("cloud")
 public class DestinationConverter {
 
     public <T> T tryConvert(DestinationDto destination, Class<T> desiredType) {
