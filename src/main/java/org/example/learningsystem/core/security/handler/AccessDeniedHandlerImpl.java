@@ -6,7 +6,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.exception.response.ErrorResponse;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -16,7 +15,6 @@ import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
-@Profile("!cloud")
 public class AccessDeniedHandlerImpl implements AccessDeniedHandler {
 
     private static final String ACCESS_DENIED_MESSAGE = "Access denied";

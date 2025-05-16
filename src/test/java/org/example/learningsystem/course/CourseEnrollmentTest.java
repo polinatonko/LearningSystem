@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -28,6 +29,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class CourseEnrollmentTest {
 
     private static final String ENROLLMENT_URL = "/courses/{id}/students/{studentId}";
+    private static final String username = "student1@gmail.com";
+    private static final String password = "student1";
     @Autowired
     private MockMvc mockMvc;
     @Autowired
@@ -56,7 +59,8 @@ public class CourseEnrollmentTest {
         var studentId = savedStudent.getId();
 
         // when
-        mockMvc.perform(post(ENROLLMENT_URL, courseId, studentId))
+        mockMvc.perform(post(ENROLLMENT_URL, courseId, studentId)
+                        .headers(buildHeaders()))
                 .andExpect(status().isOk());
 
         // then
@@ -80,7 +84,8 @@ public class CourseEnrollmentTest {
         var savedStudent = studentService.create(student);
 
         // when, then
-        mockMvc.perform(post(ENROLLMENT_URL, savedCourse.getId(), savedStudent.getId()))
+        mockMvc.perform(post(ENROLLMENT_URL, savedCourse.getId(), savedStudent.getId())
+                        .headers(buildHeaders()))
                 .andExpect(status().isInternalServerError());
     }
 
@@ -95,7 +100,8 @@ public class CourseEnrollmentTest {
         var savedStudent = studentService.create(student);
 
         // when, then
-        mockMvc.perform(post(ENROLLMENT_URL, savedCourse.getId(), savedStudent.getId()))
+        mockMvc.perform(post(ENROLLMENT_URL, savedCourse.getId(), savedStudent.getId())
+                        .headers(buildHeaders()))
                 .andExpect(status().isInternalServerError());
     }
 
@@ -112,13 +118,21 @@ public class CourseEnrollmentTest {
         var studentId = savedStudent.getId();
 
         // when
-        mockMvc.perform(post(ENROLLMENT_URL, courseId, studentId))
+        mockMvc.perform(post(ENROLLMENT_URL, courseId, studentId)
+                        .headers(buildHeaders()))
                 .andExpect(status().isOk());
-        mockMvc.perform(delete(ENROLLMENT_URL, courseId, studentId))
+        mockMvc.perform(delete(ENROLLMENT_URL, courseId, studentId)
+                        .headers(buildHeaders()))
                 .andExpect(status().isNoContent());
 
         // then
         var courseStudents = studentService.getAllByCourseId(courseId);
         assertEquals(0, courseStudents.size());
+    }
+
+    private HttpHeaders buildHeaders() {
+        var headers = new HttpHeaders();
+        headers.setBasicAuth(username, password);
+        return headers;
     }
 }

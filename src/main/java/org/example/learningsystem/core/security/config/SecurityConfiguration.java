@@ -30,10 +30,9 @@ public class SecurityConfiguration {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/actuator/**")
-                                .hasRole(UserRole.MANAGER.name())
-                                .anyRequest()
-                                .authenticated())
+                        auth
+                                .requestMatchers("/actuator/**").hasRole(UserRole.MANAGER.toString())
+                                .anyRequest().authenticated())
                 .userDetailsService(userDetailsService())
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -49,11 +48,11 @@ public class SecurityConfiguration {
     public UserDetailsService userDetailsService() {
         var managerDetails = User.withUsername("manager@gmail.com")
                 .password(passwordEncoder().encode("manager"))
-                .roles(UserRole.MANAGER.name())
+                .roles(UserRole.MANAGER.toString())
                 .build();
         var studentDetails = User.withUsername("student1@gmail.com")
                 .password(passwordEncoder().encode("student1"))
-                .roles(UserRole.STUDENT.name())
+                .roles(UserRole.STUDENT.toString())
                 .build();
 
         return new InMemoryUserDetailsManager(managerDetails, studentDetails);

@@ -16,3 +16,4 @@ applications:
       - lms-feature-flags
       - lms-user-service
       - lms-destination-service
+      - lms-xsuaa

@@ -6,7 +6,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.exception.response.ErrorResponse;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -16,7 +15,6 @@ import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
-@Profile("!cloud")
 public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
 
     private static final String UNAUTHORIZED_MESSAGE = "Unauthorized";
