@@ -5,6 +5,7 @@ import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.course.model.CourseEnrollment;
 import org.example.learningsystem.email.config.EmailServerProperties;
 import org.example.learningsystem.email.service.EmailService;
+import org.example.learningsystem.student.model.Student;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -26,6 +27,7 @@ public class CourseNotificationServiceImpl implements CourseNotificationService 
             
             Need help to get started? Reply to this email.
             """;
+
     private final EmailService emailService;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(EMAIL_DATE_TIME_FORMAT);
 
@@ -36,21 +38,21 @@ public class CourseNotificationServiceImpl implements CourseNotificationService 
         var endDateFormatted = formatDate(settings.getEndDate());
         var bodyFormatted = MAIL_BODY.formatted(course.getTitle(), startDateFormatted, endDateFormatted);
 
-        var students = course.getEnrollments()
+        course.getEnrollments()
                 .stream()
                 .map(CourseEnrollment::getStudent)
-                .toList();
+                .forEach(student -> sendNotification(student, bodyFormatted, emailServerProperties));
+    }
 
-        for (var student : students) {
-            var headerFormatted = MAIL_HEADER.formatted(student.getFirstName(), student.getLastName());
-            var messageFormatted = headerFormatted.concat(bodyFormatted);
+    private void sendNotification(Student student, String bodyFormatted, EmailServerProperties emailServerProperties) {
+        var headerFormatted = MAIL_HEADER.formatted(student.getFirstName(), student.getLastName());
+        var messageFormatted = headerFormatted.concat(bodyFormatted);
 
-            emailService.send(
-                    student.getEmail(),
-                    MAIL_SUBJECT,
-                    messageFormatted,
-                    emailServerProperties);
-        }
+        emailService.send(
+                student.getEmail(),
+                MAIL_SUBJECT,
+                messageFormatted,
+                emailServerProperties);
     }
 
     private String formatDate(LocalDateTime date) {

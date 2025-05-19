@@ -17,7 +17,7 @@ feature-flags:
 
 destination-service:
   uri: ${vcap.services.lms-destination-service.credentials.uri}
-  url: ${vcap.services.lms-destination-service.credentials.url}
+  token-url: ${vcap.services.lms-destination-service.credentials.url}
   client_id: ${vcap.services.lms-destination-service.credentials.clientid}
   client_secret: ${vcap.services.lms-destination-service.credentials.clientsecret}
 

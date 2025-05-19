@@ -1,13 +1,16 @@
 package org.example.learningsystem.btp.destination.dto;
 
-import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.HashMap;
-import java.util.Map;
+import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+import static com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 
+@JsonTypeInfo(use = Id.NAME, include = As.EXISTING_PROPERTY, property = "Type", visible = true)
+@JsonSubTypes({@JsonSubTypes.Type(value = MailDestinationDto.class, name = "MAIL")})
 @Getter
 @Setter
 public class DestinationDto {
@@ -16,10 +19,4 @@ public class DestinationDto {
     private String name;
     @JsonProperty("Type")
     private String type;
-    private Map<String, String> properties = new HashMap<>();
-
-    @JsonAnySetter
-    public void addProperty(String key, String value) {
-        properties.put(key, value);
-    }
 }

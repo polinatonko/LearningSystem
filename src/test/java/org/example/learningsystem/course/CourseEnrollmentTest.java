@@ -28,6 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class CourseEnrollmentTest {
 
     private static final String ENROLLMENT_URL = "/courses/{id}/students/{studentId}";
+
     @Autowired
     private MockMvc mockMvc;
     @Autowired

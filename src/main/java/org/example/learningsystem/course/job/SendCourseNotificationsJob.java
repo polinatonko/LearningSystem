@@ -26,9 +26,8 @@ public class SendCourseNotificationsJob {
         var emailProperties = emailServerPropertiesResolver.resolve();
         var upcomingCourses = courseService.getUpcoming(reminderProperties.getDaysBefore());
 
-        for (var course : upcomingCourses) {
-            courseNotificationService.sendCourseNotifications(course, emailProperties);
-        }
+        upcomingCourses.forEach(course ->
+                courseNotificationService.sendCourseNotifications(course, emailProperties));
     }
 
 }

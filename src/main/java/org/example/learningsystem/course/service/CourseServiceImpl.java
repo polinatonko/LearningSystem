@@ -22,6 +22,7 @@ import static java.time.LocalDate.now;
 public class CourseServiceImpl implements CourseService {
 
     private static final int DAYS_BEFORE = 1;
+
     private final CourseRepository courseRepository;
     private final EntityValidator<Course> courseValidator;
 
