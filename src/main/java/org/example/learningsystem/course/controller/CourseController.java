@@ -147,7 +147,7 @@ public class CourseController {
     @Operation(summary = "Delete course")
     @ApiResponse(responseCode = "204", description = "Course was deleted or doesn't exist")
     public void deleteById(@PathVariable UUID id) {
-        courseService.delete(id);
+        courseService.deleteById(id);
     }
 
     @DeleteMapping("/{id}/students/{studentId}")

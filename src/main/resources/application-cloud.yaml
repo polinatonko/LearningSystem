@@ -1,0 +1,32 @@
+spring:
+  datasource:
+    driver-class-name: com.sap.db.jdbc.Driver
+    url: ${vcap.services.lms-hana-schema.credentials.url}
+    username: ${vcap.services.lms-hana-schema.credentials.user}
+    password: ${vcap.services.lms-hana-schema.credentials.password}
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.HANAColumnStoreDialect
+
+feature-flags:
+  uri: ${vcap.services.lms-feature-flags.credentials.uri}
+  username: ${vcap.services.lms-feature-flags.credentials.username}
+  password: ${vcap.services.lms-feature-flags.credentials.password}
+
+destination-service:
+  uri: ${vcap.services.lms-destination-service.credentials.uri}
+  token-url: ${vcap.services.lms-destination-service.credentials.url}
+  client_id: ${vcap.services.lms-destination-service.credentials.clientid}
+  client_secret: ${vcap.services.lms-destination-service.credentials.clientsecret}
+
+mail:
+  from: ${vcap.services.lms-user-service.credentials.from}
+  user: ${vcap.services.lms-user-service.credentials.user}
+  password: ${vcap.services.lms-user-service.credentials.password}
+  host: ${vcap.services.lms-user-service.credentials.host}
+  port: ${vcap.services.lms-user-service.credentials.port}
+  protocol: ${vcap.services.lms-user-service.credentials.protocol}
+  auth: ${vcap.services.lms-user-service.credentials.auth}
+  start-tls-enable: ${vcap.services.lms-user-service.credentials.startTls}

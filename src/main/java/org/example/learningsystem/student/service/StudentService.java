@@ -11,11 +11,13 @@ public interface StudentService {
 
     Student getById(UUID id);
 
+    Student getByIdForUpdate(UUID id);
+
     List<Student> getAllByCourseId(UUID courseId);
 
     List<Student> getAll();
 
     Student update(Student student);
 
-    void delete(UUID id);
+    void deleteById(UUID id);
 }

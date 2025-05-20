@@ -1,4 +1,4 @@
-package org.example.learningsystem.core.swagger;
+package org.example.learningsystem.web.swagger;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;

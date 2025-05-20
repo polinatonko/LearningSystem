@@ -1,5 +1,6 @@
 package org.example.learningsystem.exception.handler;
 
+import org.example.learningsystem.btp.accesstoken.exception.InvalidApiResponseException;
 import org.example.learningsystem.exception.response.ErrorResponse;
 import org.example.learningsystem.exception.logic.EntityNotFoundException;
 import org.example.learningsystem.exception.validation.IllegalNullValueException;
@@ -15,9 +16,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 import java.util.stream.Collectors;
 
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.*;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -72,6 +71,13 @@ public class GlobalExceptionHandler {
     public ErrorResponse handleEntityNotFoundException(EntityNotFoundException e) {
         var errorMessage = e.getMessage();
         return toDto(errorMessage, NOT_FOUND);
+    }
+
+    @ExceptionHandler(InvalidApiResponseException.class)
+    @ResponseStatus(BAD_GATEWAY)
+    public ErrorResponse handleInvalidApiResponseException(InvalidApiResponseException e) {
+        var errorMessage = e.getMessage();
+        return toDto(errorMessage, BAD_GATEWAY);
     }
 
     private String buildFieldsValidationErrorMessage(MethodArgumentNotValidException e) {
