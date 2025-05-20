@@ -13,7 +13,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.math.BigDecimal;
 
@@ -26,11 +31,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = {LearningSystemApplication.class})
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
+@Testcontainers
 public class CourseEnrollmentTest {
 
     private static final String ENROLLMENT_URL = "/courses/{id}/students/{studentId}";
     private static final String username = "student1@gmail.com";
     private static final String password = "student1";
+    @Container
+    private static final PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:17.4");
 
     @Autowired
     private MockMvc mockMvc;
@@ -39,6 +47,13 @@ public class CourseEnrollmentTest {
     @Autowired
     private StudentService studentService;
     private Course course;
+
+    @DynamicPropertySource
+    static void configure(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", postgreSQLContainer::getJdbcUrl);
+        registry.add("spring.datasource.username", postgreSQLContainer::getUsername);
+        registry.add("spring.datasource.password", postgreSQLContainer::getPassword);
+    }
 
     @BeforeEach
     void setup() {
