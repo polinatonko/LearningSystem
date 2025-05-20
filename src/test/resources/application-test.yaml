@@ -1,6 +1,3 @@
 spring:
   config:
     import: secrets-local.yaml
-
-  datasource:
-    url: jdbc:h2:mem:db

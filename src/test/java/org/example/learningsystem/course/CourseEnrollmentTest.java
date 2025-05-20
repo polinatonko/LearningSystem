@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpHeaders;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -29,16 +28,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(classes = {LearningSystemApplication.class})
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 @ActiveProfiles("test")
 @Testcontainers
 public class CourseEnrollmentTest {
 
     private static final String ENROLLMENT_URL = "/courses/{id}/students/{studentId}";
-    private static final String username = "student1@gmail.com";
-    private static final String password = "student1";
     @Container
-    private static final PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:17.4");
+    private static final PostgreSQLContainer<?> POSTGRESQL_CONTAINER = new PostgreSQLContainer<>("postgres:17.4");
 
     @Autowired
     private MockMvc mockMvc;
@@ -50,9 +47,9 @@ public class CourseEnrollmentTest {
 
     @DynamicPropertySource
     static void configure(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", postgreSQLContainer::getJdbcUrl);
-        registry.add("spring.datasource.username", postgreSQLContainer::getUsername);
-        registry.add("spring.datasource.password", postgreSQLContainer::getPassword);
+        registry.add("spring.datasource.url", POSTGRESQL_CONTAINER::getJdbcUrl);
+        registry.add("spring.datasource.username", POSTGRESQL_CONTAINER::getUsername);
+        registry.add("spring.datasource.password", POSTGRESQL_CONTAINER::getPassword);
     }
 
     @BeforeEach
@@ -75,8 +72,7 @@ public class CourseEnrollmentTest {
         var studentId = savedStudent.getId();
 
         // when
-        mockMvc.perform(post(ENROLLMENT_URL, courseId, studentId)
-                        .headers(buildHeaders()))
+        mockMvc.perform(post(ENROLLMENT_URL, courseId, studentId))
                 .andExpect(status().isOk());
 
         // then
@@ -100,8 +96,7 @@ public class CourseEnrollmentTest {
         var savedStudent = studentService.create(student);
 
         // when, then
-        mockMvc.perform(post(ENROLLMENT_URL, savedCourse.getId(), savedStudent.getId())
-                        .headers(buildHeaders()))
+        mockMvc.perform(post(ENROLLMENT_URL, savedCourse.getId(), savedStudent.getId()))
                 .andExpect(status().isInternalServerError());
     }
 
@@ -116,8 +111,7 @@ public class CourseEnrollmentTest {
         var savedStudent = studentService.create(student);
 
         // when, then
-        mockMvc.perform(post(ENROLLMENT_URL, savedCourse.getId(), savedStudent.getId())
-                        .headers(buildHeaders()))
+        mockMvc.perform(post(ENROLLMENT_URL, savedCourse.getId(), savedStudent.getId()))
                 .andExpect(status().isInternalServerError());
     }
 
@@ -134,11 +128,9 @@ public class CourseEnrollmentTest {
         var studentId = savedStudent.getId();
 
         // when
-        mockMvc.perform(post(ENROLLMENT_URL, courseId, studentId)
-                        .headers(buildHeaders()))
+        mockMvc.perform(post(ENROLLMENT_URL, courseId, studentId))
                 .andExpect(status().isOk());
-        mockMvc.perform(delete(ENROLLMENT_URL, courseId, studentId)
-                        .headers(buildHeaders()))
+        mockMvc.perform(delete(ENROLLMENT_URL, courseId, studentId))
                 .andExpect(status().isNoContent());
 
         // then
@@ -146,9 +138,4 @@ public class CourseEnrollmentTest {
         assertEquals(0, courseStudents.size());
     }
 
-    private HttpHeaders buildHeaders() {
-        var headers = new HttpHeaders();
-        headers.setBasicAuth(username, password);
-        return headers;
-    }
 }
