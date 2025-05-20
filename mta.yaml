@@ -1,0 +1,61 @@
+_schema-version: "3.3"
+ID: mta_lms
+version: 1.1.0
+
+modules:
+  - name: lms
+    type: java
+    path: ./target/learning-system-1.1.0.jar
+    parameters:
+      buildpack: sap_java_buildpack_jakarta
+      memory: 1500M
+    build-parameters:
+      builder: custom
+      commands: []
+    properties:
+      SPRING_PROFILES_ACTIVE: cloud
+      JBP_CONFIG_COMPONENTS: "jres: ['com.sap.xs.java.buildpack.jdk.SAPMachineJDK']"
+      JBP_CONFIG_JAVA_OPTS: "[java_opts: '-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000']"
+      JBP_CONFIG_SAP_MACHINE_JDK: "{ version: 21.+ }"
+    requires:
+      - name: lms-logs
+      - name: lms-hana-schema
+      - name: lms-feature-flags
+      - name: lms-user-service
+      - name: lms-destination-service
+      - name: lms-xsuaa
+
+resources:
+  - name: lms-xsuaa
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: xs-security.json
+
+  - name: lms-destination-service
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite
+
+  - name: lms-feature-flags
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: feature-flags
+      service-plan: lite
+
+  - name: lms-hana-schema
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: hana
+      service-plan: schema
+
+  - name: lms-logs
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: application-logs
+      service-plan: lite
+
+  - name: lms-user-service
+    type: org.cloudfoundry.user-provided-service

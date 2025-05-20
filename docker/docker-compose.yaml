@@ -7,15 +7,3 @@ services:
       POSTGRES_DB: lms
     ports:
       - "5432:5432"
-
-  lms:
-    build: ..
-    ports:
-      - "8080:8080"
-    depends_on:
-      - db
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/lms
-      SPRING_DATASOURCE_USERNAME: test
-      SPRING_DATASOURCE_PASSWORD: test
-      SPRING_PROFILES_ACTIVE: local

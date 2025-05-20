@@ -23,6 +23,7 @@
 		<git.commit-id.version>9.0.1</git.commit-id.version>
 		<ngdbc.version>2.24.7</ngdbc.version>
 		<liquibase-hanadb.version>4.31.1</liquibase-hanadb.version>
+		<sap.cloud.security.version>3.6.0</sap.cloud.security.version>
 	</properties>
 
 	<dependencies>
@@ -91,8 +92,9 @@
 			<artifactId>spring-security-oauth2-core</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+			<groupId>com.sap.cloud.security</groupId>
+			<artifactId>resourceserver-security-spring-boot-starter</artifactId>
+			<version>${sap.cloud.security.version}</version>
 		</dependency>
 		<!-- Docs -->
 		<dependency>
