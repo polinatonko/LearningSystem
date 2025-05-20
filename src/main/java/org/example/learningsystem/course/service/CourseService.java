@@ -11,6 +11,8 @@ public interface CourseService {
 
     Course getById(UUID id);
 
+    Course getByIdForUpdate(UUID id);
+
     List<Course> getAll();
 
     List<Course> getUpcoming(int days);

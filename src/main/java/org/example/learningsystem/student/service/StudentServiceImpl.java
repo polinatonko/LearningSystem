@@ -35,6 +35,12 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    @Cacheable
+    public Student getByIdForUpdate(UUID id) {
+        return findByIdForUpdate(id);
+    }
+
+    @Override
     public List<Student> getAllByCourseId(UUID courseId) {
         return studentRepository.findAllByEnrollmentsCourseId(courseId);
     }
@@ -60,6 +66,11 @@ public class StudentServiceImpl implements StudentService {
 
     private Student findById(UUID id) {
         return studentRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Student.class.getName(), id));
+    }
+
+    private Student findByIdForUpdate(UUID id) {
+        return studentRepository.findByIdForUpdate(id)
                 .orElseThrow(() -> new EntityNotFoundException(Student.class.getName(), id));
     }
 }

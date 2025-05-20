@@ -39,6 +39,12 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    @Cacheable
+    public Course getByIdForUpdate(UUID id) {
+        return findByIdForUpdate(id);
+    }
+
+    @Override
     public List<Course> getAll() {
         return courseRepository.findAll();
     }
@@ -66,6 +72,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     private Course findById(UUID id) {
+        return courseRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Course.class.getName(), id));
+    }
+
+    private Course findByIdForUpdate(UUID id) {
         return courseRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(Course.class.getName(), id));
     }
