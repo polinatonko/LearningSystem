@@ -18,10 +18,12 @@ import java.io.IOException;
 public class AccessDeniedHandlerImpl implements AccessDeniedHandler {
 
     private static final String ACCESS_DENIED_MESSAGE = "Access denied";
+
     private final ObjectMapper objectMapper;
 
     @Override
-    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
+    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException)
+            throws IOException, ServletException {
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         var errorResponse = new ErrorResponse(ACCESS_DENIED_MESSAGE, HttpStatus.FORBIDDEN.value());
         response.getWriter().write(objectMapper.writeValueAsString(errorResponse));

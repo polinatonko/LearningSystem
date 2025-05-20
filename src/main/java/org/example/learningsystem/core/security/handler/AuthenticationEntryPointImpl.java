@@ -18,10 +18,12 @@ import java.io.IOException;
 public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
 
     private static final String UNAUTHORIZED_MESSAGE = "Unauthorized";
+
     private final ObjectMapper objectMapper;
 
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
+            throws IOException, ServletException {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         var errorResponse = new ErrorResponse(UNAUTHORIZED_MESSAGE, HttpStatus.UNAUTHORIZED.value());
         response.getWriter().write(objectMapper.writeValueAsString(errorResponse));

@@ -26,13 +26,13 @@ public class SecurityConfigurationLocal {
     public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationEntryPoint authenticationEntryPoint) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/actuator/**").hasRole(UserRole.MANAGER.toString())
                         .anyRequest().authenticated())
-                .userDetailsService(userDetailsService)
-                .sessionManagement(session ->
-                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .httpBasic(Customizer.withDefaults())
+                .userDetailsService(userDetailsService)
                 .exceptionHandling(exceptionHandler -> exceptionHandler
                         .accessDeniedHandler(accessDeniedHandler)
                         .authenticationEntryPoint(authenticationEntryPoint))

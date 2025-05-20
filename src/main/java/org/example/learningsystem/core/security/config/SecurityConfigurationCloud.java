@@ -31,8 +31,8 @@ import static com.sap.cloud.security.config.ServiceConstants.XSUAA.APP_ID;
 public class SecurityConfigurationCloud {
 
     private final AccessDeniedHandler accessDeniedHandler;
-    private final XsuaaServiceConfiguration xsuaaServiceConfiguration;
     private final UserDetailsService userDetailsService;
+    private final XsuaaServiceConfiguration xsuaaServiceConfiguration;
 
     @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
     private String issuerUri;
