@@ -19,7 +19,7 @@ public class DestinationServiceProperties {
     @NotNull
     private String uri;
     @NotNull
-    private String url;
+    private String tokenUrl;
     @NotNull
     private String clientId;
     @NotNull

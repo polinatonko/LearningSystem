@@ -31,6 +31,7 @@ public class CourseEnrollmentTest {
     private static final String ENROLLMENT_URL = "/courses/{id}/students/{studentId}";
     private static final String username = "student1@gmail.com";
     private static final String password = "student1";
+
     @Autowired
     private MockMvc mockMvc;
     @Autowired

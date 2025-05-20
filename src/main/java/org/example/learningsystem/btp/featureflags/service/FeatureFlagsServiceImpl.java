@@ -1,5 +1,6 @@
 package org.example.learningsystem.btp.featureflags.service;
 
+import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.btp.featureflags.exception.FeatureFlagTypeMismatchException;
 import org.example.learningsystem.btp.featureflags.config.FeatureFlagsProperties;
 import org.example.learningsystem.btp.featureflags.dto.FlagDto;
@@ -17,19 +18,15 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
 
 @Service
+@RequiredArgsConstructor
 @Profile("cloud")
 public class FeatureFlagsServiceImpl implements FeatureFlagsService {
 
     private static final String BOOLEAN_FLAG_TYPE = "BOOLEAN";
     private static final String EVALUATE_FLAG_URI = "%s/api/v2/evaluate/%s";
+
     private final FeatureFlagsProperties properties;
     private final RestClient restClient;
-
-    public FeatureFlagsServiceImpl(FeatureFlagsProperties featureFlagsProperties,
-                                   RestClient.Builder restClientBuilder) {
-        properties = featureFlagsProperties;
-        restClient = restClientBuilder.build();
-    }
 
     @Override
     @Retryable(retryFor = {

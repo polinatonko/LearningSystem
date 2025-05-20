@@ -22,6 +22,7 @@ import static java.time.LocalDate.now;
 public class CourseServiceImpl implements CourseService {
 
     private static final int DAYS_BEFORE = 1;
+
     private final CourseRepository courseRepository;
     private final EntityValidator<Course> courseValidator;
 
@@ -35,6 +36,12 @@ public class CourseServiceImpl implements CourseService {
     @Cacheable
     public Course getById(UUID id) {
         return findById(id);
+    }
+
+    @Override
+    @Cacheable
+    public Course getByIdForUpdate(UUID id) {
+        return findByIdForUpdate(id);
     }
 
     @Override
@@ -65,6 +72,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     private Course findById(UUID id) {
+        return courseRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Course.class.getName(), id));
+    }
+
+    private Course findByIdForUpdate(UUID id) {
         return courseRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(Course.class.getName(), id));
     }
