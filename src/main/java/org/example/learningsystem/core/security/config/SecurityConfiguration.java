@@ -1,27 +1,28 @@
 package org.example.learningsystem.core.security.config;
 
-import org.example.learningsystem.core.security.role.UserRole;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
+import static org.example.learningsystem.core.security.role.UserRole.MANAGER;
+import static org.example.learningsystem.core.security.role.UserRole.STUDENT;
+
 @Configuration
+@RequiredArgsConstructor
 public class SecurityConfiguration {
+
+    private final BasicAuthenticationCredentials basicAuthCredentialsConfiguration;
 
     @Bean
     public UserDetailsService userDetailsService() {
-        var managerDetails = User.withUsername("manager@gmail.com")
-                .password(passwordEncoder().encode("manager"))
-                .roles(UserRole.MANAGER.toString())
-                .build();
-        var studentDetails = User.withUsername("student1@gmail.com")
-                .password(passwordEncoder().encode("student1"))
-                .roles(UserRole.STUDENT.toString())
-                .build();
+        var managerDetails = buildManagerDetails();
+        var studentDetails = buildStudentDetails();
 
         return new InMemoryUserDetailsManager(managerDetails, studentDetails);
     }
@@ -29,6 +30,24 @@ public class SecurityConfiguration {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    private UserDetails buildManagerDetails() {
+        var managerCredentials = basicAuthCredentialsConfiguration.getManager();
+
+        return User.withUsername(managerCredentials.getUsername())
+                .password(passwordEncoder().encode(managerCredentials.getPassword()))
+                .roles(MANAGER.toString())
+                .build();
+    }
+
+    private UserDetails buildStudentDetails() {
+        var studentCredentials = basicAuthCredentialsConfiguration.getStudent();
+
+        return User.withUsername(studentCredentials.getUsername())
+                .password(passwordEncoder().encode(studentCredentials.getPassword()))
+                .roles(STUDENT.toString())
+                .build();
     }
 
 }

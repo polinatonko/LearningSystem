@@ -5,11 +5,6 @@ spring:
     username: ${vcap.services.lms-hana-schema.credentials.user}
     password: ${vcap.services.lms-hana-schema.credentials.password}
 
-  jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.HANAColumnStoreDialect
-
   security:
     oauth2:
       resourceserver:

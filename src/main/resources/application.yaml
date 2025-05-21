@@ -9,9 +9,24 @@ spring:
   liquibase:
     change-log: classpath:db/changelog/app_migrations.xml
 
-springdoc:
-  override-with-generic-response: false
-  show-actuator: true
+basic-authentication:
+  manager:
+    username: manager@gmail.com
+    password: manager
+
+  student:
+    username: student1@gmail.com
+    password: student1
+
+course:
+  reminder:
+    cron: "0 0 9 * * *"
+    daysBefore: 1
+
+info:
+  application:
+    name: LearningManagementSystem
+    description: API provides a functionality for managing the learning system and allows students to enroll in variety of courses
 
 management:
   endpoints:
@@ -25,12 +40,6 @@ management:
     env:
       enabled: true
 
-info:
-  application:
-    name: LearningManagementSystem
-    description: API provides a functionality for managing the learning system and allows students to enroll in variety of courses
-
-course:
-  reminder:
-    cron: "0 0 9 * * *"
-    daysBefore: 1
+springdoc:
+  override-with-generic-response: false
+  show-actuator: true

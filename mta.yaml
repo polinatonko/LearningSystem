@@ -1,13 +1,16 @@
 _schema-version: "3.3"
 ID: mta_lms
-version: 1.1.0
+version: 1.2.0
 
 modules:
   - name: lms
     type: java
-    path: ./target/learning-system-1.1.0.jar
+    path: ./target/learning-system-1.2.0.jar
     parameters:
       buildpack: sap_java_buildpack_jakarta
+      health-check-type: http
+      health-check-http-endpoint: /actuator/health
+      health-check-timeout: 30
       memory: 1500M
     build-parameters:
       builder: custom
