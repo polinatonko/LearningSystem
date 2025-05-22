@@ -5,6 +5,7 @@ import org.example.learningsystem.builder.CourseBuilder;
 import org.example.learningsystem.builder.StudentBuilder;
 import org.example.learningsystem.config.PostgreSQLConfiguration;
 import org.example.learningsystem.core.security.config.BasicAuthenticationCredentials;
+import org.example.learningsystem.core.security.config.UserCredentials;
 import org.example.learningsystem.course.service.CourseService;
 import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.student.service.StudentService;
@@ -66,10 +67,11 @@ public class CourseEnrollmentTest {
                 .build();
         var savedStudent = studentService.create(student);
         var studentId = savedStudent.getId();
+        var managerCredentials = basicAuthenticationCredentials.getManager();
 
         // when
         mockMvc.perform(post(ENROLLMENT_URL, courseId, studentId)
-                        .headers(buildHeaders()))
+                        .headers(buildHeaders(managerCredentials)))
                 .andExpect(status().isOk());
 
         // then
@@ -91,10 +93,11 @@ public class CourseEnrollmentTest {
 
         var student = new StudentBuilder().build();
         var savedStudent = studentService.create(student);
+        var managerCredentials = basicAuthenticationCredentials.getManager();
 
         // when, then
         mockMvc.perform(post(ENROLLMENT_URL, savedCourse.getId(), savedStudent.getId())
-                        .headers(buildHeaders()))
+                        .headers(buildHeaders(managerCredentials)))
                 .andExpect(status().isInternalServerError());
     }
 
@@ -107,10 +110,11 @@ public class CourseEnrollmentTest {
                 .coins(savedCourse.getPrice().subtract(BigDecimal.ONE))
                 .build();
         var savedStudent = studentService.create(student);
+        var managerCredentials = basicAuthenticationCredentials.getManager();
 
         // when, then
         mockMvc.perform(post(ENROLLMENT_URL, savedCourse.getId(), savedStudent.getId())
-                        .headers(buildHeaders()))
+                        .headers(buildHeaders(managerCredentials)))
                 .andExpect(status().isInternalServerError());
     }
 
@@ -136,13 +140,14 @@ public class CourseEnrollmentTest {
                 .build();
         var savedStudent = studentService.create(student);
         var studentId = savedStudent.getId();
+        var managerCredentials = basicAuthenticationCredentials.getManager();
 
         // when
         mockMvc.perform(post(ENROLLMENT_URL, courseId, studentId)
-                        .headers(buildHeaders()))
+                        .headers(buildHeaders(managerCredentials)))
                 .andExpect(status().isOk());
         mockMvc.perform(delete(ENROLLMENT_URL, courseId, studentId)
-                        .headers(buildHeaders()))
+                        .headers(buildHeaders(managerCredentials)))
                 .andExpect(status().isNoContent());
 
         // then
@@ -161,10 +166,9 @@ public class CourseEnrollmentTest {
                 .andExpect(status().isUnauthorized());
     }
 
-    private HttpHeaders buildHeaders() {
-        var managerCredentials = basicAuthenticationCredentials.getManager();
+    private HttpHeaders buildHeaders(UserCredentials userCredentials) {
         var headers = new HttpHeaders();
-        headers.setBasicAuth(managerCredentials.getUsername(), managerCredentials.getPassword());
+        headers.setBasicAuth(userCredentials.getUsername(), userCredentials.getPassword());
         return headers;
     }
 

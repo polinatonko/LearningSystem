@@ -1,7 +1,6 @@
 package org.example.learningsystem.core.security.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -23,9 +22,11 @@ public class AccessDeniedHandlerImpl implements AccessDeniedHandler {
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException)
-            throws IOException, ServletException {
+            throws IOException {
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         var errorResponse = new ErrorResponse(ACCESS_DENIED_MESSAGE, HttpStatus.FORBIDDEN.value());
-        response.getWriter().write(objectMapper.writeValueAsString(errorResponse));
+        var writer = response.getWriter();
+        writer.write(objectMapper.writeValueAsString(errorResponse));
     }
+
 }

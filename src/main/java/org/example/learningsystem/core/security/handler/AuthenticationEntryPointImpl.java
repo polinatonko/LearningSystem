@@ -1,7 +1,6 @@
 package org.example.learningsystem.core.security.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -23,9 +22,11 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
-            throws IOException, ServletException {
+            throws IOException {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         var errorResponse = new ErrorResponse(UNAUTHORIZED_MESSAGE, HttpStatus.UNAUTHORIZED.value());
-        response.getWriter().write(objectMapper.writeValueAsString(errorResponse));
+        var writer = response.getWriter();
+        writer.write(objectMapper.writeValueAsString(errorResponse));
     }
+
 }

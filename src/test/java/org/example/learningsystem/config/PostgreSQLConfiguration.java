@@ -10,7 +10,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 @RequiredArgsConstructor
 public class PostgreSQLConfiguration {
 
-    private final DatasourceProperties dataSourceProperties;
+    private final DataSourceProperties dataSourceProperties;
 
     @Bean
     @ServiceConnection

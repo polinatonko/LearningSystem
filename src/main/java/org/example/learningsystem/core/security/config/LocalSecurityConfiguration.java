@@ -27,6 +27,7 @@ public class LocalSecurityConfiguration {
     private static final int API_FILTER_CHAIN_ORDER = 2;
     private static final String ACTUATOR_ENDPOINTS = "/actuator/**";
     private static final String ACTUATOR_HEALTH_ENDPOINT = "/actuator/health";
+    private static final String ALL_ENDPOINTS = "/**";
 
     private final AccessDeniedHandler accessDeniedHandler;
     private final AuthenticationEntryPoint authenticationEntryPoint;
@@ -50,7 +51,7 @@ public class LocalSecurityConfiguration {
     public SecurityFilterChain apiSecurityFilterChain(
             HttpSecurity http, AuthenticationEntryPoint authenticationEntryPoint) throws Exception {
         return http
-                .securityMatcher("/**")
+                .securityMatcher(ALL_ENDPOINTS)
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(this::configureSession)
                 .authorizeHttpRequests(this::configureApiAuthorization)

@@ -29,6 +29,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 public class CloudApiSecurityConfiguration {
 
     private static final int API_FILTER_CHAIN_ORDER = 2;
+    private static final String ALL_ENDPOINTS = "/**";
 
     private final AccessDeniedHandler accessDeniedHandler;
     private final AuthenticationEntryPoint authenticationEntryPoint;
@@ -39,7 +40,7 @@ public class CloudApiSecurityConfiguration {
     public SecurityFilterChain apiSecurityFilterChain(
             HttpSecurity http, AuthenticationEntryPoint authenticationEntryPoint) throws Exception {
         return http
-                .securityMatcher("/**")
+                .securityMatcher(ALL_ENDPOINTS)
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(this::configureSession)
                 .authorizeHttpRequests(this::configureAuthorization)

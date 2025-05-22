@@ -2,10 +2,12 @@ spring:
   application:
     name: LearningManagementSystem
     version: @project.version@
+
   jpa:
     hibernate:
       ddl-auto: none
     open-in-view: false
+
   liquibase:
     change-log: classpath:db/changelog/app_migrations.xml
 
@@ -32,10 +34,12 @@ management:
   endpoints:
     web:
       exposure:
-        include: caches,health,info
+        include: caches,health,info,loggers
+
   endpoint:
     health:
       show-details: always
+
   info:
     env:
       enabled: true
