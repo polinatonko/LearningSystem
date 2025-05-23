@@ -35,8 +35,8 @@ public class SecurityConfiguration {
     private UserDetails buildManagerDetails() {
         var managerCredentials = basicAuthCredentialsConfiguration.getManager();
 
-        return User.withUsername(managerCredentials.getUsername())
-                .password(passwordEncoder().encode(managerCredentials.getPassword()))
+        return User.withUsername(managerCredentials.username())
+                .password(passwordEncoder().encode(managerCredentials.password()))
                 .roles(MANAGER.toString())
                 .build();
     }
@@ -44,8 +44,8 @@ public class SecurityConfiguration {
     private UserDetails buildStudentDetails() {
         var studentCredentials = basicAuthCredentialsConfiguration.getStudent();
 
-        return User.withUsername(studentCredentials.getUsername())
-                .password(passwordEncoder().encode(studentCredentials.getPassword()))
+        return User.withUsername(studentCredentials.username())
+                .password(passwordEncoder().encode(studentCredentials.password()))
                 .roles(STUDENT.toString())
                 .build();
     }
