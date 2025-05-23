@@ -168,7 +168,7 @@ public class CourseEnrollmentTest {
 
     private HttpHeaders buildHeaders(UserCredentials userCredentials) {
         var headers = new HttpHeaders();
-        headers.setBasicAuth(userCredentials.getUsername(), userCredentials.getPassword());
+        headers.setBasicAuth(userCredentials.username(), userCredentials.password());
         return headers;
     }
 
