@@ -84,7 +84,7 @@ public class StudentController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(NO_CONTENT)
-    @Operation(summary = "Delete course")
+    @Operation(summary = "Delete student")
     @ApiResponse(responseCode = "204", description = "Student was deleted or doesn't exist")
     public void deleteById(@PathVariable UUID id) {
         studentService.deleteById(id);
