@@ -29,6 +29,8 @@ public record StudentRequestDto(
         @Schema(pattern = "YYYY/MM/dd")
         LocalDate dateOfBirth,
         @Min(0)
-        BigDecimal coins
+        BigDecimal coins,
+        @Size(max = 3)
+        String language
 ) {
 }

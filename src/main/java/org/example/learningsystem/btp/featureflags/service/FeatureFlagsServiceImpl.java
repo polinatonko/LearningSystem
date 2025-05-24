@@ -13,7 +13,6 @@ import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestClient;
 
 import static java.util.Objects.isNull;
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
 
@@ -38,10 +37,6 @@ public class FeatureFlagsServiceImpl implements FeatureFlagsService {
     }
 
     @Override
-    @Retryable(retryFor = {
-            HttpServerErrorException.BadGateway.class,
-            HttpServerErrorException.GatewayTimeout.class,
-            HttpServerErrorException.ServiceUnavailable.class})
     public boolean getBooleanByName(String name) {
         var flagResponse = getByName(name);
 
@@ -63,14 +58,21 @@ public class FeatureFlagsServiceImpl implements FeatureFlagsService {
 
     private FlagDto tryGetFlag(String name) {
         var path = EVALUATE_FLAG_URI.formatted(properties.getUri(), name);
-        var authorizationHeader = HttpHeaders.encodeBasicAuth(
-                properties.getUsername(), properties.getPassword(), null);
+        var requestHeaders = buildHeaders();
 
         return restClient.get()
                 .uri(path)
-                .header(AUTHORIZATION, authorizationHeader)
+                .headers(headers -> headers.addAll(requestHeaders))
                 .retrieve()
                 .body(FlagDto.class);
+    }
+
+    private HttpHeaders buildHeaders() {
+        var authorizationHeader = HttpHeaders.encodeBasicAuth(
+                properties.getUsername(), properties.getPassword(), null);
+        var headers = new HttpHeaders();
+        headers.setBasicAuth(authorizationHeader);
+        return headers;
     }
 
 }

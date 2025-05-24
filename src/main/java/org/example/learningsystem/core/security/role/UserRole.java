@@ -1,5 +1,8 @@
 package org.example.learningsystem.core.security.role;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public enum UserRole {
 
     MANAGER("Manager"),
@@ -7,10 +10,6 @@ public enum UserRole {
     STUDENT("Student");
 
     final String name;
-
-    UserRole(String name) {
-        this.name = name;
-    }
 
     @Override
     public String toString() {

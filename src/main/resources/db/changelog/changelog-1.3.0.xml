@@ -44,4 +44,14 @@
 
     </changeSet>
 
+    <changeSet id="changeset-1.3.0_003" author="polinatonko">
+
+        <addColumn tableName="student">
+            <column name="language" type="varchar(3)" defaultValue="en">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+
+    </changeSet>
+
 </databaseChangeLog>

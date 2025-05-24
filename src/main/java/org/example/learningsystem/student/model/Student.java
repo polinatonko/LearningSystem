@@ -38,6 +38,7 @@ public class Student {
     private String email;
     private LocalDate dateOfBirth;
     private BigDecimal coins;
+    private String language;
     @OneToMany(mappedBy = "student", cascade = ALL)
     private Set<CourseEnrollment> enrollments;
 

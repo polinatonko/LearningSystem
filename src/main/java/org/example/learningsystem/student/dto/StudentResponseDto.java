@@ -22,6 +22,8 @@ public record StudentResponseDto(
         @JsonFormat(pattern = DATE_FORMAT)
         LocalDate dateOfBirth,
         @Schema(minimum = "0")
-        BigDecimal coins
+        BigDecimal coins,
+        @Schema(maxLength = 3, examples = {"en", "840"})
+        String language
 ) {
 }
