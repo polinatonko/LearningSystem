@@ -13,6 +13,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.example.learningsystem.core.audit.model.AuditableEntity;
 import org.example.learningsystem.course.model.Course;
 
 import static jakarta.persistence.GenerationType.UUID;
@@ -23,9 +24,9 @@ import static jakarta.persistence.InheritanceType.JOINED;
 @Inheritance(strategy = JOINED)
 @Getter
 @Setter
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = "id", callSuper = false)
 @ToString(exclude = "course")
-public class Lesson {
+public class Lesson extends AuditableEntity {
 
     @Id
     @GeneratedValue(strategy = UUID)

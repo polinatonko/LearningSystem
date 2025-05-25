@@ -18,6 +18,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.example.learningsystem.core.audit.model.AuditableEntity;
 import org.hibernate.annotations.DynamicInsert;
 
 @Entity
@@ -25,12 +26,12 @@ import org.hibernate.annotations.DynamicInsert;
 @Builder
 @Getter
 @Setter
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = "id", callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
 @DynamicInsert
-public class CourseSettings {
+public class CourseSettings extends AuditableEntity {
 
     @Id
     private UUID id;

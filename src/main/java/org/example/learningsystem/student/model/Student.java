@@ -15,6 +15,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.example.learningsystem.core.audit.model.AuditableEntity;
 import org.example.learningsystem.course.model.CourseEnrollment;
 import org.hibernate.annotations.DynamicInsert;
 
@@ -24,11 +25,11 @@ import static jakarta.persistence.GenerationType.UUID;
 @Entity
 @Getter
 @Setter
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = "id", callSuper = false)
 @NoArgsConstructor
 @ToString(exclude = "enrollments")
 @DynamicInsert
-public class Student {
+public class Student extends AuditableEntity {
 
     @Id
     @GeneratedValue(strategy = UUID)
