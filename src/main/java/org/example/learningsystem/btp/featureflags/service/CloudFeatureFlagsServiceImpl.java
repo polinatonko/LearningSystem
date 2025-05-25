@@ -19,7 +19,7 @@ import static org.springframework.http.HttpStatus.OK;
 @Service
 @RequiredArgsConstructor
 @Profile("cloud")
-public class FeatureFlagsServiceImpl implements FeatureFlagsService {
+public class CloudFeatureFlagsServiceImpl implements FeatureFlagsService {
 
     private static final String BOOLEAN_FLAG_TYPE = "BOOLEAN";
     private static final String EVALUATE_FLAG_URI = "%s/api/v2/evaluate/%s";

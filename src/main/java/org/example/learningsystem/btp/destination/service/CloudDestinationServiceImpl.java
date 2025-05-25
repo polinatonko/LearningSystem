@@ -15,7 +15,7 @@ import org.springframework.web.client.RestClient;
 @Service
 @RequiredArgsConstructor
 @Profile("cloud")
-public class DestinationServiceImpl implements DestinationService {
+public class CloudDestinationServiceImpl implements DestinationService {
 
     private static final String DESTINATION_URI = "%s/destination-configuration/v1/instanceDestinations/%s";
 

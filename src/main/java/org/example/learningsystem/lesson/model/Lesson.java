@@ -16,6 +16,7 @@ import lombok.ToString;
 import org.example.learningsystem.core.audit.model.AuditableEntity;
 import org.example.learningsystem.course.model.Course;
 
+import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.UUID;
 import static jakarta.persistence.InheritanceType.JOINED;
 
@@ -33,6 +34,6 @@ public class Lesson extends AuditableEntity {
     private UUID id;
     private String title;
     private Integer duration;
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = LAZY)
     private Course course;
 }

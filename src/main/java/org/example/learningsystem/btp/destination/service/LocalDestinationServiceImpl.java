@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Profile("!cloud")
-public class DestinationServiceLocalImpl implements DestinationService {
+public class LocalDestinationServiceImpl implements DestinationService {
 
     @Override
     public DestinationDto getByName(String name) {

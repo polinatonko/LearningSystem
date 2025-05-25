@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Profile("!cloud")
-public class FeatureFlagsServiceLocalImpl implements FeatureFlagsService {
+public class LocalFeatureFlagsServiceImpl implements FeatureFlagsService {
 
     @Override
     public FlagDto getByName(String name) {

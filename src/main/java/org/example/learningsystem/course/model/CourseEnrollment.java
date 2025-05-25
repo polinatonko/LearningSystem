@@ -12,6 +12,8 @@ import lombok.Setter;
 import lombok.ToString;
 import org.example.learningsystem.student.model.Student;
 
+import static jakarta.persistence.FetchType.LAZY;
+
 @Entity
 @Table(name = "course_student")
 @Getter
@@ -24,10 +26,10 @@ public class CourseEnrollment {
     @EmbeddedId
     private CourseEnrollmentId id;
 
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @MapsId("courseId")
     private Course course;
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @MapsId("studentId")
     private Student student;
 

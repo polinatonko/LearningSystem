@@ -1,6 +1,7 @@
 package org.example.learningsystem.course.job.notifications;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.course.model.CourseEnrollment;
 import org.example.learningsystem.email.config.EmailServerProperties;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CourseEmailNotificationsService implements CourseNotificationsService {
 
     private final CourseNotificationBuilder courseNotificationBuilder;
@@ -33,7 +35,7 @@ public class CourseEmailNotificationsService implements CourseNotificationsServi
 
     private void sendNotification(Course course, Student student, EmailServerProperties emailServerProperties) {
         var notification = courseNotificationBuilder.build(course, student);
-        System.out.println(notification.message());
+        log.info("Prepared email for {}: {}", student.getEmail(), notification.message());
         emailService.send(student.getEmail(), notification.subject(), notification.message(), emailServerProperties);
     }
 
