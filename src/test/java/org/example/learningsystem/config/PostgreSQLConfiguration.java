@@ -10,13 +10,16 @@ import org.testcontainers.containers.PostgreSQLContainer;
 @RequiredArgsConstructor
 public class PostgreSQLConfiguration {
 
+    private static final String POSTGRESQL_IMAGE = "postgres:17.4";
+    private static final String DATABASE_NAME = "lms";
+
     private final DataSourceProperties dataSourceProperties;
 
     @Bean
     @ServiceConnection
     public PostgreSQLContainer<?> postgreSQLContainer() {
-        return new PostgreSQLContainer<>("postgres:17.4")
-                .withDatabaseName("lms")
+        return new PostgreSQLContainer<>(POSTGRESQL_IMAGE)
+                .withDatabaseName(DATABASE_NAME)
                 .withUsername(dataSourceProperties.getUsername())
                 .withPassword(dataSourceProperties.getPassword());
     }

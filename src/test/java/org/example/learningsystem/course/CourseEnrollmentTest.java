@@ -15,16 +15,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
+import static org.example.learningsystem.util.TestUtils.CLEAN_UP_SQL;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.AFTER_TEST_METHOD;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -57,6 +61,7 @@ public class CourseEnrollmentTest {
     }
 
     @Test
+    @Sql(scripts = CLEAN_UP_SQL, executionPhase = AFTER_TEST_METHOD)
     void enrollStudent_givenCourseAndStudent_shouldSuccessfullyEnrollStudentAndReturn200() throws Exception {
         // given
         var savedCourse = courseService.create(course);
@@ -68,6 +73,7 @@ public class CourseEnrollmentTest {
         var savedStudent = studentService.create(student);
         var studentId = savedStudent.getId();
         var managerCredentials = basicAuthenticationCredentials.getManager();
+        var pageable = PageRequest.of(0, 1);
 
         // when
         mockMvc.perform(post(ENROLLMENT_URL, courseId, studentId)
@@ -75,9 +81,9 @@ public class CourseEnrollmentTest {
                 .andExpect(status().isOk());
 
         // then
-        var courseStudents = studentService.getAllByCourseId(courseId);
-        assertEquals(1, courseStudents.size());
-        var updatedStudent = courseStudents.getFirst();
+        var courseStudents = studentService.getAllByCourseId(courseId, pageable);
+        assertEquals(1, courseStudents.getTotalElements());
+        var updatedStudent = courseStudents.getContent().getFirst();
         assertEquals(studentId, updatedStudent.getId());
 
         assertNotEquals(student.getCoins(), updatedStudent.getCoins());
@@ -86,6 +92,7 @@ public class CourseEnrollmentTest {
     }
 
     @Test
+    @Sql(scripts = CLEAN_UP_SQL, executionPhase = AFTER_TEST_METHOD)
     void enrollStudent_givenCourseAndStudent_shouldThrowEnrollmentDeniedExceptionAndReturn500() throws Exception {
         // given
         course.getSettings().setIsPublic(false);
@@ -102,6 +109,7 @@ public class CourseEnrollmentTest {
     }
 
     @Test
+    @Sql(scripts = CLEAN_UP_SQL, executionPhase = AFTER_TEST_METHOD)
     void enrollStudent_givenCourseAndStudent_shouldThrowInsufficientFundsExceptionAndReturn500() throws Exception {
         // given
         var savedCourse = courseService.create(course);
@@ -130,6 +138,7 @@ public class CourseEnrollmentTest {
     }
 
     @Test
+    @Sql(scripts = CLEAN_UP_SQL, executionPhase = AFTER_TEST_METHOD)
     void unenrollStudent_givenCourseAndStudent_shouldSuccessfullyUnenrollStudentAndReturn204() throws Exception {
         // given
         var savedCourse = courseService.create(course);
@@ -141,6 +150,7 @@ public class CourseEnrollmentTest {
         var savedStudent = studentService.create(student);
         var studentId = savedStudent.getId();
         var managerCredentials = basicAuthenticationCredentials.getManager();
+        var pageable = PageRequest.of(0, 10);
 
         // when
         mockMvc.perform(post(ENROLLMENT_URL, courseId, studentId)
@@ -151,8 +161,8 @@ public class CourseEnrollmentTest {
                 .andExpect(status().isNoContent());
 
         // then
-        var courseStudents = studentService.getAllByCourseId(courseId);
-        assertEquals(0, courseStudents.size());
+        var courseStudents = studentService.getAllByCourseId(courseId, pageable);
+        assertEquals(0, courseStudents.getTotalElements());
     }
 
     @Test

@@ -1,8 +1,9 @@
 package org.example.learningsystem.student.service;
 
 import org.example.learningsystem.student.model.Student;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 import java.util.UUID;
 
 public interface StudentService {
@@ -13,9 +14,9 @@ public interface StudentService {
 
     Student getByIdForUpdate(UUID id);
 
-    List<Student> getAllByCourseId(UUID courseId);
+    Page<Student> getAllByCourseId(UUID courseId, Pageable pageable);
 
-    List<Student> getAll();
+    Page<Student> getAll(Pageable pageable);
 
     Student update(Student student);
 

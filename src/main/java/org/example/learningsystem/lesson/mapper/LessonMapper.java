@@ -15,8 +15,6 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.SubclassMapping;
 
-import java.util.List;
-
 import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 
 @Mapper(componentModel = SPRING)
@@ -34,8 +32,6 @@ public interface LessonMapper {
     @Mapping(target = "courseId", source = "course.id")
     @Mapping(target = "type", constant = "VIDEO")
     VideoLessonResponseDto toDto(VideoLesson videoLesson);
-
-    List<LessonResponseDto> toDtos(List<Lesson> lessons);
 
     @SubclassMapping(source = ClassroomLessonRequestDto.class, target = ClassroomLesson.class)
     @SubclassMapping(source = VideoLessonRequestDto.class, target = VideoLesson.class)

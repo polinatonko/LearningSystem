@@ -1,6 +1,7 @@
 package org.example.learningsystem.exception.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 
@@ -14,5 +15,9 @@ public record ErrorResponse(
 
     public ErrorResponse(String message, Integer code) {
         this(message, code, LocalDateTime.now());
+    }
+
+    public static ErrorResponse of(String message, HttpStatus status) {
+        return new ErrorResponse(message, status.value());
     }
 }

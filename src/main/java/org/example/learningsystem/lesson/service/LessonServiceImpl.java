@@ -11,9 +11,10 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -28,7 +29,7 @@ public class LessonServiceImpl implements LessonService {
     @Override
     public Lesson create(UUID courseId, Lesson lesson) {
         var course = courseService.getById(courseId);
-        addLessonToCourse(course, lesson);
+        addToCourse(lesson, course);
         lessonValidator.validateForInsert(lesson);
         return lessonRepository.save(lesson);
     }
@@ -40,13 +41,13 @@ public class LessonServiceImpl implements LessonService {
     }
 
     @Override
-    public List<Lesson> getAllByCourseId(UUID courseId) {
-        return lessonRepository.findAllByCourseId(courseId);
+    public Page<Lesson> getAllByCourseId(UUID courseId, Pageable pageable) {
+        return lessonRepository.findAllByCourseId(courseId, pageable);
     }
 
     @Override
-    public List<Lesson> getAll() {
-        return lessonRepository.findAll();
+    public Page<Lesson> getAll(Pageable pageable) {
+        return lessonRepository.findAll(pageable);
     }
 
     @Override
@@ -68,7 +69,7 @@ public class LessonServiceImpl implements LessonService {
                 .orElseThrow(() -> new EntityNotFoundException(Lesson.class.getName(), id));
     }
 
-    private void addLessonToCourse(Course course, Lesson lesson) {
+    private void addToCourse(Lesson lesson, Course course) {
         lesson.setCourse(course);
         var courseLessons = course.getLessons();
         courseLessons.add(lesson);

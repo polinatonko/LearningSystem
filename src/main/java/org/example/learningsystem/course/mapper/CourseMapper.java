@@ -9,8 +9,6 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
-import java.util.List;
-
 import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 
 @Mapper(componentModel = SPRING)
@@ -20,8 +18,6 @@ public interface CourseMapper {
     @Mapping(target = "endDate", source = "course.settings.endDate")
     @Mapping(target = "isPublic", source = "course.settings.isPublic")
     CourseResponseDto toDto(Course course);
-
-    List<CourseResponseDto> toDtos(List<Course> courses);
 
     @Mapping(target = "settings.startDate", source = "startDate")
     @Mapping(target = "settings.endDate", source = "endDate")

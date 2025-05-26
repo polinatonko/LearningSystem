@@ -6,10 +6,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.example.learningsystem.core.pagination.dto.PageResponseDto;
 import org.example.learningsystem.student.dto.StudentRequestDto;
 import org.example.learningsystem.student.dto.StudentResponseDto;
 import org.example.learningsystem.student.mapper.StudentMapper;
 import org.example.learningsystem.student.service.StudentService;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.List;
 import java.util.UUID;
 
 import static org.springframework.http.HttpStatus.CREATED;
@@ -63,9 +65,10 @@ public class StudentController {
     @GetMapping
     @Operation(summary = "Get all students")
     @ApiResponse(responseCode = "200", description = "Students were retrieved")
-    public List<StudentResponseDto> getAll() {
-        var students = studentService.getAll();
-        return studentMapper.toDtos(students);
+    public PageResponseDto<StudentResponseDto> getAll(
+            @PageableDefault(size = 5, sort = "created") Pageable pageable) {
+        var students = studentService.getAll(pageable);
+        return PageResponseDto.of(students, studentMapper::toDto);
     }
 
     @PutMapping("/{id}")
@@ -89,4 +92,5 @@ public class StudentController {
     public void deleteById(@PathVariable UUID id) {
         studentService.deleteById(id);
     }
+
 }
