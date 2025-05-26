@@ -2,13 +2,13 @@ package org.example.learningsystem.core.template.service;
 
 import com.samskivert.mustache.Mustache;
 import lombok.extern.slf4j.Slf4j;
-import org.example.learningsystem.core.template.exception.TemplateRenderException;
+import org.example.learningsystem.core.template.exception.RenderTemplateException;
 import org.springframework.boot.autoconfigure.mustache.MustacheResourceTemplateLoader;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class MustacheRender implements TemplateRenderService {
+public class MustacheTemplateService implements RenderTemplateService {
 
     private static final String TEMPLATES_PREFIX = "templates/";
     private static final String TEMPLATES_SUFFIX = ".mustache";
@@ -23,7 +23,7 @@ public class MustacheRender implements TemplateRenderService {
         }
         catch (Exception e) {
             log.error("Error during rendering {}: {}", path, e.getMessage());
-            throw new TemplateRenderException(e.getMessage());
+            throw new RenderTemplateException(e.getMessage());
         }
     }
 

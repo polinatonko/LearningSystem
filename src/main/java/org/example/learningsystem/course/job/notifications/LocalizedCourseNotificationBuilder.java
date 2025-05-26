@@ -1,7 +1,7 @@
 package org.example.learningsystem.course.job.notifications;
 
 import lombok.RequiredArgsConstructor;
-import org.example.learningsystem.core.template.service.TemplateRenderService;
+import org.example.learningsystem.core.template.service.RenderTemplateService;
 import org.example.learningsystem.core.util.format.LocalizedDateTimeFormatter;
 import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.student.model.Student;
@@ -24,7 +24,7 @@ public class LocalizedCourseNotificationBuilder implements CourseNotificationBui
 
     private final LocalizedDateTimeFormatter localizedDateTimeFormatter;
     private final MessageSource messageSource;
-    private final TemplateRenderService templateRenderService;
+    private final RenderTemplateService renderTemplateService;
 
     @Override
     public CourseNotificationDto build(Course course, Student student) {
@@ -38,7 +38,7 @@ public class LocalizedCourseNotificationBuilder implements CourseNotificationBui
 
     private String renderMessage(Course course, Student student, Locale locale) {
         var arguments = resolveTemplateArguments(course, student, locale);
-        return templateRenderService.render(EMAIL_TEMPLATE, arguments);
+        return renderTemplateService.render(EMAIL_TEMPLATE, arguments);
     }
 
     private Map<String, String> resolveTemplateArguments(Course course, Student student, Locale locale) {

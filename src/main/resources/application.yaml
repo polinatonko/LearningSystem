@@ -15,9 +15,6 @@ spring:
     basename: i18n/messages
     encoding: UTF-8
 
-  profiles:
-    active: local
-
 basic-authentication:
   manager:
     username: manager@gmail.com

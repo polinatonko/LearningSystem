@@ -1,6 +1,6 @@
 package org.example.learningsystem.core.template.service;
 
-public interface TemplateRenderService {
+public interface RenderTemplateService {
 
     String render(String path, Object arguments);
 }
