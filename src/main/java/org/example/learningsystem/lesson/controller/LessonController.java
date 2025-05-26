@@ -64,9 +64,8 @@ public class LessonController {
             @ApiResponse(responseCode = "404", description = "Lesson was not found")
     })
     public LessonResponseDto updateById(@PathVariable UUID id, @RequestBody @Valid LessonRequestDto lessonRequestDto) {
-        var lesson = lessonService.getById(id);
-        lessonMapper.toEntity(lessonRequestDto, lesson);
-        var updatedLesson = lessonService.update(lesson);
+        var lesson = lessonMapper.toEntity(lessonRequestDto);
+        var updatedLesson = lessonService.update(lessonRequestDto.getCourseId(), lesson);
         return lessonMapper.toDto(updatedLesson);
     }
 

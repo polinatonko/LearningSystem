@@ -11,8 +11,6 @@ import org.example.learningsystem.lesson.dto.lesson.LessonResponseDto;
 import org.example.learningsystem.lesson.model.VideoLesson;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.SubclassMapping;
 
 import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
@@ -42,8 +40,4 @@ public interface LessonMapper {
 
     VideoLesson toEntity(VideoLessonRequestDto videoLessonRequestDto);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "course.id", source = "courseId",
-            nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void toEntity(LessonRequestDto lessonRequestDto, @MappingTarget Lesson lesson);
 }

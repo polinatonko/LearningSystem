@@ -16,7 +16,7 @@ public interface LessonService {
 
     Page<Lesson> getAll(Pageable pageable);
 
-    Lesson update(Lesson lesson);
+    Lesson update(UUID courseId, Lesson lesson);
 
     void deleteById(UUID id);
 }
