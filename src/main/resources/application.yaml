@@ -17,7 +17,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: caches,health,info
+        include: health,info
   endpoint:
     health:
       show-details: always
@@ -32,5 +32,5 @@ info:
 
 course:
   reminder:
-    cron: "0 0 9 * * *"
+    cron: 0 * * * * *
     daysBefore: 1

@@ -25,8 +25,8 @@ public class CourseEnrollmentServiceImpl implements CourseEnrollmentService {
     @Override
     @Transactional
     public void enrollStudent(UUID courseId, UUID studentId) {
-        var course = courseService.getByIdForUpdate(courseId);
-        var student = studentService.getByIdForUpdate(studentId);
+        var course = courseService.getById(courseId);
+        var student = studentService.getById(studentId);
         var enrollment = new CourseEnrollment(course, student);
 
         courseEnrollmentValidator.validateForInsert(enrollment);
@@ -47,7 +47,7 @@ public class CourseEnrollmentServiceImpl implements CourseEnrollmentService {
         var coinsPaid = course.getCoinsPaid();
 
         student.setCoins(studentCoins.subtract(coursePrice));
-        course.setCoinsPaid(coinsPaid.add(coursePrice));
+        course.setCoinsPaid(coinsPaid.add(studentCoins));
     }
 
 }

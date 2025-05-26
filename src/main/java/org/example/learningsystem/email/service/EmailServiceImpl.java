@@ -1,64 +1,53 @@
 package org.example.learningsystem.email.service;
 
+import io.mailtrap.client.MailtrapClient;
+import io.mailtrap.config.MailtrapConfig;
+import io.mailtrap.factory.MailtrapClientFactory;
+import io.mailtrap.model.request.emails.Address;
+import io.mailtrap.model.request.emails.MailtrapMail;
 import lombok.extern.slf4j.Slf4j;
 import org.example.learningsystem.email.config.EmailServerProperties;
-import org.springframework.mail.MailSendException;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.retry.annotation.Recover;
-import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Component;
 
-import java.util.Properties;
+import java.util.List;
 
 @Component
 @Slf4j
 public class EmailServiceImpl implements EmailService {
 
-    private static final String MAIL_TRANSPORT_PROTOCOL = "mail.transport.protocol";
-    private static final String MAIL_SMTP_AUTH = "mail.smtp.auth";
-    private static final String MAIL_SMTP_STARTTLS_ENABLE = "mail.smtp.starttls.enable";
+    private final EmailServerProperties emailServerProperties;
+    private final MailtrapClient client;
+    private final static String EMAIL_CATEGORY = "Integration test";
 
-    @Retryable(retryFor = MailSendException.class)
-    public void send(String to, String subject, String text, EmailServerProperties serverProperties) {
-        var sender = getSender(serverProperties);
-        var message = buildMessage(to, serverProperties.getFrom(), subject, text);
-        sender.send(message);
+    public EmailServiceImpl(
+            EmailServerProperties emailServerProperties,
+            MailtrapConfig mailtrapConfig) {
+        this.emailServerProperties = emailServerProperties;
+        this.client = MailtrapClientFactory.createMailtrapClient(mailtrapConfig);
     }
 
-    @Recover
-    public void recover(MailSendException e, String to, String subject, String text, EmailServerProperties serverProperties) {
-        log.error("Failed to send email [subject = {}, to = {}]: {}", subject, to, e.getMessage());
+    public void send(String to, String subject, String text) {
+        var mail = buildMail(to, subject, text);
+        trySendMail(mail);
     }
 
-    private JavaMailSender getSender(EmailServerProperties serverProperties) {
-        var mailSender = new JavaMailSenderImpl();
-        mailSender.setHost(serverProperties.getHost());
-        mailSender.setPort(Integer.parseInt(serverProperties.getPort()));
-        mailSender.setUsername(serverProperties.getUser());
-        mailSender.setPassword(serverProperties.getPassword());
-
-        var mailProperties = mailSender.getJavaMailProperties();
-        fillMailProperties(mailProperties, serverProperties);
-
-        return mailSender;
+    private void trySendMail(MailtrapMail mail) {
+        try {
+            client.send(mail);
+        }
+        catch (Exception e) {
+            log.error(e.getMessage());
+        }
     }
 
-    private void fillMailProperties(Properties properties, EmailServerProperties serverProperties) {
-        properties.put(MAIL_TRANSPORT_PROTOCOL, serverProperties.getProtocol());
-        properties.put(MAIL_SMTP_AUTH, serverProperties.getAuth());
-        properties.put(MAIL_SMTP_STARTTLS_ENABLE, serverProperties.getStartTlsEnable());
+    private MailtrapMail buildMail(String to, String subject, String text) {
+        var fromAddress = new Address(emailServerProperties.getFrom(), emailServerProperties.getName());
+        return MailtrapMail.builder()
+                .from(fromAddress)
+                .to(List.of(new Address(to)))
+                .subject(subject)
+                .text(text)
+                .category(EMAIL_CATEGORY)
+                .build();
     }
-
-    private SimpleMailMessage buildMessage(String to, String from, String subject, String text) {
-        var message = new SimpleMailMessage();
-        message.setTo(to);
-        message.setFrom(from);
-        message.setSubject(subject);
-        message.setText(text);
-
-        return message;
-    }
-
 }

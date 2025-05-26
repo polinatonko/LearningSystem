@@ -62,9 +62,9 @@ class CourseEnrollmentServiceImplTest {
     void enrollStudent_givenCourseAndStudent_shouldSuccessfullyEnrollStudent() {
         // given
         student.setCoins(course.getPrice());
-        when(studentService.getByIdForUpdate(any()))
+        when(studentService.getById(any()))
                 .thenReturn(student);
-        when(courseService.getByIdForUpdate(any()))
+        when(courseService.getById(any()))
                 .thenReturn(course);
 
         // when
@@ -79,9 +79,9 @@ class CourseEnrollmentServiceImplTest {
     void enrollStudent_givenCourseAndStudent_shouldThrowEnrollmentDeniedException() {
         // given
         course.getSettings().setIsPublic(false);
-        when(studentService.getByIdForUpdate(any()))
+        when(studentService.getById(any()))
                 .thenReturn(student);
-        when(courseService.getByIdForUpdate(any()))
+        when(courseService.getById(any()))
                 .thenReturn(course);
 
         // when, then
@@ -93,9 +93,9 @@ class CourseEnrollmentServiceImplTest {
     void enrollStudent_givenCourseAndStudent_shouldThrowInsufficientFundsException() {
         // given
         student.setCoins(course.getPrice().subtract(BigDecimal.ONE));
-        when(studentService.getByIdForUpdate(any()))
+        when(studentService.getById(any()))
                 .thenReturn(student);
-        when(courseService.getByIdForUpdate(any()))
+        when(courseService.getById(any()))
                 .thenReturn(course);
 
         // when, then

@@ -11,7 +11,4 @@ spring:
 
 logging:
   level:
-    liquibase: info
-    org:
-      springframework:
-        cache: trace
+    liquibase: debug
