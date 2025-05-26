@@ -1,0 +1,26 @@
+{
+  "xsappname": "lms",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.Student",
+      "description": "Enroll to courses or unenroll from them, manage their content"
+    },
+    {
+      "name": "$XSAPPNAME.Manager",
+      "description": "View actuator endpoints"
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "Student",
+      "description": "Student of LMS",
+      "scope-references": ["$XSAPPNAME.Student"]
+    },
+    {
+      "name": "Manager",
+      "description": "Manager of LMS",
+      "scope-references": ["$XSAPPNAME.Student", "$XSAPPNAME.Manager"]
+    }
+  ]
+}
