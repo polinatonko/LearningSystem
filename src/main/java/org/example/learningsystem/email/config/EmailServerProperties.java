@@ -1,22 +1,20 @@
 package org.example.learningsystem.email.config;
 
-import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
-import org.springframework.validation.annotation.Validated;
+public interface EmailServerProperties {
 
-@ConfigurationProperties("mail")
-@Component
-@Validated
-@Getter
-@Setter
-public class EmailServerProperties {
+    String getFrom();
 
-    @NotNull
-    private String from;
-    private String name;
-    @NotNull
-    private String token;
+    String getUser();
+
+    String getPassword();
+
+    String getHost();
+
+    String getPort();
+
+    String getProtocol();
+
+    String getAuth();
+
+    String getStartTlsEnable();
 }
