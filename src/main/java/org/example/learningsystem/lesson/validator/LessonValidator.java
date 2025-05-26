@@ -9,6 +9,7 @@ import static java.util.Objects.isNull;
 
 @Component
 public class LessonValidator implements EntityValidator<Lesson> {
+
     @Override
     public void validateForInsert(Lesson lesson) {
         validateCourseId(lesson);
