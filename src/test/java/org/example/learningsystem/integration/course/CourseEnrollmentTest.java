@@ -1,4 +1,4 @@
-package org.example.learningsystem.course;
+package org.example.learningsystem.integration.course;
 
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.builder.CourseBuilder;

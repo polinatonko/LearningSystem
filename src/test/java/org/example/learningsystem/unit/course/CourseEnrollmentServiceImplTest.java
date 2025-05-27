@@ -1,4 +1,4 @@
-package org.example.learningsystem.course;
+package org.example.learningsystem.unit.course;
 
 import org.example.learningsystem.builder.CourseBuilder;
 import org.example.learningsystem.builder.StudentBuilder;
