@@ -11,11 +11,8 @@ import java.math.BigDecimal;
 import java.util.Set;
 import java.util.UUID;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.example.learningsystem.core.audit.model.AuditableEntity;
 import org.example.learningsystem.lesson.model.Lesson;
 import org.hibernate.annotations.DynamicInsert;
@@ -25,10 +22,12 @@ import static jakarta.persistence.GenerationType.UUID;
 
 @Entity
 @Table(name = "course")
+@SuperBuilder(toBuilder = true)
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id", callSuper = false)
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString(exclude = {"settings", "lessons", "enrollments"})
 @DynamicInsert
 public class Course extends AuditableEntity {
@@ -52,10 +51,4 @@ public class Course extends AuditableEntity {
         settings.setCourse(this);
     }
 
-    public Course(String title, String description, BigDecimal price, BigDecimal coinsPaid) {
-        this.title = title;
-        this.description = description;
-        this.price = price;
-        this.coinsPaid = coinsPaid;
-    }
 }

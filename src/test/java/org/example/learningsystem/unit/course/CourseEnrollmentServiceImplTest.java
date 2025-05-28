@@ -1,7 +1,6 @@
 package org.example.learningsystem.unit.course;
 
-import org.example.learningsystem.builder.CourseBuilder;
-import org.example.learningsystem.builder.StudentBuilder;
+import org.example.learningsystem.course.exception.DuplicateEnrollmentException;
 import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.course.model.CourseEnrollment;
 import org.example.learningsystem.course.model.CourseEnrollmentId;
@@ -21,11 +20,12 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.math.BigDecimal;
-import java.util.UUID;
-
+import static org.example.learningsystem.util.CourseTestUtils.ENOUGH_COINS;
+import static org.example.learningsystem.util.CourseTestUtils.createSavedCourse;
+import static org.example.learningsystem.util.StudentTestUtils.createSavedStudent;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -37,8 +37,9 @@ class CourseEnrollmentServiceImplTest {
     public CourseEnrollmentRepository enrollmentRepository;
     @Mock
     public CourseServiceImpl courseService;
-    @InjectMocks
+    @Mock
     public CourseEnrollmentValidator enrollmentValidator;
+    @InjectMocks
     public CourseEnrollmentServiceImpl enrollmentService;
     @Mock
     public StudentServiceImpl studentService;
@@ -47,22 +48,14 @@ class CourseEnrollmentServiceImplTest {
 
     @BeforeEach
     void setup() {
-        enrollmentService = new CourseEnrollmentServiceImpl(courseService, enrollmentRepository, enrollmentValidator, studentService);
-
-        course = new CourseBuilder()
-                .id(UUID.randomUUID())
-                .isPublic(true)
-                .build();
-
-        student = new StudentBuilder()
-                .id(UUID.randomUUID())
-                .build();
+        course = createSavedCourse();
+        student = createSavedStudent();
     }
 
     @Test
     void enrollStudent_givenCourseAndStudent_shouldSuccessfullyEnrollStudent() {
         // given
-        student.setCoins(course.getPrice());
+        student.setCoins(ENOUGH_COINS);
         when(studentService.getByIdForUpdate(any()))
                 .thenReturn(student);
         when(courseService.getByIdForUpdate(any()))
@@ -79,11 +72,13 @@ class CourseEnrollmentServiceImplTest {
     @Test
     void enrollStudent_givenCourseAndStudent_shouldThrowEnrollmentDeniedException() {
         // given
-        course.getSettings().setIsPublic(false);
         when(studentService.getByIdForUpdate(any()))
                 .thenReturn(student);
         when(courseService.getByIdForUpdate(any()))
                 .thenReturn(course);
+        doThrow(EnrollmentDeniedException.class)
+                .when(enrollmentValidator)
+                .validateForInsert(any());
 
         // when, then
         assertThrows(EnrollmentDeniedException.class,
@@ -93,15 +88,35 @@ class CourseEnrollmentServiceImplTest {
     @Test
     void enrollStudent_givenCourseAndStudent_shouldThrowInsufficientFundsException() {
         // given
-        student.setCoins(course.getPrice().subtract(BigDecimal.ONE));
         when(studentService.getByIdForUpdate(any()))
                 .thenReturn(student);
         when(courseService.getByIdForUpdate(any()))
                 .thenReturn(course);
+        doThrow(InsufficientFundsException.class)
+                .when(enrollmentValidator)
+                        .validateForInsert(any());
 
         // when, then
         assertThrows(InsufficientFundsException.class,
                 () -> enrollmentService.enrollStudent(course.getId(), student.getId()));
+    }
+
+    @Test
+    void enrollStudent_givenCourseAndStudent_shouldThrowDuplicateEnrollmentException() {
+        // given
+        var courseId = course.getId();
+        var studentId = student.getId();
+        when(courseService.getByIdForUpdate(courseId))
+                .thenReturn(course);
+        when(studentService.getByIdForUpdate(studentId))
+                .thenReturn(student);
+        doThrow(DuplicateEnrollmentException.class)
+                .when(enrollmentValidator)
+                        .validateForInsert(any());
+
+        // when, then
+        assertThrows(DuplicateEnrollmentException.class,
+                () -> enrollmentService.enrollStudent(courseId, studentId));
     }
 
     @Test
@@ -117,4 +132,5 @@ class CourseEnrollmentServiceImplTest {
         verify(enrollmentRepository, times(1))
                 .deleteById(new CourseEnrollmentId(courseId, studentId));
     }
+
 }

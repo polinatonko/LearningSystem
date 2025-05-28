@@ -1,14 +1,14 @@
 package org.example.learningsystem.integration.course;
 
 import lombok.RequiredArgsConstructor;
-import org.example.learningsystem.builder.CourseBuilder;
-import org.example.learningsystem.builder.StudentBuilder;
 import org.example.learningsystem.config.PostgreSQLConfiguration;
 import org.example.learningsystem.core.security.config.BasicAuthenticationCredentials;
 import org.example.learningsystem.core.security.config.UserCredentials;
 import org.example.learningsystem.course.service.CourseService;
 import org.example.learningsystem.course.model.Course;
+import org.example.learningsystem.student.model.Student;
 import org.example.learningsystem.student.service.StudentService;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +18,18 @@ import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import java.math.BigDecimal;
 import java.util.UUID;
 
-import static org.example.learningsystem.util.TestUtils.CLEAN_UP_SQL;
+import static java.util.Objects.nonNull;
+import static org.example.learningsystem.util.CourseTestUtils.createCourse;
+import static org.example.learningsystem.util.CourseTestUtils.ENOUGH_COINS;
+import static org.example.learningsystem.util.CourseTestUtils.NOT_ENOUGH_COINS;
+import static org.example.learningsystem.util.StudentTestUtils.createStudent;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.AFTER_TEST_METHOD;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -39,7 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Import(PostgreSQLConfiguration.class)
 @Testcontainers
 @RequiredArgsConstructor
-public class CourseEnrollmentTest {
+class CourseEnrollmentTest {
 
     private static final String ENROLLMENT_URL = "/courses/{id}/students/{studentId}";
 
@@ -52,24 +53,32 @@ public class CourseEnrollmentTest {
     @Autowired
     private StudentService studentService;
     private Course course;
+    private Student student;
 
     @BeforeEach
     void setup() {
-        course = new CourseBuilder()
-                .isPublic(true)
-                .build();
+        course = createCourse();
+        student = createStudent();
+        student.setCoins(ENOUGH_COINS);
+    }
+
+    @AfterEach
+    void cleanup() {
+        if (nonNull(course.getId())) {
+            courseService.deleteById(course.getId());
+        }
+        if (nonNull(student.getId())) {
+            studentService.deleteById(student.getId());
+        }
     }
 
     @Test
-    @Sql(scripts = CLEAN_UP_SQL, executionPhase = AFTER_TEST_METHOD)
     void enrollStudent_givenCourseAndStudent_shouldSuccessfullyEnrollStudentAndReturn200() throws Exception {
         // given
         var savedCourse = courseService.create(course);
         var courseId = savedCourse.getId();
 
-        var student = new StudentBuilder()
-                .coins(savedCourse.getPrice())
-                .build();
+        student.setCoins(ENOUGH_COINS);
         var savedStudent = studentService.create(student);
         var studentId = savedStudent.getId();
         var managerCredentials = basicAuthenticationCredentials.getManager();
@@ -92,13 +101,12 @@ public class CourseEnrollmentTest {
     }
 
     @Test
-    @Sql(scripts = CLEAN_UP_SQL, executionPhase = AFTER_TEST_METHOD)
     void enrollStudent_givenCourseAndStudent_shouldThrowEnrollmentDeniedExceptionAndReturn500() throws Exception {
         // given
         course.getSettings().setIsPublic(false);
         var savedCourse = courseService.create(course);
 
-        var student = new StudentBuilder().build();
+        student.setCoins(ENOUGH_COINS);
         var savedStudent = studentService.create(student);
         var managerCredentials = basicAuthenticationCredentials.getManager();
 
@@ -109,14 +117,11 @@ public class CourseEnrollmentTest {
     }
 
     @Test
-    @Sql(scripts = CLEAN_UP_SQL, executionPhase = AFTER_TEST_METHOD)
     void enrollStudent_givenCourseAndStudent_shouldThrowInsufficientFundsExceptionAndReturn500() throws Exception {
         // given
         var savedCourse = courseService.create(course);
 
-        var student = new StudentBuilder()
-                .coins(savedCourse.getPrice().subtract(BigDecimal.ONE))
-                .build();
+        student.setCoins(NOT_ENOUGH_COINS);
         var savedStudent = studentService.create(student);
         var managerCredentials = basicAuthenticationCredentials.getManager();
 
@@ -138,15 +143,37 @@ public class CourseEnrollmentTest {
     }
 
     @Test
-    @Sql(scripts = CLEAN_UP_SQL, executionPhase = AFTER_TEST_METHOD)
+    void enrollStudent_givenCourseAndStudentId_shouldThrowEntityNotFoundExceptionAndReturn404() throws Exception {
+        // given
+        var savedCourse = courseService.create(course);
+        var studentId = UUID.randomUUID();
+        var managerCredentials = basicAuthenticationCredentials.getManager();
+
+        // when, then
+        mockMvc.perform(post(ENROLLMENT_URL, savedCourse.getId(), studentId)
+                        .headers(buildHeaders(managerCredentials)))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void enrollStudent_givenCourseIdAndStudent_shouldThrowEntityNotFoundExceptionAndReturn404() throws Exception {
+        // given
+        var courseId = UUID.randomUUID();
+        var savedStudent = studentService.create(student);
+        var managerCredentials = basicAuthenticationCredentials.getManager();
+
+        // when, then
+        mockMvc.perform(post(ENROLLMENT_URL, courseId, savedStudent.getId())
+                        .headers(buildHeaders(managerCredentials)))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
     void unenrollStudent_givenCourseAndStudent_shouldSuccessfullyUnenrollStudentAndReturn204() throws Exception {
         // given
         var savedCourse = courseService.create(course);
         var courseId = savedCourse.getId();
 
-        var student = new StudentBuilder()
-                .coins(savedCourse.getPrice())
-                .build();
         var savedStudent = studentService.create(student);
         var studentId = savedStudent.getId();
         var managerCredentials = basicAuthenticationCredentials.getManager();

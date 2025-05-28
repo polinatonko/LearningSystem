@@ -2,10 +2,10 @@ package org.example.learningsystem.course.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.example.learningsystem.core.util.validator.EntityValidator;
 import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.course.model.CourseEnrollment;
 import org.example.learningsystem.course.model.CourseEnrollmentId;
-import org.example.learningsystem.course.validator.CourseEnrollmentValidator;
 import org.example.learningsystem.student.model.Student;
 import org.example.learningsystem.course.repository.CourseEnrollmentRepository;
 import org.example.learningsystem.student.service.StudentService;
@@ -20,7 +20,7 @@ public class CourseEnrollmentServiceImpl implements CourseEnrollmentService {
 
     private final CourseService courseService;
     private final CourseEnrollmentRepository courseEnrollmentRepository;
-    private final CourseEnrollmentValidator courseEnrollmentValidator;
+    private final EntityValidator<CourseEnrollment> courseEnrollmentValidator;
     private final StudentService studentService;
 
     @Override

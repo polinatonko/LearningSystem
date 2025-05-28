@@ -3,15 +3,11 @@ package org.example.learningsystem.course.mapper;
 import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.course.dto.CourseRequestDto;
 import org.example.learningsystem.course.dto.CourseResponseDto;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.NullValueCheckStrategy;
-import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.*;
 
 import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 
-@Mapper(componentModel = SPRING)
+@Mapper(builder = @Builder(disableBuilder = true), componentModel = SPRING)
 public interface CourseMapper {
 
     @Mapping(target = "startDate", source = "course.settings.startDate")

@@ -9,10 +9,12 @@ import jakarta.persistence.Table;
 
 import java.util.UUID;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 import org.example.learningsystem.core.audit.model.AuditableEntity;
 import org.example.learningsystem.course.model.Course;
 
@@ -25,6 +27,8 @@ import static jakarta.persistence.InheritanceType.JOINED;
 @Inheritance(strategy = JOINED)
 @Getter
 @Setter
+@NoArgsConstructor
+@SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(of = "id", callSuper = false)
 @ToString(exclude = "course")
 public class Lesson extends AuditableEntity {

@@ -10,25 +10,22 @@ import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 import org.example.learningsystem.core.audit.model.AuditableEntity;
 import org.hibernate.annotations.DynamicInsert;
 
 @Entity
 @Table(name = "course_settings")
-@Builder
+@SuperBuilder
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id", callSuper = false)
 @NoArgsConstructor
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
 @DynamicInsert
 public class CourseSettings extends AuditableEntity {

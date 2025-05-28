@@ -161,7 +161,7 @@
 				<configuration>
 					<argLine>${surefire.jacoco.args}</argLine>
 					<includes>
-						<include>unit/*</include>
+						<include>unit/**</include>
 					</includes>
 				</configuration>
 			</plugin>
@@ -171,7 +171,7 @@
 				<configuration>
 					<argLine>${failsafe.jacoco.args}</argLine>
 					<includes>
-						<include>integration/*</include>
+						<include>integration/**</include>
 					</includes>
 				</configuration>
 			</plugin>

@@ -15,6 +15,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 import org.example.learningsystem.core.audit.model.AuditableEntity;
 import org.example.learningsystem.course.model.CourseEnrollment;
 import org.hibernate.annotations.DynamicInsert;
@@ -25,6 +26,7 @@ import static jakarta.persistence.GenerationType.UUID;
 @Entity
 @Getter
 @Setter
+@SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(of = "id", callSuper = false)
 @NoArgsConstructor
 @ToString(exclude = "enrollments")
