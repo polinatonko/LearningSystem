@@ -5,6 +5,7 @@ import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.course.model.CourseSettings;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -16,8 +17,8 @@ public class CourseTestUtils {
     public static final BigDecimal ENOUGH_COINS = PRICE.add(BigDecimal.ONE);
     public static final BigDecimal NOT_ENOUGH_COINS = PRICE.subtract(BigDecimal.ONE);
     public static final BigDecimal COINS_PAID = BigDecimal.ZERO;
-    public static final LocalDateTime CREATED = LocalDateTime.now();
-    public static final LocalDateTime LAST_CHANGED = LocalDateTime.now();
+    public static final Instant CREATED = Instant.now();
+    public static final Instant LAST_CHANGED = Instant.now();
     public static final LocalDateTime START_DATE = LocalDateTime.of(2025, 6, 1, 10, 0, 0);
     public static final LocalDateTime END_DATE = LocalDateTime.of(2025, 7, 1, 10, 0, 0);
     public static final boolean IS_PUBLIC = true;

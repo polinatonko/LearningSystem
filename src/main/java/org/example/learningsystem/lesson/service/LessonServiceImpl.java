@@ -1,5 +1,6 @@
 package org.example.learningsystem.lesson.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.core.util.validator.EntityValidator;
 import org.example.learningsystem.course.model.Course;
@@ -29,6 +30,7 @@ public class LessonServiceImpl implements LessonService {
     private final CourseService courseService;
 
     @Override
+    @Transactional
     public Lesson create(UUID courseId, Lesson lesson) {
         var course = courseService.getById(courseId);
         addToCourse(lesson, course);

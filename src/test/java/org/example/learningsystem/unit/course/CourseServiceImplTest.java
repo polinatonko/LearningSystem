@@ -8,6 +8,7 @@ import org.example.learningsystem.course.service.CourseServiceImpl;
 import org.example.learningsystem.exception.logic.EntityNotFoundException;
 import org.example.learningsystem.exception.validation.IllegalNullValueException;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -34,6 +35,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+@Tag("unit-test")
 @ExtendWith(MockitoExtension.class)
 class CourseServiceImplTest {
 

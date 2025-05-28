@@ -9,6 +9,7 @@ import org.example.learningsystem.course.repository.CourseEnrollmentRepository;
 import org.example.learningsystem.course.validator.CourseEnrollmentValidator;
 import org.example.learningsystem.student.model.Student;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+@Tag("unit-test")
 @ExtendWith(MockitoExtension.class)
 class CourseEnrollmentValidatorTest {
 

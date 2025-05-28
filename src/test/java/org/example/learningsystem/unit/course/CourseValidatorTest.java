@@ -5,6 +5,7 @@ import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.course.validator.CourseValidator;
 import org.example.learningsystem.exception.validation.IllegalNullValueException;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -15,6 +16,7 @@ import static org.example.learningsystem.util.CourseTestUtils.START_DATE;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@Tag("unit-test")
 @ExtendWith(MockitoExtension.class)
 class CourseValidatorTest {
 

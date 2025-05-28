@@ -3,8 +3,8 @@ package org.example.learningsystem.util;
 import org.example.learningsystem.student.model.Student;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class StudentTestUtils {
@@ -14,8 +14,8 @@ public class StudentTestUtils {
     public static final String EMAIL_TEMPLATE = "%s@gmail.com";
     public static final LocalDate DATE_OF_BIRTH = LocalDate.of(2000, 12, 1);
     public static final BigDecimal COINS = BigDecimal.ZERO;
-    public static final LocalDateTime CREATED = LocalDateTime.now();
-    public static final LocalDateTime LAST_CHANGED = LocalDateTime.now();
+    public static final Instant CREATED = Instant.now();
+    public static final Instant LAST_CHANGED = Instant.now();
 
     public static Student createStudent() {
         return Student.builder()

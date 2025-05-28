@@ -13,6 +13,7 @@ import org.example.learningsystem.course.validator.CourseEnrollmentValidator;
 import org.example.learningsystem.student.model.Student;
 import org.example.learningsystem.student.service.StudentServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -30,6 +31,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+@Tag("unit-test")
 @ExtendWith(MockitoExtension.class)
 class CourseEnrollmentServiceImplTest {
 
@@ -94,7 +96,7 @@ class CourseEnrollmentServiceImplTest {
                 .thenReturn(course);
         doThrow(InsufficientFundsException.class)
                 .when(enrollmentValidator)
-                        .validateForInsert(any());
+                .validateForInsert(any());
 
         // when, then
         assertThrows(InsufficientFundsException.class,
@@ -112,7 +114,7 @@ class CourseEnrollmentServiceImplTest {
                 .thenReturn(student);
         doThrow(DuplicateEnrollmentException.class)
                 .when(enrollmentValidator)
-                        .validateForInsert(any());
+                .validateForInsert(any());
 
         // when, then
         assertThrows(DuplicateEnrollmentException.class,

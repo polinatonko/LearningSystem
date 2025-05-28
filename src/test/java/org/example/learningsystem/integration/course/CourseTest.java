@@ -9,6 +9,7 @@ import org.example.learningsystem.course.dto.CourseResponseDto;
 import org.example.learningsystem.course.service.CourseService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -40,6 +41,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@Tag("integration-test")
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
@@ -123,7 +125,7 @@ class CourseTest {
 
         // when, then
         mockMvc.perform(get(COURSE_URL, courseId)
-                .headers(buildBasicAuthenticationHeader(managerCredentials)))
+                        .headers(buildBasicAuthenticationHeader(managerCredentials)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(courseId.toString()));
     }
@@ -247,11 +249,11 @@ class CourseTest {
 
         // when, then
         mockMvc.perform(delete(COURSE_URL, courseId)
-                .headers(buildBasicAuthenticationHeader(managerCredentials)))
+                        .headers(buildBasicAuthenticationHeader(managerCredentials)))
                 .andExpect(status().isNoContent());
 
         mockMvc.perform(get(COURSE_URL, courseId)
-                .headers(buildBasicAuthenticationHeader(managerCredentials)))
+                        .headers(buildBasicAuthenticationHeader(managerCredentials)))
                 .andExpect(status().isNotFound());
     }
 
@@ -264,9 +266,9 @@ class CourseTest {
 
         // when, then
         mockMvc.perform(post(COURSE_LESSONS_URL, courseId)
-                .headers(buildBasicAuthenticationHeader(managerCredentials))
-                .contentType(APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(lessonRequestDto)))
+                        .headers(buildBasicAuthenticationHeader(managerCredentials))
+                        .contentType(APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(lessonRequestDto)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").isNotEmpty())
                 .andExpect(jsonPath("$.courseId").value(courseId.toString()));
