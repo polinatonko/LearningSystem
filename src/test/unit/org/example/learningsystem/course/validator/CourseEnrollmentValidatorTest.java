@@ -1,14 +1,12 @@
-package org.example.learningsystem.unit.course;
+package org.example.learningsystem.course.validator;
 
+import builder.CourseBuilder;
+import builder.StudentBuilder;
 import org.example.learningsystem.course.exception.DuplicateEnrollmentException;
 import org.example.learningsystem.course.exception.EnrollmentDeniedException;
 import org.example.learningsystem.course.exception.InsufficientFundsException;
-import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.course.model.CourseEnrollment;
 import org.example.learningsystem.course.repository.CourseEnrollmentRepository;
-import org.example.learningsystem.course.validator.CourseEnrollmentValidator;
-import org.example.learningsystem.student.model.Student;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,16 +14,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.example.learningsystem.util.CourseTestUtils.createSavedCourse;
-import static org.example.learningsystem.util.CourseTestUtils.ENOUGH_COINS;
-import static org.example.learningsystem.util.CourseTestUtils.NOT_ENOUGH_COINS;
-import static org.example.learningsystem.util.StudentTestUtils.createSavedStudent;
+import java.math.BigDecimal;
+
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-@Tag("unit-test")
+@Tag("unit")
 @ExtendWith(MockitoExtension.class)
 class CourseEnrollmentValidatorTest {
 
@@ -33,20 +29,16 @@ class CourseEnrollmentValidatorTest {
     public CourseEnrollmentRepository courseEnrollmentRepository;
     @InjectMocks
     public CourseEnrollmentValidator courseEnrollmentValidator;
-    private Course course;
-    private CourseEnrollment courseEnrollment;
-    private Student student;
-
-    @BeforeEach
-    void setup() {
-        course = createSavedCourse();
-        student = createSavedStudent();
-        student.setCoins(ENOUGH_COINS);
-        courseEnrollment = new CourseEnrollment(course, student);
-    }
 
     @Test
     void validateForInsert_givenCourseEnrollment_shouldDoesNotThrowException() {
+        // given
+        var course = new CourseBuilder().build();
+        var student = new StudentBuilder()
+                .coins(course.getPrice())
+                .build();
+        var courseEnrollment = new CourseEnrollment(course, student);
+
         // when, then
         assertDoesNotThrow(() -> courseEnrollmentValidator.validateForInsert(courseEnrollment));
     }
@@ -54,8 +46,13 @@ class CourseEnrollmentValidatorTest {
     @Test
     void validateForInsert_givenCourseEnrollmentWithPrivateCourse_shouldThrowEnrollmentDeniedException() {
         // given
-        var settings = course.getSettings();
-        settings.setIsPublic(false);
+        var course = new CourseBuilder()
+                .isPublic(false)
+                .build();
+        var student = new StudentBuilder()
+                .coins(course.getPrice())
+                .build();
+        var courseEnrollment = new CourseEnrollment(course, student);
 
         // when, then
         assertThrows(EnrollmentDeniedException.class,
@@ -65,7 +62,13 @@ class CourseEnrollmentValidatorTest {
     @Test
     void validateForInsert_givenCourseEnrollmentWithNullPrice_shouldThrowEnrollmentDeniedException() {
         // given
-        course.setPrice(null);
+        var course = new CourseBuilder()
+                .price(null)
+                .build();
+        var student = new StudentBuilder()
+                .coins(course.getPrice())
+                .build();
+        var courseEnrollment = new CourseEnrollment(course, student);
 
         // when, then
         assertThrows(EnrollmentDeniedException.class,
@@ -75,6 +78,11 @@ class CourseEnrollmentValidatorTest {
     @Test
     void validateForInsert_givenCourseEnrollment_shouldThrowDuplicateEnrollmentException() {
         // given
+        var course = new CourseBuilder().build();
+        var student = new StudentBuilder()
+                .coins(course.getPrice())
+                .build();
+        var courseEnrollment = new CourseEnrollment(course, student);
         when(courseEnrollmentRepository.existsByCourseIdAndStudentId(any(), any()))
                 .thenReturn(true);
 
@@ -86,7 +94,12 @@ class CourseEnrollmentValidatorTest {
     @Test
     void validateForInsert_givenCourseEnrollment_shouldThrowInsufficientFundsException() {
         // given
-        student.setCoins(NOT_ENOUGH_COINS);
+        var course = new CourseBuilder().build();
+        var price = course.getPrice();
+        var student = new StudentBuilder()
+                .coins(price.subtract(BigDecimal.ONE))
+                .build();
+        var courseEnrollment = new CourseEnrollment(course, student);
 
         // when, then
         assertThrows(InsufficientFundsException.class,

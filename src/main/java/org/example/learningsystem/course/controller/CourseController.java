@@ -15,7 +15,6 @@ import org.example.learningsystem.course.mapper.CourseMapper;
 import org.example.learningsystem.lesson.mapper.LessonMapper;
 import org.example.learningsystem.student.mapper.StudentMapper;
 import org.example.learningsystem.course.service.CourseService;
-import org.example.learningsystem.course.service.CourseEnrollmentService;
 import org.example.learningsystem.lesson.service.LessonService;
 import org.example.learningsystem.student.service.StudentService;
 import org.springframework.data.domain.Pageable;
@@ -42,7 +41,6 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 @Tag(name = "Course Controller")
 public class CourseController {
 
-    private final CourseEnrollmentService courseEnrollmentService;
     private final CourseService courseService;
     private final CourseMapper courseMapper;
     private final LessonService lessonService;
@@ -61,16 +59,6 @@ public class CourseController {
         var course = courseMapper.toEntity(courseRequestDto);
         var savedCourse = courseService.create(course);
         return courseMapper.toDto(savedCourse);
-    }
-
-    @PostMapping("/{id}/students/{studentId}")
-    @Operation(summary = "Enroll student in course")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Student was enrolled"),
-            @ApiResponse(responseCode = "400", description = "Invalid values of path variables")
-    })
-    public void enrollStudent(@PathVariable UUID id, @PathVariable UUID studentId) {
-        courseEnrollmentService.enrollStudent(id, studentId);
     }
 
     @PostMapping("/{id}/lessons")
@@ -158,18 +146,6 @@ public class CourseController {
     @ApiResponse(responseCode = "204", description = "Course was deleted or doesn't exist")
     public void deleteById(@PathVariable UUID id) {
         courseService.deleteById(id);
-    }
-
-    @DeleteMapping("/{id}/students/{studentId}")
-    @ResponseStatus(NO_CONTENT)
-    @Operation(summary = "Unenroll student from course")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Student was unenrolled"),
-            @ApiResponse(responseCode = "400", description = "Invalid values of path variables"),
-            @ApiResponse(responseCode = "404", description = "Course or student was not found")
-    })
-    public void unenrollStudent(@PathVariable UUID id, @PathVariable UUID studentId) {
-        courseEnrollmentService.unenrollStudent(id, studentId);
     }
 
 }

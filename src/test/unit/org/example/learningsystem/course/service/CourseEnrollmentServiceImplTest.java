@@ -1,18 +1,15 @@
-package org.example.learningsystem.unit.course;
+package org.example.learningsystem.course.service;
 
+import builder.CourseBuilder;
+import builder.StudentBuilder;
 import org.example.learningsystem.course.exception.DuplicateEnrollmentException;
-import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.course.model.CourseEnrollment;
 import org.example.learningsystem.course.model.CourseEnrollmentId;
 import org.example.learningsystem.course.exception.EnrollmentDeniedException;
 import org.example.learningsystem.course.exception.InsufficientFundsException;
 import org.example.learningsystem.course.repository.CourseEnrollmentRepository;
-import org.example.learningsystem.course.service.CourseServiceImpl;
-import org.example.learningsystem.course.service.CourseEnrollmentServiceImpl;
 import org.example.learningsystem.course.validator.CourseEnrollmentValidator;
-import org.example.learningsystem.student.model.Student;
 import org.example.learningsystem.student.service.StudentServiceImpl;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,9 +18,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.example.learningsystem.util.CourseTestUtils.ENOUGH_COINS;
-import static org.example.learningsystem.util.CourseTestUtils.createSavedCourse;
-import static org.example.learningsystem.util.StudentTestUtils.createSavedStudent;
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
@@ -31,7 +27,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@Tag("unit-test")
+@Tag("unit")
 @ExtendWith(MockitoExtension.class)
 class CourseEnrollmentServiceImplTest {
 
@@ -45,19 +41,17 @@ class CourseEnrollmentServiceImplTest {
     public CourseEnrollmentServiceImpl enrollmentService;
     @Mock
     public StudentServiceImpl studentService;
-    private Course course;
-    private Student student;
-
-    @BeforeEach
-    void setup() {
-        course = createSavedCourse();
-        student = createSavedStudent();
-    }
 
     @Test
     void enrollStudent_givenCourseAndStudent_shouldSuccessfullyEnrollStudent() {
         // given
-        student.setCoins(ENOUGH_COINS);
+        var course = new CourseBuilder()
+                .id(UUID.randomUUID())
+                .build();
+        var student = new StudentBuilder()
+                .id(UUID.randomUUID())
+                .coins(course.getPrice())
+                .build();
         when(studentService.getByIdForUpdate(any()))
                 .thenReturn(student);
         when(courseService.getByIdForUpdate(any()))
@@ -74,6 +68,13 @@ class CourseEnrollmentServiceImplTest {
     @Test
     void enrollStudent_givenCourseAndStudent_shouldThrowEnrollmentDeniedException() {
         // given
+        var course = new CourseBuilder()
+                .id(UUID.randomUUID())
+                .build();
+        var student = new StudentBuilder()
+                .id(UUID.randomUUID())
+                .coins(course.getPrice())
+                .build();
         when(studentService.getByIdForUpdate(any()))
                 .thenReturn(student);
         when(courseService.getByIdForUpdate(any()))
@@ -90,6 +91,12 @@ class CourseEnrollmentServiceImplTest {
     @Test
     void enrollStudent_givenCourseAndStudent_shouldThrowInsufficientFundsException() {
         // given
+        var course = new CourseBuilder()
+                .id(UUID.randomUUID())
+                .build();
+        var student = new StudentBuilder()
+                .id(UUID.randomUUID())
+                .build();
         when(studentService.getByIdForUpdate(any()))
                 .thenReturn(student);
         when(courseService.getByIdForUpdate(any()))
@@ -106,6 +113,12 @@ class CourseEnrollmentServiceImplTest {
     @Test
     void enrollStudent_givenCourseAndStudent_shouldThrowDuplicateEnrollmentException() {
         // given
+        var course = new CourseBuilder()
+                .id(UUID.randomUUID())
+                .build();
+        var student = new StudentBuilder()
+                .id(UUID.randomUUID())
+                .build();
         var courseId = course.getId();
         var studentId = student.getId();
         when(courseService.getByIdForUpdate(courseId))
@@ -124,6 +137,12 @@ class CourseEnrollmentServiceImplTest {
     @Test
     void unenrollStudent_givenCourseIdAndStudentId_shouldSuccessfullyUnenrollStudent() {
         // given
+        var course = new CourseBuilder()
+                .id(UUID.randomUUID())
+                .build();
+        var student = new StudentBuilder()
+                .id(UUID.randomUUID())
+                .build();
         var courseId = course.getId();
         var studentId = student.getId();
 

@@ -1,13 +1,12 @@
-package org.example.learningsystem.unit.course;
+package org.example.learningsystem.course.service;
 
+import builder.CourseBuilder;
 import org.example.learningsystem.core.util.validator.EntityValidator;
 import org.example.learningsystem.course.exception.InvalidCourseDurationException;
 import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.course.repository.CourseRepository;
-import org.example.learningsystem.course.service.CourseServiceImpl;
 import org.example.learningsystem.exception.logic.EntityNotFoundException;
 import org.example.learningsystem.exception.validation.IllegalNullValueException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,13 +16,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
-import static org.example.learningsystem.util.CourseTestUtils.createCourse;
-import static org.example.learningsystem.util.CourseTestUtils.createSavedCourse;
-import static org.example.learningsystem.util.CourseTestUtils.END_DATE;
-import static org.example.learningsystem.util.CourseTestUtils.START_DATE;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -35,7 +32,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@Tag("unit-test")
+@Tag("unit")
 @ExtendWith(MockitoExtension.class)
 class CourseServiceImplTest {
 
@@ -45,18 +42,12 @@ class CourseServiceImplTest {
     public EntityValidator<Course> courseValidator;
     @InjectMocks
     public CourseServiceImpl courseService;
-    private Course course;
-    private Course savedCourse;
-
-    @BeforeEach
-    void setup() {
-        course = createCourse();
-        savedCourse = createSavedCourse();
-    }
 
     @Test
     void create_givenCourse_shouldSuccessfullyCreateCourse() {
         // given
+        var course = createCourse();
+        var savedCourse = createSavedCourse();
         var savedSettings = savedCourse.getSettings();
         when(courseRepository.save(course))
                 .thenReturn(savedCourse);
@@ -90,6 +81,7 @@ class CourseServiceImplTest {
     @Test
     void create_givenCourse_shouldThrowInvalidCourseDurationException() {
         // given
+        var course = createCourse();
         setInvalidDuration(course);
         doThrow(InvalidCourseDurationException.class)
                 .when(courseValidator)
@@ -102,6 +94,7 @@ class CourseServiceImplTest {
     @Test
     void getById_givenId_shouldSuccessfullyReturnCourse() {
         // given
+        var savedCourse = createSavedCourse();
         var id = savedCourse.getId();
         when(courseRepository.findById(id))
                 .thenReturn(Optional.of(savedCourse));
@@ -118,6 +111,7 @@ class CourseServiceImplTest {
     @Test
     void getById_givenId_shouldThrowEntityNotFoundException() {
         // given
+        var savedCourse = createSavedCourse();
         var id = savedCourse.getId();
         when(courseRepository.findById(id))
                 .thenReturn(Optional.empty());
@@ -129,6 +123,7 @@ class CourseServiceImplTest {
     @Test
     void getAll_givenPageable_shouldSuccessfullyReturnPage() {
         // given
+        var course = createCourse();
         var pageNumber = 0;
         var pageSize = 1;
         var pageable = PageRequest.of(pageNumber, pageSize);
@@ -151,6 +146,7 @@ class CourseServiceImplTest {
     @Test
     void update_givenCourse_shouldSuccessfullyUpdateCourse() {
         // given
+        var savedCourse = createSavedCourse();
         var savedSettings = savedCourse.getSettings();
         when(courseRepository.findById(any()))
                 .thenReturn(Optional.of(savedCourse));
@@ -186,6 +182,8 @@ class CourseServiceImplTest {
     @Test
     void update_givenCourse_shouldThrowInvalidCourseDurationException() {
         // given
+        var course = createCourse();
+        var savedCourse = createSavedCourse();
         setInvalidDuration(course);
         when(courseRepository.findById(any()))
                 .thenReturn(Optional.of(savedCourse));
@@ -200,6 +198,8 @@ class CourseServiceImplTest {
     @Test
     void update_givenCourse_shouldThrowIllegalNullValueException() {
         // given
+        var course = createCourse();
+        var savedCourse = createSavedCourse();
         course.setCoinsPaid(null);
 
         when(courseRepository.findById(any()))
@@ -215,6 +215,7 @@ class CourseServiceImplTest {
     @Test
     void deleteById_givenId_shouldSuccessfullyDeleteCourse() {
         // when
+        var savedCourse = createSavedCourse();
         var id = savedCourse.getId();
         courseService.deleteById(id);
 
@@ -226,6 +227,7 @@ class CourseServiceImplTest {
     @Test
     void getUpcoming_givenDays_shouldSuccessfullyReturnUpcomingCourses() {
         // given
+        var course = createCourse();
         int days = 1;
         var courses = List.of(course);
         when(courseRepository.findAllBySettingsStartDateBetween(any(), any()))
@@ -240,10 +242,20 @@ class CourseServiceImplTest {
                 .findAllBySettingsStartDateBetween(any(), any());
     }
 
+    private Course createCourse() {
+        return new CourseBuilder().build();
+    }
+
+    private Course createSavedCourse() {
+        return new CourseBuilder()
+                .id(UUID.randomUUID())
+                .build();
+    }
+
     private void setInvalidDuration(Course course) {
         var settings = course.getSettings();
-        settings.setStartDate(END_DATE);
-        settings.setEndDate(START_DATE);
+        settings.setStartDate(LocalDateTime.of(2025, 1, 1, 10, 0, 0));
+        settings.setEndDate(LocalDateTime.of(2024, 1, 1, 10, 0, 0));
     }
 
 }

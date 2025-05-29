@@ -4,7 +4,7 @@ import org.example.learningsystem.lesson.dto.classroom.ClassroomLessonRequestDto
 import org.example.learningsystem.lesson.dto.lesson.LessonRequestDto;
 import org.example.learningsystem.lesson.dto.video.VideoLessonRequestDto;
 
-public class LessonTestUtils {
+public class LessonRequestDtoUtils {
 
     public static final String TITLE = "Lesson title";
     public static final Integer DURATION = 60;
