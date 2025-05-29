@@ -30,10 +30,14 @@ import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
 public class LessonRequestDto {
 
     private UUID id;
+
     @NotBlank
     private String title;
+
     @Min(0)
     private Integer duration;
+
     private UUID courseId;
+
     private String type;
 }

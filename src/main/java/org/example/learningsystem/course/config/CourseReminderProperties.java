@@ -18,9 +18,11 @@ public class CourseReminderProperties {
 
     @NotNull
     private String cron;
+
     @NotNull
     @Min(0)
     @Max(30)
     private Integer daysBefore;
+
     private Boolean enabled = true;
 }

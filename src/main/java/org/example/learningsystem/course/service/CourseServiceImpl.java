@@ -82,4 +82,5 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.findByIdForUpdate(id)
                 .orElseThrow(() -> new EntityNotFoundException(Course.class.getName(), id));
     }
+
 }

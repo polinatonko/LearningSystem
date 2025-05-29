@@ -29,4 +29,5 @@ public class StudentValidator implements EntityValidator<Student> {
             throw new InsufficientBirthDateException(dateOfBirth);
         }
     }
+
 }

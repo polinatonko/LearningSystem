@@ -36,8 +36,11 @@ public class Lesson extends AuditableEntity {
     @Id
     @GeneratedValue(strategy = UUID)
     private UUID id;
+
     private String title;
+
     private Integer duration;
+
     @ManyToOne(optional = false, fetch = LAZY)
     private Course course;
 }

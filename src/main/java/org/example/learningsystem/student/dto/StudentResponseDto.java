@@ -11,18 +11,25 @@ import static org.example.learningsystem.core.util.format.DataFormatUtils.DATE_F
 
 @Schema
 public record StudentResponseDto(
+
         UUID id,
+
         @Schema(maxLength = 30)
         String firstName,
+
         @Schema(maxLength = 30)
         String lastName,
+
         @Schema(maxLength = 254, example = "example@gmail.com")
         String email,
+
         @Schema(pattern = "YYYY/MM/dd")
         @JsonFormat(pattern = DATE_FORMAT)
         LocalDate dateOfBirth,
+
         @Schema(minimum = "0")
         BigDecimal coins,
+
         @Schema(maxLength = 3, examples = {"en", "840"})
         String language
 ) {

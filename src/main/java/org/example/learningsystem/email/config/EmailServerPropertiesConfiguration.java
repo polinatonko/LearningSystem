@@ -20,18 +20,25 @@ public class EmailServerPropertiesConfiguration implements EmailServerProperties
 
     @NotNull
     private String from;
+
     @NotNull
     private String user;
+
     @NotNull
     private String password;
+
     @NotNull
     private String host;
+
     @NotNull
     private String port;
+
     @NotNull
     private String protocol;
+
     @NotNull
     private String auth;
+
     @NotNull
     private String startTlsEnable;
 }

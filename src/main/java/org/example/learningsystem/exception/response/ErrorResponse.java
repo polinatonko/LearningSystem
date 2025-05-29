@@ -20,4 +20,5 @@ public record ErrorResponse(
     public static ErrorResponse of(String message, HttpStatus status) {
         return new ErrorResponse(message, status.value());
     }
+
 }

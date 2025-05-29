@@ -16,10 +16,12 @@ import org.hibernate.validator.constraints.URL;
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 public class VideoLessonRequestDto extends LessonRequestDto {
+
     @NotBlank
     @Size(max = 256)
     @URL
     private String url;
+
     @Size(max = 100)
     private String platform;
 }

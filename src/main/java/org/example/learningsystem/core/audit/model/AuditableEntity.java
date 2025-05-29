@@ -26,11 +26,14 @@ public class AuditableEntity {
     @Column(nullable = false, updatable = false)
     @CreatedDate
     private Instant created;
+
     @CreatedBy
     private String createdBy;
+
     @Column(nullable = false)
     @LastModifiedDate
     private Instant lastChanged;
+
     @LastModifiedBy
     private String lastChangedBy;
 }

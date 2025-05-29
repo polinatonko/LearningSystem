@@ -17,6 +17,7 @@ public class DestinationDto {
 
     @JsonProperty("Name")
     private String name;
+
     @JsonProperty("Type")
     private String type;
 }

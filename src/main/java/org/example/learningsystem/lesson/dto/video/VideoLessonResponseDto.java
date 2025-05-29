@@ -12,5 +12,6 @@ public class VideoLessonResponseDto extends LessonResponseDto {
 
     @Schema(pattern = ".*[^\\s]+.*")
     private String url;
+
     private String platform;
 }

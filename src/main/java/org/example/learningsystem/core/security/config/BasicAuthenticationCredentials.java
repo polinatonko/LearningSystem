@@ -18,6 +18,7 @@ public class BasicAuthenticationCredentials {
     @Valid
     @NestedConfigurationProperty
     private UserCredentials manager;
+
     @Valid
     @NestedConfigurationProperty
     private UserCredentials student;

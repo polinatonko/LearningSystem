@@ -13,19 +13,26 @@ import static org.example.learningsystem.core.util.format.DataFormatUtils.DATE_T
 
 public record CourseRequestDto(
         UUID id,
+
         @NotBlank
         String title,
+
         String description,
+
         @Min(0)
         BigDecimal price,
+
         @Min(0)
         BigDecimal coinsPaid,
+
         @JsonFormat(pattern = DATE_TIME_FORMAT)
         @Schema(pattern = "YYYY/MM/dd HH:MM:ss")
         LocalDateTime startDate,
+
         @JsonFormat(pattern = DATE_TIME_FORMAT)
         @Schema(pattern = "YYYY/MM/dd HH:MM:ss")
         LocalDateTime endDate,
+
         Boolean isPublic
 ) {
 }

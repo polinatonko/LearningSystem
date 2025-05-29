@@ -41,4 +41,5 @@ public class CourseValidator implements EntityValidator<Course> {
             throw new InvalidCourseDurationException(startDate, endDate);
         }
     }
+
 }

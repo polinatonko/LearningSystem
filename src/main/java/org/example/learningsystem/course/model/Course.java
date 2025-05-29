@@ -35,14 +35,21 @@ public class Course extends AuditableEntity {
     @Id
     @GeneratedValue(strategy = UUID)
     private UUID id;
+
     private String title;
+
     private String description;
+
     private BigDecimal price;
+
     private BigDecimal coinsPaid;
+
     @OneToOne(mappedBy = "course", cascade = ALL)
     private CourseSettings settings;
+
     @OneToMany(mappedBy = "course", cascade = ALL)
     private Set<Lesson> lessons;
+
     @OneToMany(mappedBy = "course", cascade = ALL)
     private Set<CourseEnrollment> enrollments;
 

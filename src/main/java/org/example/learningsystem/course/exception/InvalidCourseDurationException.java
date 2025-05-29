@@ -8,4 +8,5 @@ public class InvalidCourseDurationException extends RuntimeException {
         super("End date of the course should be smaller than the start one [startDate = %s, endDate = %s]"
                 .formatted(startDate, endDate));
     }
+
 }

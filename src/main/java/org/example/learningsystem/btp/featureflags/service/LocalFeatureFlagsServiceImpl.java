@@ -17,4 +17,5 @@ public class LocalFeatureFlagsServiceImpl implements FeatureFlagsService {
     public boolean getBooleanByName(String name) {
         return false;
     }
+
 }

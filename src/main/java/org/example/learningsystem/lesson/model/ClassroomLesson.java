@@ -20,5 +20,6 @@ import lombok.experimental.SuperBuilder;
 public class ClassroomLesson extends Lesson {
 
     private String location;
+
     private Integer capacity;
 }

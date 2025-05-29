@@ -32,9 +32,13 @@ public class CourseSettings extends AuditableEntity {
 
     @Id
     private UUID id;
+
     private LocalDateTime startDate;
+
     private LocalDateTime endDate;
+
     private Boolean isPublic;
+
     @OneToOne
     @MapsId
     @JoinColumn(name = "id")

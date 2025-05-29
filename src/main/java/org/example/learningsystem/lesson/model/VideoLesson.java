@@ -20,5 +20,6 @@ import lombok.experimental.SuperBuilder;
 public class VideoLesson extends Lesson {
 
     private String url;
+
     private String platform;
 }

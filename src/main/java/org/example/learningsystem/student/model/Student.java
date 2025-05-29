@@ -36,12 +36,19 @@ public class Student extends AuditableEntity {
     @Id
     @GeneratedValue(strategy = UUID)
     private UUID id;
+
     private String firstName;
+
     private String lastName;
+
     private String email;
+
     private LocalDate dateOfBirth;
+
     private BigDecimal coins;
+
     private String language;
+
     @OneToMany(mappedBy = "student", cascade = ALL)
     private Set<CourseEnrollment> enrollments;
 
@@ -52,4 +59,5 @@ public class Student extends AuditableEntity {
         this.dateOfBirth = dateOfBirth;
         this.coins = coins;
     }
+
 }

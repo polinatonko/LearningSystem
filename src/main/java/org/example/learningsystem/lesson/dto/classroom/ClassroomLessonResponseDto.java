@@ -12,6 +12,7 @@ public class ClassroomLessonResponseDto extends LessonResponseDto {
 
     @Schema(pattern = ".*[^\\s]+.*")
     private String location;
+
     @Schema(minimum = "1")
     private Integer capacity;
 }

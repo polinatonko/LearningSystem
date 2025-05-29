@@ -20,6 +20,7 @@ public class ClassroomLessonRequestDto extends LessonRequestDto {
     @NotBlank
     @Size(max = 100)
     private String location;
+
     @Min(1)
     private Integer capacity;
 }

@@ -16,20 +16,26 @@ import static org.example.learningsystem.core.util.format.DataFormatUtils.DATE_F
 
 public record StudentRequestDto(
         UUID id,
+
         @Size(max = 30)
         String firstName,
+
         @Size(max = 30)
         String lastName,
+
         @NotBlank
         @Size(max = 254)
         @Email
         String email,
+
         @NotNull
         @JsonFormat(pattern = DATE_FORMAT)
         @Schema(pattern = "YYYY/MM/dd")
         LocalDate dateOfBirth,
+
         @Min(0)
         BigDecimal coins,
+
         @Size(max = 3)
         String language
 ) {
