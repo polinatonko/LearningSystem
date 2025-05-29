@@ -1,7 +1,6 @@
 package org.example.learningsystem.core.audit.config;
 
 import org.springframework.data.domain.AuditorAware;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -9,7 +8,6 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 
 import java.util.Optional;
 
-import static java.util.Objects.nonNull;
 import static org.springframework.security.oauth2.core.OAuth2TokenIntrospectionClaimNames.CLIENT_ID;
 
 public class AuditorAwareImpl implements AuditorAware<String> {
@@ -19,18 +17,8 @@ public class AuditorAwareImpl implements AuditorAware<String> {
     @Override
     public Optional<String> getCurrentAuditor() {
         var context = SecurityContextHolder.getContext();
-
         var authentication = context.getAuthentication();
-        if (!isAuthenticated(authentication)) {
-            return Optional.empty();
-        }
-
         return extractUsername(authentication);
-    }
-
-    private boolean isAuthenticated(Authentication authentication) {
-        return nonNull(authentication) && authentication.isAuthenticated()
-                && !(authentication instanceof AnonymousAuthenticationToken);
     }
 
     private Optional<String> extractUsername(Authentication authentication) {

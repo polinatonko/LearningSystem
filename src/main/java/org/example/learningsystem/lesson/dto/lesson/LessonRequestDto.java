@@ -14,7 +14,10 @@ import org.example.learningsystem.lesson.dto.video.VideoLessonRequestDto;
 
 import java.util.UUID;
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "type", visible = true)
+import static com.fasterxml.jackson.annotation.JsonTypeInfo.As.EXISTING_PROPERTY;
+import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
+
+@JsonTypeInfo(use = NAME, include = EXISTING_PROPERTY, property = "type", visible = true)
 @JsonSubTypes({
         @JsonSubTypes.Type(value = ClassroomLessonRequestDto.class, name = "CLASSROOM"),
         @JsonSubTypes.Type(value = VideoLessonRequestDto.class, name = "VIDEO")

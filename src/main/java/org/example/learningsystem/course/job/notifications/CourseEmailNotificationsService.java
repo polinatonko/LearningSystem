@@ -24,13 +24,15 @@ public class CourseEmailNotificationsService implements CourseNotificationsServi
     @Override
     public void send(List<Course> courses) {
         var emailServerProperties = emailServerPropertiesResolver.resolve();
+        courses.forEach(course -> sendNotifications(course, emailServerProperties));
+    }
 
-        courses.forEach(course ->
-                course.getEnrollments()
-                        .stream()
-                        .map(CourseEnrollment::getStudent)
-                        .forEach(student ->
-                                sendNotification(course, student, emailServerProperties)));
+    private void sendNotifications(Course course, EmailServerProperties emailServerProperties) {
+        course.getEnrollments()
+                .stream()
+                .map(CourseEnrollment::getStudent)
+                .forEach(student ->
+                        sendNotification(course, student, emailServerProperties));
     }
 
     private void sendNotification(Course course, Student student, EmailServerProperties emailServerProperties) {

@@ -6,13 +6,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.learningsystem.core.pagination.dto.PageResponseDto;
 import org.example.learningsystem.lesson.dto.lesson.LessonRequestDto;
 import org.example.learningsystem.lesson.dto.lesson.LessonResponseDto;
 import org.example.learningsystem.lesson.mapper.LessonMapper;
 import org.example.learningsystem.lesson.service.LessonService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.PagedModel;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,10 +50,11 @@ public class LessonController {
     @GetMapping
     @Operation(summary = "Get all lessons")
     @ApiResponse(responseCode = "200", description = "Lessons were retrieved")
-    public PageResponseDto<LessonResponseDto> getAll(
+    public PagedModel<LessonResponseDto> getAll(
             @PageableDefault(size = 5, sort = "created") Pageable pageable) {
         var lessons = lessonService.getAll(pageable);
-        return PageResponseDto.of(lessons, lessonMapper::toDto);
+        var lessonsMapped = lessons.map(lessonMapper::toDto);
+        return new PagedModel<>(lessonsMapped);
     }
 
     @PutMapping("/{id}")

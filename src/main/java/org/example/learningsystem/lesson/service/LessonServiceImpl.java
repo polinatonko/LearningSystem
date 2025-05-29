@@ -35,6 +35,9 @@ public class LessonServiceImpl implements LessonService {
         var course = courseService.getById(courseId);
         addToCourse(lesson, course);
         lessonValidator.validateForInsert(lesson);
+        System.out.println(lesson);
+        System.out.println(lesson.getCourse());
+        System.out.println(course.getLessons());
         return lessonRepository.save(lesson);
     }
 
