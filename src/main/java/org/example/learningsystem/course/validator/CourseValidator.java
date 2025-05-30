@@ -3,7 +3,7 @@ package org.example.learningsystem.course.validator;
 import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.course.model.CourseSettings;
 import org.example.learningsystem.course.exception.InvalidCourseDurationException;
-import org.example.learningsystem.exception.validation.IllegalNullValueException;
+import org.example.learningsystem.core.exception.validation.IllegalNullValueException;
 import org.example.learningsystem.core.util.validator.EntityValidator;
 import org.springframework.stereotype.Component;
 
@@ -41,4 +41,5 @@ public class CourseValidator implements EntityValidator<Course> {
             throw new InvalidCourseDurationException(startDate, endDate);
         }
     }
+
 }

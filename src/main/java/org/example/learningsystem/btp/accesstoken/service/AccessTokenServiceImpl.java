@@ -73,4 +73,5 @@ public class AccessTokenServiceImpl implements AccessTokenService {
         }
         return response.accessToken();
     }
+
 }

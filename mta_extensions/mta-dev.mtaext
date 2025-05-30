@@ -1,0 +1,8 @@
+_schema-version: "3.3"
+ID: mta_lms_dev
+extends: mta_lms
+
+modules:
+  - name: lms
+    parameters:
+      health-check-timeout: 35

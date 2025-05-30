@@ -8,16 +8,18 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.course.dto.CourseRequestDto;
 import org.example.learningsystem.course.dto.CourseResponseDto;
-import org.example.learningsystem.lesson.dto.LessonRequestDto;
-import org.example.learningsystem.lesson.dto.LessonResponseDto;
+import org.example.learningsystem.lesson.dto.lesson.LessonRequestDto;
+import org.example.learningsystem.lesson.dto.lesson.LessonResponseDto;
 import org.example.learningsystem.student.dto.StudentResponseDto;
 import org.example.learningsystem.course.mapper.CourseMapper;
 import org.example.learningsystem.lesson.mapper.LessonMapper;
 import org.example.learningsystem.student.mapper.StudentMapper;
 import org.example.learningsystem.course.service.CourseService;
-import org.example.learningsystem.course.service.CourseEnrollmentService;
 import org.example.learningsystem.lesson.service.LessonService;
 import org.example.learningsystem.student.service.StudentService;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.PagedModel;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,10 +27,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
 import java.util.UUID;
 
 import static org.springframework.http.HttpStatus.CREATED;
@@ -40,7 +41,6 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 @Tag(name = "Course Controller")
 public class CourseController {
 
-    private final CourseEnrollmentService courseEnrollmentService;
     private final CourseService courseService;
     private final CourseMapper courseMapper;
     private final LessonService lessonService;
@@ -59,16 +59,6 @@ public class CourseController {
         var course = courseMapper.toEntity(courseRequestDto);
         var savedCourse = courseService.create(course);
         return courseMapper.toDto(savedCourse);
-    }
-
-    @PostMapping("/{id}/students/{studentId}")
-    @Operation(summary = "Enroll student in course")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Student was enrolled"),
-            @ApiResponse(responseCode = "400", description = "Invalid values of path variables")
-    })
-    public void enrollStudent(@PathVariable UUID id, @PathVariable UUID studentId) {
-        courseEnrollmentService.enrollStudent(id, studentId);
     }
 
     @PostMapping("/{id}/lessons")
@@ -99,9 +89,11 @@ public class CourseController {
     @GetMapping
     @Operation(summary = "Get all courses")
     @ApiResponse(responseCode = "200", description = "Courses were retrieved")
-    public List<CourseResponseDto> getAll() {
-        var courses = courseService.getAll();
-        return courseMapper.toDtos(courses);
+    public PagedModel<CourseResponseDto> getAll(
+            @PageableDefault(size = 5, sort = "created") Pageable pageable) {
+        var courses = courseService.getAll(pageable);
+        var mappedCourses = courses.map(courseMapper::toDto);
+        return new PagedModel<>(mappedCourses);
     }
 
     @GetMapping("/{id}/students")
@@ -111,9 +103,12 @@ public class CourseController {
             @ApiResponse(responseCode = "400", description = "Invalid value of path variable"),
             @ApiResponse(responseCode = "404", description = "Course was not found")
     })
-    public List<StudentResponseDto> getStudents(@PathVariable UUID id) {
-        var students = studentService.getAllByCourseId(id);
-        return studentMapper.toDtos(students);
+    public PagedModel<StudentResponseDto> getStudents(
+            @PathVariable UUID id,
+            @PageableDefault(size = 5, sort = "created") Pageable pageable) {
+        var students = studentService.getAllByCourseId(id, pageable);
+        var mappedStudents = students.map(studentMapper::toDto);
+        return new PagedModel<>(mappedStudents);
     }
 
     @GetMapping("/{id}/lessons")
@@ -123,9 +118,12 @@ public class CourseController {
             @ApiResponse(responseCode = "400", description = "Invalid value of path variable"),
             @ApiResponse(responseCode = "404", description = "Course was not found")
     })
-    public List<LessonResponseDto> getLessons(@PathVariable UUID id) {
-        var lessons = lessonService.getAllByCourseId(id);
-        return lessonMapper.toDtos(lessons);
+    public PagedModel<LessonResponseDto> getLessons(
+            @PathVariable UUID id,
+            @PageableDefault(size = 5, sort = "created") Pageable pageable) {
+        var lessons = lessonService.getAllByCourseId(id, pageable);
+        var mappedLessons = lessons.map(lessonMapper::toDto);
+        return new PagedModel<>(mappedLessons);
     }
 
     @PutMapping("/{id}")
@@ -150,15 +148,4 @@ public class CourseController {
         courseService.deleteById(id);
     }
 
-    @DeleteMapping("/{id}/students/{studentId}")
-    @ResponseStatus(NO_CONTENT)
-    @Operation(summary = "Unenroll student from course")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Student was unenrolled"),
-            @ApiResponse(responseCode = "400", description = "Invalid values of path variables"),
-            @ApiResponse(responseCode = "404", description = "Course or student was not found")
-    })
-    public void unenrollStudent(@PathVariable UUID id, @PathVariable UUID studentId) {
-        courseEnrollmentService.unenrollStudent(id, studentId);
-    }
 }

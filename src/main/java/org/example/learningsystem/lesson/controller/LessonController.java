@@ -6,20 +6,22 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.learningsystem.lesson.dto.LessonRequestDto;
-import org.example.learningsystem.lesson.dto.LessonResponseDto;
+import org.example.learningsystem.lesson.dto.lesson.LessonRequestDto;
+import org.example.learningsystem.lesson.dto.lesson.LessonResponseDto;
 import org.example.learningsystem.lesson.mapper.LessonMapper;
 import org.example.learningsystem.lesson.service.LessonService;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.PagedModel;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
 import java.util.UUID;
 
 import static org.springframework.http.HttpStatus.NO_CONTENT;
@@ -48,9 +50,11 @@ public class LessonController {
     @GetMapping
     @Operation(summary = "Get all lessons")
     @ApiResponse(responseCode = "200", description = "Lessons were retrieved")
-    public List<LessonResponseDto> getAll() {
-        var lessons = lessonService.getAll();
-        return lessonMapper.toDtos(lessons);
+    public PagedModel<LessonResponseDto> getAll(
+            @PageableDefault(size = 5, sort = "created") Pageable pageable) {
+        var lessons = lessonService.getAll(pageable);
+        var lessonsMapped = lessons.map(lessonMapper::toDto);
+        return new PagedModel<>(lessonsMapped);
     }
 
     @PutMapping("/{id}")
@@ -61,9 +65,8 @@ public class LessonController {
             @ApiResponse(responseCode = "404", description = "Lesson was not found")
     })
     public LessonResponseDto updateById(@PathVariable UUID id, @RequestBody @Valid LessonRequestDto lessonRequestDto) {
-        var lesson = lessonService.getById(id);
-        lessonMapper.toEntity(lessonRequestDto, lesson);
-        var updatedLesson = lessonService.update(lesson);
+        var lesson = lessonMapper.toEntity(lessonRequestDto);
+        var updatedLesson = lessonService.update(lessonRequestDto.getCourseId(), lesson);
         return lessonMapper.toDto(updatedLesson);
     }
 
@@ -74,4 +77,5 @@ public class LessonController {
     public void deleteById(@PathVariable UUID id) {
         lessonService.deleteById(id);
     }
+
 }

@@ -11,6 +11,10 @@ spring:
   liquibase:
     change-log: classpath:db/changelog/app_migrations.xml
 
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+
 basic-authentication:
   manager:
     username: manager@gmail.com

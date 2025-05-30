@@ -19,7 +19,7 @@ public interface CourseRepository extends JpaRepository<Course, UUID> {
     Optional<Course> findById(UUID id);
 
     @Lock(PESSIMISTIC_WRITE)
-    @Query("SELECT c, l FROM Course c LEFT JOIN Lesson l ON l.course.id = c.id")
+    @Query("SELECT c FROM Course c LEFT JOIN FETCH c.lessons l WHERE c.id = :id")
     Optional<Course> findByIdForUpdate(UUID id);
 
     @EntityGraph(attributePaths = {"enrollments", "enrollments.student"})

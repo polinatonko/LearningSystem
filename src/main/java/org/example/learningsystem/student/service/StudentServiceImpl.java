@@ -2,16 +2,17 @@ package org.example.learningsystem.student.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.student.model.Student;
-import org.example.learningsystem.exception.logic.EntityNotFoundException;
+import org.example.learningsystem.core.exception.logic.EntityNotFoundException;
 import org.example.learningsystem.student.repository.StudentRepository;
 import org.example.learningsystem.core.util.validator.EntityValidator;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -41,13 +42,13 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> getAllByCourseId(UUID courseId) {
-        return studentRepository.findAllByEnrollmentsCourseId(courseId);
+    public Page<Student> getAllByCourseId(UUID courseId, Pageable pageable) {
+        return studentRepository.findAllByEnrollmentsCourseId(courseId, pageable);
     }
 
     @Override
-    public List<Student> getAll() {
-        return studentRepository.findAll();
+    public Page<Student> getAll(Pageable pageable) {
+        return studentRepository.findAll(pageable);
     }
 
     @Override
@@ -73,4 +74,5 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findByIdForUpdate(id)
                 .orElseThrow(() -> new EntityNotFoundException(Student.class.getName(), id));
     }
+
 }

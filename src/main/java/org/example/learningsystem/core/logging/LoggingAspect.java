@@ -19,4 +19,5 @@ public class LoggingAspect {
     public void logAfterReturning(JoinPoint joinPoint, Object result) {
         log.error("Error: {}", result);
     }
+
 }

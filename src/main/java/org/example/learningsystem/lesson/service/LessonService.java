@@ -1,8 +1,9 @@
 package org.example.learningsystem.lesson.service;
 
 import org.example.learningsystem.lesson.model.Lesson;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 import java.util.UUID;
 
 public interface LessonService {
@@ -11,11 +12,11 @@ public interface LessonService {
 
     Lesson getById(UUID id);
 
-    List<Lesson> getAllByCourseId(UUID courseId);
+    Page<Lesson> getAllByCourseId(UUID courseId, Pageable pageable);
 
-    List<Lesson> getAll();
+    Page<Lesson> getAll(Pageable pageable);
 
-    Lesson update(Lesson lesson);
+    Lesson update(UUID courseId, Lesson lesson);
 
     void deleteById(UUID id);
 }

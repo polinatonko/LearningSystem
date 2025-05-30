@@ -12,5 +12,6 @@ import lombok.NoArgsConstructor;
 public class CourseEnrollmentId {
 
     private UUID courseId;
+
     private UUID studentId;
 }

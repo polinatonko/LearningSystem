@@ -20,7 +20,7 @@ public class EmailServerPropertiesResolverImpl implements EmailServerPropertiesR
 
     @Override
     public EmailServerProperties resolve() {
-        return !featureFlagsService.getBooleanByName(FLAG_DESTINATION_ENABLED)
+        return featureFlagsService.getBooleanByName(FLAG_DESTINATION_ENABLED)
                 ? getPropertiesFromDestinationService()
                 : emailServerProperties;
     }

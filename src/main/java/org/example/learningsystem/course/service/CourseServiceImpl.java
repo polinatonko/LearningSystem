@@ -2,13 +2,15 @@ package org.example.learningsystem.course.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.course.model.Course;
-import org.example.learningsystem.exception.logic.EntityNotFoundException;
+import org.example.learningsystem.core.exception.logic.EntityNotFoundException;
 import org.example.learningsystem.course.repository.CourseRepository;
 import org.example.learningsystem.core.util.validator.EntityValidator;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,8 +47,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> getAll() {
-        return courseRepository.findAll();
+    public Page<Course> getAll(Pageable pageable) {
+        return courseRepository.findAll(pageable);
     }
 
     @Override
@@ -77,7 +79,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     private Course findByIdForUpdate(UUID id) {
-        return courseRepository.findById(id)
+        return courseRepository.findByIdForUpdate(id)
                 .orElseThrow(() -> new EntityNotFoundException(Course.class.getName(), id));
     }
+
 }
