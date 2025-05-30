@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -31,6 +32,14 @@ public record CourseResponseDto(
         @JsonFormat(pattern = DATE_TIME_FORMAT)
         LocalDateTime endDate,
 
-        Boolean isPublic
+        Boolean isPublic,
+
+        Instant created,
+
+        String createdBy,
+
+        Instant lastChanged,
+
+        String lastChangedBy
 ) {
 }

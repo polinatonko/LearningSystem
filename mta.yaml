@@ -13,13 +13,14 @@ modules:
       health-check-timeout: 30
       memory: 1500M
     build-parameters:
-      builder: custom
-      commands: []
+      builder: maven
+      build-result: target/*.jar
     properties:
       SPRING_PROFILES_ACTIVE: cloud
       JBP_CONFIG_COMPONENTS: "jres: ['com.sap.xs.java.buildpack.jdk.SAPMachineJDK']"
       JBP_CONFIG_JAVA_OPTS: "[java_opts: '-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000']"
       JBP_CONFIG_SAP_MACHINE_JDK: "{ version: 21.+ }"
+      TARGET_RUNTIME: tomcat
     requires:
       - name: lms-logs
       - name: lms-hana-schema

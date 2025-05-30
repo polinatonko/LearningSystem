@@ -1,9 +1,9 @@
 package org.example.learningsystem.course.validator;
 
-import builder.CourseBuilder;
+import org.example.learningsystem.util.CourseBuilder;
 import org.example.learningsystem.course.exception.InvalidCourseDurationException;
 import org.example.learningsystem.course.model.Course;
-import org.example.learningsystem.exception.validation.IllegalNullValueException;
+import org.example.learningsystem.core.exception.validation.IllegalNullValueException;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

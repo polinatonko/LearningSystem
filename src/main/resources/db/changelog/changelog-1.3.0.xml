@@ -190,4 +190,64 @@
 
     </changeSet>
 
+    <changeSet id="changeset-1.3.0_012" author="polinatonko">
+
+        <addColumn tableName="video_lesson">
+            <column name="new_id" type="${uuid_type}"/>
+        </addColumn>
+        <update tableName="video_lesson">
+            <column name="new_id" valueComputed="id"/>
+        </update>
+        <dropForeignKeyConstraint baseTableName="video_lesson" constraintName="fk_video_lesson"/>
+        <dropPrimaryKey tableName="video_lesson" dropIndex="true"/>
+        <dropColumn tableName="video_lesson" columnName="id"/>
+        <addPrimaryKey tableName="video_lesson" columnNames="new_id"/>
+        <renameColumn tableName="video_lesson" oldColumnName="new_id" newColumnName="id"/>
+        <addForeignKeyConstraint baseTableName="video_lesson" baseColumnNames="id"
+                                 constraintName="fk_video_lesson"
+                                 referencedTableName="lesson" referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+
+    </changeSet>
+
+    <changeSet id="changeset-1.3.0_013" author="polinatonko">
+
+        <addColumn tableName="classroom_lesson">
+            <column name="new_id" type="${uuid_type}"/>
+        </addColumn>
+        <update tableName="classroom_lesson">
+            <column name="new_id" valueComputed="id"/>
+        </update>
+        <dropForeignKeyConstraint baseTableName="classroom_lesson" constraintName="fk_classroom_lesson"/>
+        <dropPrimaryKey tableName="classroom_lesson" dropIndex="true"/>
+        <dropColumn tableName="classroom_lesson" columnName="id"/>
+        <addPrimaryKey tableName="classroom_lesson" columnNames="new_id"/>
+        <renameColumn tableName="classroom_lesson" oldColumnName="new_id" newColumnName="id"/>
+        <addForeignKeyConstraint baseTableName="classroom_lesson" baseColumnNames="id"
+                                 constraintName="fk_classroom_lesson"
+                                 referencedTableName="lesson" referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+
+    </changeSet>
+
+    <changeSet id="changeset-1.3.0_014" author="polinatonko">
+
+        <addColumn tableName="lesson">
+            <column name="new_course_id" type="${uuid_type}">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <update tableName="lesson">
+            <column name="new_course_id" valueComputed="course_id"/>
+        </update>
+        <dropForeignKeyConstraint baseTableName="lesson" constraintName="fk_lesson_course"/>
+        <dropColumn tableName="lesson" columnName="course_id"/>
+        <renameColumn tableName="lesson" oldColumnName="new_course_id" newColumnName="course_id"/>
+        <addForeignKeyConstraint baseTableName="lesson" baseColumnNames="course_id"
+                                 constraintName="fk_lesson_course"
+                                 referencedTableName="course" referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+
+    </changeSet>
+
 </databaseChangeLog>

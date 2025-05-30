@@ -2,7 +2,7 @@ package org.example.learningsystem.lesson.validator;
 
 import org.example.learningsystem.core.util.validator.EntityValidator;
 import org.example.learningsystem.lesson.model.Lesson;
-import org.example.learningsystem.exception.validation.IllegalNullValueException;
+import org.example.learningsystem.core.exception.validation.IllegalNullValueException;
 import org.springframework.stereotype.Component;
 
 import static java.util.Objects.isNull;

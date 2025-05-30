@@ -8,9 +8,12 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpHeaders;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestClient;
+
+import static org.springframework.web.client.HttpClientErrorException.Unauthorized;
+import org.springframework.web.client.HttpServerErrorException.BadGateway;
+import org.springframework.web.client.HttpServerErrorException.GatewayTimeout;
+import org.springframework.web.client.HttpServerErrorException.ServiceUnavailable;
 
 @Service
 @RequiredArgsConstructor
@@ -24,18 +27,16 @@ public class CloudDestinationServiceImpl implements DestinationService {
     private final RestClient restClient;
 
     @Override
-    @Retryable(retryFor = {
-            HttpClientErrorException.Unauthorized.class,
-            HttpServerErrorException.BadGateway.class,
-            HttpServerErrorException.GatewayTimeout.class,
-            HttpServerErrorException.ServiceUnavailable.class}, maxAttempts = 2)
+    @Retryable(retryFor = {Unauthorized.class, BadGateway.class, GatewayTimeout.class, ServiceUnavailable.class},
+            maxAttempts = 2)
     public DestinationDto getByName(String name) {
         return tryGetDestination(name);
     }
 
     private DestinationDto tryGetDestination(String destinationName) {
         try {
-            var accessToken = accessTokenService.get(properties.getTokenUrl(), properties.getClientId(), properties.getClientSecret());
+            var accessToken = accessTokenService.get(
+                    properties.getTokenUrl(), properties.getClientId(), properties.getClientSecret());
             var requestHeaders = new HttpHeaders();
             requestHeaders.setBearerAuth(accessToken);
 
@@ -46,8 +47,7 @@ public class CloudDestinationServiceImpl implements DestinationService {
                     .headers(headers -> headers.addAll(requestHeaders))
                     .retrieve()
                     .body(DestinationDto.class);
-        }
-        catch (HttpClientErrorException.Unauthorized e) {
+        } catch (Unauthorized e) {
             accessTokenService.refresh(properties.getTokenUrl(), properties.getClientId(), properties.getClientSecret());
             throw e;
         }

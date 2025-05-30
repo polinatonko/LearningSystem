@@ -1,4 +1,4 @@
-package builder;
+package org.example.learningsystem.util;
 
 import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.course.model.CourseSettings;

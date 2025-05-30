@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -31,6 +32,16 @@ public record StudentResponseDto(
         BigDecimal coins,
 
         @Schema(maxLength = 3, examples = {"en", "840"})
-        String language
+        String language,
+
+        Boolean isPublic,
+
+        Instant created,
+
+        String createdBy,
+
+        Instant lastChanged,
+
+        String lastChangedBy
 ) {
 }

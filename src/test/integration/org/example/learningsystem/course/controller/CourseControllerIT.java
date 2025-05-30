@@ -21,8 +21,8 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.UUID;
 
-import static org.example.learningsystem.util.CourseRequestDtoUtils.createCreateCourseRequestDto;
-import static org.example.learningsystem.util.CourseRequestDtoUtils.createUpdateCourseRequestDto;
+import static org.example.learningsystem.util.CourseTestUtils.buildCreateCourseRequestDto;
+import static org.example.learningsystem.util.CourseTestUtils.buildUpdateCourseRequestDto;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -30,8 +30,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.example.learningsystem.util.LessonRequestDtoUtils.createClassroomLessonRequestDto;
-import static org.example.learningsystem.util.LessonRequestDtoUtils.createVideoLessonRequestDto;
+import static org.example.learningsystem.util.LessonTestUtils.createClassroomLessonRequestDto;
+import static org.example.learningsystem.util.LessonTestUtils.createVideoLessonRequestDto;
 
 @Tag("integration")
 @SpringBootTest
@@ -58,7 +58,7 @@ class CourseControllerIT {
     @WithMockUser
     void create_givenCourseRequestDto_shouldSuccessfullyCreateAndReturn201() throws Exception {
         // given
-        var courseRequestDto = createCreateCourseRequestDto();
+        var courseRequestDto = buildCreateCourseRequestDto();
 
         // when, then
         mockMvc.perform(post(COURSES_URL)
@@ -87,7 +87,7 @@ class CourseControllerIT {
     @WithMockUser
     void getById_givenId_shouldReturn200() throws Exception {
         // given
-        var courseRequestDto = createCreateCourseRequestDto();
+        var courseRequestDto = buildCreateCourseRequestDto();
         var courseResponseDto = create(courseRequestDto);
         var courseId = courseResponseDto.id();
 
@@ -102,7 +102,7 @@ class CourseControllerIT {
     @Test
     void getById_givenId_shouldReturn401() throws Exception {
         // given
-        var courseRequestDto = createCreateCourseRequestDto();
+        var courseRequestDto = buildCreateCourseRequestDto();
         var courseResponseDto = create(courseRequestDto);
         var courseId = courseResponseDto.id();
 
@@ -155,10 +155,10 @@ class CourseControllerIT {
     @WithMockUser
     void updateById_givenCourseRequestDto_shouldSuccessfullyUpdateAndReturn200() throws Exception {
         // given
-        var courseRequestDto = createCreateCourseRequestDto();
+        var courseRequestDto = buildCreateCourseRequestDto();
         var courseResponseDto = create(courseRequestDto);
         var courseId = courseResponseDto.id();
-        courseRequestDto = createUpdateCourseRequestDto(courseId);
+        courseRequestDto = buildUpdateCourseRequestDto(courseId);
 
         // when, then
         mockMvc.perform(put(COURSE_URL, courseId)
@@ -177,7 +177,7 @@ class CourseControllerIT {
     @WithMockUser
     void updateById_givenInvalidBody_shouldReturn400() throws Exception {
         // given
-        var courseRequestDto = createCreateCourseRequestDto();
+        var courseRequestDto = buildCreateCourseRequestDto();
         var courseResponseDto = create(courseRequestDto);
         var courseId = courseResponseDto.id();
         var body = "{\"id\": \"%s\"}".formatted(courseId);
@@ -195,7 +195,7 @@ class CourseControllerIT {
     @WithMockUser
     void updateById_givenCourseId_shouldReturn404() throws Exception {
         // given
-        var courseRequestDto = createCreateCourseRequestDto();
+        var courseRequestDto = buildCreateCourseRequestDto();
         var courseId = UUID.randomUUID();
 
         // when, then
@@ -209,7 +209,7 @@ class CourseControllerIT {
     @WithMockUser
     void deleteById_givenId_shouldSuccessfullyDeleteAndReturn204() throws Exception {
         // given
-        var courseRequestDto = createCreateCourseRequestDto();
+        var courseRequestDto = buildCreateCourseRequestDto();
         var courseResponseDto = create(courseRequestDto);
         var courseId = courseResponseDto.id();
 
@@ -225,10 +225,10 @@ class CourseControllerIT {
     @WithMockUser
     void createLesson_givenVideoLessonRequestDto_shouldSuccessfullyCreateLessonAndReturn201() throws Exception {
         // given
-        var courseRequestDto = createCreateCourseRequestDto();
+        var courseRequestDto = buildCreateCourseRequestDto();
         var courseResponseDto = create(courseRequestDto);
         var courseId = courseResponseDto.id();
-        var lessonRequestDto = createVideoLessonRequestDto();
+        var lessonRequestDto = createVideoLessonRequestDto(courseId);
 
         // when, then
         mockMvc.perform(post(COURSE_LESSONS_URL, courseId)
@@ -245,10 +245,10 @@ class CourseControllerIT {
     @WithMockUser
     void createLesson_givenClassroomLessonRequestDto_shouldSuccessfullyCreateLessonAndReturn201() throws Exception {
         // given
-        var courseRequestDto = createCreateCourseRequestDto();
+        var courseRequestDto = buildCreateCourseRequestDto();
         var courseResponseDto = create(courseRequestDto);
         var courseId = courseResponseDto.id();
-        var lessonRequestDto = createClassroomLessonRequestDto();
+        var lessonRequestDto = createClassroomLessonRequestDto(courseId);
 
         // when, then
         mockMvc.perform(post(COURSE_LESSONS_URL, courseId)
@@ -265,7 +265,7 @@ class CourseControllerIT {
     @WithMockUser
     void createLesson_givenInvalidBody_shouldReturn400() throws Exception {
         // given
-        var courseRequestDto = createCreateCourseRequestDto();
+        var courseRequestDto = buildCreateCourseRequestDto();
         var courseResponseDto = create(courseRequestDto);
         var courseId = courseResponseDto.id();
         var body = "{}";
@@ -284,7 +284,7 @@ class CourseControllerIT {
     void createLesson_givenLessonRequestDto_shouldReturn404() throws Exception {
         // given
         var courseId = UUID.randomUUID();
-        var lessonRequestDto = createClassroomLessonRequestDto();
+        var lessonRequestDto = createClassroomLessonRequestDto(courseId);
 
         // when, then
         mockMvc.perform(post(COURSE_LESSONS_URL, courseId)
@@ -297,7 +297,7 @@ class CourseControllerIT {
     @WithMockUser
     void getLessons_givenCourseIdAndPageAndSize_shouldReturn200() throws Exception {
         // given
-        var courseRequestDto = createCreateCourseRequestDto();
+        var courseRequestDto = buildCreateCourseRequestDto();
         var courseResponseDto = create(courseRequestDto);
         var courseId = courseResponseDto.id();
         var page = 0;

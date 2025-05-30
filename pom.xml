@@ -180,7 +180,6 @@
 							<sources>
 								<source>${project.basedir}/src/test/integration</source>
 								<source>${project.basedir}/src/test/unit</source>
-								<source>${project.basedir}/src/test/util</source>
 							</sources>
 						</configuration>
 					</execution>

@@ -1,7 +1,7 @@
 package org.example.learningsystem.course.validator;
 
-import builder.CourseBuilder;
-import builder.StudentBuilder;
+import org.example.learningsystem.util.CourseBuilder;
+import org.example.learningsystem.util.StudentBuilder;
 import org.example.learningsystem.course.exception.DuplicateEnrollmentException;
 import org.example.learningsystem.course.exception.EnrollmentDeniedException;
 import org.example.learningsystem.course.exception.InsufficientFundsException;

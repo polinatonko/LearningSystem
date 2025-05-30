@@ -1,4 +1,4 @@
-package org.example.learningsystem.exception.validation;
+package org.example.learningsystem.core.exception.validation;
 
 public class IllegalNullValueException extends RuntimeException {
 

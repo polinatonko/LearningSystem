@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.Instant;
 import java.util.UUID;
 
 @Schema
@@ -22,4 +23,14 @@ public class LessonResponseDto {
     private UUID courseId;
 
     private String type;
+
+    private Boolean isPublic;
+
+    private Instant created;
+
+    private String createdBy;
+
+    private Instant lastChanged;
+
+    private String lastChangedBy;
 }

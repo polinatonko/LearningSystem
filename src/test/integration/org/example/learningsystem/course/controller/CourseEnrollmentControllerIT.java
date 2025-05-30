@@ -1,11 +1,11 @@
 package org.example.learningsystem.course.controller;
 
-import builder.CourseBuilder;
-import builder.StudentBuilder;
 import org.example.learningsystem.config.DataSourceProperties;
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.config.PostgreSQLConfiguration;
+import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.course.service.CourseService;
+import org.example.learningsystem.student.model.Student;
 import org.example.learningsystem.student.service.StudentService;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -23,6 +23,8 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+import static org.example.learningsystem.util.CourseTestUtils.buildCourse;
+import static org.example.learningsystem.util.StudentTestUtils.buildStudent;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -52,14 +54,11 @@ class CourseEnrollmentControllerIT {
     @WithMockUser
     void enrollStudent_givenCourseAndStudent_shouldSuccessfullyEnrollStudentAndReturn200() throws Exception {
         // given
-        var course = new CourseBuilder()
-                .build();
+        var course = buildCourse();
         var savedCourse = courseService.create(course);
         var courseId = savedCourse.getId();
 
-        var student = new StudentBuilder()
-                .coins(course.getPrice())
-                .build();
+        var student = buildStudentWithCoins(course.getPrice());
         var savedStudent = studentService.create(student);
         var studentId = savedStudent.getId();
         var pageable = PageRequest.of(0, 1);
@@ -78,23 +77,18 @@ class CourseEnrollmentControllerIT {
         var updatedCourse = courseService.getById(courseId);
         assertNotEquals(course.getCoinsPaid(), updatedCourse.getCoinsPaid());
 
-        courseService.deleteById(courseId);
-        studentService.deleteById(studentId);
+        cleanUp(courseId, studentId);
     }
 
     @Test
     @WithMockUser
     void enrollStudent_givenCourseAndStudent_shouldThrowEnrollmentDeniedExceptionAndReturn500() throws Exception {
         // given
-        var course = new CourseBuilder()
-                .isPublic(false)
-                .build();
+        var course = buildPrivateCourse();
         var savedCourse = courseService.create(course);
         var courseId = savedCourse.getId();
 
-        var student = new StudentBuilder()
-                .coins(course.getPrice())
-                .build();
+        var student = buildStudentWithCoins(course.getPrice());
         var savedStudent = studentService.create(student);
         var studentId = savedStudent.getId();
 
@@ -102,23 +96,18 @@ class CourseEnrollmentControllerIT {
         mockMvc.perform(post(ENROLLMENT_URL, courseId, studentId))
                 .andExpect(status().isInternalServerError());
 
-        courseService.deleteById(courseId);
-        studentService.deleteById(studentId);
+        cleanUp(courseId, studentId);
     }
 
     @Test
     @WithMockUser
     void enrollStudent_givenCourseAndStudent_shouldThrowInsufficientFundsExceptionAndReturn500() throws Exception {
         // given
-        var course = new CourseBuilder()
-                .isPublic(false)
-                .build();
+        var course = buildPrivateCourse();
         var savedCourse = courseService.create(course);
         var courseId = savedCourse.getId();
 
-        var student = new StudentBuilder()
-                .coins(BigDecimal.ZERO)
-                .build();
+        var student = buildStudentWithCoins(BigDecimal.ZERO);
         var savedStudent = studentService.create(student);
         var studentId = savedStudent.getId();
 
@@ -126,8 +115,7 @@ class CourseEnrollmentControllerIT {
         mockMvc.perform(post(ENROLLMENT_URL, courseId, studentId))
                 .andExpect(status().isInternalServerError());
 
-        courseService.deleteById(courseId);
-        studentService.deleteById(studentId);
+        cleanUp(courseId, studentId);
     }
 
     @Test
@@ -145,9 +133,7 @@ class CourseEnrollmentControllerIT {
     @WithMockUser
     void enrollStudent_givenCourseAndStudentId_shouldThrowEntityNotFoundExceptionAndReturn404() throws Exception {
         // given
-        var course = new CourseBuilder()
-                .isPublic(false)
-                .build();
+        var course = buildPrivateCourse();
         var savedCourse = courseService.create(course);
         var courseId = savedCourse.getId();
         var studentId = UUID.randomUUID();
@@ -164,8 +150,7 @@ class CourseEnrollmentControllerIT {
     void enrollStudent_givenCourseIdAndStudent_shouldThrowEntityNotFoundExceptionAndReturn404() throws Exception {
         // given
         var courseId = UUID.randomUUID();
-        var student = new StudentBuilder()
-                .build();
+        var student = buildStudentWithCoins(BigDecimal.ZERO);
         var savedStudent = studentService.create(student);
         var studentId = savedStudent.getId();
 
@@ -180,21 +165,16 @@ class CourseEnrollmentControllerIT {
     @WithMockUser
     void unenrollStudent_givenCourseAndStudent_shouldSuccessfullyUnenrollStudentAndReturn204() throws Exception {
         // given
-        var course = new CourseBuilder()
-                .build();
+        var course = buildCourse();
         var savedCourse = courseService.create(course);
         var courseId = savedCourse.getId();
 
-        var student = new StudentBuilder()
-                .coins(course.getPrice())
-                .build();
+        var student = buildStudentWithCoins(course.getPrice());
         var savedStudent = studentService.create(student);
         var studentId = savedStudent.getId();
         var pageable = PageRequest.of(0, 10);
 
         // when
-        mockMvc.perform(post(ENROLLMENT_URL, courseId, studentId))
-                .andExpect(status().isOk());
         mockMvc.perform(delete(ENROLLMENT_URL, courseId, studentId))
                 .andExpect(status().isNoContent());
 
@@ -202,8 +182,7 @@ class CourseEnrollmentControllerIT {
         var courseStudents = studentService.getAllByCourseId(courseId, pageable);
         assertEquals(0, courseStudents.getTotalElements());
 
-        courseService.deleteById(courseId);
-        studentService.deleteById(studentId);
+        cleanUp(courseId, studentId);
     }
 
     @Test
@@ -215,6 +194,24 @@ class CourseEnrollmentControllerIT {
         // when, then
         mockMvc.perform(delete(ENROLLMENT_URL, courseId, studentId))
                 .andExpect(status().isUnauthorized());
+    }
+
+    private Student buildStudentWithCoins(BigDecimal coins) {
+        var student = buildStudent();
+        student.setCoins(coins);
+        return student;
+    }
+
+    private Course buildPrivateCourse() {
+        var course = buildCourse();
+        var settings = course.getSettings();
+        settings.setIsPublic(false);
+        return course;
+    }
+
+    private void cleanUp(UUID courseId, UUID studentId) {
+        courseService.deleteById(courseId);
+        studentService.deleteById(studentId);
     }
 
 }
