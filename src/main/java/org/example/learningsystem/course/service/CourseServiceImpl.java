@@ -5,10 +5,6 @@ import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.core.exception.EntityNotFoundException;
 import org.example.learningsystem.course.repository.CourseRepository;
 import org.example.learningsystem.core.util.validator.EntityValidator;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,7 +16,6 @@ import static java.time.LocalDate.now;
 
 @Service
 @RequiredArgsConstructor
-@CacheConfig(cacheNames = "course")
 public class CourseServiceImpl implements CourseService {
 
     private static final int DAYS_BEFORE = 1;
@@ -35,13 +30,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    @Cacheable
     public Course getById(UUID id) {
         return findById(id);
     }
 
     @Override
-    @Cacheable
     public Course getByIdForUpdate(UUID id) {
         return findByIdForUpdate(id);
     }
@@ -60,7 +53,6 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    @CachePut(key = "#course.id")
     public Course update(Course course) {
         findById(course.getId());
         courseValidator.validateForUpdate(course);
@@ -68,7 +60,6 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    @CacheEvict
     public void deleteById(UUID id) {
         courseRepository.deleteById(id);
     }
