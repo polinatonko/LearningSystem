@@ -2,7 +2,7 @@ package org.example.learningsystem.course.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.course.model.Course;
-import org.example.learningsystem.core.exception.logic.EntityNotFoundException;
+import org.example.learningsystem.core.exception.EntityNotFoundException;
 import org.example.learningsystem.course.repository.CourseRepository;
 import org.example.learningsystem.core.util.validator.EntityValidator;
 import org.springframework.cache.annotation.CacheConfig;

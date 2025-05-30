@@ -1,7 +1,7 @@
 package org.example.learningsystem.util;
 
-import org.example.learningsystem.lesson.dto.classroom.ClassroomLessonRequestDto;
-import org.example.learningsystem.lesson.dto.video.VideoLessonRequestDto;
+import org.example.learningsystem.lesson.dto.classroomlesson.ClassroomLessonRequestDto;
+import org.example.learningsystem.lesson.dto.videolesson.VideoLessonRequestDto;
 
 import java.util.UUID;
 

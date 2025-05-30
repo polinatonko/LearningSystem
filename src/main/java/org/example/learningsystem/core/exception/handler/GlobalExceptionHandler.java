@@ -1,8 +1,8 @@
 package org.example.learningsystem.core.exception.handler;
 
-import org.example.learningsystem.btp.accesstoken.exception.InvalidApiResponseException;
+import org.example.learningsystem.core.web.exception.InvalidApiResponseException;
 import org.example.learningsystem.core.exception.response.ErrorResponse;
-import org.example.learningsystem.core.exception.logic.EntityNotFoundException;
+import org.example.learningsystem.core.exception.EntityNotFoundException;
 import org.example.learningsystem.core.exception.validation.IllegalNullValueException;
 import org.example.learningsystem.student.exception.InsufficientBirthDateException;
 import org.example.learningsystem.course.exception.InvalidCourseDurationException;

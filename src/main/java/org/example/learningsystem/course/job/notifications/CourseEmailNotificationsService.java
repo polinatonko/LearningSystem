@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.course.model.CourseEnrollment;
-import org.example.learningsystem.email.config.EmailServerProperties;
-import org.example.learningsystem.email.service.EmailServerPropertiesResolver;
-import org.example.learningsystem.email.service.EmailService;
+import org.example.learningsystem.core.email.config.EmailServerProperties;
+import org.example.learningsystem.core.email.service.EmailServerPropertiesResolver;
+import org.example.learningsystem.core.email.service.EmailService;
 import org.example.learningsystem.student.model.Student;
 import org.springframework.stereotype.Service;
 

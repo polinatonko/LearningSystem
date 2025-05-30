@@ -1,13 +1,13 @@
 package org.example.learningsystem.lesson.mapper;
 
-import org.example.learningsystem.lesson.dto.classroom.ClassroomLessonRequestDto;
-import org.example.learningsystem.lesson.dto.classroom.ClassroomLessonResponseDto;
-import org.example.learningsystem.lesson.dto.video.VideoLessonRequestDto;
-import org.example.learningsystem.lesson.dto.video.VideoLessonResponseDto;
+import org.example.learningsystem.lesson.dto.classroomlesson.ClassroomLessonRequestDto;
+import org.example.learningsystem.lesson.dto.classroomlesson.ClassroomLessonResponseDto;
+import org.example.learningsystem.lesson.dto.videolesson.VideoLessonRequestDto;
+import org.example.learningsystem.lesson.dto.videolesson.VideoLessonResponseDto;
 import org.example.learningsystem.lesson.model.ClassroomLesson;
 import org.example.learningsystem.lesson.model.Lesson;
-import org.example.learningsystem.lesson.dto.lesson.LessonRequestDto;
-import org.example.learningsystem.lesson.dto.lesson.LessonResponseDto;
+import org.example.learningsystem.lesson.dto.LessonRequestDto;
+import org.example.learningsystem.lesson.dto.LessonResponseDto;
 import org.example.learningsystem.lesson.model.VideoLesson;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
