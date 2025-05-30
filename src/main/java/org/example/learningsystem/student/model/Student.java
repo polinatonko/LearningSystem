@@ -7,6 +7,7 @@ import jakarta.persistence.OneToMany;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
 
@@ -47,17 +48,9 @@ public class Student extends AuditableEntity {
 
     private BigDecimal coins;
 
-    private String language;
+    private Locale locale;
 
     @OneToMany(mappedBy = "student", cascade = ALL)
     private Set<CourseEnrollment> enrollments;
-
-    public Student(String firstName, String lastName, String email, LocalDate dateOfBirth, BigDecimal coins) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.dateOfBirth = dateOfBirth;
-        this.coins = coins;
-    }
 
 }

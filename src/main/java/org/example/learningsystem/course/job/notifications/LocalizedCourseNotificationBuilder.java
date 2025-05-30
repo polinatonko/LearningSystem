@@ -28,7 +28,7 @@ public class LocalizedCourseNotificationBuilder implements CourseNotificationBui
 
     @Override
     public CourseNotificationDto build(Course course, Student student) {
-        var locale = Locale.of(student.getLanguage());
+        var locale = student.getLocale();
 
         var subject = resolveSubject(locale);
         var message = renderMessage(course, student, locale);

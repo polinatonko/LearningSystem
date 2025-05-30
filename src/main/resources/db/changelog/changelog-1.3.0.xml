@@ -250,4 +250,10 @@
 
     </changeSet>
 
+    <changeSet id="changeset-1.3.0_015" author="polinatonko">
+
+        <renameColumn tableName="student" oldColumnName="language" newColumnName="locale"/>
+
+    </changeSet>
+
 </databaseChangeLog>

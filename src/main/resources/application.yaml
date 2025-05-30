@@ -15,6 +15,9 @@ spring:
     basename: i18n/messages
     encoding: UTF-8
 
+  profiles:
+    active: local
+
 basic-authentication:
   manager:
     username: manager@gmail.com
@@ -26,7 +29,7 @@ basic-authentication:
 
 course:
   reminder:
-    cron: "0 0 9 * * *"
+    cron: "0 * * * * *"
     daysBefore: 1
 
 info:

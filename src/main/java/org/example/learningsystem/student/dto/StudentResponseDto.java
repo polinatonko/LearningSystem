@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.Locale;
 import java.util.UUID;
 
 import static org.example.learningsystem.core.util.format.DataFormatUtils.DATE_FORMAT;
@@ -31,8 +32,7 @@ public record StudentResponseDto(
         @Schema(minimum = "0")
         BigDecimal coins,
 
-        @Schema(maxLength = 3, examples = {"en", "840"})
-        String language,
+        Locale locale,
 
         Boolean isPublic,
 

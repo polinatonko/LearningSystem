@@ -10,6 +10,7 @@ import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Locale;
 import java.util.UUID;
 
 import static org.example.learningsystem.core.util.format.DataFormatUtils.DATE_FORMAT;
@@ -36,7 +37,6 @@ public record StudentRequestDto(
         @Min(0)
         BigDecimal coins,
 
-        @Size(max = 3)
-        String language
+        Locale locale
 ) {
 }
