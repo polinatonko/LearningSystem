@@ -33,6 +33,8 @@ public class CacheConfiguration {
 
     public Caffeine<Object, Object> accessTokenCacheBuilder() {
         return Caffeine.newBuilder()
-                .expireAfterWrite(Duration.ofMinutes(ACCESS_TOKENS_CACHE_TTL_MINUTES));
+                .expireAfterWrite(Duration.ofMinutes(ACCESS_TOKENS_CACHE_TTL_MINUTES))
+                .recordStats();
     }
+
 }

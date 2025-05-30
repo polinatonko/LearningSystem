@@ -1,0 +1,616 @@
+{
+	"info": {
+		"_postman_id": "b4f69303-1f18-41b6-877f-5add63f95819",
+		"name": "LMS API",
+		"description": "Collections related to the REST API of the Learning Management System:\n\n1. Courses for managing courses and enrollments;\n    \n2. Lessons;\n    \n3. Students;\n    \n4. Actuator for managing Spring Boot Actuator endpoints.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44216725",
+		"_collection_link": "https://palinatanko.postman.co/workspace/13e4ecc7-4f97-405e-8469-f183eab9f880/collection/44216725-b4f69303-1f18-41b6-877f-5add63f95819?action=share&source=collection_link&creator=44216725"
+	},
+	"item": [
+		{
+			"name": "Courses",
+			"item": [
+				{
+					"name": "Course",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsImprdSI6Imh0dHBzOi8vNGE4MjZiNjJ0cmlhbC5hdXRoZW50aWNhdGlvbi51czEwLmhhbmEub25kZW1hbmQuY29tL3Rva2VuX2tleXMiLCJraWQiOiJkZWZhdWx0LWp3dC1rZXktNjEwZjdhNTlkMyIsInR5cCI6IkpXVCIsImppZCI6ICJkY29pTWFSWGVpQ2lQcnE1NG1WOHZDWjQyc3ZYMDlObEhsaUVKdlRWc2g4PSJ9.eyJqdGkiOiI3MThmZjkwMWVkYzk0Y2QwOWZhYWRlOTQ2ZmUwMTNkYiIsImV4dF9hdHRyIjp7ImVuaGFuY2VyIjoiWFNVQUEiLCJzdWJhY2NvdW50aWQiOiI3MjQ2NjlkYS05ZGE0LTQ3OWItYTA0MC1jYmVlNjlhYzI3ZDEiLCJ6ZG4iOiI0YTgyNmI2MnRyaWFsIn0sInVzZXJfdXVpZCI6IjY5NjlhMDgyLTc0ZmItNDNkZC1hNWFiLWIwOTY1NmEwMzc5NSIsInhzLnVzZXIuYXR0cmlidXRlcyI6e30sInhzLnN5c3RlbS5hdHRyaWJ1dGVzIjp7InhzLnJvbGVjb2xsZWN0aW9ucyI6WyJGZWF0dXJlIEZsYWdzIERhc2hib2FyZCBBZG1pbiIsIlNBUCBIQU5BIENsb3VkIEFkbWluaXN0cmF0b3IiLCJTdWJhY2NvdW50IEFkbWluaXN0cmF0b3IiLCJNYW5hZ2VyIl19LCJnaXZlbl9uYW1lIjoiUG9saW5hIiwiZmFtaWx5X25hbWUiOiJUb25rbyIsInN1YiI6ImQwN2I5MjY1LWJiZWItNDBkNy05ZWJkLThhZTY0NWMzMWJiMCIsInNjb3BlIjpbIm9wZW5pZCJdLCJjbGllbnRfaWQiOiJzYi1sbXMhdDQxMzYwNyIsImNpZCI6InNiLWxtcyF0NDEzNjA3IiwiYXpwIjoic2ItbG1zIXQ0MTM2MDciLCJncmFudF90eXBlIjoicGFzc3dvcmQiLCJ1c2VyX2lkIjoiZDA3YjkyNjUtYmJlYi00MGQ3LTllYmQtOGFlNjQ1YzMxYmIwIiwib3JpZ2luIjoic2FwLmRlZmF1bHQiLCJ1c2VyX25hbWUiOiJwb2xpbmEudG9ua29AZ21haWwuY29tIiwiZW1haWwiOiJwb2xpbmEudG9ua29AZ21haWwuY29tIiwiYXV0aF90aW1lIjoxNzQ3NzM0MTQyLCJyZXZfc2lnIjoiNjJhZjQ2OTYiLCJpYXQiOjE3NDc3MzQxNDIsImV4cCI6MTc0Nzc3NzM0MiwiaXNzIjoiaHR0cHM6Ly80YTgyNmI2MnRyaWFsLmF1dGhlbnRpY2F0aW9uLnVzMTAuaGFuYS5vbmRlbWFuZC5jb20vb2F1dGgvdG9rZW4iLCJ6aWQiOiI3MjQ2NjlkYS05ZGE0LTQ3OWItYTA0MC1jYmVlNjlhYzI3ZDEiLCJhdWQiOlsib3BlbmlkIiwic2ItbG1zIXQ0MTM2MDciXX0.d4mE7Ea8otHNtYEb_o6lgiAMjvtorsPcFoRBGam6vzFmJWEwm9K6Ldeuo0GhDHz7ThmOjeCxtMtKp9NKW77ygjEcNMrRkjIyP1lsRC7OQdpmHIgQLVmKfbzZXg9E-NoCpcXRrxiKpQ7kg1jl6tzmzh8fqGLRF-JNcCRj_z5SAXLZALEpfqDbm-l06kTnclWUWmRpuvqPEu1r5hpPlqCt7wo42AJrmaNMvOX0j4JcGh1yAo3NiOHH_7wpvEmfrnBzSh9rPQnDQ0r_g7BwO3NpOT1wQDnRA63WN8fzk2JXn5jt2Tod6qJD408Cnh8kKSV1nLpdOxzBzGm4G61om2aiYg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/courses/776ea0ca-d0b7-4d74-87e7-21469d01ebe4",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"courses",
+								"776ea0ca-d0b7-4d74-87e7-21469d01ebe4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Course 1\",\r\n    \"startDate\": \"2025/05/19 10:00:00\",\r\n    \"endDate\": \"2025/05/19 12:00:00\",\r\n    \"price\": 40,\r\n    \"isPublic\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/courses",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"courses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"4096d430-4245-485e-af10-0118edca66ac\",\r\n    \"title\": \"Course 1\",\r\n    \"description\": null,\r\n    \"price\": 0,\r\n    \"coinsPaid\": null,\r\n    \"startDate\": \"2025/05/16 10:00:00\",\r\n    \"endDate\": \"2025/05/16 12:00:00\",\r\n    \"isPublic\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cloudUrl}}/courses/a6bdb330-03eb-4023-a68c-302f6b129a87",
+							"host": [
+								"{{cloudUrl}}"
+							],
+							"path": [
+								"courses",
+								"a6bdb330-03eb-4023-a68c-302f6b129a87"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{cloudUrl}}/courses/7332efb9-46ce-45cf-b1fb-c3781683681d",
+							"host": [
+								"{{cloudUrl}}"
+							],
+							"path": [
+								"courses",
+								"7332efb9-46ce-45cf-b1fb-c3781683681d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Student",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{baseUrl}}/courses/776ea0ca-d0b7-4d74-87e7-21469d01ebe4/students/8e58d356-c197-4a81-b23e-54acfeb27909",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"courses",
+								"776ea0ca-d0b7-4d74-87e7-21469d01ebe4",
+								"students",
+								"8e58d356-c197-4a81-b23e-54acfeb27909"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Student",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/courses/3d981885-8bd4-4669-a210-5c9a6b694eca/students/a2125fdf-2477-4d33-9b54-730bd325810a",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"courses",
+								"3d981885-8bd4-4669-a210-5c9a6b694eca",
+								"students",
+								"a2125fdf-2477-4d33-9b54-730bd325810a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Students",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/courses/3e611b92-40b1-4ce6-bf33-80e3748378bf/students",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"courses",
+								"3e611b92-40b1-4ce6-bf33-80e3748378bf",
+								"students"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsImprdSI6Imh0dHBzOi8vNGE4MjZiNjJ0cmlhbC5hdXRoZW50aWNhdGlvbi51czEwLmhhbmEub25kZW1hbmQuY29tL3Rva2VuX2tleXMiLCJraWQiOiJkZWZhdWx0LWp3dC1rZXktNjEwZjdhNTlkMyIsInR5cCI6IkpXVCIsImppZCI6ICIrOGt4bm1xS3YwZkZiSUc3SWZ4TW93RCtpb2lPcHRDMUNQVzFzbTRoSmdRPSJ9.eyJqdGkiOiIxODczODI0NGUzNTc0ZTY4OGQ2MDgwOTdhZTIwNGFjYiIsImV4dF9hdHRyIjp7ImVuaGFuY2VyIjoiWFNVQUEiLCJzdWJhY2NvdW50aWQiOiI3MjQ2NjlkYS05ZGE0LTQ3OWItYTA0MC1jYmVlNjlhYzI3ZDEiLCJ6ZG4iOiI0YTgyNmI2MnRyaWFsIn0sInVzZXJfdXVpZCI6IjY5NjlhMDgyLTc0ZmItNDNkZC1hNWFiLWIwOTY1NmEwMzc5NSIsInhzLnVzZXIuYXR0cmlidXRlcyI6e30sInhzLnN5c3RlbS5hdHRyaWJ1dGVzIjp7InhzLnJvbGVjb2xsZWN0aW9ucyI6WyJGZWF0dXJlIEZsYWdzIERhc2hib2FyZCBBZG1pbiIsIlNBUCBIQU5BIENsb3VkIEFkbWluaXN0cmF0b3IiLCJTdWJhY2NvdW50IEFkbWluaXN0cmF0b3IiLCJNYW5hZ2VyIl19LCJnaXZlbl9uYW1lIjoiUG9saW5hIiwiZmFtaWx5X25hbWUiOiJUb25rbyIsInN1YiI6ImQwN2I5MjY1LWJiZWItNDBkNy05ZWJkLThhZTY0NWMzMWJiMCIsInNjb3BlIjpbIm9wZW5pZCJdLCJjbGllbnRfaWQiOiJzYi1sbXMhdDQxMzYwNyIsImNpZCI6InNiLWxtcyF0NDEzNjA3IiwiYXpwIjoic2ItbG1zIXQ0MTM2MDciLCJncmFudF90eXBlIjoicGFzc3dvcmQiLCJ1c2VyX2lkIjoiZDA3YjkyNjUtYmJlYi00MGQ3LTllYmQtOGFlNjQ1YzMxYmIwIiwib3JpZ2luIjoic2FwLmRlZmF1bHQiLCJ1c2VyX25hbWUiOiJwb2xpbmEudG9ua29AZ21haWwuY29tIiwiZW1haWwiOiJwb2xpbmEudG9ua29AZ21haWwuY29tIiwiYXV0aF90aW1lIjoxNzQ3NjU0NDA2LCJyZXZfc2lnIjoiNjJhZjQ2OTYiLCJpYXQiOjE3NDc2NTQ0MDYsImV4cCI6MTc0NzY5NzYwNiwiaXNzIjoiaHR0cHM6Ly80YTgyNmI2MnRyaWFsLmF1dGhlbnRpY2F0aW9uLnVzMTAuaGFuYS5vbmRlbWFuZC5jb20vb2F1dGgvdG9rZW4iLCJ6aWQiOiI3MjQ2NjlkYS05ZGE0LTQ3OWItYTA0MC1jYmVlNjlhYzI3ZDEiLCJhdWQiOlsib3BlbmlkIiwic2ItbG1zIXQ0MTM2MDciXX0.sbJTbamQJZybBzeWNAjdon23klnRkV_l-LisJoKYXjMcFeqbw9n2HTXjWOO5TRGrRaHU6bVAZ1dZ66RBcggFp5nV8N342naL1Govk0GkJJ9XZ1XdeNohbfxdlb-nkOopcgVu5EVq1yjTfZ5Ycn_X5EQ6mVwNvSnGFYBJB-9RhW8_6Ehjzp6k95qSi1inQL3PMfj3fKc3DMI8fgeBw-j2OOP07261ZJ3HGz_kXZfAiq8RNNU2BbHb-4HsDhEYy1HVd7dlo1_pgtadscIKtsVP0q77QBPNZGhq8pAGM6aRKoXtceZW08wuiqlYrd2eQGoK-oWNLpGIk7v71yTnY3J2QA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/courses",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"courses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Lesson",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Lesson 1\",\r\n    \"duration\": 60\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/courses/776ea0ca-d0b7-4d74-87e7-21469d01ebe4/lessons",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"courses",
+								"776ea0ca-d0b7-4d74-87e7-21469d01ebe4",
+								"lessons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Lessons",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/courses/776ea0ca-d0b7-4d74-87e7-21469d01ebe4/lessons",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"courses",
+								"776ea0ca-d0b7-4d74-87e7-21469d01ebe4",
+								"lessons"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Lessons",
+			"item": [
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n        \"id\": \"8bb5da25-5dc2-44f7-8d8e-36c7aaa86ea9\",\r\n        \"title\": \"Lesson 11\",\r\n        \"duration\": 60\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cloudUrl}}/lessons/8bb5da25-5dc2-44f7-8d8e-36c7aaa86ea9",
+							"host": [
+								"{{cloudUrl}}"
+							],
+							"path": [
+								"lessons",
+								"8bb5da25-5dc2-44f7-8d8e-36c7aaa86ea9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{cloudUrl}}/lessons/8928a18c-004f-4700-b4e4-5394262f5f90",
+							"host": [
+								"{{cloudUrl}}"
+							],
+							"path": [
+								"lessons",
+								"8928a18c-004f-4700-b4e4-5394262f5f90"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{cloudUrl}}/lessons/8928a18c-004f-4700-b4e4-5394262f5f90",
+							"host": [
+								"{{cloudUrl}}"
+							],
+							"path": [
+								"lessons",
+								"8928a18c-004f-4700-b4e4-5394262f5f90"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsImprdSI6Imh0dHBzOi8vNGE4MjZiNjJ0cmlhbC5hdXRoZW50aWNhdGlvbi51czEwLmhhbmEub25kZW1hbmQuY29tL3Rva2VuX2tleXMiLCJraWQiOiJkZWZhdWx0LWp3dC1rZXktNjEwZjdhNTlkMyIsInR5cCI6IkpXVCIsImppZCI6ICIwUXQ3dElYS0EweUFjYnBzVmtCYkNZZmJtNm55alhLWUpVeG82Y3VaWG9rPSJ9.eyJqdGkiOiI5MDBhZDJlZTI5YjI0YzBkOTUwNzIyZmI2OTAzMzVlZiIsImV4dF9hdHRyIjp7ImVuaGFuY2VyIjoiWFNVQUEiLCJzdWJhY2NvdW50aWQiOiI3MjQ2NjlkYS05ZGE0LTQ3OWItYTA0MC1jYmVlNjlhYzI3ZDEiLCJ6ZG4iOiI0YTgyNmI2MnRyaWFsIiwic2VydmljZWluc3RhbmNlaWQiOiJkNDY0Yjc5NS01NzExLTQxZjYtYTJiZS1jMTE1MWY3MTllZjEifSwic3ViIjoic2ItY2xvbmVkNDY0Yjc5NTU3MTE0MWY2YTJiZWMxMTUxZjcxOWVmMSFiNDEzNjA3fGRlc3RpbmF0aW9uLXhzYXBwbmFtZSFiNjIiLCJhdXRob3JpdGllcyI6WyJ1YWEucmVzb3VyY2UiXSwic2NvcGUiOlsidWFhLnJlc291cmNlIl0sImNsaWVudF9pZCI6InNiLWNsb25lZDQ2NGI3OTU1NzExNDFmNmEyYmVjMTE1MWY3MTllZjEhYjQxMzYwN3xkZXN0aW5hdGlvbi14c2FwcG5hbWUhYjYyIiwiY2lkIjoic2ItY2xvbmVkNDY0Yjc5NTU3MTE0MWY2YTJiZWMxMTUxZjcxOWVmMSFiNDEzNjA3fGRlc3RpbmF0aW9uLXhzYXBwbmFtZSFiNjIiLCJhenAiOiJzYi1jbG9uZWQ0NjRiNzk1NTcxMTQxZjZhMmJlYzExNTFmNzE5ZWYxIWI0MTM2MDd8ZGVzdGluYXRpb24teHNhcHBuYW1lIWI2MiIsImdyYW50X3R5cGUiOiJjbGllbnRfY3JlZGVudGlhbHMiLCJyZXZfc2lnIjoiM2M4ZTc0YTgiLCJpYXQiOjE3NDc4MzM5MDIsImV4cCI6MTc0Nzg3NzEwMiwiaXNzIjoiaHR0cHM6Ly80YTgyNmI2MnRyaWFsLmF1dGhlbnRpY2F0aW9uLnVzMTAuaGFuYS5vbmRlbWFuZC5jb20vb2F1dGgvdG9rZW4iLCJ6aWQiOiI3MjQ2NjlkYS05ZGE0LTQ3OWItYTA0MC1jYmVlNjlhYzI3ZDEiLCJhdWQiOlsidWFhIiwic2ItY2xvbmVkNDY0Yjc5NTU3MTE0MWY2YTJiZWMxMTUxZjcxOWVmMSFiNDEzNjA3fGRlc3RpbmF0aW9uLXhzYXBwbmFtZSFiNjIiXX0.NkFbHhAbOWNw5MTnX3BFJclHLDeZ-f-u6zqwvb32fCrXHFpy9N_yqvxzHFNst3WGanNZBZGmoekqtbGoX4akMWwC8MbSvNgdCad-8oTKlZ5HkypKkCqYvKjh5vLxrNMWkko4ZqJtEsSMMoICQgjxkfe94t_U0El0PyDncVxZw0p5Z5RbpaNU9OgSGlhgRy0RGmi5JWp-C7-6GoQZpfarCW7qND923XxTzOQW8D7ojiNEmxD8EcPrqgM5gU6qTG3Ntvnk-lhmXCRRYLlY5ae2sglCNnImNvtr9EJ-fmCKKWkaKm1WJbw4JIpulg0ec019nbCCraTWMXWP0mPis9KcXA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{cloudUrl}}/lessons",
+							"host": [
+								"{{cloudUrl}}"
+							],
+							"path": [
+								"lessons"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Students",
+			"item": [
+				{
+					"name": "Get By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/students/96b96031-e69f-47db-a1f0-c6143882d8e3",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"students",
+								"96b96031-e69f-47db-a1f0-c6143882d8e3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "manager",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "manager@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"User1\",\r\n    \"lastName\": \"User1\",\r\n    \"email\": \"tonkopolinaa@gmail.com\",\r\n    \"dateOfBirth\": \"2010/10/01\",\r\n    \"coins\": 50\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/students",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"students"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"User\",\r\n    \"lastName\": \"User\",\r\n    \"email\": \"user@gmail.com\",\r\n    \"coins\": 120,\r\n    \"dateOfBirth\": \"1970/01/10\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/students/63e95bd9-213c-4abe-afe4-59c9a322968b",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"students",
+								"63e95bd9-213c-4abe-afe4-59c9a322968b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/students/db9d50dd-fb85-4c81-b287-53ccd19bd37d",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"students",
+								"db9d50dd-fb85-4c81-b287-53ccd19bd37d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{cloudUrl}}/students",
+							"host": [
+								"{{cloudUrl}}"
+							],
+							"path": [
+								"students"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Actuator",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{cloudUrl}}/actuator/health",
+							"host": [
+								"{{cloudUrl}}"
+							],
+							"path": [
+								"actuator",
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "manager",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "manager@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{cloudUrl}}/actuator",
+							"host": [
+								"{{cloudUrl}}"
+							],
+							"path": [
+								"actuator"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Info",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "manager",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "manager@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{cloudUrl}}/actuator/info",
+							"host": [
+								"{{cloudUrl}}"
+							],
+							"path": [
+								"actuator",
+								"info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Caches",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "manager",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "manager@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{cloudUrl}}/actuator/caches",
+							"host": [
+								"{{cloudUrl}}"
+							],
+							"path": [
+								"actuator",
+								"caches"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

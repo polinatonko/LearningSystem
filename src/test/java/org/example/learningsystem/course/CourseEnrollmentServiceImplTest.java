@@ -32,6 +32,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class CourseEnrollmentServiceImplTest {
+
     @Mock
     public CourseEnrollmentRepository enrollmentRepository;
     @Mock
