@@ -9,9 +9,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
-import org.springframework.web.client.HttpServerErrorException.BadGateway;
-import org.springframework.web.client.HttpServerErrorException.GatewayTimeout;
-import org.springframework.web.client.HttpServerErrorException.ServiceUnavailable;
 
 import static org.springframework.web.client.HttpClientErrorException.Unauthorized;
 
@@ -27,8 +24,7 @@ public class CloudDestinationServiceImpl implements DestinationService {
     private final RestClient restClient;
 
     @Override
-    @Retryable(retryFor = {Unauthorized.class, BadGateway.class, GatewayTimeout.class, ServiceUnavailable.class},
-            maxAttempts = 2)
+    @Retryable(retryFor = Unauthorized.class, maxAttempts = 2)
     public DestinationDto getByName(String name) {
         return tryGetDestination(name);
     }

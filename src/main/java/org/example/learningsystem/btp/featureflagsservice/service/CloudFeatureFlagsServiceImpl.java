@@ -6,14 +6,10 @@ import org.example.learningsystem.btp.featureflagsservice.config.FeatureFlagsPro
 import org.example.learningsystem.btp.featureflagsservice.dto.FlagDto;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpHeaders;
-import org.springframework.retry.annotation.Recover;
-import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestClient;
 
 import static java.util.Objects.isNull;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
 
 @Service
@@ -28,10 +24,6 @@ public class CloudFeatureFlagsServiceImpl implements FeatureFlagsService {
     private final RestClient restClient;
 
     @Override
-    @Retryable(retryFor = {
-            HttpServerErrorException.BadGateway.class,
-            HttpServerErrorException.GatewayTimeout.class,
-            HttpServerErrorException.ServiceUnavailable.class})
     public FlagDto getByName(String name) {
         return tryGetFlag(name);
     }
@@ -46,14 +38,6 @@ public class CloudFeatureFlagsServiceImpl implements FeatureFlagsService {
             throw new FeatureFlagTypeMismatchException(BOOLEAN_FLAG_TYPE, name);
         }
         return Boolean.parseBoolean(flagResponse.variation());
-    }
-
-    @Recover
-    public FlagDto recover(HttpServerErrorException e, String name) {
-        if (e.getStatusCode() == NOT_FOUND) {
-            return null;
-        }
-        throw e;
     }
 
     private FlagDto tryGetFlag(String name) {
