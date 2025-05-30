@@ -1,9 +1,7 @@
 package org.example.learningsystem.lesson.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.example.learningsystem.config.DataSourceProperties;
-import org.example.learningsystem.config.PostgreSQLConfiguration;
+import org.example.learningsystem.AbstractCommonIT;
 import org.example.learningsystem.core.security.config.BasicAuthenticationCredentials;
 import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.course.service.CourseService;
@@ -14,14 +12,7 @@ import org.example.learningsystem.lesson.service.LessonService;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.servlet.MockMvc;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.UUID;
 
@@ -39,14 +30,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Tag("integration")
-@SpringBootTest
-@AutoConfigureMockMvc
-@ActiveProfiles("test")
-@EnableConfigurationProperties(DataSourceProperties.class)
-@Import(PostgreSQLConfiguration.class)
-@Testcontainers
 @RequiredArgsConstructor
-class LessonControllerIT {
+class LessonControllerIT extends AbstractCommonIT {
 
     private static final String CREATE_LESSON_URL = "/courses/{courseId}/lessons";
     private static final String LESSONS_URL = "/lessons";
@@ -55,13 +40,9 @@ class LessonControllerIT {
     @Autowired
     private BasicAuthenticationCredentials basicAuthenticationCredentials;
     @Autowired
-    private MockMvc mockMvc;
-    @Autowired
     private CourseService courseService;
     @Autowired
     private LessonService lessonService;
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @Test
     @WithMockUser

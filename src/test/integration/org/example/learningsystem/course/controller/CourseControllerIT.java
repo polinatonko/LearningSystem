@@ -1,23 +1,14 @@
 package org.example.learningsystem.course.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.learningsystem.config.DataSourceProperties;
+import org.example.learningsystem.AbstractCommonIT;
 import lombok.RequiredArgsConstructor;
-import org.example.learningsystem.config.PostgreSQLConfiguration;
 import org.example.learningsystem.course.dto.CourseRequestDto;
 import org.example.learningsystem.course.dto.CourseResponseDto;
 import org.example.learningsystem.course.service.CourseService;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.servlet.MockMvc;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.UUID;
 
@@ -34,25 +25,15 @@ import static org.example.learningsystem.util.LessonTestUtils.createClassroomLes
 import static org.example.learningsystem.util.LessonTestUtils.createVideoLessonRequestDto;
 
 @Tag("integration")
-@SpringBootTest
-@AutoConfigureMockMvc
-@ActiveProfiles("test")
-@EnableConfigurationProperties(DataSourceProperties.class)
-@Import(PostgreSQLConfiguration.class)
-@Testcontainers
 @RequiredArgsConstructor
-class CourseControllerIT {
+class CourseControllerIT extends AbstractCommonIT {
 
     private static final String COURSES_URL = "/courses";
     private static final String COURSE_URL = "/courses/{courseId}";
     private static final String COURSE_LESSONS_URL = "/courses/{courseId}/lessons";
 
     @Autowired
-    private MockMvc mockMvc;
-    @Autowired
     private CourseService courseService;
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @Test
     @WithMockUser

@@ -1,23 +1,14 @@
 package org.example.learningsystem.student.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.example.learningsystem.config.DataSourceProperties;
-import org.example.learningsystem.config.PostgreSQLConfiguration;
+import org.example.learningsystem.AbstractCommonIT;
 import org.example.learningsystem.student.dto.StudentRequestDto;
 import org.example.learningsystem.student.dto.StudentResponseDto;
 import org.example.learningsystem.student.service.StudentService;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.servlet.MockMvc;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.UUID;
 
@@ -32,24 +23,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Tag("integration")
-@SpringBootTest
-@AutoConfigureMockMvc
-@ActiveProfiles("test")
-@EnableConfigurationProperties(DataSourceProperties.class)
-@Import(PostgreSQLConfiguration.class)
-@Testcontainers
 @RequiredArgsConstructor
-class StudentControllerIT {
+class StudentControllerIT extends AbstractCommonIT {
 
     private static final String STUDENTS_URL = "/students";
     private static final String STUDENT_URL = "/students/{id}";
 
     @Autowired
-    private MockMvc mockMvc;
-    @Autowired
     private StudentService studentService;
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @Test
     @WithMockUser

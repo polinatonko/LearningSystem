@@ -1,8 +1,7 @@
 package org.example.learningsystem.course.controller;
 
-import org.example.learningsystem.config.DataSourceProperties;
+import org.example.learningsystem.AbstractCommonIT;
 import lombok.RequiredArgsConstructor;
-import org.example.learningsystem.config.PostgreSQLConfiguration;
 import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.course.service.CourseService;
 import org.example.learningsystem.student.model.Student;
@@ -10,15 +9,8 @@ import org.example.learningsystem.student.service.StudentService;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.servlet.MockMvc;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -32,19 +24,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Tag("integration")
-@SpringBootTest
-@AutoConfigureMockMvc
-@ActiveProfiles("test")
-@EnableConfigurationProperties(DataSourceProperties.class)
-@Import(PostgreSQLConfiguration.class)
-@Testcontainers
 @RequiredArgsConstructor
-class CourseEnrollmentControllerIT {
+class CourseEnrollmentControllerIT extends AbstractCommonIT {
 
     private static final String ENROLLMENT_URL = "/courses/{id}/students/{studentId}";
 
-    @Autowired
-    private MockMvc mockMvc;
     @Autowired
     private CourseService courseService;
     @Autowired
