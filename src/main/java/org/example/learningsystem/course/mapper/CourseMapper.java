@@ -3,6 +3,7 @@ package org.example.learningsystem.course.mapper;
 import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.course.dto.CourseRequestDto;
 import org.example.learningsystem.course.dto.CourseResponseDto;
+
 import org.mapstruct.*;
 
 import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
