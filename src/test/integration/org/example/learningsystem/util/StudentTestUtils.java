@@ -5,6 +5,7 @@ import org.example.learningsystem.student.model.Student;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Locale;
 import java.util.UUID;
 
 public class StudentTestUtils {
@@ -14,7 +15,7 @@ public class StudentTestUtils {
     private static final String EMAIL_TEMPLATE = "%s@gmail.com";
     private static final LocalDate DATE_OF_BIRTH = LocalDate.of(2000, 12, 1);
     private static final BigDecimal COINS = BigDecimal.ZERO;
-    private static final String LANGUAGE = "en";
+        private static final Locale LOCALE = Locale.ENGLISH;
 
     public static Student buildStudent() {
         return Student.builder()
@@ -23,7 +24,7 @@ public class StudentTestUtils {
                 .email(EMAIL_TEMPLATE.formatted(UUID.randomUUID()))
                 .dateOfBirth(DATE_OF_BIRTH)
                 .coins(COINS)
-                .language(LANGUAGE)
+                .locale(LOCALE)
                 .build();
     }
 
@@ -34,7 +35,7 @@ public class StudentTestUtils {
                 EMAIL_TEMPLATE.formatted(UUID.randomUUID()),
                 DATE_OF_BIRTH,
                 COINS,
-                LANGUAGE);
+                LOCALE);
     }
 
     public static StudentRequestDto buildUpdateStudentRequestDto(UUID id) {
@@ -45,7 +46,7 @@ public class StudentTestUtils {
                 EMAIL_TEMPLATE.formatted(UUID.randomUUID()),
                 DATE_OF_BIRTH,
                 COINS,
-                LANGUAGE);
+                LOCALE);
     }
 
 }
