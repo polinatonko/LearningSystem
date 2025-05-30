@@ -10,16 +10,16 @@ import java.util.UUID;
 
 public class CourseBuilder {
 
-    public UUID id;
-    public String title = "Course title";
-    public String description = "Course description";
-    public BigDecimal price = BigDecimal.valueOf(100);
-    public BigDecimal coinsPaid = BigDecimal.ZERO;
-    public Instant created = Instant.now();
-    public Instant lastChanged = Instant.now();
-    public LocalDateTime startDate = LocalDateTime.of(2025, 6, 1, 10, 0, 0);
-    public LocalDateTime endDate = LocalDateTime.of(2025, 7, 1, 10, 0, 0);
-    public boolean isPublic = true;
+    private UUID id;
+    private String title = "Course title";
+    private String description = "Course description";
+    private BigDecimal price = BigDecimal.valueOf(100);
+    private BigDecimal coinsPaid = BigDecimal.ZERO;
+    private Instant created = Instant.now();
+    private Instant lastChanged = Instant.now();
+    private LocalDateTime startDate = LocalDateTime.of(2025, 6, 1, 10, 0, 0);
+    private LocalDateTime endDate = LocalDateTime.of(2025, 7, 1, 10, 0, 0);
+    private boolean isPublic = true;
 
     public CourseBuilder id(UUID id) {
         this.id = id;

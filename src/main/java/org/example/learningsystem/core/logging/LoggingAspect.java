@@ -12,8 +12,9 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class LoggingAspect {
 
-    @Pointcut("execution(public * org.example.learningsystem.exception.handler.*.*(..))")
-    public void handlerPointcut() {}
+    @Pointcut("execution(public * org.example.learningsystem.core.exception.handler.*.*(..))")
+    public void handlerPointcut() {
+    }
 
     @AfterReturning(value = "handlerPointcut()", returning = "result")
     public void logAfterReturning(JoinPoint joinPoint, Object result) {

@@ -42,6 +42,5 @@ public record StudentResponseDto(
 
         Instant lastChanged,
 
-        String lastChangedBy
-) {
+        String lastChangedBy) {
 }

@@ -4,9 +4,14 @@ import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.course.dto.CourseRequestDto;
 import org.example.learningsystem.course.dto.CourseResponseDto;
 
-import org.mapstruct.*;
+import org.mapstruct.Builder;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
+import static org.mapstruct.NullValueCheckStrategy.ALWAYS;
+import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
 
 @Mapper(builder = @Builder(disableBuilder = true), componentModel = SPRING)
 public interface CourseMapper {
@@ -18,14 +23,14 @@ public interface CourseMapper {
 
     @Mapping(target = "settings.startDate", source = "startDate")
     @Mapping(target = "settings.endDate", source = "endDate")
-    @Mapping(target = "settings.isPublic", source = "isPublic", nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
-    @Mapping(target = "coinsPaid", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "settings.isPublic", source = "isPublic", nullValueCheckStrategy = ALWAYS)
+    @Mapping(target = "coinsPaid", nullValuePropertyMappingStrategy = IGNORE)
     Course toEntity(CourseRequestDto courseRequestDto);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "settings.startDate", source = "startDate")
     @Mapping(target = "settings.endDate", source = "endDate")
-    @Mapping(target = "settings.isPublic", source = "isPublic", nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
-    @Mapping(target = "coinsPaid", nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
+    @Mapping(target = "settings.isPublic", source = "isPublic", nullValueCheckStrategy = ALWAYS)
+    @Mapping(target = "coinsPaid", nullValueCheckStrategy = ALWAYS)
     void toEntity(CourseRequestDto courseRequestDto, @MappingTarget Course course);
 }

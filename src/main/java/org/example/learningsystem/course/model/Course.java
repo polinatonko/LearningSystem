@@ -11,7 +11,12 @@ import java.math.BigDecimal;
 import java.util.Set;
 import java.util.UUID;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.example.learningsystem.core.audit.model.AuditableEntity;
 import org.example.learningsystem.lesson.model.Lesson;

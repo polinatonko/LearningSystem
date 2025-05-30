@@ -9,11 +9,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
-
-import static org.springframework.web.client.HttpClientErrorException.Unauthorized;
 import org.springframework.web.client.HttpServerErrorException.BadGateway;
 import org.springframework.web.client.HttpServerErrorException.GatewayTimeout;
 import org.springframework.web.client.HttpServerErrorException.ServiceUnavailable;
+
+import static org.springframework.web.client.HttpClientErrorException.Unauthorized;
 
 @Service
 @RequiredArgsConstructor

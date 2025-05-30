@@ -18,10 +18,13 @@ public class DestinationServiceProperties {
 
     @NotNull
     private String uri;
+
     @NotNull
     private String tokenUrl;
+
     @NotNull
     private String clientId;
+
     @NotNull
     private String clientSecret;
 }

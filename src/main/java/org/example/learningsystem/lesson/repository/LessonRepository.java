@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public interface LessonRepository extends JpaRepository<Lesson, UUID> {
 
-    @Query("SELECT l, c FROM Lesson l LEFT JOIN Course c ON l.course.id = c.id")
+    @Query("SELECT l FROM Lesson l LEFT JOIN FETCH l.course WHERE l.id = :id")
     Optional<Lesson> findByIdWithCourse(UUID id);
 
     Page<Lesson> findAllByCourseId(UUID courseId, Pageable pageable);

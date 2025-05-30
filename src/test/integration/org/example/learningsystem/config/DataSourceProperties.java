@@ -14,6 +14,7 @@ public class DataSourceProperties {
 
     @NotEmpty
     private String username;
+
     @NotEmpty
     private String password;
 }

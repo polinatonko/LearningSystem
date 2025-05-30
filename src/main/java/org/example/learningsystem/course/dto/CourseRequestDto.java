@@ -33,6 +33,5 @@ public record CourseRequestDto(
         @Schema(pattern = "YYYY/MM/dd HH:MM:ss")
         LocalDateTime endDate,
 
-        Boolean isPublic
-) {
+        Boolean isPublic) {
 }

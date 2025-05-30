@@ -7,6 +7,7 @@ import org.example.learningsystem.core.web.dto.Oauth2TokenResponseDto;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClient;
@@ -22,9 +23,10 @@ import static org.springframework.security.oauth2.core.AuthorizationGrantType.CL
 
 @Service
 @CacheConfig(cacheNames = "accessTokens")
+@Profile("cloud")
 @RequiredArgsConstructor
 @Slf4j
-public class Oauth2TokenClientImpl implements Oauth2TokenClient {
+public class CloudOauth2TokenClient implements Oauth2TokenClient {
 
     private static final String ACCESS_TOKEN_URI = "%s/oauth/token";
 
