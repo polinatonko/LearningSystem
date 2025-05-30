@@ -26,7 +26,7 @@ basic-authentication:
 
 course:
   reminder:
-    cron: "0 * * * * *"
+    cron: "0 0 9 * * *"
     daysBefore: 1
 
 info:
