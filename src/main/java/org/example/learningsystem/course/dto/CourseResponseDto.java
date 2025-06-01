@@ -34,10 +34,12 @@ public record CourseResponseDto(
 
         Boolean isPublic,
 
+        @JsonFormat(pattern = DATE_TIME_FORMAT, timezone = "UTC")
         Instant created,
 
         String createdBy,
 
+        @JsonFormat(pattern = DATE_TIME_FORMAT, timezone = "UTC")
         Instant lastChanged,
 
         String lastChangedBy) {
