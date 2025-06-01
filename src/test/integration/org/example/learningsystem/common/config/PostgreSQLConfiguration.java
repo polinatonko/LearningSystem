@@ -1,4 +1,4 @@
-package org.example.learningsystem.config;
+package org.example.learningsystem.common.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.test.context.TestConfiguration;

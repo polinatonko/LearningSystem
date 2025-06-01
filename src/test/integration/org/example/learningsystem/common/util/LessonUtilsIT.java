@@ -1,11 +1,17 @@
-package org.example.learningsystem.util;
+package org.example.learningsystem.common.util;
 
+import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.lesson.dto.classroomlesson.ClassroomLessonRequestDto;
 import org.example.learningsystem.lesson.dto.videolesson.VideoLessonRequestDto;
+import org.example.learningsystem.lesson.model.ClassroomLesson;
+import org.example.learningsystem.lesson.model.VideoLesson;
 
 import java.util.UUID;
 
-public class LessonTestUtils {
+import static org.example.learningsystem.lesson.model.LessonType.Fields.CLASSROOM;
+import static org.example.learningsystem.lesson.model.LessonType.Fields.VIDEO;
+
+public class LessonUtilsIT {
 
     public static final String TITLE = "Lesson title";
     public static final Integer DURATION = 60;
@@ -13,14 +19,32 @@ public class LessonTestUtils {
     public static final String PLATFORM = "Google Meet";
     public static final String LOCATION = "Minsk";
     public static final Integer CAPACITY = 10;
-    public static final String VIDEO_TYPE = "VIDEO";
-    public static final String CLASSROOM_TYPE = "CLASSROOM";
+
+    public static ClassroomLesson buildClassroomLesson(Course course) {
+        return ClassroomLesson.builder()
+                .title(TITLE)
+                .duration(DURATION)
+                .location(LOCATION)
+                .capacity(CAPACITY)
+                .course(course)
+                .build();
+    }
+
+    public static VideoLesson buildVideoLesson(Course course) {
+        return VideoLesson.builder()
+                .title(TITLE)
+                .duration(DURATION)
+                .url(URL)
+                .platform(PLATFORM)
+                .course(course)
+                .build();
+    }
 
     public static VideoLessonRequestDto createVideoLessonRequestDto(UUID courseId) {
         return VideoLessonRequestDto.builder()
                 .title(TITLE)
                 .duration(DURATION)
-                .type(VIDEO_TYPE)
+                .type(VIDEO)
                 .url(URL)
                 .platform(PLATFORM)
                 .courseId(courseId)
@@ -32,7 +56,7 @@ public class LessonTestUtils {
                 .id(id)
                 .title(TITLE)
                 .duration(DURATION)
-                .type(VIDEO_TYPE)
+                .type(VIDEO)
                 .url(URL)
                 .platform(PLATFORM)
                 .courseId(courseId)
@@ -43,7 +67,7 @@ public class LessonTestUtils {
         return ClassroomLessonRequestDto.builder()
                 .title(TITLE)
                 .duration(DURATION)
-                .type(CLASSROOM_TYPE)
+                .type(CLASSROOM)
                 .location(LOCATION)
                 .capacity(CAPACITY)
                 .courseId(courseId)
@@ -55,7 +79,7 @@ public class LessonTestUtils {
                 .id(id)
                 .title(TITLE)
                 .duration(DURATION)
-                .type(CLASSROOM_TYPE)
+                .type(CLASSROOM)
                 .location(LOCATION)
                 .capacity(CAPACITY)
                 .courseId(courseId)

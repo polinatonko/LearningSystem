@@ -1,8 +1,8 @@
-package org.example.learningsystem;
+package org.example.learningsystem.common;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.learningsystem.config.DataSourceProperties;
-import org.example.learningsystem.config.PostgreSQLConfiguration;
+import org.example.learningsystem.common.config.DataSourceProperties;
+import org.example.learningsystem.common.config.PostgreSQLConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

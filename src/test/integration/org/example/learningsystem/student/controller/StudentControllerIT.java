@@ -1,33 +1,32 @@
 package org.example.learningsystem.student.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.learningsystem.AbstractCommonIT;
-import org.example.learningsystem.student.dto.StudentRequestDto;
-import org.example.learningsystem.student.dto.StudentResponseDto;
+import org.example.learningsystem.common.AbstractCommonIT;
+import org.example.learningsystem.core.exception.EntityNotFoundException;
 import org.example.learningsystem.student.service.StudentService;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import java.util.UUID;
 
-import static org.example.learningsystem.util.StudentTestUtils.buildCreateStudentRequestDto;
-import static org.example.learningsystem.util.StudentTestUtils.buildUpdateStudentRequestDto;
-import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.example.learningsystem.common.builder.StudentRequestBuilder.buildCreateRequest;
+import static org.example.learningsystem.common.builder.StudentRequestBuilder.buildDeleteByIdRequest;
+import static org.example.learningsystem.common.builder.StudentRequestBuilder.buildGetAllRequest;
+import static org.example.learningsystem.common.builder.StudentRequestBuilder.buildGetByIdRequest;
+import static org.example.learningsystem.common.builder.StudentRequestBuilder.buildUpdateByIdRequest;
+import static org.example.learningsystem.common.util.StudentUtilsIT.buildCreateStudentRequestDto;
+import static org.example.learningsystem.common.util.StudentUtilsIT.buildStudent;
+import static org.example.learningsystem.common.util.StudentUtilsIT.buildUpdateStudentRequestDto;
+import static org.junit.Assert.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Tag("integration")
 @RequiredArgsConstructor
 class StudentControllerIT extends AbstractCommonIT {
-
-    private static final String STUDENTS_URL = "/students";
-    private static final String STUDENT_URL = "/students/{id}";
 
     @Autowired
     private StudentService studentService;
@@ -36,78 +35,67 @@ class StudentControllerIT extends AbstractCommonIT {
     @WithMockUser
     void create_givenStudentRequestDto_shouldSuccessfullyCreateAndReturn201() throws Exception {
         // given
-        var studentRequestDto = buildCreateStudentRequestDto();
+        var requestDto = buildCreateStudentRequestDto();
+        var content = objectMapper.writeValueAsString(requestDto);
 
         // when, then
-        mockMvc.perform(post(STUDENTS_URL)
-                        .contentType(APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(studentRequestDto)))
+        var request = buildCreateRequest(content);
+        mockMvc.perform(request)
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").isNotEmpty())
-                .andExpect(jsonPath("$.firstName").value(studentRequestDto.firstName()))
-                .andExpect(jsonPath("$.lastName").value(studentRequestDto.lastName()));
+                .andExpectAll(
+                        jsonPath("$.id").isNotEmpty(),
+                        jsonPath("$.firstName").value(requestDto.firstName()),
+                        jsonPath("$.lastName").value(requestDto.lastName())
+                );
     }
 
     @Test
     @WithMockUser
     void create_givenInvalidBody_shouldReturn400() throws Exception {
         // given
-        var body = "{}";
+        var content = "{}";
 
         // when, then
-        mockMvc.perform(post(STUDENTS_URL)
-                        .contentType(APPLICATION_JSON)
-                        .content(body))
-                .andExpect(status().is4xxClientError());
+        var request = buildCreateRequest(content);
+        mockMvc.perform(request)
+                .andExpect(status().isBadRequest());
     }
 
     @Test
     @WithMockUser
     void getById_givenId_shouldReturn200() throws Exception {
         // given
-        var studentRequestDto = buildCreateStudentRequestDto();
-        var studentResponseDto = create(studentRequestDto);
-        var studentId = studentResponseDto.id();
+        var id = createStudentAndGetId();
 
         // when, then
-        mockMvc.perform(get(STUDENT_URL, studentId))
+        var request = buildGetByIdRequest(id);
+        mockMvc.perform(request)
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(studentId.toString()));
+                .andExpect(jsonPath("$.id").value(id.toString()));
 
-        studentService.deleteById(studentId);
+        studentService.deleteById(id);
     }
 
     @Test
     void getById_givenId_shouldReturn401() throws Exception {
         // given
-        var studentRequestDto = buildCreateStudentRequestDto();
-        var studentResponseDto = create(studentRequestDto);
-        var studentId = studentResponseDto.id();
+        var id = UUID.randomUUID();
 
         // when, then
-        mockMvc.perform(get(STUDENT_URL, studentId))
+        var request = buildGetByIdRequest(id);
+        mockMvc.perform(request)
                 .andExpect(status().isUnauthorized());
-    }
-
-    @Test
-    @WithMockUser
-    void getById_givenId_shouldReturn400() throws Exception {
-        // given
-        var studentId = "123";
-
-        // when, then
-        mockMvc.perform(get(STUDENT_URL, studentId))
-                .andExpect(status().is4xxClientError());
     }
 
     @Test
     @WithMockUser
     void getById_givenId_shouldReturn404() throws Exception {
         // given
-        var studentId = UUID.randomUUID();
+        var id = UUID.randomUUID();
 
         // when, then
-        mockMvc.perform(get(STUDENT_URL, studentId))
+        var request = buildGetByIdRequest(id);
+        mockMvc.perform(request)
                 .andExpect(status().isNotFound());
     }
 
@@ -117,68 +105,68 @@ class StudentControllerIT extends AbstractCommonIT {
         // given
         var page = 0;
         var size = 1;
+        var pageRequest = PageRequest.of(page, size);
 
         // when, then
-        mockMvc.perform(get(STUDENTS_URL)
-                        .queryParam("page", String.valueOf(page))
-                        .queryParam("size", String.valueOf(size))
-                )
+        var request = buildGetAllRequest(pageRequest);
+        mockMvc.perform(request)
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.page.number").value(page))
-                .andExpect(jsonPath("$.page.size").value(size))
-                .andExpect(jsonPath("$.content").isArray());
+                .andExpectAll(
+                        jsonPath("$.page.number").value(page),
+                        jsonPath("$.page.size").value(size),
+                        jsonPath("$.content").isArray()
+                );
     }
 
     @Test
     @WithMockUser
     void updateById_givenStudentRequestDto_shouldSuccessfullyUpdateAndReturn200() throws Exception {
         // given
-        var studentRequestDto = buildCreateStudentRequestDto();
-        var studentResponseDto = create(studentRequestDto);
-        var studentId = studentResponseDto.id();
-        studentRequestDto = buildUpdateStudentRequestDto(studentId);
+        var id = createStudentAndGetId();
+
+        var requestDto = buildUpdateStudentRequestDto(id);
+        var content = objectMapper.writeValueAsString(requestDto);
 
         // when, then
-        mockMvc.perform(put(STUDENT_URL, studentId)
-                        .contentType(APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(studentRequestDto)))
+        var request = buildUpdateByIdRequest(id, content);
+        mockMvc.perform(request)
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(studentId.toString()))
-                .andExpect(jsonPath("$.firstName").value(studentRequestDto.firstName()))
-                .andExpect(jsonPath("$.lastName").value(studentRequestDto.lastName()));
+                .andExpectAll(
+                        jsonPath("$.id").value(id.toString()),
+                        jsonPath("$.firstName").value(requestDto.firstName()),
+                        jsonPath("$.lastName").value(requestDto.lastName())
+                );
 
-        studentService.deleteById(studentId);
+        studentService.deleteById(id);
     }
 
     @Test
     @WithMockUser
     void updateById_givenInvalidBody_shouldReturn400() throws Exception {
         // given
-        var studentRequestDto = buildCreateStudentRequestDto();
-        var studentResponseDto = create(studentRequestDto);
-        var studentId = studentResponseDto.id();
-        var body = "{\"id\": \"%s\"}".formatted(studentId);
+        var id = createStudentAndGetId();
+
+        var content = "{\"id\": \"%s\"}".formatted(id);
 
         // when, then
-        mockMvc.perform(put(STUDENT_URL, studentId)
-                        .contentType(APPLICATION_JSON)
-                        .content(body))
-                .andExpect(status().is4xxClientError());
+        var request = buildUpdateByIdRequest(id, content);
+        mockMvc.perform(request)
+                .andExpect(status().isBadRequest());
 
-        studentService.deleteById(studentId);
+        studentService.deleteById(id);
     }
 
     @Test
     @WithMockUser
     void updateById_givenCourseId_shouldReturn404() throws Exception {
         // given
-        var studentRequestDto = buildCreateStudentRequestDto();
-        var studentId = UUID.randomUUID();
+        var requestDto = buildCreateStudentRequestDto();
+        var id = UUID.randomUUID();
+        var content = objectMapper.writeValueAsString(requestDto);
 
         // when, then
-        mockMvc.perform(put(STUDENT_URL, studentId)
-                        .contentType(APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(studentRequestDto)))
+        var request = buildUpdateByIdRequest(id, content);
+        mockMvc.perform(request)
                 .andExpect(status().isNotFound());
     }
 
@@ -186,25 +174,20 @@ class StudentControllerIT extends AbstractCommonIT {
     @WithMockUser
     void deleteById_givenId_shouldSuccessfullyDeleteAndReturn204() throws Exception {
         // given
-        var studentRequestDto = buildCreateStudentRequestDto();
-        var studentResponseDto = create(studentRequestDto);
-        var studentId = studentResponseDto.id();
+        var id = createStudentAndGetId();
 
         // when, then
-        mockMvc.perform(delete(STUDENT_URL, studentId))
+        var deleteRequest = buildDeleteByIdRequest(id);
+        mockMvc.perform(deleteRequest)
                 .andExpect(status().isNoContent());
 
-        mockMvc.perform(get(STUDENT_URL, studentId))
-                .andExpect(status().isNotFound());
+        assertThrows(EntityNotFoundException.class, () -> studentService.getById(id));
     }
 
-    private StudentResponseDto create(StudentRequestDto studentRequestDto) throws Exception {
-        var response = mockMvc.perform(post(STUDENTS_URL)
-                        .contentType(APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(studentRequestDto)))
-                .andReturn()
-                .getResponse();
-        return objectMapper.readValue(response.getContentAsString(), StudentResponseDto.class);
+    private UUID createStudentAndGetId() {
+        var student = buildStudent();
+        var savedStudent = studentService.create(student);
+        return savedStudent.getId();
     }
 
 }

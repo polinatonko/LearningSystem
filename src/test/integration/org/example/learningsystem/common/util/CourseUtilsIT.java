@@ -1,4 +1,4 @@
-package org.example.learningsystem.util;
+package org.example.learningsystem.common.util;
 
 import org.example.learningsystem.course.dto.CourseRequestDto;
 import org.example.learningsystem.course.model.Course;
@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class CourseTestUtils {
+public class CourseUtilsIT {
 
     private static final String TITLE = "Course title";
     private static final String DESCRIPTION = "Course description";

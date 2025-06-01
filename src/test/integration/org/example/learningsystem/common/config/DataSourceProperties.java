@@ -1,4 +1,4 @@
-package org.example.learningsystem.config;
+package org.example.learningsystem.common.config;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;

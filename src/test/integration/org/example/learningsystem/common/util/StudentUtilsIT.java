@@ -1,4 +1,4 @@
-package org.example.learningsystem.util;
+package org.example.learningsystem.common.util;
 
 import org.example.learningsystem.student.dto.StudentRequestDto;
 import org.example.learningsystem.student.model.Student;
@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.Locale;
 import java.util.UUID;
 
-public class StudentTestUtils {
+public class StudentUtilsIT {
 
     private static final String FIRST_NAME = "Name";
     private static final String LAST_NAME = "Last name";
