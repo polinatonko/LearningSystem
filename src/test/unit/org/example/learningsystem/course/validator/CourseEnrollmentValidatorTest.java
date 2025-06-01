@@ -1,7 +1,7 @@
 package org.example.learningsystem.course.validator;
 
-import org.example.learningsystem.util.CourseBuilder;
-import org.example.learningsystem.util.StudentBuilder;
+import org.example.learningsystem.common.util.CourseBuilder;
+import org.example.learningsystem.common.util.StudentBuilder;
 import org.example.learningsystem.course.exception.DuplicateEnrollmentException;
 import org.example.learningsystem.course.exception.EnrollmentDeniedException;
 import org.example.learningsystem.course.exception.InsufficientFundsException;
@@ -83,6 +83,7 @@ class CourseEnrollmentValidatorTest {
                 .coins(course.getPrice())
                 .build();
         var courseEnrollment = new CourseEnrollment(course, student);
+
         when(courseEnrollmentRepository.existsByCourseIdAndStudentId(any(), any()))
                 .thenReturn(true);
 

@@ -1,4 +1,4 @@
-package org.example.learningsystem.util;
+package org.example.learningsystem.common.util;
 
 import org.example.learningsystem.student.model.Student;
 
