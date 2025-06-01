@@ -24,8 +24,6 @@ public class LessonResponseDto {
 
     private String type;
 
-    private Boolean isPublic;
-
     private Instant created;
 
     private String createdBy;

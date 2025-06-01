@@ -2,12 +2,9 @@ package org.example.learningsystem.core.email.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.learningsystem.core.email.config.EmailServerProperties;
-import org.springframework.mail.MailSendException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.retry.annotation.Recover;
-import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Component;
 
 import java.util.Properties;
@@ -20,16 +17,10 @@ public class EmailServiceImpl implements EmailService {
     private static final String MAIL_SMTP_AUTH = "mail.smtp.auth";
     private static final String MAIL_SMTP_STARTTLS_ENABLE = "mail.smtp.starttls.enable";
 
-    @Retryable(retryFor = MailSendException.class)
     public void send(String to, String subject, String text, EmailServerProperties serverProperties) {
         var sender = getSender(serverProperties);
         var message = buildMessage(to, serverProperties.getFrom(), subject, text);
         sender.send(message);
-    }
-
-    @Recover
-    public void recover(MailSendException e, String to, String subject, String text, EmailServerProperties serverProperties) {
-        log.error("Failed to send email [subject = {}, to = {}]: {}", subject, to, e.getMessage());
     }
 
     private JavaMailSender getSender(EmailServerProperties serverProperties) {
