@@ -17,7 +17,7 @@ import static org.springframework.web.client.HttpClientErrorException.Unauthoriz
 @Profile("cloud")
 public class CloudDestinationServiceImpl implements DestinationService {
 
-    private static final String DESTINATION_URI = "%s/destination-configuration/v1/instanceDestinations/%s";
+    private static final String DESTINATION_URI_TEMPLATE = "%s/destination-configuration/v1/instanceDestinations/%s";
 
     private final Oauth2TokenClient oauth2TokenClient;
     private final DestinationServiceProperties properties;
@@ -31,22 +31,33 @@ public class CloudDestinationServiceImpl implements DestinationService {
 
     private DestinationDto tryGetDestination(String destinationName) {
         try {
-            var accessToken = oauth2TokenClient.get(
-                    properties.getTokenUrl(), properties.getClientId(), properties.getClientSecret());
-            var requestHeaders = new HttpHeaders();
-            requestHeaders.setBearerAuth(accessToken);
-
-            var uri = DESTINATION_URI.formatted(properties.getUri(), destinationName);
+            var baseUri = properties.getUri();
+            var uri = DESTINATION_URI_TEMPLATE.formatted(baseUri, destinationName);
 
             return restClient.get()
                     .uri(uri)
-                    .headers(headers -> headers.addAll(requestHeaders))
+                    .headers(this::addBearerAuthHeader)
                     .retrieve()
                     .body(DestinationDto.class);
         } catch (Unauthorized e) {
-            oauth2TokenClient.refresh(properties.getTokenUrl(), properties.getClientId(), properties.getClientSecret());
+            refreshToken();
             throw e;
         }
+    }
+
+    private void addBearerAuthHeader(HttpHeaders headers) {
+        var tokenUrl = properties.getTokenUrl();
+        var clientId = properties.getClientId();
+        var clientSecret = properties.getClientSecret();
+        var accessToken = oauth2TokenClient.get(tokenUrl, clientId, clientSecret);
+        headers.setBearerAuth(accessToken);
+    }
+
+    private void refreshToken() {
+        var tokenUrl = properties.getTokenUrl();
+        var clientId = properties.getClientId();
+        var clientSecret = properties.getClientSecret();
+        oauth2TokenClient.refresh(tokenUrl, clientId, clientSecret);
     }
 
 }

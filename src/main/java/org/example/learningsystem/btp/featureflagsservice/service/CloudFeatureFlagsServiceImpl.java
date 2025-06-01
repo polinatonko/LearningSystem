@@ -1,16 +1,13 @@
 package org.example.learningsystem.btp.featureflagsservice.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.learningsystem.btp.featureflagsservice.exception.FeatureFlagTypeMismatchException;
 import org.example.learningsystem.btp.featureflagsservice.config.FeatureFlagsProperties;
 import org.example.learningsystem.btp.featureflagsservice.dto.FlagDto;
+import org.example.learningsystem.btp.featureflagsservice.validator.FeatureFlagsValidator;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
-
-import static java.util.Objects.isNull;
-import static org.springframework.http.HttpStatus.OK;
 
 @Service
 @RequiredArgsConstructor
@@ -18,9 +15,10 @@ import static org.springframework.http.HttpStatus.OK;
 public class CloudFeatureFlagsServiceImpl implements FeatureFlagsService {
 
     private static final String BOOLEAN_FLAG_TYPE = "BOOLEAN";
-    private static final String EVALUATE_FLAG_URI = "%s/api/v2/evaluate/%s";
+    private static final String EVALUATE_FLAG_URI_TEMPLATE = "%s/api/v2/evaluate/%s";
 
     private final FeatureFlagsProperties properties;
+    private final FeatureFlagsValidator featureFlagsValidator;
     private final RestClient restClient;
 
     @Override
@@ -30,33 +28,29 @@ public class CloudFeatureFlagsServiceImpl implements FeatureFlagsService {
 
     @Override
     public boolean getBooleanByName(String name) {
-        var flagResponse = getByName(name);
-
-        if (isNull(flagResponse) || flagResponse.httpStatus() != OK.value()) {
+        var flag = getByName(name);
+        if (!featureFlagsValidator.isValid(flag, BOOLEAN_FLAG_TYPE)) {
             return false;
-        } else if (!flagResponse.type().equals(BOOLEAN_FLAG_TYPE)) {
-            throw new FeatureFlagTypeMismatchException(BOOLEAN_FLAG_TYPE, name);
         }
-        return Boolean.parseBoolean(flagResponse.variation());
+        return Boolean.parseBoolean(flag.variation());
     }
 
     private FlagDto tryGetFlag(String name) {
-        var path = EVALUATE_FLAG_URI.formatted(properties.getUri(), name);
-        var requestHeaders = buildHeaders();
+        var uri = properties.getUri();
+        var path = EVALUATE_FLAG_URI_TEMPLATE.formatted(uri, name);
 
         return restClient.get()
                 .uri(path)
-                .headers(headers -> headers.addAll(requestHeaders))
+                .headers(this::addBasicAuthHeader)
                 .retrieve()
                 .body(FlagDto.class);
     }
 
-    private HttpHeaders buildHeaders() {
-        var authorizationHeader = HttpHeaders.encodeBasicAuth(
-                properties.getUsername(), properties.getPassword(), null);
-        var headers = new HttpHeaders();
+    private void addBasicAuthHeader(HttpHeaders headers) {
+        var username = properties.getUsername();
+        var password = properties.getPassword();
+        var authorizationHeader = HttpHeaders.encodeBasicAuth(username, password, null);
         headers.setBasicAuth(authorizationHeader);
-        return headers;
     }
 
 }
