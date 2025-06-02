@@ -1,3 +1,8 @@
+info:
+  application:
+    name: LearningManagementSystem
+    description: API provides a functionality for managing the learning system and allows students to enroll in variety of courses
+
 spring:
   application:
     name: LearningManagementSystem
@@ -28,11 +33,6 @@ course:
   reminder:
     cron: "0 0 9 * * *"
     daysBefore: 1
-
-info:
-  application:
-    name: LearningManagementSystem
-    description: API provides a functionality for managing the learning system and allows students to enroll in variety of courses
 
 management:
   endpoints:
