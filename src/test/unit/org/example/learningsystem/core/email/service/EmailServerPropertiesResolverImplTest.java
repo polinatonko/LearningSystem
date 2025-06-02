@@ -12,8 +12,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.example.learningsystem.common.util.DestinationUtils.buildMailDestinationDto;
-import static org.example.learningsystem.common.util.EmailServerPropertiesUtils.buildEmailServerPropertiesConfiguration;
+import static org.example.learningsystem.common.DestinationUtils.buildMailDestinationDto;
+import static org.example.learningsystem.common.EmailServerPropertiesUtils.buildEmailServerPropertiesConfiguration;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;

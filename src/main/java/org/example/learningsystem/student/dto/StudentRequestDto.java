@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.util.Locale;
 import java.util.UUID;
 
-import static org.example.learningsystem.core.util.format.DataFormatUtils.DATE_FORMAT;
+import static org.example.learningsystem.core.util.format.DateFormatUtils.DATE_FORMAT;
 
 public record StudentRequestDto(
 

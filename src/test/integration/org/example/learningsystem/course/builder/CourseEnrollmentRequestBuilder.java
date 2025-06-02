@@ -1,4 +1,4 @@
-package org.example.learningsystem.common.builder;
+package org.example.learningsystem.course.builder;
 
 import org.springframework.test.web.servlet.RequestBuilder;
 

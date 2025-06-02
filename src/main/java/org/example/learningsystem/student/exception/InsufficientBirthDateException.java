@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
 
-import static org.example.learningsystem.core.util.format.DataFormatUtils.DATE_FORMAT;
+import static org.example.learningsystem.core.util.format.DateFormatUtils.DATE_FORMAT;
 
 public class InsufficientBirthDateException extends RuntimeException {
 

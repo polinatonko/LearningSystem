@@ -8,7 +8,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import static org.example.learningsystem.core.util.format.DataFormatUtils.DATE_TIME_FORMAT;
+import static org.example.learningsystem.core.util.format.DateFormatUtils.DATE_TIME_FORMAT;
 
 @Schema
 public record CourseResponseDto(

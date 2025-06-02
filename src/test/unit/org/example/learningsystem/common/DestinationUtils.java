@@ -1,4 +1,4 @@
-package org.example.learningsystem.common.util;
+package org.example.learningsystem.common;
 
 import org.example.learningsystem.btp.destinationservice.dto.MailDestinationDto;
 

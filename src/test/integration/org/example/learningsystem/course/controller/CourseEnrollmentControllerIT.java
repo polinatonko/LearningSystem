@@ -10,16 +10,17 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
 import static java.util.Objects.nonNull;
-import static org.example.learningsystem.common.builder.CourseEnrollmentRequestBuilder.buildEnrollRequest;
-import static org.example.learningsystem.common.builder.CourseEnrollmentRequestBuilder.buildUnenrollRequest;
-import static org.example.learningsystem.common.util.CourseUtilsIT.buildCourse;
-import static org.example.learningsystem.common.util.StudentUtilsIT.buildStudent;
+import static org.example.learningsystem.course.builder.CourseEnrollmentRequestBuilder.buildEnrollRequest;
+import static org.example.learningsystem.course.builder.CourseEnrollmentRequestBuilder.buildUnenrollRequest;
+import static org.example.learningsystem.course.util.CourseUtilsIT.buildCourse;
+import static org.example.learningsystem.student.util.StudentUtilsIT.buildStudent;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -27,6 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Tag("integration")
 @RequiredArgsConstructor
+@WithMockUser
 class CourseEnrollmentControllerIT extends AbstractCommonIT {
 
     @Autowired
@@ -35,7 +37,6 @@ class CourseEnrollmentControllerIT extends AbstractCommonIT {
     private StudentService studentService;
 
     @Test
-    @WithMockUser
     void enrollStudent_givenCourseAndStudent_shouldSuccessfullyEnrollStudentAndReturn200() throws Exception {
         // given
         var course = buildCourse();
@@ -70,7 +71,6 @@ class CourseEnrollmentControllerIT extends AbstractCommonIT {
     }
 
     @Test
-    @WithMockUser
     void enrollStudent_givenCourseAndStudent_shouldThrowEnrollmentDeniedExceptionAndReturn500() throws Exception {
         // given
         var course = buildPrivateCourse();
@@ -90,7 +90,6 @@ class CourseEnrollmentControllerIT extends AbstractCommonIT {
     }
 
     @Test
-    @WithMockUser
     void enrollStudent_givenCourseAndStudent_shouldThrowInsufficientFundsExceptionAndReturn500() throws Exception {
         // given
         var course = buildPrivateCourse();
@@ -110,6 +109,7 @@ class CourseEnrollmentControllerIT extends AbstractCommonIT {
     }
 
     @Test
+    @WithAnonymousUser
     void enrollStudent_givenCourseIdAndStudentId_shouldReturn401() throws Exception {
         // given
         var courseId = UUID.randomUUID();
@@ -122,7 +122,6 @@ class CourseEnrollmentControllerIT extends AbstractCommonIT {
     }
 
     @Test
-    @WithMockUser
     void enrollStudent_givenCourseAndStudentId_shouldThrowEntityNotFoundExceptionAndReturn404() throws Exception {
         // given
         var course = buildPrivateCourse();
@@ -140,7 +139,6 @@ class CourseEnrollmentControllerIT extends AbstractCommonIT {
     }
 
     @Test
-    @WithMockUser
     void enrollStudent_givenCourseIdAndStudent_shouldThrowEntityNotFoundExceptionAndReturn404() throws Exception {
         // given
         var courseId = UUID.randomUUID();
@@ -158,7 +156,6 @@ class CourseEnrollmentControllerIT extends AbstractCommonIT {
     }
 
     @Test
-    @WithMockUser
     void unenrollStudent_givenCourseAndStudent_shouldSuccessfullyUnenrollStudentAndReturn204() throws Exception {
         // given
         var course = buildCourse();
@@ -184,6 +181,7 @@ class CourseEnrollmentControllerIT extends AbstractCommonIT {
     }
 
     @Test
+    @WithAnonymousUser
     void unenrollStudent_givenCourseIdAndStudentId_shouldReturn401() throws Exception {
         // given
         var courseId = UUID.randomUUID();

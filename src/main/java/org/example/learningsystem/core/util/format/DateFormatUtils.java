@@ -1,9 +1,9 @@
 package org.example.learningsystem.core.util.format;
 
 /**
- * Utility class containing data format patterns.
+ * Utility class containing date and time format patterns.
  */
-public class DataFormatUtils {
+public class DateFormatUtils {
 
     /**
      * Format pattern for datetime objects with timezone-neutral representation.

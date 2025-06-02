@@ -1,4 +1,4 @@
-package org.example.learningsystem.common.util;
+package org.example.learningsystem.common;
 
 import org.example.learningsystem.core.email.config.EmailServerPropertiesConfiguration;
 

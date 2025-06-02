@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 
-import static org.example.learningsystem.core.util.format.DataFormatUtils.DATE_TIME_FORMAT;
+import static org.example.learningsystem.core.util.format.DateFormatUtils.DATE_TIME_FORMAT;
 
 /**
  * Represents a standardized error response returned by the API when an exception occurs.

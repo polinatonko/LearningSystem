@@ -1,6 +1,6 @@
 package org.example.learningsystem.course.service;
 
-import org.example.learningsystem.common.builder.CourseBuilder;
+import org.example.learningsystem.course.builder.CourseBuilder;
 import org.example.learningsystem.core.util.validator.EntityValidator;
 import org.example.learningsystem.course.exception.InvalidCourseDurationException;
 import org.example.learningsystem.course.model.Course;

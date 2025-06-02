@@ -1,4 +1,4 @@
-package org.example.learningsystem.common.util;
+package org.example.learningsystem.student.util;
 
 import org.example.learningsystem.student.dto.StudentRequestDto;
 import org.example.learningsystem.student.model.Student;

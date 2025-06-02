@@ -1,4 +1,4 @@
-package org.example.learningsystem.common.builder;
+package org.example.learningsystem.lesson.builder;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.web.servlet.RequestBuilder;

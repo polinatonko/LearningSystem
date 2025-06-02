@@ -1,4 +1,4 @@
-package org.example.learningsystem.common.builder;
+package org.example.learningsystem.student.builder;
 
 import org.example.learningsystem.student.model.Student;
 

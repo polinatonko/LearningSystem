@@ -8,31 +8,32 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import java.util.UUID;
 
-import static org.example.learningsystem.common.builder.StudentRequestBuilder.buildCreateRequest;
-import static org.example.learningsystem.common.builder.StudentRequestBuilder.buildDeleteByIdRequest;
-import static org.example.learningsystem.common.builder.StudentRequestBuilder.buildGetAllRequest;
-import static org.example.learningsystem.common.builder.StudentRequestBuilder.buildGetByIdRequest;
-import static org.example.learningsystem.common.builder.StudentRequestBuilder.buildUpdateByIdRequest;
-import static org.example.learningsystem.common.util.StudentUtilsIT.buildCreateStudentRequestDto;
-import static org.example.learningsystem.common.util.StudentUtilsIT.buildStudent;
-import static org.example.learningsystem.common.util.StudentUtilsIT.buildUpdateStudentRequestDto;
+import static org.example.learningsystem.student.builder.StudentRequestBuilder.buildCreateRequest;
+import static org.example.learningsystem.student.builder.StudentRequestBuilder.buildDeleteByIdRequest;
+import static org.example.learningsystem.student.builder.StudentRequestBuilder.buildGetAllRequest;
+import static org.example.learningsystem.student.builder.StudentRequestBuilder.buildGetByIdRequest;
+import static org.example.learningsystem.student.builder.StudentRequestBuilder.buildUpdateByIdRequest;
+import static org.example.learningsystem.student.util.StudentUtilsIT.buildCreateStudentRequestDto;
+import static org.example.learningsystem.student.util.StudentUtilsIT.buildStudent;
+import static org.example.learningsystem.student.util.StudentUtilsIT.buildUpdateStudentRequestDto;
 import static org.junit.Assert.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Tag("integration")
 @RequiredArgsConstructor
+@WithMockUser
 class StudentControllerIT extends AbstractCommonIT {
 
     @Autowired
     private StudentService studentService;
 
     @Test
-    @WithMockUser
     void create_givenStudentRequestDto_shouldSuccessfullyCreateAndReturn201() throws Exception {
         // given
         var requestDto = buildCreateStudentRequestDto();
@@ -50,7 +51,6 @@ class StudentControllerIT extends AbstractCommonIT {
     }
 
     @Test
-    @WithMockUser
     void create_givenInvalidBody_shouldReturn400() throws Exception {
         // given
         var content = "{}";
@@ -62,7 +62,6 @@ class StudentControllerIT extends AbstractCommonIT {
     }
 
     @Test
-    @WithMockUser
     void getById_givenId_shouldReturn200() throws Exception {
         // given
         var id = createStudentAndGetId();
@@ -77,6 +76,7 @@ class StudentControllerIT extends AbstractCommonIT {
     }
 
     @Test
+    @WithAnonymousUser
     void getById_givenId_shouldReturn401() throws Exception {
         // given
         var id = UUID.randomUUID();
@@ -88,7 +88,6 @@ class StudentControllerIT extends AbstractCommonIT {
     }
 
     @Test
-    @WithMockUser
     void getById_givenId_shouldReturn404() throws Exception {
         // given
         var id = UUID.randomUUID();
@@ -100,7 +99,6 @@ class StudentControllerIT extends AbstractCommonIT {
     }
 
     @Test
-    @WithMockUser
     void getAll_givenPageAndSize_shouldReturn200() throws Exception {
         // given
         var page = 0;
@@ -119,7 +117,6 @@ class StudentControllerIT extends AbstractCommonIT {
     }
 
     @Test
-    @WithMockUser
     void updateById_givenStudentRequestDto_shouldSuccessfullyUpdateAndReturn200() throws Exception {
         // given
         var id = createStudentAndGetId();
@@ -141,7 +138,6 @@ class StudentControllerIT extends AbstractCommonIT {
     }
 
     @Test
-    @WithMockUser
     void updateById_givenInvalidBody_shouldReturn400() throws Exception {
         // given
         var id = createStudentAndGetId();
@@ -157,7 +153,6 @@ class StudentControllerIT extends AbstractCommonIT {
     }
 
     @Test
-    @WithMockUser
     void updateById_givenCourseId_shouldReturn404() throws Exception {
         // given
         var requestDto = buildCreateStudentRequestDto();
@@ -171,7 +166,6 @@ class StudentControllerIT extends AbstractCommonIT {
     }
 
     @Test
-    @WithMockUser
     void deleteById_givenId_shouldSuccessfullyDeleteAndReturn204() throws Exception {
         // given
         var id = createStudentAndGetId();

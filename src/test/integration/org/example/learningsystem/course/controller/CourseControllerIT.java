@@ -9,23 +9,24 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import java.util.List;
 import java.util.UUID;
 
-import static org.example.learningsystem.common.builder.CourseRequestBuilder.buildCreateRequest;
-import static org.example.learningsystem.common.builder.CourseRequestBuilder.buildCreateLessonRequest;
-import static org.example.learningsystem.common.builder.CourseRequestBuilder.buildDeleteByIdRequest;
-import static org.example.learningsystem.common.builder.CourseRequestBuilder.buildGetAllRequest;
-import static org.example.learningsystem.common.builder.CourseRequestBuilder.buildGetByIdRequest;
-import static org.example.learningsystem.common.builder.CourseRequestBuilder.buildGetLessonsByIdRequest;
-import static org.example.learningsystem.common.builder.CourseRequestBuilder.buildUpdateByIdRequest;
-import static org.example.learningsystem.common.util.CourseUtilsIT.buildCourse;
-import static org.example.learningsystem.common.util.CourseUtilsIT.buildCreateCourseRequestDto;
-import static org.example.learningsystem.common.util.CourseUtilsIT.buildUpdateCourseRequestDto;
-import static org.example.learningsystem.common.util.LessonUtilsIT.createClassroomLessonRequestDto;
-import static org.example.learningsystem.common.util.LessonUtilsIT.createVideoLessonRequestDto;
+import static org.example.learningsystem.course.builder.CourseRequestBuilder.buildCreateRequest;
+import static org.example.learningsystem.course.builder.CourseRequestBuilder.buildCreateLessonRequest;
+import static org.example.learningsystem.course.builder.CourseRequestBuilder.buildDeleteByIdRequest;
+import static org.example.learningsystem.course.builder.CourseRequestBuilder.buildGetAllRequest;
+import static org.example.learningsystem.course.builder.CourseRequestBuilder.buildGetByIdRequest;
+import static org.example.learningsystem.course.builder.CourseRequestBuilder.buildGetLessonsByIdRequest;
+import static org.example.learningsystem.course.builder.CourseRequestBuilder.buildUpdateByIdRequest;
+import static org.example.learningsystem.course.util.CourseUtilsIT.buildCourse;
+import static org.example.learningsystem.course.util.CourseUtilsIT.buildCreateCourseRequestDto;
+import static org.example.learningsystem.course.util.CourseUtilsIT.buildUpdateCourseRequestDto;
+import static org.example.learningsystem.lesson.util.LessonUtilsIT.createClassroomLessonRequestDto;
+import static org.example.learningsystem.lesson.util.LessonUtilsIT.createVideoLessonRequestDto;
 import static org.junit.Assert.assertThrows;
 import static org.springframework.data.domain.Sort.Order;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -33,13 +34,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Tag("integration")
 @RequiredArgsConstructor
+@WithMockUser
 class CourseControllerIT extends AbstractCommonIT {
 
     @Autowired
     private CourseService courseService;
 
     @Test
-    @WithMockUser
     void create_givenCourseRequestDto_shouldSuccessfullyCreateAndReturn201() throws Exception {
         // given
         var requestDto = buildCreateCourseRequestDto();
@@ -57,7 +58,6 @@ class CourseControllerIT extends AbstractCommonIT {
     }
 
     @Test
-    @WithMockUser
     void create_givenInvalidBody_shouldReturn400() throws Exception {
         // given
         var content = "{}";
@@ -69,7 +69,6 @@ class CourseControllerIT extends AbstractCommonIT {
     }
 
     @Test
-    @WithMockUser
     void getById_givenId_shouldReturn200() throws Exception {
         // given
         var id = createAndGetId();
@@ -84,6 +83,7 @@ class CourseControllerIT extends AbstractCommonIT {
     }
 
     @Test
+    @WithAnonymousUser
     void getById_givenId_shouldReturn401() throws Exception {
         // given
         var id = UUID.randomUUID();
@@ -95,7 +95,6 @@ class CourseControllerIT extends AbstractCommonIT {
     }
 
     @Test
-    @WithMockUser
     void getById_givenId_shouldReturn404() throws Exception {
         // given
         var id = UUID.randomUUID();
@@ -107,7 +106,6 @@ class CourseControllerIT extends AbstractCommonIT {
     }
 
     @Test
-    @WithMockUser
     void getAll_givenPageAndSize_shouldReturn200() throws Exception {
         // given
         var page = 0;
@@ -128,7 +126,6 @@ class CourseControllerIT extends AbstractCommonIT {
     }
 
     @Test
-    @WithMockUser
     void updateById_givenCourseRequestDto_shouldSuccessfullyUpdateAndReturn200() throws Exception {
         // given
         var id = createAndGetId();
@@ -151,7 +148,6 @@ class CourseControllerIT extends AbstractCommonIT {
     }
 
     @Test
-    @WithMockUser
     void updateById_givenInvalidBody_shouldReturn400() throws Exception {
         // given
         var id = createAndGetId();
@@ -167,7 +163,6 @@ class CourseControllerIT extends AbstractCommonIT {
     }
 
     @Test
-    @WithMockUser
     void updateById_givenCourseId_shouldReturn404() throws Exception {
         // given
         var id = UUID.randomUUID();
@@ -182,7 +177,6 @@ class CourseControllerIT extends AbstractCommonIT {
     }
 
     @Test
-    @WithMockUser
     void deleteById_givenId_shouldSuccessfullyDeleteAndReturn204() throws Exception {
         // given
         var id = createAndGetId();
@@ -196,7 +190,6 @@ class CourseControllerIT extends AbstractCommonIT {
     }
 
     @Test
-    @WithMockUser
     void createLesson_givenVideoLessonRequestDto_shouldSuccessfullyCreateLessonAndReturn201() throws Exception {
         // given
         var id = createAndGetId();
@@ -215,7 +208,6 @@ class CourseControllerIT extends AbstractCommonIT {
     }
 
     @Test
-    @WithMockUser
     void createLesson_givenClassroomLessonRequestDto_shouldSuccessfullyCreateLessonAndReturn201() throws Exception {
         // given
         var id = createAndGetId();
@@ -236,7 +228,6 @@ class CourseControllerIT extends AbstractCommonIT {
     }
 
     @Test
-    @WithMockUser
     void createLesson_givenInvalidBody_shouldReturn400() throws Exception {
         // given
         var id = createAndGetId();
@@ -252,7 +243,6 @@ class CourseControllerIT extends AbstractCommonIT {
     }
 
     @Test
-    @WithMockUser
     void createLesson_givenLessonRequestDto_shouldReturn404() throws Exception {
         // given
         var id = UUID.randomUUID();
@@ -267,7 +257,6 @@ class CourseControllerIT extends AbstractCommonIT {
     }
 
     @Test
-    @WithMockUser
     void getLessons_givenCourseIdAndPageAndSize_shouldReturn200() throws Exception {
         // given
         var id = createAndGetId();
