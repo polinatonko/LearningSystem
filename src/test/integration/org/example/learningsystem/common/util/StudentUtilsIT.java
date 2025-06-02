@@ -10,12 +10,12 @@ import java.util.UUID;
 
 public class StudentUtilsIT {
 
+    private static final BigDecimal COINS = BigDecimal.ZERO;
+    private static final LocalDate DATE_OF_BIRTH = LocalDate.of(2000, 12, 1);
+    private static final String EMAIL_TEMPLATE = "%s@gmail.com";
     private static final String FIRST_NAME = "Name";
     private static final String LAST_NAME = "Last name";
-    private static final String EMAIL_TEMPLATE = "%s@gmail.com";
-    private static final LocalDate DATE_OF_BIRTH = LocalDate.of(2000, 12, 1);
-    private static final BigDecimal COINS = BigDecimal.ZERO;
-        private static final Locale LOCALE = Locale.ENGLISH;
+    private static final Locale LOCALE = Locale.ENGLISH;
 
     public static Student buildStudent() {
         return Student.builder()

@@ -24,11 +24,16 @@ public class EmailServiceImpl implements EmailService {
     }
 
     private JavaMailSender getSender(EmailServerProperties serverProperties) {
+        var host = serverProperties.getHost();
+        var port = serverProperties.getPort();
+        var username = serverProperties.getUser();
+        var password = serverProperties.getPassword();
+
         var mailSender = new JavaMailSenderImpl();
-        mailSender.setHost(serverProperties.getHost());
-        mailSender.setPort(Integer.parseInt(serverProperties.getPort()));
-        mailSender.setUsername(serverProperties.getUser());
-        mailSender.setPassword(serverProperties.getPassword());
+        mailSender.setHost(host);
+        mailSender.setPort(Integer.parseInt(port));
+        mailSender.setUsername(username);
+        mailSender.setPassword(password);
 
         var mailProperties = mailSender.getJavaMailProperties();
         fillMailProperties(mailProperties, serverProperties);
@@ -37,9 +42,13 @@ public class EmailServiceImpl implements EmailService {
     }
 
     private void fillMailProperties(Properties properties, EmailServerProperties serverProperties) {
-        properties.put(MAIL_TRANSPORT_PROTOCOL, serverProperties.getProtocol());
-        properties.put(MAIL_SMTP_AUTH, serverProperties.getAuth());
-        properties.put(MAIL_SMTP_STARTTLS_ENABLE, serverProperties.getStartTlsEnable());
+        var protocol = serverProperties.getProtocol();
+        var auth = serverProperties.getAuth();
+        var startTlsEnable = serverProperties.getStartTlsEnable();
+
+        properties.put(MAIL_TRANSPORT_PROTOCOL, protocol);
+        properties.put(MAIL_SMTP_AUTH, auth);
+        properties.put(MAIL_SMTP_STARTTLS_ENABLE, startTlsEnable);
     }
 
     private SimpleMailMessage buildMessage(String to, String from, String subject, String text) {

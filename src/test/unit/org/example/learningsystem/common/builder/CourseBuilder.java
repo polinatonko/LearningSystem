@@ -1,4 +1,4 @@
-package org.example.learningsystem.common.util;
+package org.example.learningsystem.common.builder;
 
 import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.course.model.CourseSettings;
@@ -11,15 +11,16 @@ import java.util.UUID;
 public class CourseBuilder {
 
     private UUID id;
-    private String title = "Course title";
-    private String description = "Course description";
-    private BigDecimal price = BigDecimal.valueOf(100);
     private BigDecimal coinsPaid = BigDecimal.ZERO;
-    private Instant created = Instant.now();
-    private Instant lastChanged = Instant.now();
-    private LocalDateTime startDate = LocalDateTime.of(2025, 6, 1, 10, 0, 0);
+    private String description = "Course description";
     private LocalDateTime endDate = LocalDateTime.of(2025, 7, 1, 10, 0, 0);
     private boolean isPublic = true;
+    private BigDecimal price = BigDecimal.valueOf(100);
+    private LocalDateTime startDate = LocalDateTime.of(2025, 6, 1, 10, 0, 0);
+    private String title = "Course title";
+
+    private final Instant created = Instant.now();
+    private final Instant lastChanged = Instant.now();
 
     public CourseBuilder id(UUID id) {
         this.id = id;

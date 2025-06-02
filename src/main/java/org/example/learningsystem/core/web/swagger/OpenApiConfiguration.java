@@ -27,8 +27,7 @@ public class OpenApiConfiguration {
                         .title(applicationName)
                         .version(applicationVersion)
                         .description("API provides a functionality for managing the learning system and allows " +
-                                "Students to enroll in variety of Courses using\n" +
-                                "virtual coins.")
+                                "Students to enroll in variety of Courses using virtual coins.")
                 );
     }
 

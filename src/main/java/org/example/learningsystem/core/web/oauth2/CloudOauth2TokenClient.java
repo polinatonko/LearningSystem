@@ -28,27 +28,27 @@ import static org.springframework.security.oauth2.core.AuthorizationGrantType.CL
 @Slf4j
 public class CloudOauth2TokenClient implements Oauth2TokenClient {
 
-    private static final String ACCESS_TOKEN_URI = "%s/oauth/token";
+    private static final String ACCESS_TOKEN_URI_TEMPLATE = "%s/oauth/token";
 
     private final RestClient restClient;
 
     @Override
     @Cacheable(key = "#clientId")
     public String get(String url, String clientId, String clientSecret) {
-        return getAccessToken(url, clientId, clientSecret);
+        return getToken(url, clientId, clientSecret);
     }
 
     @Override
     @CachePut(key = "#clientId")
     public String refresh(String url, String clientId, String clientSecret) {
-        return getAccessToken(url, clientId, clientSecret);
+        return getToken(url, clientId, clientSecret);
     }
 
-    private String getAccessToken(String url, String clientId, String clientSecret) {
-        var accessTokenUri = ACCESS_TOKEN_URI.formatted(url);
+    private String getToken(String url, String clientId, String clientSecret) {
+        var accessTokenUri = ACCESS_TOKEN_URI_TEMPLATE.formatted(url);
         var body = buildCredentials(clientId, clientSecret);
 
-        var accessToken = tryGetAccessToken(accessTokenUri, body);
+        var accessToken = tryGetToken(accessTokenUri, body);
         log.info("Access token received for client_id = {}", clientId);
         return accessToken;
     }
@@ -62,17 +62,21 @@ public class CloudOauth2TokenClient implements Oauth2TokenClient {
         return MultiValueMap.fromSingleValue(clientCredentialsMap);
     }
 
-    private String tryGetAccessToken(String uri, MultiValueMap<String, String> body) {
+    private String tryGetToken(String uri, MultiValueMap<String, String> body) {
         var response = restClient.post()
                 .uri(uri)
                 .body(body)
                 .contentType(APPLICATION_FORM_URLENCODED)
                 .retrieve()
                 .body(Oauth2TokenResponseDto.class);
-        if (isNull(response)) {
+        validateTokenResponse(response);
+        return response.accessToken();
+    }
+
+    private void validateTokenResponse(Oauth2TokenResponseDto tokenResponse) {
+        if (isNull(tokenResponse)) {
             throw new InvalidApiResponseException("Failed to parse the authentication server response");
         }
-        return response.accessToken();
     }
 
 }

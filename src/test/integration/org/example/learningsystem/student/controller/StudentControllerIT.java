@@ -2,7 +2,7 @@ package org.example.learningsystem.student.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.common.AbstractCommonIT;
-import org.example.learningsystem.core.exception.EntityNotFoundException;
+import org.example.learningsystem.core.exception.model.EntityNotFoundException;
 import org.example.learningsystem.student.service.StudentService;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;

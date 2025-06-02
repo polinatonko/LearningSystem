@@ -1,12 +1,12 @@
 package org.example.learningsystem.course.service;
 
-import org.example.learningsystem.common.util.CourseBuilder;
+import org.example.learningsystem.common.builder.CourseBuilder;
 import org.example.learningsystem.core.util.validator.EntityValidator;
 import org.example.learningsystem.course.exception.InvalidCourseDurationException;
 import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.course.repository.CourseRepository;
-import org.example.learningsystem.core.exception.EntityNotFoundException;
-import org.example.learningsystem.core.exception.validation.IllegalNullValueException;
+import org.example.learningsystem.core.exception.model.EntityNotFoundException;
+import org.example.learningsystem.core.exception.model.validation.IllegalNullValueException;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

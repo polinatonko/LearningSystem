@@ -12,6 +12,7 @@ import static org.example.learningsystem.core.util.format.DataFormatUtils.DATE_T
 
 @Schema
 public record CourseResponseDto(
+
         UUID id,
 
         @Schema(pattern = ".*[^\\s]+.*")

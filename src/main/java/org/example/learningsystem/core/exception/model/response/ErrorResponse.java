@@ -1,4 +1,4 @@
-package org.example.learningsystem.core.exception.response;
+package org.example.learningsystem.core.exception.model.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.http.HttpStatus;

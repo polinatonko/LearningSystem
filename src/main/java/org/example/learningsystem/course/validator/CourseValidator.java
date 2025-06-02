@@ -3,7 +3,7 @@ package org.example.learningsystem.course.validator;
 import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.course.model.CourseSettings;
 import org.example.learningsystem.course.exception.InvalidCourseDurationException;
-import org.example.learningsystem.core.exception.validation.IllegalNullValueException;
+import org.example.learningsystem.core.exception.model.validation.IllegalNullValueException;
 import org.example.learningsystem.core.util.validator.EntityValidator;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +12,8 @@ import static java.util.Objects.nonNull;
 
 @Component
 public class CourseValidator implements EntityValidator<Course> {
+
+    private static final String COINS_PAID_PROPERTY = "coins_paid";
 
     @Override
     public void validateForInsert(Course course) {
@@ -26,7 +28,7 @@ public class CourseValidator implements EntityValidator<Course> {
 
         var coinsPaid = course.getCoinsPaid();
         if (isNull(coinsPaid)) {
-            throw new IllegalNullValueException("coinsPaid");
+            throw new IllegalNullValueException(COINS_PAID_PROPERTY);
         }
     }
 

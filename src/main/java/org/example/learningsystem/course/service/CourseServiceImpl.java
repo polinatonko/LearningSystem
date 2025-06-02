@@ -2,7 +2,7 @@ package org.example.learningsystem.course.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.course.model.Course;
-import org.example.learningsystem.core.exception.EntityNotFoundException;
+import org.example.learningsystem.core.exception.model.EntityNotFoundException;
 import org.example.learningsystem.course.repository.CourseRepository;
 import org.example.learningsystem.core.util.validator.EntityValidator;
 import org.springframework.data.domain.Page;
@@ -31,12 +31,14 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course getById(UUID id) {
-        return findById(id);
+        return courseRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Course.class.getName(), id));
     }
 
     @Override
     public Course getByIdForUpdate(UUID id) {
-        return findByIdForUpdate(id);
+        return courseRepository.findByIdForUpdate(id)
+                .orElseThrow(() -> new EntityNotFoundException(Course.class.getName(), id));
     }
 
     @Override
@@ -54,7 +56,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course update(Course course) {
-        findById(course.getId());
+        getById(course.getId());
         courseValidator.validateForUpdate(course);
         return courseRepository.save(course);
     }
@@ -62,16 +64,6 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void deleteById(UUID id) {
         courseRepository.deleteById(id);
-    }
-
-    private Course findById(UUID id) {
-        return courseRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(Course.class.getName(), id));
-    }
-
-    private Course findByIdForUpdate(UUID id) {
-        return courseRepository.findByIdForUpdate(id)
-                .orElseThrow(() -> new EntityNotFoundException(Course.class.getName(), id));
     }
 
 }

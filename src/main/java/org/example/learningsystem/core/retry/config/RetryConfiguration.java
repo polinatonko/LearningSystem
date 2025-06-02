@@ -1,4 +1,4 @@
-package org.example.learningsystem.core.retry;
+package org.example.learningsystem.core.retry.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.retry.annotation.EnableRetry;

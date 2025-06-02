@@ -65,8 +65,7 @@ public class StudentController {
     @GetMapping
     @Operation(summary = "Get all students")
     @ApiResponse(responseCode = "200", description = "Students were retrieved")
-    public PagedModel<StudentResponseDto> getAll(
-            @PageableDefault(size = 5, sort = "created") Pageable pageable) {
+    public PagedModel<StudentResponseDto> getAll(@PageableDefault(size = 5, sort = "created") Pageable pageable) {
         var students = studentService.getAll(pageable);
         var studentsMapped = students.map(studentMapper::toDto);
         return new PagedModel<>(studentsMapped);

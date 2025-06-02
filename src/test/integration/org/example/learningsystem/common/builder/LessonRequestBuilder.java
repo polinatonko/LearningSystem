@@ -9,20 +9,12 @@ import static org.example.learningsystem.common.builder.PaginatedRequestBuilder.
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 public class LessonRequestBuilder {
 
-    private static final String CREATE_LESSON_URL = "/courses/{courseId}/lessons";
     private static final String LESSONS_URL = "/lessons";
     private static final String LESSON_URL = "/lessons/{id}";
-
-    public static RequestBuilder buildCreateRequest(UUID courseId, String content) {
-        return post(CREATE_LESSON_URL, courseId)
-                .contentType(APPLICATION_JSON)
-                .content(content);
-    }
 
     public static RequestBuilder buildDeleteByIdRequest(UUID id) {
         return delete(LESSON_URL, id);

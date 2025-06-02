@@ -20,6 +20,7 @@ import static org.example.learningsystem.common.builder.CourseEnrollmentRequestB
 import static org.example.learningsystem.common.builder.CourseEnrollmentRequestBuilder.buildUnenrollRequest;
 import static org.example.learningsystem.common.util.CourseUtilsIT.buildCourse;
 import static org.example.learningsystem.common.util.StudentUtilsIT.buildStudent;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -53,14 +54,17 @@ class CourseEnrollmentControllerIT extends AbstractCommonIT {
                 .andExpect(status().isOk());
 
         // then
-        var courseStudents = studentService.getAllByCourseId(courseId, pageable);
-        assertEquals(1, courseStudents.getTotalElements());
-        var updatedStudent = courseStudents.getContent().getFirst();
-        assertEquals(studentId, updatedStudent.getId());
-
-        assertNotEquals(student.getCoins(), updatedStudent.getCoins());
+        var courseStudentsPage = studentService.getAllByCourseId(courseId, pageable);
+        var courseStudents = courseStudentsPage.getContent();
+        var updatedStudent = courseStudents.getFirst();
         var updatedCourse = courseService.getById(courseId);
-        assertNotEquals(course.getCoinsPaid(), updatedCourse.getCoinsPaid());
+
+        assertAll(
+                () -> assertEquals(1, courseStudentsPage.getTotalElements()),
+                () -> assertEquals(studentId, updatedStudent.getId()),
+                () -> assertNotEquals(student.getCoins(), updatedStudent.getCoins()),
+                () -> assertNotEquals(course.getCoinsPaid(), updatedCourse.getCoinsPaid())
+        );
 
         cleanUp(courseId, studentId);
     }

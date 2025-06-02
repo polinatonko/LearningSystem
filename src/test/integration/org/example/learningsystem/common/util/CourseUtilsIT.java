@@ -10,13 +10,13 @@ import java.util.UUID;
 
 public class CourseUtilsIT {
 
-    private static final String TITLE = "Course title";
-    private static final String DESCRIPTION = "Course description";
-    private static final BigDecimal PRICE = BigDecimal.valueOf(100);
     private static final BigDecimal COINS_PAID = BigDecimal.ZERO;
-    private static final LocalDateTime START_DATE = LocalDateTime.of(2025, 6, 1, 10, 0, 0);
+    private static final String DESCRIPTION = "Course description";
     private static final LocalDateTime END_DATE = LocalDateTime.of(2025, 7, 1, 10, 0, 0);
     private static final boolean IS_PUBLIC = true;
+    private static final BigDecimal PRICE = BigDecimal.valueOf(100);
+    private static final LocalDateTime START_DATE = LocalDateTime.of(2025, 6, 1, 10, 0, 0);
+    private static final String TITLE = "Course title";
 
     public static Course buildCourse() {
         var settings = CourseSettings.builder()

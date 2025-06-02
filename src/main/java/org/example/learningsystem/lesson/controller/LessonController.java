@@ -50,8 +50,7 @@ public class LessonController {
     @GetMapping
     @Operation(summary = "Get all lessons")
     @ApiResponse(responseCode = "200", description = "Lessons were retrieved")
-    public PagedModel<LessonResponseDto> getAll(
-            @PageableDefault(size = 5, sort = "created") Pageable pageable) {
+    public PagedModel<LessonResponseDto> getAll(@PageableDefault(size = 5, sort = "created") Pageable pageable) {
         var lessons = lessonService.getAll(pageable);
         var lessonsMapped = lessons.map(lessonMapper::toDto);
         return new PagedModel<>(lessonsMapped);

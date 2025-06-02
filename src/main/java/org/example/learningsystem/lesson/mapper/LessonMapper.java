@@ -13,8 +13,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.SubclassMapping;
 
-import static org.example.learningsystem.lesson.model.LessonType.Fields.CLASSROOM;
-import static org.example.learningsystem.lesson.model.LessonType.Fields.VIDEO;
+import static org.example.learningsystem.lesson.model.LessonTypeConstants.CLASSROOM;
+import static org.example.learningsystem.lesson.model.LessonTypeConstants.VIDEO;
 import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 
 @Mapper(componentModel = SPRING)

@@ -8,17 +8,17 @@ import org.example.learningsystem.lesson.model.VideoLesson;
 
 import java.util.UUID;
 
-import static org.example.learningsystem.lesson.model.LessonType.Fields.CLASSROOM;
-import static org.example.learningsystem.lesson.model.LessonType.Fields.VIDEO;
+import static org.example.learningsystem.lesson.model.LessonTypeConstants.CLASSROOM;
+import static org.example.learningsystem.lesson.model.LessonTypeConstants.VIDEO;
 
 public class LessonUtilsIT {
 
-    public static final String TITLE = "Lesson title";
-    public static final Integer DURATION = 60;
-    public static final String URL = "https://google.com";
-    public static final String PLATFORM = "Google Meet";
-    public static final String LOCATION = "Minsk";
     public static final Integer CAPACITY = 10;
+    public static final Integer DURATION = 60;
+    public static final String LOCATION = "Minsk";
+    public static final String PLATFORM = "Google Meet";
+    public static final String TITLE = "Lesson title";
+    public static final String URL = "https://google.com";
 
     public static ClassroomLesson buildClassroomLesson(Course course) {
         return ClassroomLesson.builder()

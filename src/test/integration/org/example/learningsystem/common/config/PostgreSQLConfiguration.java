@@ -18,10 +18,12 @@ public class PostgreSQLConfiguration {
     @Bean
     @ServiceConnection
     public PostgreSQLContainer<?> postgreSQLContainer() {
+        var username = dataSourceProperties.getUsername();
+        var password = dataSourceProperties.getPassword();
         return new PostgreSQLContainer<>(POSTGRESQL_IMAGE)
                 .withDatabaseName(DATABASE_NAME)
-                .withUsername(dataSourceProperties.getUsername())
-                .withPassword(dataSourceProperties.getPassword());
+                .withUsername(username)
+                .withPassword(password);
     }
 
 }

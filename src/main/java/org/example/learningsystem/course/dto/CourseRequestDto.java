@@ -12,6 +12,7 @@ import java.util.UUID;
 import static org.example.learningsystem.core.util.format.DataFormatUtils.DATE_TIME_FORMAT;
 
 public record CourseRequestDto(
+
         UUID id,
 
         @NotBlank

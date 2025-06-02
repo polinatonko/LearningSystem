@@ -1,4 +1,4 @@
-package org.example.learningsystem.common.util;
+package org.example.learningsystem.common.builder;
 
 import org.example.learningsystem.student.model.Student;
 
@@ -9,14 +9,16 @@ import java.util.UUID;
 
 public class StudentBuilder {
 
-    private UUID id;
-    private String firstName = "Name";
-    private String lastName = "Last name";
     private static final String EMAIL_TEMPLATE = "%s@gmail.com";
-    private LocalDate dateOfBirth = LocalDate.of(2000, 12, 1);
+
     private BigDecimal coins = BigDecimal.ZERO;
-    private Instant created = Instant.now();
-    private Instant lastChanged = Instant.now();
+    private LocalDate dateOfBirth = LocalDate.of(2000, 12, 1);
+    private String firstName = "Name";
+    private UUID id;
+    private String lastName = "Last name";
+
+    private final Instant created = Instant.now();
+    private final Instant lastChanged = Instant.now();
 
     public StudentBuilder id(UUID id) {
         this.id = id;

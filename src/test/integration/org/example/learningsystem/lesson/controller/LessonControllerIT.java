@@ -2,7 +2,7 @@ package org.example.learningsystem.lesson.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.common.AbstractCommonIT;
-import org.example.learningsystem.core.exception.EntityNotFoundException;
+import org.example.learningsystem.core.exception.model.EntityNotFoundException;
 import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.course.service.CourseService;
 import org.example.learningsystem.lesson.model.ClassroomLesson;
