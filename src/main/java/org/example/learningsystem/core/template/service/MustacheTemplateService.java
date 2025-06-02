@@ -28,7 +28,7 @@ public class MustacheTemplateService implements RenderTemplateService {
     /**
      * Attempts to load and render the specified template.
      *
-     * @param path      the class-path relative template path
+     * @param path      the template path
      * @param arguments the object containing template placeholders
      * @return the rendered template content
      * @throws MustacheException if template execution fails

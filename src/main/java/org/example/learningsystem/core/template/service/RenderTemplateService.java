@@ -11,7 +11,7 @@ public interface RenderTemplateService {
     /**
      * Renders a template file with the provided arguments.
      *
-     * @param path      the classpath-relative path to the template file (e.g, "templates/example.html")
+     * @param path      the path to the template file (e.g, "templates/example.html")
      * @param arguments the object containing values for template placeholders
      * @return the rendered template content
      */
