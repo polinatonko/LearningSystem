@@ -14,7 +14,7 @@ import org.example.learningsystem.core.email.config.EmailServerProperties;
 public class MailDestinationDto extends DestinationDto implements EmailServerProperties {
 
     /**
-     * Email address of the addressee.
+     * Email address of the email sender.
      */
     @NotNull
     @JsonProperty("mail.smtp.from")

@@ -11,6 +11,8 @@ import static org.springframework.http.HttpStatus.OK;
 
 /**
  * Cloud {@link FeatureFlagsValidator} implementation.
+ * <p>
+ * Performs {@code null} and HTTP status checks and type safety verification.
  */
 @Profile("cloud")
 @Component
@@ -28,10 +30,10 @@ public class CloudFeatureFlagsValidator implements FeatureFlagsValidator {
     }
 
     /**
-     * Checks whether the {@link FlagDto} instance has the required type.
+     * Validates that the feature flag matches the required type.
      *
      * @param flag         the {@link FlagDto} instance
-     * @param requiredType required type of the flag
+     * @param requiredType the expected type of the flag
      */
     private void validateType(FlagDto flag, String requiredType) {
         var type = flag.type();

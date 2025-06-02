@@ -13,7 +13,7 @@ import org.springframework.web.client.RestClient;
 import static org.springframework.web.client.HttpClientErrorException.Unauthorized;
 
 /**
- * Cloud {@link DestinationService} implementation.
+ * Cloud {@link DestinationService} implementation that integrates with a remote Destination Service.
  */
 @Service
 @RequiredArgsConstructor
@@ -33,15 +33,17 @@ public class CloudDestinationServiceImpl implements DestinationService {
     }
 
     /**
-     * Tries to get a destination from the Destination Service API by its name.
+     * Attempts to retrieve a destination from the Destination Service API by its name.
+     * <p>
+     * Constructs the proper request URI, adds OAuth 2.0 authentication, handles the response.
      *
-     * @param destinationName the name of the destination
+     * @param name the name of the destination
      * @return {@link DestinationDto} instance
      */
-    private DestinationDto tryGetDestination(String destinationName) {
+    private DestinationDto tryGetDestination(String name) {
         try {
             var baseUri = properties.getUri();
-            var uri = DESTINATION_URI_TEMPLATE.formatted(baseUri, destinationName);
+            var uri = DESTINATION_URI_TEMPLATE.formatted(baseUri, name);
 
             return restClient.get()
                     .uri(uri)
@@ -55,10 +57,12 @@ public class CloudDestinationServiceImpl implements DestinationService {
     }
 
     /**
-     * Adds Bearer Authentication header filled in with credentials from the {@link DestinationServiceProperties}
-     * to the {@link HttpHeaders} instance.
+     * Adds Bearer token authentication to the request headers.
+     * <p>
+     * Retrieves access token using client credentials from the {@link DestinationServiceProperties} and sets it in the
+     * Authorization header.
      *
-     * @param headers {@link HttpHeaders} instance
+     * @param headers {@link HttpHeaders} instance to modify
      */
     private void addBearerAuthenticationHeader(HttpHeaders headers) {
         var tokenUrl = properties.getTokenUrl();
@@ -69,7 +73,9 @@ public class CloudDestinationServiceImpl implements DestinationService {
     }
 
     /**
-     * Refreshes token for accessing the Destination service.
+     * Forces a refresh of the OAuth 2.0 access token.
+     * <p>
+     * Should be called when a 401 Unauthorized response is received, indicating that current token may have expired.
      */
     private void refreshToken() {
         var tokenUrl = properties.getTokenUrl();

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
 /**
- * Cloud {@link FeatureFlagsService} implementation.
+ * Cloud {@link FeatureFlagsService} implementation that integrates with a remote Feature Flags Service.
  */
 @Service
 @RequiredArgsConstructor
@@ -39,7 +39,7 @@ public class CloudFeatureFlagsServiceImpl implements FeatureFlagsService {
     }
 
     /**
-     * Tries to get a feature flag using the Feature Flags service API by its name.
+     * Retrieves a feature flag evaluation from the Feature Flags service by its name.
      *
      * @param name the name of the flag
      * @return {@link FlagDto} instance
@@ -56,10 +56,10 @@ public class CloudFeatureFlagsServiceImpl implements FeatureFlagsService {
     }
 
     /**
-     * Adds Basic Authentication header filled in with credentials from the {@link FeatureFlagsProperties}
+     * Adds Basic Authentication header using credentials from the {@link FeatureFlagsProperties}
      * to the {@link HttpHeaders} instance.
      *
-     * @param headers {@link HttpHeaders} instance
+     * @param headers the {@link HttpHeaders} instance to modify
      */
     private void addBasicAuthHeader(HttpHeaders headers) {
         var username = properties.getUsername();

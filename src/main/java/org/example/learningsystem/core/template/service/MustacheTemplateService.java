@@ -1,11 +1,15 @@
 package org.example.learningsystem.core.template.service;
 
 import com.samskivert.mustache.Mustache;
+import com.samskivert.mustache.MustacheException;
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.core.template.exception.RenderTemplateException;
 import org.springframework.boot.autoconfigure.mustache.MustacheResourceTemplateLoader;
 import org.springframework.stereotype.Service;
 
+/**
+ * {@link RenderTemplateService} implementation using Mustache template engine.
+ */
 @Service
 @RequiredArgsConstructor
 public class MustacheTemplateService implements RenderTemplateService {
@@ -21,6 +25,15 @@ public class MustacheTemplateService implements RenderTemplateService {
         }
     }
 
+    /**
+     * Attempts to load and render the specified template.
+     *
+     * @param path      the class-path relative template path
+     * @param arguments the object containing template placeholders
+     * @return the rendered template content
+     * @throws MustacheException if template execution fails
+     * @throws Exception         if template file cannot be read
+     */
     private String tryToRender(String path, Object arguments) throws Exception {
         var reader = templateLoader.getTemplate(path);
         return Mustache.compiler()

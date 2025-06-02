@@ -1,5 +1,8 @@
 package org.example.learningsystem.core.email.config;
 
+/**
+ * Interface provides access to the email server properties.
+ */
 public interface EmailServerProperties {
 
     String getFrom();
