@@ -1,0 +1,1490 @@
+{
+	"info": {
+		"_postman_id": "09950966-9edd-40d4-ac96-5398810e7e3c",
+		"name": "LMS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44216725",
+		"_collection_link": "https://palinatanko.postman.co/workspace/Palina-Tanko's-Workspace~13e4ecc7-4f97-405e-8469-f183eab9f880/collection/44216725-09950966-9edd-40d4-ac96-5398810e7e3c?action=share&source=collection_link&creator=44216725"
+	},
+	"item": [
+		{
+			"name": "API",
+			"item": [
+				{
+					"name": "Courses",
+					"item": [
+						{
+							"name": "Course",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{cloudUrl}}/courses/8b2b5e8f-9c1b-4562-92d2-06debfd8b7df",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"courses",
+										"8b2b5e8f-9c1b-4562-92d2-06debfd8b7df"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Test Course\",\r\n    \"startDate\": \"2025/05/19 10:00:00\",\r\n    \"endDate\": \"2025/05/19 12:00:00\",\r\n    \"price\": 110,\r\n    \"isPublic\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{cloudUrl}}/courses",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"courses"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"423b6919-f09f-4beb-846d-53f232ac8415\",\r\n    \"title\": \"UX/UI\",\r\n    \"price\": 120,\r\n    \"coinsPaid\": 0,\r\n    \"startDate\": \"2025/05/31 18:00:00\",\r\n    \"endDate\": \"2025/06/01 15:00:00\",\r\n    \"isPublic\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{cloudUrl}}/courses/423b6919-f09f-4beb-846d-53f232ac8415",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"courses",
+										"423b6919-f09f-4beb-846d-53f232ac8415"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{cloudUrl}}/courses/232ab211-5544-49ed-b5c4-ebbb326c0452",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"courses",
+										"232ab211-5544-49ed-b5c4-ebbb326c0452"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Student",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "{{cloudUrl}}/courses/423b6919-f09f-4beb-846d-53f232ac8415/students/b3dba3de-138f-44c8-8093-ba919d041685",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"courses",
+										"423b6919-f09f-4beb-846d-53f232ac8415",
+										"students",
+										"b3dba3de-138f-44c8-8093-ba919d041685"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Student",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{cloudUrl}}/courses/e26197f9-b381-4905-a349-9d0e1b0f7491/students/187fdbb0-1c7b-4d10-955b-ef1813514262",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"courses",
+										"e26197f9-b381-4905-a349-9d0e1b0f7491",
+										"students",
+										"187fdbb0-1c7b-4d10-955b-ef1813514262"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Students",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{cloudUrl}}/courses/e26197f9-b381-4905-a349-9d0e1b0f7491/students",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"courses",
+										"e26197f9-b381-4905-a349-9d0e1b0f7491",
+										"students"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{cloudUrl}}/courses?page=0&size=2&sort=title,desc&sort=price,asc",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"courses"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "2"
+										},
+										{
+											"key": "sort",
+											"value": "title,desc"
+										},
+										{
+											"key": "sort",
+											"value": "price,asc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Lesson",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Lesson 1\",\r\n    \"duration\": 60,\r\n    \"type\": \"VIDEO\",\r\n    \"platform\": \"Zoom\",\r\n    \"url\": \"https://google.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{cloudUrl}}/courses/8b2b5e8f-9c1b-4562-92d2-06debfd8b7df/lessons",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"courses",
+										"8b2b5e8f-9c1b-4562-92d2-06debfd8b7df",
+										"lessons"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Lessons",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{cloudUrl}}/courses/8b2b5e8f-9c1b-4562-92d2-06debfd8b7df/lessons?page=0&size=2",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"courses",
+										"8b2b5e8f-9c1b-4562-92d2-06debfd8b7df",
+										"lessons"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Lessons",
+					"item": [
+						{
+							"name": "Update",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"cb90610c-ed23-4439-a6c1-df8dd3651688\",\r\n    \"title\": \"Lesson 1\",\r\n    \"duration\": 60,\r\n    \"courseId\": \"cb99e363-4395-4b9a-919b-fcfd805afde9\",\r\n    \"type\": \"VIDEO\",\r\n    \"url\": \"https://google.com\",\r\n    \"platform\": \"GoogleMeet\"\r\n}\r\n\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{cloudUrl}}/lessons/cb90610c-ed23-4439-a6c1-df8dd3651688",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"lessons",
+										"cb90610c-ed23-4439-a6c1-df8dd3651688"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{cloudUrl}}/lessons/fd15eef3-fceb-49a7-abd1-42cd75dedc72",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"lessons",
+										"fd15eef3-fceb-49a7-abd1-42cd75dedc72"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{cloudUrl}}/lessons/8928a18c-004f-4700-b4e4-5394262f5f90",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"lessons",
+										"8928a18c-004f-4700-b4e4-5394262f5f90"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{cloudUrl}}/lessons",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"lessons"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Students",
+					"item": [
+						{
+							"name": "Get By Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{cloudUrl}}/students/187fdbb0-1c7b-4d10-955b-ef1813514262",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"students",
+										"187fdbb0-1c7b-4d10-955b-ef1813514262"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\": \"User1\",\r\n    \"lastName\": \"User1\",\r\n    \"email\": \"p-tonko@mail.ru\",\r\n    \"dateOfBirth\": \"2010/10/01\",\r\n    \"coins\": 150\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{cloudUrl}}/students",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"students"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"6aba6bef-9562-4e99-b82f-3e7f90a03dcd\",\r\n    \"firstName\": \"User1\",\r\n    \"lastName\": \"User1\",\r\n    \"email\": \"p-tonko@mail.ru\",\r\n    \"dateOfBirth\": \"2010/10/01\",\r\n    \"coins\": 150,\r\n    \"language\": null\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{cloudUrl}}/students/6aba6bef-9562-4e99-b82f-3e7f90a03dcd",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"students",
+										"6aba6bef-9562-4e99-b82f-3e7f90a03dcd"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{cloudUrl}}/students/3bc8d12e-ff1a-4e0d-8951-e7ee06ae5c15",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"students",
+										"3bc8d12e-ff1a-4e0d-8951-e7ee06ae5c15"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{cloudUrl}}/students",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"students"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Actuator",
+					"item": [
+						{
+							"name": "Health Check",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{cloudUrl}}/actuator/health",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"actuator",
+										"health"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "manager",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "manager@gmail.com",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{cloudUrl}}/actuator/loggers",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"actuator",
+										"loggers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Info",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "manager",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "manager@gmail.com",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{cloudUrl}}/actuator/info",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"actuator",
+										"info"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Caches",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "manager",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "manager@gmail.com",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{cloudUrl}}/actuator/caches",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"actuator",
+										"caches"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Loggers",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "manager",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "manager@gmail.com",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"configuredLevel\": \"TRACE\"\r\n}\r\n\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{cloudUrl}}/actuator/loggers/org.hibernate.SQL",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"actuator",
+										"loggers",
+										"org.hibernate.SQL"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Actuator",
+					"item": [
+						{
+							"name": "Health Check",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{cloudUrl}}/actuator/health",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"actuator",
+										"health"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "manager",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "manager@gmail.com",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{cloudUrl}}/actuator/loggers",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"actuator",
+										"loggers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Info",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "manager",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "manager@gmail.com",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{cloudUrl}}/actuator/info",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"actuator",
+										"info"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Caches",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "manager",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "manager@gmail.com",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{cloudUrl}}/actuator/caches",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"actuator",
+										"caches"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Loggers",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "manager",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "manager@gmail.com",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"configuredLevel\": \"TRACE\"\r\n}\r\n\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{cloudUrl}}/actuator/loggers/org.hibernate.SQL",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"actuator",
+										"loggers",
+										"org.hibernate.SQL"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"description": "Collections related to the REST API of the Learning Management System:\n\n1. Courses for managing courses and enrollments;\n    \n2. Lessons;\n    \n3. Students;\n    \n4. Actuator for managing Spring Boot Actuator endpoints."
+		},
+		{
+			"name": "BTP",
+			"item": [
+				{
+					"name": "Destination Service",
+					"item": [
+						{
+							"name": "Get token for Destination Service",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "client_credentials",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "sb-cloned464b795571141f6a2bec1151f719ef1!b413607|destination-xsappname!b62",
+											"type": "text"
+										},
+										{
+											"key": "client_secret",
+											"value": "0b2f1bdd-f845-448a-abea-57159870faa1$FkEY4KqZoh_G49SS4RWj5c5XWwGh9IgqZ5abxpi65yw=",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{uaaUrl}}/oauth/token",
+									"host": [
+										"{{uaaUrl}}"
+									],
+									"path": [
+										"oauth",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get by name",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{destinationsUrl}}/destination-configuration/v1/instanceDestinations/smtp-destination",
+									"host": [
+										"{{destinationsUrl}}"
+									],
+									"path": [
+										"destination-configuration",
+										"v1",
+										"instanceDestinations",
+										"smtp-destination"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Feature Flags",
+					"item": [
+						{
+							"name": "Get by name",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "aa_q0pl2T7G0Cm9a47i8Pu1C2zFHUI=",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "sbss_pq1habrd5jgv2haignkfdm8nkfq3gsln8vavwzwvt2jbdzyhh/jj2bl/yt+pktnmdj8=",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Basic c2Jzc19qcWcyaGM2em5iemUxZno1ejhrYXRhMWFqeXVpajdwbm1wa2M0Zml6eCt1Mm8yOWJoZXR1dWxjcXh2OWJnM3Uzayt1PTphYV9FNXBuYXlNU3BNREFsYVRNaGxHUTQrdXEvRUk9",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{featureFlagsUrl}}/api/v2/evaluate/destination-service-enabled",
+									"host": [
+										"{{featureFlagsUrl}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"evaluate",
+										"destination-service-enabled"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "XSUAA",
+					"item": [
+						{
+							"name": "Get access token by username and password",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "sb-lms!t413607",
+											"type": "text"
+										},
+										{
+											"key": "client_secret",
+											"value": "RMyeEhnC7s7yZTQRef79RKtEWQc=",
+											"type": "text"
+										},
+										{
+											"key": "response_type",
+											"value": "token",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{uaaUrl}}/oauth/token",
+									"host": [
+										"{{uaaUrl}}"
+									],
+									"path": [
+										"oauth",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get access token by client_id and client_secret",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "client_credentials",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "sb-lms!t413607",
+											"type": "text"
+										},
+										{
+											"key": "client_secret",
+											"value": "RMyeEhnC7s7yZTQRef79RKtEWQc=",
+											"type": "text"
+										},
+										{
+											"key": "response_type",
+											"value": "token",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{uaaUrl}}/oauth/token",
+									"host": [
+										"{{uaaUrl}}"
+									],
+									"path": [
+										"oauth",
+										"token"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Destination Service",
+					"item": [
+						{
+							"name": "Get token for Destination Service",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "client_credentials",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "sb-cloned464b795571141f6a2bec1151f719ef1!b413607|destination-xsappname!b62",
+											"type": "text"
+										},
+										{
+											"key": "client_secret",
+											"value": "0b2f1bdd-f845-448a-abea-57159870faa1$FkEY4KqZoh_G49SS4RWj5c5XWwGh9IgqZ5abxpi65yw=",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{uaaUrl}}/oauth/token",
+									"host": [
+										"{{uaaUrl}}"
+									],
+									"path": [
+										"oauth",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get by name",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{destinationsUrl}}/destination-configuration/v1/instanceDestinations/smtp-destination",
+									"host": [
+										"{{destinationsUrl}}"
+									],
+									"path": [
+										"destination-configuration",
+										"v1",
+										"instanceDestinations",
+										"smtp-destination"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Feature Flags",
+					"item": [
+						{
+							"name": "Get by name",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "aa_q0pl2T7G0Cm9a47i8Pu1C2zFHUI=",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "sbss_pq1habrd5jgv2haignkfdm8nkfq3gsln8vavwzwvt2jbdzyhh/jj2bl/yt+pktnmdj8=",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Basic c2Jzc19qcWcyaGM2em5iemUxZno1ejhrYXRhMWFqeXVpajdwbm1wa2M0Zml6eCt1Mm8yOWJoZXR1dWxjcXh2OWJnM3Uzayt1PTphYV9FNXBuYXlNU3BNREFsYVRNaGxHUTQrdXEvRUk9",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{featureFlagsUrl}}/api/v2/evaluate/destination-service-enabled",
+									"host": [
+										"{{featureFlagsUrl}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"evaluate",
+										"destination-service-enabled"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "XSUAA",
+					"item": [
+						{
+							"name": "Get access token by username and password",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "sb-lms!t413607",
+											"type": "text"
+										},
+										{
+											"key": "client_secret",
+											"value": "RMyeEhnC7s7yZTQRef79RKtEWQc=",
+											"type": "text"
+										},
+										{
+											"key": "response_type",
+											"value": "token",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{uaaUrl}}/oauth/token",
+									"host": [
+										"{{uaaUrl}}"
+									],
+									"path": [
+										"oauth",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get access token by client_id and client_secret",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "client_credentials",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "sb-lms!t413607",
+											"type": "text"
+										},
+										{
+											"key": "client_secret",
+											"value": "RMyeEhnC7s7yZTQRef79RKtEWQc=",
+											"type": "text"
+										},
+										{
+											"key": "response_type",
+											"value": "token",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{uaaUrl}}/oauth/token",
+									"host": [
+										"{{uaaUrl}}"
+									],
+									"path": [
+										"oauth",
+										"token"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"description": "Collections related to the following SAP BTP services:\n\n1. Destination Service;\n    \n2. Feature Flags Service;\n    \n3. XSUAA."
+		}
+	]
+}
