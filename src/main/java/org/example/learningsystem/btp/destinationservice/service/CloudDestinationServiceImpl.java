@@ -12,6 +12,9 @@ import org.springframework.web.client.RestClient;
 
 import static org.springframework.web.client.HttpClientErrorException.Unauthorized;
 
+/**
+ * Cloud {@link DestinationService} implementation.
+ */
 @Service
 @RequiredArgsConstructor
 @Profile("cloud")
@@ -29,6 +32,12 @@ public class CloudDestinationServiceImpl implements DestinationService {
         return tryGetDestination(name);
     }
 
+    /**
+     * Tries to get a destination from the Destination Service API by its name.
+     *
+     * @param destinationName the name of the destination
+     * @return {@link DestinationDto} instance
+     */
     private DestinationDto tryGetDestination(String destinationName) {
         try {
             var baseUri = properties.getUri();
@@ -36,7 +45,7 @@ public class CloudDestinationServiceImpl implements DestinationService {
 
             return restClient.get()
                     .uri(uri)
-                    .headers(this::addBearerAuthHeader)
+                    .headers(this::addBearerAuthenticationHeader)
                     .retrieve()
                     .body(DestinationDto.class);
         } catch (Unauthorized e) {
@@ -45,7 +54,13 @@ public class CloudDestinationServiceImpl implements DestinationService {
         }
     }
 
-    private void addBearerAuthHeader(HttpHeaders headers) {
+    /**
+     * Adds Bearer Authentication header filled in with credentials from the {@link DestinationServiceProperties}
+     * to the {@link HttpHeaders} instance.
+     *
+     * @param headers {@link HttpHeaders} instance
+     */
+    private void addBearerAuthenticationHeader(HttpHeaders headers) {
         var tokenUrl = properties.getTokenUrl();
         var clientId = properties.getClientId();
         var clientSecret = properties.getClientSecret();
@@ -53,6 +68,9 @@ public class CloudDestinationServiceImpl implements DestinationService {
         headers.setBearerAuth(accessToken);
     }
 
+    /**
+     * Refreshes token for accessing the Destination service.
+     */
     private void refreshToken() {
         var tokenUrl = properties.getTokenUrl();
         var clientId = properties.getClientId();

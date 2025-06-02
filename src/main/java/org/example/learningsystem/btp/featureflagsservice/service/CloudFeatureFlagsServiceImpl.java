@@ -9,6 +9,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
+/**
+ * Cloud {@link FeatureFlagsService} implementation.
+ */
 @Service
 @RequiredArgsConstructor
 @Profile("cloud")
@@ -35,6 +38,12 @@ public class CloudFeatureFlagsServiceImpl implements FeatureFlagsService {
         return Boolean.parseBoolean(flag.variation());
     }
 
+    /**
+     * Tries to get a feature flag using the Feature Flags service API by its name.
+     *
+     * @param name the name of the flag
+     * @return {@link FlagDto} instance
+     */
     private FlagDto tryGetFlag(String name) {
         var uri = properties.getUri();
         var path = EVALUATE_FLAG_URI_TEMPLATE.formatted(uri, name);
@@ -46,6 +55,12 @@ public class CloudFeatureFlagsServiceImpl implements FeatureFlagsService {
                 .body(FlagDto.class);
     }
 
+    /**
+     * Adds Basic Authentication header filled in with credentials from the {@link FeatureFlagsProperties}
+     * to the {@link HttpHeaders} instance.
+     *
+     * @param headers {@link HttpHeaders} instance
+     */
     private void addBasicAuthHeader(HttpHeaders headers) {
         var username = properties.getUsername();
         var password = properties.getPassword();

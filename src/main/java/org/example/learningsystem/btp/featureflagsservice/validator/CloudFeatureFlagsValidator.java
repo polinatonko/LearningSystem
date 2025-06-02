@@ -9,11 +9,15 @@ import org.springframework.stereotype.Component;
 import static java.util.Objects.isNull;
 import static org.springframework.http.HttpStatus.OK;
 
+/**
+ * Cloud {@link FeatureFlagsValidator} implementation.
+ */
 @Profile("cloud")
 @Component
 @Slf4j
 public class CloudFeatureFlagsValidator implements FeatureFlagsValidator {
 
+    @Override
     public boolean isValid(FlagDto flag, String requiredType) {
         if (isNull(flag) || flag.httpStatus() != OK.value()) {
             log.error("Received invalid feature flag: {}", flag);
@@ -23,6 +27,12 @@ public class CloudFeatureFlagsValidator implements FeatureFlagsValidator {
         return true;
     }
 
+    /**
+     * Checks whether the {@link FlagDto} instance has the required type.
+     *
+     * @param flag         the {@link FlagDto} instance
+     * @param requiredType required type of the flag
+     */
     private void validateType(FlagDto flag, String requiredType) {
         var type = flag.type();
         if (!type.equals(requiredType)) {
