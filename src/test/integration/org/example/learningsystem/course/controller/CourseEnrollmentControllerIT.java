@@ -1,12 +1,11 @@
 package org.example.learningsystem.course.controller;
 
-import org.example.learningsystem.common.AbstractCommonIT;
+import org.example.learningsystem.AbstractCommonIT;
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.course.service.CourseService;
 import org.example.learningsystem.student.model.Student;
 import org.example.learningsystem.student.service.StudentService;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -17,16 +16,15 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 import static java.util.Objects.nonNull;
-import static org.example.learningsystem.course.builder.CourseEnrollmentRequestBuilder.buildEnrollRequest;
-import static org.example.learningsystem.course.builder.CourseEnrollmentRequestBuilder.buildUnenrollRequest;
-import static org.example.learningsystem.course.util.CourseUtilsIT.buildCourse;
-import static org.example.learningsystem.student.util.StudentUtilsIT.buildStudent;
+import static org.example.learningsystem.course.common.builder.CourseEnrollmentRequestBuilder.buildEnrollRequest;
+import static org.example.learningsystem.course.common.builder.CourseEnrollmentRequestBuilder.buildUnenrollRequest;
+import static org.example.learningsystem.course.common.builder.CourseBuilderIT.buildCourse;
+import static org.example.learningsystem.student.common.builder.StudentBuilderIT.buildStudent;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Tag("integration")
 @RequiredArgsConstructor
 @WithMockUser
 class CourseEnrollmentControllerIT extends AbstractCommonIT {

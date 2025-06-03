@@ -1,6 +1,6 @@
 package org.example.learningsystem.course.validator;
 
-import org.example.learningsystem.course.builder.CourseBuilder;
+import org.example.learningsystem.course.common.builder.CourseBuilder;
 import org.example.learningsystem.course.exception.InvalidCourseDurationException;
 import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.core.exception.model.validation.IllegalNullValueException;

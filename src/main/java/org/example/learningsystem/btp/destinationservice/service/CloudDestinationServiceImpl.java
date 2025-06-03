@@ -29,18 +29,10 @@ public class CloudDestinationServiceImpl implements DestinationService {
     @Override
     @Retryable(retryFor = Unauthorized.class, maxAttempts = 2)
     public DestinationDto getByName(String name) {
-        return tryGetDestination(name);
+        return tryToGetDestination(name);
     }
 
-    /**
-     * Attempts to retrieve a destination from the Destination Service API by its name.
-     * <p>
-     * Constructs the proper request URI, adds OAuth 2.0 authentication, handles the response.
-     *
-     * @param name the name of the destination
-     * @return {@link DestinationDto} instance
-     */
-    private DestinationDto tryGetDestination(String name) {
+    private DestinationDto tryToGetDestination(String name) {
         try {
             var baseUri = properties.getUri();
             var uri = DESTINATION_URI_TEMPLATE.formatted(baseUri, name);
@@ -56,14 +48,6 @@ public class CloudDestinationServiceImpl implements DestinationService {
         }
     }
 
-    /**
-     * Adds Bearer token authentication to the request headers.
-     * <p>
-     * Retrieves access token using client credentials from the {@link DestinationServiceProperties} and sets it in the
-     * Authorization header.
-     *
-     * @param headers {@link HttpHeaders} instance to modify
-     */
     private void addBearerAuthenticationHeader(HttpHeaders headers) {
         var tokenUrl = properties.getTokenUrl();
         var clientId = properties.getClientId();
@@ -72,11 +56,6 @@ public class CloudDestinationServiceImpl implements DestinationService {
         headers.setBearerAuth(accessToken);
     }
 
-    /**
-     * Forces a refresh of the OAuth 2.0 access token.
-     * <p>
-     * Should be called when a 401 Unauthorized response is received, indicating that current token may have expired.
-     */
     private void refreshToken() {
         var tokenUrl = properties.getTokenUrl();
         var clientId = properties.getClientId();

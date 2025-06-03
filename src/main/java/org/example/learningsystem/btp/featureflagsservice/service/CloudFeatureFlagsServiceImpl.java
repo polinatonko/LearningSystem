@@ -26,7 +26,14 @@ public class CloudFeatureFlagsServiceImpl implements FeatureFlagsService {
 
     @Override
     public FlagDto getByName(String name) {
-        return tryGetFlag(name);
+        var uri = properties.getUri();
+        var path = EVALUATE_FLAG_URI_TEMPLATE.formatted(uri, name);
+
+        return restClient.get()
+                .uri(path)
+                .headers(this::addBasicAuthHeader)
+                .retrieve()
+                .body(FlagDto.class);
     }
 
     @Override
@@ -38,29 +45,6 @@ public class CloudFeatureFlagsServiceImpl implements FeatureFlagsService {
         return Boolean.parseBoolean(flag.variation());
     }
 
-    /**
-     * Retrieves a feature flag evaluation from the Feature Flags service by its name.
-     *
-     * @param name the name of the flag
-     * @return {@link FlagDto} instance
-     */
-    private FlagDto tryGetFlag(String name) {
-        var uri = properties.getUri();
-        var path = EVALUATE_FLAG_URI_TEMPLATE.formatted(uri, name);
-
-        return restClient.get()
-                .uri(path)
-                .headers(this::addBasicAuthHeader)
-                .retrieve()
-                .body(FlagDto.class);
-    }
-
-    /**
-     * Adds Basic Authentication header using credentials from the {@link FeatureFlagsProperties}
-     * to the {@link HttpHeaders} instance.
-     *
-     * @param headers the {@link HttpHeaders} instance to modify
-     */
     private void addBasicAuthHeader(HttpHeaders headers) {
         var username = properties.getUsername();
         var password = properties.getPassword();

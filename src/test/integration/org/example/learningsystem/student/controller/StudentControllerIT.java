@@ -1,10 +1,9 @@
 package org.example.learningsystem.student.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.learningsystem.common.AbstractCommonIT;
+import org.example.learningsystem.AbstractCommonIT;
 import org.example.learningsystem.core.exception.model.EntityNotFoundException;
 import org.example.learningsystem.student.service.StudentService;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -13,19 +12,18 @@ import org.springframework.security.test.context.support.WithMockUser;
 
 import java.util.UUID;
 
-import static org.example.learningsystem.student.builder.StudentRequestBuilder.buildCreateRequest;
-import static org.example.learningsystem.student.builder.StudentRequestBuilder.buildDeleteByIdRequest;
-import static org.example.learningsystem.student.builder.StudentRequestBuilder.buildGetAllRequest;
-import static org.example.learningsystem.student.builder.StudentRequestBuilder.buildGetByIdRequest;
-import static org.example.learningsystem.student.builder.StudentRequestBuilder.buildUpdateByIdRequest;
-import static org.example.learningsystem.student.util.StudentUtilsIT.buildCreateStudentRequestDto;
-import static org.example.learningsystem.student.util.StudentUtilsIT.buildStudent;
-import static org.example.learningsystem.student.util.StudentUtilsIT.buildUpdateStudentRequestDto;
+import static org.example.learningsystem.student.common.builder.StudentRequestBuilder.buildCreateRequest;
+import static org.example.learningsystem.student.common.builder.StudentRequestBuilder.buildDeleteByIdRequest;
+import static org.example.learningsystem.student.common.builder.StudentRequestBuilder.buildGetAllRequest;
+import static org.example.learningsystem.student.common.builder.StudentRequestBuilder.buildGetByIdRequest;
+import static org.example.learningsystem.student.common.builder.StudentRequestBuilder.buildUpdateByIdRequest;
+import static org.example.learningsystem.student.common.builder.StudentBuilderIT.buildCreateStudentRequestDto;
+import static org.example.learningsystem.student.common.builder.StudentBuilderIT.buildStudent;
+import static org.example.learningsystem.student.common.builder.StudentBuilderIT.buildUpdateStudentRequestDto;
 import static org.junit.Assert.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Tag("integration")
 @RequiredArgsConstructor
 @WithMockUser
 class StudentControllerIT extends AbstractCommonIT {

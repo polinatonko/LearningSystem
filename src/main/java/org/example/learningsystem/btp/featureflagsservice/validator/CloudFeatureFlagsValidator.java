@@ -29,12 +29,6 @@ public class CloudFeatureFlagsValidator implements FeatureFlagsValidator {
         return true;
     }
 
-    /**
-     * Validates that the feature flag matches the required type.
-     *
-     * @param flag         the {@link FlagDto} instance
-     * @param requiredType the expected type of the flag
-     */
     private void validateType(FlagDto flag, String requiredType) {
         var type = flag.type();
         if (!type.equals(requiredType)) {

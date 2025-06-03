@@ -2,7 +2,7 @@ package org.example.learningsystem.course.job.notifications;
 
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.core.template.service.RenderTemplateService;
-import org.example.learningsystem.core.email.format.LocalizedEmailDateTimeFormatter;
+import org.example.learningsystem.core.i18n.LocalizedEmailDateTimeFormatter;
 import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.student.model.Student;
 import org.springframework.context.MessageSource;

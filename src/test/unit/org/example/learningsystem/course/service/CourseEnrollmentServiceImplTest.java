@@ -1,7 +1,7 @@
 package org.example.learningsystem.course.service;
 
-import org.example.learningsystem.course.builder.CourseBuilder;
-import org.example.learningsystem.student.builder.StudentBuilder;
+import org.example.learningsystem.course.common.builder.CourseBuilder;
+import org.example.learningsystem.student.common.builder.StudentBuilder;
 import org.example.learningsystem.course.exception.DuplicateEnrollmentException;
 import org.example.learningsystem.course.model.CourseEnrollment;
 import org.example.learningsystem.course.model.CourseEnrollmentId;

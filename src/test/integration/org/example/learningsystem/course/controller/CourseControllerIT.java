@@ -1,10 +1,9 @@
 package org.example.learningsystem.course.controller;
 
-import org.example.learningsystem.common.AbstractCommonIT;
+import org.example.learningsystem.AbstractCommonIT;
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.core.exception.model.EntityNotFoundException;
 import org.example.learningsystem.course.service.CourseService;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -15,24 +14,23 @@ import org.springframework.security.test.context.support.WithMockUser;
 import java.util.List;
 import java.util.UUID;
 
-import static org.example.learningsystem.course.builder.CourseRequestBuilder.buildCreateRequest;
-import static org.example.learningsystem.course.builder.CourseRequestBuilder.buildCreateLessonRequest;
-import static org.example.learningsystem.course.builder.CourseRequestBuilder.buildDeleteByIdRequest;
-import static org.example.learningsystem.course.builder.CourseRequestBuilder.buildGetAllRequest;
-import static org.example.learningsystem.course.builder.CourseRequestBuilder.buildGetByIdRequest;
-import static org.example.learningsystem.course.builder.CourseRequestBuilder.buildGetLessonsByIdRequest;
-import static org.example.learningsystem.course.builder.CourseRequestBuilder.buildUpdateByIdRequest;
-import static org.example.learningsystem.course.util.CourseUtilsIT.buildCourse;
-import static org.example.learningsystem.course.util.CourseUtilsIT.buildCreateCourseRequestDto;
-import static org.example.learningsystem.course.util.CourseUtilsIT.buildUpdateCourseRequestDto;
-import static org.example.learningsystem.lesson.util.LessonUtilsIT.createClassroomLessonRequestDto;
-import static org.example.learningsystem.lesson.util.LessonUtilsIT.createVideoLessonRequestDto;
+import static org.example.learningsystem.course.common.builder.CourseRequestBuilder.buildCreateRequest;
+import static org.example.learningsystem.course.common.builder.CourseRequestBuilder.buildCreateLessonRequest;
+import static org.example.learningsystem.course.common.builder.CourseRequestBuilder.buildDeleteByIdRequest;
+import static org.example.learningsystem.course.common.builder.CourseRequestBuilder.buildGetAllRequest;
+import static org.example.learningsystem.course.common.builder.CourseRequestBuilder.buildGetByIdRequest;
+import static org.example.learningsystem.course.common.builder.CourseRequestBuilder.buildGetLessonsByIdRequest;
+import static org.example.learningsystem.course.common.builder.CourseRequestBuilder.buildUpdateByIdRequest;
+import static org.example.learningsystem.course.common.builder.CourseBuilderIT.buildCourse;
+import static org.example.learningsystem.course.common.builder.CourseBuilderIT.buildCreateCourseRequestDto;
+import static org.example.learningsystem.course.common.builder.CourseBuilderIT.buildUpdateCourseRequestDto;
+import static org.example.learningsystem.lesson.common.builder.LessonBuilderIT.createClassroomLessonRequestDto;
+import static org.example.learningsystem.lesson.common.builder.LessonBuilderIT.createVideoLessonRequestDto;
 import static org.junit.Assert.assertThrows;
 import static org.springframework.data.domain.Sort.Order;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Tag("integration")
 @RequiredArgsConstructor
 @WithMockUser
 class CourseControllerIT extends AbstractCommonIT {

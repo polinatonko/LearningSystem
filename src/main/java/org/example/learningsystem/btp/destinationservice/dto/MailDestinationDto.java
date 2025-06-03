@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import org.example.learningsystem.core.email.config.EmailServerProperties;
+import org.example.learningsystem.email.config.EmailServerProperties;
 
 /**
  * Represents an instance of the destination with SMTP server credentials.
