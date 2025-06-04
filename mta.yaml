@@ -12,6 +12,8 @@ modules:
       health-check-http-endpoint: /actuator/health
       health-check-timeout: 30
       memory: 1500M
+      routes:
+        - route: ${app-name}-${space}.${domain}
     build-parameters:
       builder: maven
       build-result: target/*.jar
@@ -21,12 +23,28 @@ modules:
       JBP_CONFIG_JAVA_OPTS: "[java_opts: '-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000']"
       JBP_CONFIG_SAP_MACHINE_JDK: "{ version: 21.+ }"
       TARGET_RUNTIME: tomcat
+
     requires:
       - name: lms-logs
       - name: lms-hana-schema
       - name: lms-feature-flags
       - name: lms-user-service
       - name: lms-destination-service
+      - name: lms-xsuaa
+
+  - name: lms-approuter
+    type: nodejs
+    path: approuter
+    parameters:
+      disk-quota: 256M
+      memory: 256M
+    requires:
+      - name: lms
+        group: destinations
+        properties:
+          name: lms
+          url: https://lms-dev.cfapps.us10-001.hana.ondemand.com
+          forwardAuthToken: true
       - name: lms-xsuaa
 
 resources:
