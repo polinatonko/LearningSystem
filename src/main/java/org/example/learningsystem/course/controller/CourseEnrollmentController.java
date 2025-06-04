@@ -46,5 +46,4 @@ public class CourseEnrollmentController {
     public void unenrollStudent(@PathVariable UUID id, @PathVariable UUID studentId) {
         courseEnrollmentService.unenrollStudent(id, studentId);
     }
-
 }

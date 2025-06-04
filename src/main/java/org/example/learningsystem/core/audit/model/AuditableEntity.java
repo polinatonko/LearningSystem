@@ -15,6 +15,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
 
+/**
+ * Base auditable entity.
+ */
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @SuperBuilder(toBuilder = true)

@@ -2,7 +2,7 @@ package org.example.learningsystem.course.job.notifications;
 
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.core.template.service.RenderTemplateService;
-import org.example.learningsystem.core.util.format.LocalizedDateTimeFormatter;
+import org.example.learningsystem.core.i18n.LocalizedEmailDateTimeFormatter;
 import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.student.model.Student;
 import org.springframework.context.MessageSource;
@@ -22,7 +22,7 @@ public class LocalizedCourseNotificationBuilder implements CourseNotificationBui
 
     private static final String EMAIL_TEMPLATE = "course_notification";
 
-    private final LocalizedDateTimeFormatter localizedDateTimeFormatter;
+    private final LocalizedEmailDateTimeFormatter localizedEmailDateTimeFormatter;
     private final MessageSource messageSource;
     private final RenderTemplateService renderTemplateService;
 
@@ -70,8 +70,8 @@ public class LocalizedCourseNotificationBuilder implements CourseNotificationBui
 
     private String resolveBody(Course course, Locale locale) {
         var settings = course.getSettings();
-        var startDateFormatted = localizedDateTimeFormatter.format(settings.getStartDate(), locale);
-        var endDateFormatted = localizedDateTimeFormatter.format(settings.getEndDate(), locale);
+        var startDateFormatted = localizedEmailDateTimeFormatter.format(settings.getStartDate(), locale);
+        var endDateFormatted = localizedEmailDateTimeFormatter.format(settings.getEndDate(), locale);
         var arguments = new Object[]{
                 course.getTitle(), startDateFormatted, endDateFormatted
         };
@@ -81,5 +81,4 @@ public class LocalizedCourseNotificationBuilder implements CourseNotificationBui
     private String resolveFooter(Locale locale) {
         return resolveComponent(FOOTER, null, locale);
     }
-
 }

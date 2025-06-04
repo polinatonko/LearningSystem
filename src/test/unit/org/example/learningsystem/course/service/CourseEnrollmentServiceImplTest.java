@@ -1,7 +1,7 @@
 package org.example.learningsystem.course.service;
 
-import org.example.learningsystem.util.CourseBuilder;
-import org.example.learningsystem.util.StudentBuilder;
+import org.example.learningsystem.course.common.builder.CourseBuilder;
+import org.example.learningsystem.student.common.builder.StudentBuilder;
 import org.example.learningsystem.course.exception.DuplicateEnrollmentException;
 import org.example.learningsystem.course.model.CourseEnrollment;
 import org.example.learningsystem.course.model.CourseEnrollmentId;
@@ -52,6 +52,7 @@ class CourseEnrollmentServiceImplTest {
                 .id(UUID.randomUUID())
                 .coins(course.getPrice())
                 .build();
+
         when(studentService.getByIdForUpdate(any()))
                 .thenReturn(student);
         when(courseService.getByIdForUpdate(any()))
@@ -75,6 +76,7 @@ class CourseEnrollmentServiceImplTest {
                 .id(UUID.randomUUID())
                 .coins(course.getPrice())
                 .build();
+        
         when(studentService.getByIdForUpdate(any()))
                 .thenReturn(student);
         when(courseService.getByIdForUpdate(any()))
@@ -97,6 +99,7 @@ class CourseEnrollmentServiceImplTest {
         var student = new StudentBuilder()
                 .id(UUID.randomUUID())
                 .build();
+
         when(studentService.getByIdForUpdate(any()))
                 .thenReturn(student);
         when(courseService.getByIdForUpdate(any()))
@@ -116,11 +119,13 @@ class CourseEnrollmentServiceImplTest {
         var course = new CourseBuilder()
                 .id(UUID.randomUUID())
                 .build();
+        var courseId = course.getId();
+
         var student = new StudentBuilder()
                 .id(UUID.randomUUID())
                 .build();
-        var courseId = course.getId();
         var studentId = student.getId();
+
         when(courseService.getByIdForUpdate(courseId))
                 .thenReturn(course);
         when(studentService.getByIdForUpdate(studentId))
@@ -140,10 +145,11 @@ class CourseEnrollmentServiceImplTest {
         var course = new CourseBuilder()
                 .id(UUID.randomUUID())
                 .build();
+        var courseId = course.getId();
+
         var student = new StudentBuilder()
                 .id(UUID.randomUUID())
                 .build();
-        var courseId = course.getId();
         var studentId = student.getId();
 
         // when
@@ -153,5 +159,4 @@ class CourseEnrollmentServiceImplTest {
         verify(enrollmentRepository, times(1))
                 .deleteById(new CourseEnrollmentId(courseId, studentId));
     }
-
 }

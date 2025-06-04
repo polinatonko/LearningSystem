@@ -10,6 +10,9 @@ import java.util.Optional;
 
 import static org.springframework.security.oauth2.core.OAuth2TokenIntrospectionClaimNames.CLIENT_ID;
 
+/**
+ * {@link AuditorAware} implementation which retrieves user details from the Basic or Bearer Authentication token.
+ */
 public class AuditorAwareImpl implements AuditorAware<String> {
 
     private static final String USERNAME_CLAIM = "user_name";
@@ -41,5 +44,4 @@ public class AuditorAwareImpl implements AuditorAware<String> {
                 .map(User.class::cast)
                 .map(User::getUsername);
     }
-
 }

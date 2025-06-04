@@ -40,5 +40,4 @@ public class CourseEmailNotificationsService implements CourseNotificationsServi
         log.info("Prepared email for {}: {}", student.getEmail(), notification.message());
         emailService.send(student.getEmail(), notification.subject(), notification.message(), emailServerProperties);
     }
-
 }

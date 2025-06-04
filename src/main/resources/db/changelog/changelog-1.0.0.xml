@@ -4,10 +4,13 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
+    <property name="uuid_type" value="varbinary(16)" dbms="hana"/>
+    <property name="uuid_type" value="uuid" dbms="!hana"/>
+
     <changeSet id="changeset-1.0.0_001" author="polinatonko">
 
         <createTable tableName="student">
-            <column name="id" type="uuid">
+            <column name="id" type="${uuid_type}">
                 <constraints primaryKey="true"/>
             </column>
             <column name="first_name" type="varchar(30)"/>
@@ -26,7 +29,7 @@
     <changeSet id="changeset-1.0.0_002" author="polinatonko">
 
         <createTable tableName="course">
-            <column name="id" type="uuid">
+            <column name="id" type="${uuid_type}">
                 <constraints primaryKey="true"/>
             </column>
             <column name="title" type="varchar(50)">
@@ -44,7 +47,7 @@
     <changeSet id="changeset-1.0.0_003" author="polinatonko">
 
         <createTable tableName="course_settings">
-            <column name="id" type="uuid">
+            <column name="id" type="${uuid_type}">
                 <constraints primaryKey="true"/>
             </column>
             <column name="start_date" type="datetime"/>
@@ -64,10 +67,10 @@
     <changeSet id="changeset-1.0.0_004" author="polinatonko">
 
         <createTable tableName="course_student">
-            <column name="course_id" type="uuid">
+            <column name="course_id" type="${uuid_type}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="student_id" type="uuid">
+            <column name="student_id" type="${uuid_type}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
         </createTable>
@@ -86,14 +89,14 @@
     <changeSet id="changeset-1.0.0_005" author="polinatonko">
 
         <createTable tableName="lesson">
-            <column name="id" type="uuid">
+            <column name="id" type="${uuid_type}">
                 <constraints primaryKey="true"/>
             </column>
             <column name="title" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
             <column name="duration" type="int"/>
-            <column name="course_id" type="uuid">
+            <column name="course_id" type="${uuid_type}">
                 <constraints nullable="false"/>
             </column>
         </createTable>

@@ -53,5 +53,4 @@ public class CourseEnrollmentServiceImpl implements CourseEnrollmentService {
         courseService.update(course);
         studentService.update(student);
     }
-
 }

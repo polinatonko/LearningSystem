@@ -2,42 +2,56 @@ package org.example.learningsystem.email.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.learningsystem.email.config.EmailServerProperties;
-import org.springframework.mail.MailSendException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.retry.annotation.Recover;
-import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Component;
 
 import java.util.Properties;
 
+/**
+ * {@link EmailService} implementation using JavaMail API to send emails through an SMTP server.
+ * <p>
+ * This implementation creates a new {@link JavaMailSender} instance for each email sent,
+ * configured according to the provided {@link EmailServerProperties}.
+ */
 @Component
 @Slf4j
 public class EmailServiceImpl implements EmailService {
 
+    /**
+     *  JavaMail property key for SMTP transport protocol.
+     */
     private static final String MAIL_TRANSPORT_PROTOCOL = "mail.transport.protocol";
+
+    /**
+     *  JavaMail property key for SMTP authentication flag.
+     */
     private static final String MAIL_SMTP_AUTH = "mail.smtp.auth";
+
+    /**
+     *  JavaMail property key for SMTP STARTTLS enablement flag.
+     */
     private static final String MAIL_SMTP_STARTTLS_ENABLE = "mail.smtp.starttls.enable";
 
-    @Retryable(retryFor = MailSendException.class)
+    @Override
     public void send(String to, String subject, String text, EmailServerProperties serverProperties) {
         var sender = getSender(serverProperties);
         var message = buildMessage(to, serverProperties.getFrom(), subject, text);
         sender.send(message);
     }
 
-    @Recover
-    public void recover(MailSendException e, String to, String subject, String text, EmailServerProperties serverProperties) {
-        log.error("Failed to send email [subject = {}, to = {}]: {}", subject, to, e.getMessage());
-    }
-
     private JavaMailSender getSender(EmailServerProperties serverProperties) {
+        var host = serverProperties.getHost();
+        var port = serverProperties.getPort();
+        var username = serverProperties.getUser();
+        var password = serverProperties.getPassword();
+
         var mailSender = new JavaMailSenderImpl();
-        mailSender.setHost(serverProperties.getHost());
-        mailSender.setPort(Integer.parseInt(serverProperties.getPort()));
-        mailSender.setUsername(serverProperties.getUser());
-        mailSender.setPassword(serverProperties.getPassword());
+        mailSender.setHost(host);
+        mailSender.setPort(Integer.parseInt(port));
+        mailSender.setUsername(username);
+        mailSender.setPassword(password);
 
         var mailProperties = mailSender.getJavaMailProperties();
         fillMailProperties(mailProperties, serverProperties);
@@ -46,9 +60,13 @@ public class EmailServiceImpl implements EmailService {
     }
 
     private void fillMailProperties(Properties properties, EmailServerProperties serverProperties) {
-        properties.put(MAIL_TRANSPORT_PROTOCOL, serverProperties.getProtocol());
-        properties.put(MAIL_SMTP_AUTH, serverProperties.getAuth());
-        properties.put(MAIL_SMTP_STARTTLS_ENABLE, serverProperties.getStartTlsEnable());
+        var protocol = serverProperties.getProtocol();
+        var auth = serverProperties.getAuth();
+        var startTlsEnable = serverProperties.getStartTlsEnable();
+
+        properties.put(MAIL_TRANSPORT_PROTOCOL, protocol);
+        properties.put(MAIL_SMTP_AUTH, auth);
+        properties.put(MAIL_SMTP_STARTTLS_ENABLE, startTlsEnable);
     }
 
     private SimpleMailMessage buildMessage(String to, String from, String subject, String text) {
@@ -60,5 +78,4 @@ public class EmailServiceImpl implements EmailService {
 
         return message;
     }
-
 }

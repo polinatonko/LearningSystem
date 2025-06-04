@@ -28,6 +28,8 @@ public class LocalSecurityConfiguration {
     private static final String ACTUATOR_ENDPOINTS = "/actuator/**";
     private static final String ACTUATOR_HEALTH_ENDPOINT = "/actuator/health";
     private static final String ALL_ENDPOINTS = "/**";
+    private static final String API_DOCS_ENDPOINTS = "/v3/api-docs/**";
+    private static final String SWAGGER_ENDPOINTS = "/swagger-ui/**";
 
     private final AccessDeniedHandler accessDeniedHandler;
     private final AuthenticationEntryPoint authenticationEntryPoint;
@@ -72,6 +74,8 @@ public class LocalSecurityConfiguration {
 
     private void configureApiAuthorization(AuthorizeHttpRequestsConfigurer<?>.AuthorizationManagerRequestMatcherRegistry auth) {
         auth
+                .requestMatchers(API_DOCS_ENDPOINTS).permitAll()
+                .requestMatchers(SWAGGER_ENDPOINTS).permitAll()
                 .anyRequest().authenticated();
     }
 
@@ -80,5 +84,4 @@ public class LocalSecurityConfiguration {
                 .accessDeniedHandler(accessDeniedHandler)
                 .authenticationEntryPoint(authenticationEntryPoint);
     }
-
 }

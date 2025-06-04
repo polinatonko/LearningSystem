@@ -61,5 +61,4 @@ public class CourseEnrollmentValidator implements EntityValidator<CourseEnrollme
             throw new DuplicateEnrollmentException(courseId, studentId);
         }
     }
-
 }

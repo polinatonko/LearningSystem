@@ -6,6 +6,9 @@ import org.example.learningsystem.core.template.exception.RenderTemplateExceptio
 import org.springframework.boot.autoconfigure.mustache.MustacheResourceTemplateLoader;
 import org.springframework.stereotype.Service;
 
+/**
+ * {@link RenderTemplateService} implementation using Mustache template engine.
+ */
 @Service
 @RequiredArgsConstructor
 public class MustacheTemplateService implements RenderTemplateService {
@@ -15,17 +18,12 @@ public class MustacheTemplateService implements RenderTemplateService {
     @Override
     public String render(String path, Object arguments) {
         try {
-            return tryToRender(path, arguments);
+            var reader = templateLoader.getTemplate(path);
+            return Mustache.compiler()
+                    .compile(reader)
+                    .execute(arguments);
         } catch (Exception e) {
             throw new RenderTemplateException("Error during rendering %s: %s".formatted(path, e.getMessage()));
         }
     }
-
-    private String tryToRender(String path, Object arguments) throws Exception {
-        var reader = templateLoader.getTemplate(path);
-        return Mustache.compiler()
-                .compile(reader)
-                .execute(arguments);
-    }
-
 }

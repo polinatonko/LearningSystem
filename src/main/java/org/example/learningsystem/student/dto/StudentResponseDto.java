@@ -9,7 +9,8 @@ import java.time.LocalDate;
 import java.util.Locale;
 import java.util.UUID;
 
-import static org.example.learningsystem.core.util.format.DataFormatUtils.DATE_FORMAT;
+import static org.example.learningsystem.core.util.format.DateFormatUtils.DATE_FORMAT;
+import static org.example.learningsystem.core.util.format.DateFormatUtils.DATE_TIME_FORMAT;
 
 @Schema
 public record StudentResponseDto(
@@ -36,12 +37,13 @@ public record StudentResponseDto(
 
         Boolean isPublic,
 
+        @JsonFormat(pattern = DATE_TIME_FORMAT, timezone = "UTC")
         Instant created,
 
         String createdBy,
 
+        @JsonFormat(pattern = DATE_TIME_FORMAT, timezone = "UTC")
         Instant lastChanged,
 
-        String lastChangedBy
-) {
+        String lastChangedBy) {
 }

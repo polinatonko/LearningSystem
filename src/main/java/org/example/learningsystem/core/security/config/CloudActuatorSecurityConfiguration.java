@@ -59,5 +59,4 @@ public class CloudActuatorSecurityConfiguration {
                 .accessDeniedHandler(accessDeniedHandler)
                 .authenticationEntryPoint(authenticationEntryPoint);
     }
-
 }

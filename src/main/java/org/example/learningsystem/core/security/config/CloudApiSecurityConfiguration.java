@@ -30,6 +30,8 @@ public class CloudApiSecurityConfiguration {
 
     private static final int API_FILTER_CHAIN_ORDER = 2;
     private static final String ALL_ENDPOINTS = "/**";
+    private static final String API_DOCS_ENDPOINTS = "/v3/api-docs/**";
+    private static final String SWAGGER_ENDPOINTS = "/swagger-ui/**";
 
     private final AccessDeniedHandler accessDeniedHandler;
     private final AuthenticationEntryPoint authenticationEntryPoint;
@@ -59,7 +61,10 @@ public class CloudApiSecurityConfiguration {
     }
 
     private void configureAuthorization(AuthorizeHttpRequestsConfigurer<?>.AuthorizationManagerRequestMatcherRegistry auth) {
-        auth.anyRequest().authenticated();
+        auth
+                .requestMatchers(API_DOCS_ENDPOINTS).permitAll()
+                .requestMatchers(SWAGGER_ENDPOINTS).permitAll()
+                .anyRequest().authenticated();
     }
 
     private void configureOauth2ResourceServer(OAuth2ResourceServerConfigurer<HttpSecurity> oauth2ResourceServer) {
@@ -71,5 +76,4 @@ public class CloudApiSecurityConfiguration {
                 .accessDeniedHandler(accessDeniedHandler)
                 .authenticationEntryPoint(authenticationEntryPoint);
     }
-
 }

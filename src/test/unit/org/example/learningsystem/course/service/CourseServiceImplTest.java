@@ -1,12 +1,12 @@
 package org.example.learningsystem.course.service;
 
-import org.example.learningsystem.util.CourseBuilder;
+import org.example.learningsystem.course.common.builder.CourseBuilder;
 import org.example.learningsystem.core.util.validator.EntityValidator;
 import org.example.learningsystem.course.exception.InvalidCourseDurationException;
 import org.example.learningsystem.course.model.Course;
 import org.example.learningsystem.course.repository.CourseRepository;
-import org.example.learningsystem.core.exception.logic.EntityNotFoundException;
-import org.example.learningsystem.core.exception.validation.IllegalNullValueException;
+import org.example.learningsystem.core.exception.model.EntityNotFoundException;
+import org.example.learningsystem.core.exception.model.validation.IllegalNullValueException;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -49,6 +49,7 @@ class CourseServiceImplTest {
         var course = createCourse();
         var savedCourse = createSavedCourse();
         var savedSettings = savedCourse.getSettings();
+
         when(courseRepository.save(course))
                 .thenReturn(savedCourse);
 
@@ -83,6 +84,7 @@ class CourseServiceImplTest {
         // given
         var course = createCourse();
         setInvalidDuration(course);
+
         doThrow(InvalidCourseDurationException.class)
                 .when(courseValidator)
                 .validateForInsert(course);
@@ -96,6 +98,7 @@ class CourseServiceImplTest {
         // given
         var savedCourse = createSavedCourse();
         var id = savedCourse.getId();
+
         when(courseRepository.findById(id))
                 .thenReturn(Optional.of(savedCourse));
 
@@ -113,6 +116,7 @@ class CourseServiceImplTest {
         // given
         var savedCourse = createSavedCourse();
         var id = savedCourse.getId();
+
         when(courseRepository.findById(id))
                 .thenReturn(Optional.empty());
 
@@ -128,6 +132,7 @@ class CourseServiceImplTest {
         var pageSize = 1;
         var pageable = PageRequest.of(pageNumber, pageSize);
         var courses = List.of(course);
+
         when(courseRepository.findAll(pageable))
                 .thenReturn(new PageImpl<>(courses, pageable, courses.size()));
 
@@ -148,6 +153,7 @@ class CourseServiceImplTest {
         // given
         var savedCourse = createSavedCourse();
         var savedSettings = savedCourse.getSettings();
+
         when(courseRepository.findById(any()))
                 .thenReturn(Optional.of(savedCourse));
         when(courseRepository.save(savedCourse))
@@ -185,6 +191,7 @@ class CourseServiceImplTest {
         var course = createCourse();
         var savedCourse = createSavedCourse();
         setInvalidDuration(course);
+
         when(courseRepository.findById(any()))
                 .thenReturn(Optional.of(savedCourse));
         doThrow(InvalidCourseDurationException.class)
@@ -214,12 +221,14 @@ class CourseServiceImplTest {
 
     @Test
     void deleteById_givenId_shouldSuccessfullyDeleteCourse() {
-        // when
+        // given
         var savedCourse = createSavedCourse();
         var id = savedCourse.getId();
+
+        // when
         courseService.deleteById(id);
 
-        // when, then
+        // then
         verify(courseRepository, times(1))
                 .deleteById(id);
     }
@@ -230,6 +239,7 @@ class CourseServiceImplTest {
         var course = createCourse();
         int days = 1;
         var courses = List.of(course);
+
         when(courseRepository.findAllBySettingsStartDateBetween(any(), any()))
                 .thenReturn(courses);
 
@@ -257,5 +267,4 @@ class CourseServiceImplTest {
         settings.setStartDate(LocalDateTime.of(2025, 1, 1, 10, 0, 0));
         settings.setEndDate(LocalDateTime.of(2024, 1, 1, 10, 0, 0));
     }
-
 }

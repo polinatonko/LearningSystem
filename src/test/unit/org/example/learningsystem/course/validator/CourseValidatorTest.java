@@ -1,9 +1,9 @@
 package org.example.learningsystem.course.validator;
 
-import org.example.learningsystem.util.CourseBuilder;
+import org.example.learningsystem.course.common.builder.CourseBuilder;
 import org.example.learningsystem.course.exception.InvalidCourseDurationException;
 import org.example.learningsystem.course.model.Course;
-import org.example.learningsystem.core.exception.validation.IllegalNullValueException;
+import org.example.learningsystem.core.exception.model.validation.IllegalNullValueException;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -77,5 +77,4 @@ class CourseValidatorTest {
         settings.setStartDate(LocalDateTime.of(2025, 2, 1, 10, 0, 0));
         settings.setEndDate(LocalDateTime.of(2025, 1, 1, 10, 0, 0));
     }
-
 }

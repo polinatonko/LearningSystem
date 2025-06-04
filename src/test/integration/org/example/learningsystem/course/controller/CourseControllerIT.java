@@ -1,328 +1,284 @@
 package org.example.learningsystem.course.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.learningsystem.config.DataSourceProperties;
+import org.example.learningsystem.AbstractCommonIT;
 import lombok.RequiredArgsConstructor;
-import org.example.learningsystem.config.PostgreSQLConfiguration;
-import org.example.learningsystem.course.dto.CourseRequestDto;
-import org.example.learningsystem.course.dto.CourseResponseDto;
+import org.example.learningsystem.core.exception.model.EntityNotFoundException;
 import org.example.learningsystem.course.service.CourseService;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.servlet.MockMvc;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.util.List;
 import java.util.UUID;
 
-import static org.example.learningsystem.util.CourseTestUtils.buildCreateCourseRequestDto;
-import static org.example.learningsystem.util.CourseTestUtils.buildUpdateCourseRequestDto;
-import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.example.learningsystem.course.common.builder.CourseRequestBuilder.buildCreateRequest;
+import static org.example.learningsystem.course.common.builder.CourseRequestBuilder.buildCreateLessonRequest;
+import static org.example.learningsystem.course.common.builder.CourseRequestBuilder.buildDeleteByIdRequest;
+import static org.example.learningsystem.course.common.builder.CourseRequestBuilder.buildGetAllRequest;
+import static org.example.learningsystem.course.common.builder.CourseRequestBuilder.buildGetByIdRequest;
+import static org.example.learningsystem.course.common.builder.CourseRequestBuilder.buildGetLessonsByIdRequest;
+import static org.example.learningsystem.course.common.builder.CourseRequestBuilder.buildUpdateByIdRequest;
+import static org.example.learningsystem.course.common.builder.CourseBuilderIT.buildCourse;
+import static org.example.learningsystem.course.common.builder.CourseBuilderIT.buildCreateCourseRequestDto;
+import static org.example.learningsystem.course.common.builder.CourseBuilderIT.buildUpdateCourseRequestDto;
+import static org.example.learningsystem.lesson.common.builder.LessonBuilderIT.createClassroomLessonRequestDto;
+import static org.example.learningsystem.lesson.common.builder.LessonBuilderIT.createVideoLessonRequestDto;
+import static org.junit.Assert.assertThrows;
+import static org.springframework.data.domain.Sort.Order;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.example.learningsystem.util.LessonTestUtils.createClassroomLessonRequestDto;
-import static org.example.learningsystem.util.LessonTestUtils.createVideoLessonRequestDto;
 
-@Tag("integration")
-@SpringBootTest
-@AutoConfigureMockMvc
-@ActiveProfiles("test")
-@EnableConfigurationProperties(DataSourceProperties.class)
-@Import(PostgreSQLConfiguration.class)
-@Testcontainers
 @RequiredArgsConstructor
-class CourseControllerIT {
+@WithMockUser
+class CourseControllerIT extends AbstractCommonIT {
 
-    private static final String COURSES_URL = "/courses";
-    private static final String COURSE_URL = "/courses/{courseId}";
-    private static final String COURSE_LESSONS_URL = "/courses/{courseId}/lessons";
-
-    @Autowired
-    private MockMvc mockMvc;
     @Autowired
     private CourseService courseService;
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @Test
-    @WithMockUser
     void create_givenCourseRequestDto_shouldSuccessfullyCreateAndReturn201() throws Exception {
         // given
-        var courseRequestDto = buildCreateCourseRequestDto();
+        var requestDto = buildCreateCourseRequestDto();
+        var content = objectMapper.writeValueAsString(requestDto);
 
         // when, then
-        mockMvc.perform(post(COURSES_URL)
-                        .contentType(APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(courseRequestDto)))
+        var request = buildCreateRequest(content);
+        mockMvc.perform(request)
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").isNotEmpty())
-                .andExpect(jsonPath("$.title").value(courseRequestDto.title()))
-                .andExpect(jsonPath("$.description").value(courseRequestDto.description()));
+                .andExpectAll(
+                        jsonPath("$.id").isNotEmpty(),
+                        jsonPath("$.title").value(requestDto.title()),
+                        jsonPath("$.description").value(requestDto.description())
+                );
     }
 
     @Test
-    @WithMockUser
     void create_givenInvalidBody_shouldReturn400() throws Exception {
         // given
-        var body = "{}";
+        var content = "{}";
 
         // when, then
-        mockMvc.perform(post(COURSES_URL)
-                        .contentType(APPLICATION_JSON)
-                        .content(body))
-                .andExpect(status().is4xxClientError());
+        var request = buildCreateRequest(content);
+        mockMvc.perform(request)
+                .andExpect(status().isBadRequest());
     }
 
     @Test
-    @WithMockUser
     void getById_givenId_shouldReturn200() throws Exception {
         // given
-        var courseRequestDto = buildCreateCourseRequestDto();
-        var courseResponseDto = create(courseRequestDto);
-        var courseId = courseResponseDto.id();
+        var id = createAndGetId();
 
         // when, then
-        mockMvc.perform(get(COURSE_URL, courseId))
+        var request = buildGetByIdRequest(id);
+        mockMvc.perform(request)
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(courseId.toString()));
+                .andExpect(jsonPath("$.id").value(id.toString()));
 
-        courseService.deleteById(courseId);
+        courseService.deleteById(id);
     }
 
     @Test
+    @WithAnonymousUser
     void getById_givenId_shouldReturn401() throws Exception {
         // given
-        var courseRequestDto = buildCreateCourseRequestDto();
-        var courseResponseDto = create(courseRequestDto);
-        var courseId = courseResponseDto.id();
+        var id = UUID.randomUUID();
 
         // when, then
-        mockMvc.perform(get(COURSE_URL, courseId))
+        var request = buildGetByIdRequest(id);
+        mockMvc.perform(request)
                 .andExpect(status().isUnauthorized());
     }
 
     @Test
-    @WithMockUser
-    void getById_givenId_shouldReturn400() throws Exception {
-        // given
-        var courseId = "123";
-
-        // when, then
-        mockMvc.perform(get(COURSE_URL, courseId))
-                .andExpect(status().is4xxClientError());
-    }
-
-    @Test
-    @WithMockUser
     void getById_givenId_shouldReturn404() throws Exception {
         // given
-        var courseId = UUID.randomUUID();
+        var id = UUID.randomUUID();
 
         // when, then
-        mockMvc.perform(get(COURSE_URL, courseId))
+        var request = buildGetByIdRequest(id);
+        mockMvc.perform(request)
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    @WithMockUser
     void getAll_givenPageAndSize_shouldReturn200() throws Exception {
         // given
         var page = 0;
         var size = 1;
+        var orders = List.of(Order.asc("id"), Order.desc("title"));
+        var sort = Sort.by(orders);
+        var pageRequest = PageRequest.of(page, size, sort);
 
         // when, then
-        mockMvc.perform(get(COURSES_URL)
-                        .queryParam("page", String.valueOf(page))
-                        .queryParam("size", String.valueOf(size))
-                )
+        var request = buildGetAllRequest(pageRequest);
+        mockMvc.perform(request)
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.page.number").value(page))
-                .andExpect(jsonPath("$.page.size").value(size))
-                .andExpect(jsonPath("$.content").isArray());
+                .andExpectAll(
+                        jsonPath("$.page.number").value(page),
+                        jsonPath("$.page.size").value(size),
+                        jsonPath("$.content").isArray()
+                );
     }
 
     @Test
-    @WithMockUser
     void updateById_givenCourseRequestDto_shouldSuccessfullyUpdateAndReturn200() throws Exception {
         // given
-        var courseRequestDto = buildCreateCourseRequestDto();
-        var courseResponseDto = create(courseRequestDto);
-        var courseId = courseResponseDto.id();
-        courseRequestDto = buildUpdateCourseRequestDto(courseId);
+        var id = createAndGetId();
+
+        var requestDto = buildUpdateCourseRequestDto(id);
+        var content = objectMapper.writeValueAsString(requestDto);
 
         // when, then
-        mockMvc.perform(put(COURSE_URL, courseId)
-                        .contentType(APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(courseRequestDto)))
+        var request = buildUpdateByIdRequest(id, content);
+        mockMvc.perform(request)
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(courseId.toString()))
-                .andExpect(jsonPath("$.title").value(courseRequestDto.title()))
-                .andExpect(jsonPath("$.description").value(courseRequestDto.description()))
-                .andExpect(jsonPath("$.isPublic").value(courseRequestDto.isPublic()));
+                .andExpectAll(
+                        jsonPath("$.id").value(id.toString()),
+                        jsonPath("$.title").value(requestDto.title()),
+                        jsonPath("$.description").value(requestDto.description()),
+                        jsonPath("$.isPublic").value(requestDto.isPublic())
+                );
 
-        courseService.deleteById(courseId);
+        courseService.deleteById(id);
     }
 
     @Test
-    @WithMockUser
     void updateById_givenInvalidBody_shouldReturn400() throws Exception {
         // given
-        var courseRequestDto = buildCreateCourseRequestDto();
-        var courseResponseDto = create(courseRequestDto);
-        var courseId = courseResponseDto.id();
-        var body = "{\"id\": \"%s\"}".formatted(courseId);
+        var id = createAndGetId();
+
+        var content = "{\"id\": \"%s\"}".formatted(id);
 
         // when, then
-        mockMvc.perform(put(COURSE_URL, courseId)
-                        .contentType(APPLICATION_JSON)
-                        .content(body))
-                .andExpect(status().is4xxClientError());
+        var request = buildUpdateByIdRequest(id, content);
+        mockMvc.perform(request)
+                .andExpect(status().isBadRequest());
 
-        courseService.deleteById(courseId);
+        courseService.deleteById(id);
     }
 
     @Test
-    @WithMockUser
     void updateById_givenCourseId_shouldReturn404() throws Exception {
         // given
-        var courseRequestDto = buildCreateCourseRequestDto();
-        var courseId = UUID.randomUUID();
+        var id = UUID.randomUUID();
+
+        var requestDto = buildCreateCourseRequestDto();
+        var content = objectMapper.writeValueAsString(requestDto);
 
         // when, then
-        mockMvc.perform(put(COURSE_URL, courseId)
-                        .contentType(APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(courseRequestDto)))
+        var request = buildUpdateByIdRequest(id, content);
+        mockMvc.perform(request)
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    @WithMockUser
     void deleteById_givenId_shouldSuccessfullyDeleteAndReturn204() throws Exception {
         // given
-        var courseRequestDto = buildCreateCourseRequestDto();
-        var courseResponseDto = create(courseRequestDto);
-        var courseId = courseResponseDto.id();
+        var id = createAndGetId();
 
         // when, then
-        mockMvc.perform(delete(COURSE_URL, courseId))
+        var request = buildDeleteByIdRequest(id);
+        mockMvc.perform(request)
                 .andExpect(status().isNoContent());
 
-        mockMvc.perform(get(COURSE_URL, courseId))
-                .andExpect(status().isNotFound());
+        assertThrows(EntityNotFoundException.class, () -> courseService.getById(id));
     }
 
     @Test
-    @WithMockUser
     void createLesson_givenVideoLessonRequestDto_shouldSuccessfullyCreateLessonAndReturn201() throws Exception {
         // given
-        var courseRequestDto = buildCreateCourseRequestDto();
-        var courseResponseDto = create(courseRequestDto);
-        var courseId = courseResponseDto.id();
-        var lessonRequestDto = createVideoLessonRequestDto(courseId);
+        var id = createAndGetId();
+
+        var lessonRequestDto = createVideoLessonRequestDto(id);
+        var content = objectMapper.writeValueAsString(lessonRequestDto);
 
         // when, then
-        mockMvc.perform(post(COURSE_LESSONS_URL, courseId)
-                        .contentType(APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(lessonRequestDto)))
+        var request = buildCreateLessonRequest(id, content);
+        mockMvc.perform(request)
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").isNotEmpty())
-                .andExpect(jsonPath("$.courseId").value(courseId.toString()));
+                .andExpect(jsonPath("$.courseId").value(id.toString()));
 
-        courseService.deleteById(courseId);
+        courseService.deleteById(id);
     }
 
     @Test
-    @WithMockUser
     void createLesson_givenClassroomLessonRequestDto_shouldSuccessfullyCreateLessonAndReturn201() throws Exception {
         // given
-        var courseRequestDto = buildCreateCourseRequestDto();
-        var courseResponseDto = create(courseRequestDto);
-        var courseId = courseResponseDto.id();
-        var lessonRequestDto = createClassroomLessonRequestDto(courseId);
+        var id = createAndGetId();
+
+        var lessonRequestDto = createClassroomLessonRequestDto(id);
+        var content = objectMapper.writeValueAsString(lessonRequestDto);
 
         // when, then
-        mockMvc.perform(post(COURSE_LESSONS_URL, courseId)
-                        .contentType(APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(lessonRequestDto)))
+        var request = buildCreateLessonRequest(id, content);
+        mockMvc.perform(request)
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").isNotEmpty())
-                .andExpect(jsonPath("$.courseId").value(courseId.toString()));
+                .andExpectAll(
+                        jsonPath("$.id").isNotEmpty(),
+                        jsonPath("$.courseId").value(id.toString())
+                );
 
-        courseService.deleteById(courseId);
+        courseService.deleteById(id);
     }
 
     @Test
-    @WithMockUser
     void createLesson_givenInvalidBody_shouldReturn400() throws Exception {
         // given
-        var courseRequestDto = buildCreateCourseRequestDto();
-        var courseResponseDto = create(courseRequestDto);
-        var courseId = courseResponseDto.id();
-        var body = "{}";
+        var id = createAndGetId();
+
+        var content = "{}";
 
         // when, then
-        mockMvc.perform(post(COURSE_LESSONS_URL, courseId)
-                        .contentType(APPLICATION_JSON)
-                        .content(body))
-                .andExpect(status().is4xxClientError());
+        var request = buildCreateLessonRequest(id, content);
+        mockMvc.perform(request)
+                .andExpect(status().isBadRequest());
 
-        courseService.deleteById(courseId);
+        courseService.deleteById(id);
     }
 
     @Test
-    @WithMockUser
     void createLesson_givenLessonRequestDto_shouldReturn404() throws Exception {
         // given
-        var courseId = UUID.randomUUID();
-        var lessonRequestDto = createClassroomLessonRequestDto(courseId);
+        var id = UUID.randomUUID();
+
+        var lessonRequestDto = createClassroomLessonRequestDto(id);
+        var content = objectMapper.writeValueAsString(lessonRequestDto);
 
         // when, then
-        mockMvc.perform(post(COURSE_LESSONS_URL, courseId)
-                        .contentType(APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(lessonRequestDto)))
+        var request = buildCreateLessonRequest(id, content);
+        mockMvc.perform(request)
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    @WithMockUser
     void getLessons_givenCourseIdAndPageAndSize_shouldReturn200() throws Exception {
         // given
-        var courseRequestDto = buildCreateCourseRequestDto();
-        var courseResponseDto = create(courseRequestDto);
-        var courseId = courseResponseDto.id();
+        var id = createAndGetId();
+
         var page = 0;
         var size = 1;
+        var pageRequest = PageRequest.of(page, size);
 
         // when, then
-        mockMvc.perform(get(COURSE_LESSONS_URL, courseId)
-                        .queryParam("page", String.valueOf(page))
-                        .queryParam("size", String.valueOf(size))
-                )
+        var request = buildGetLessonsByIdRequest(id, pageRequest);
+        mockMvc.perform(request)
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.page.number").value(page))
-                .andExpect(jsonPath("$.page.size").value(size))
-                .andExpect(jsonPath("$.content").isArray());
+                .andExpectAll(
+                        jsonPath("$.page.number").value(page),
+                        jsonPath("$.page.size").value(size),
+                        jsonPath("$.content").isArray()
+                );
 
-        courseService.deleteById(courseId);
+        courseService.deleteById(id);
     }
 
-    private CourseResponseDto create(CourseRequestDto courseRequestDto) throws Exception {
-        var response = mockMvc.perform(post(COURSES_URL)
-                        .contentType(APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(courseRequestDto)))
-                .andReturn()
-                .getResponse();
-        return objectMapper.readValue(response.getContentAsString(), CourseResponseDto.class);
+    private UUID createAndGetId() {
+        var course = buildCourse();
+        var savedCourse = courseService.create(course);
+        return savedCourse.getId();
     }
-
 }

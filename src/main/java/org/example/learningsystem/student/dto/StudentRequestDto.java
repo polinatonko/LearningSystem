@@ -13,9 +13,10 @@ import java.time.LocalDate;
 import java.util.Locale;
 import java.util.UUID;
 
-import static org.example.learningsystem.core.util.format.DataFormatUtils.DATE_FORMAT;
+import static org.example.learningsystem.core.util.format.DateFormatUtils.DATE_FORMAT;
 
 public record StudentRequestDto(
+
         UUID id,
 
         @Size(max = 30)
@@ -37,6 +38,5 @@ public record StudentRequestDto(
         @Min(0)
         BigDecimal coins,
 
-        Locale locale
-) {
+        Locale locale) {
 }

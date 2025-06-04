@@ -2,13 +2,9 @@ package org.example.learningsystem.course.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.course.model.Course;
-import org.example.learningsystem.core.exception.logic.EntityNotFoundException;
+import org.example.learningsystem.core.exception.model.EntityNotFoundException;
 import org.example.learningsystem.course.repository.CourseRepository;
 import org.example.learningsystem.core.util.validator.EntityValidator;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,7 +16,6 @@ import static java.time.LocalDate.now;
 
 @Service
 @RequiredArgsConstructor
-@CacheConfig(cacheNames = "course")
 public class CourseServiceImpl implements CourseService {
 
     private static final int DAYS_BEFORE = 1;
@@ -35,15 +30,15 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    @Cacheable
     public Course getById(UUID id) {
-        return findById(id);
+        return courseRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Course.class.getName(), id));
     }
 
     @Override
-    @Cacheable
     public Course getByIdForUpdate(UUID id) {
-        return findByIdForUpdate(id);
+        return courseRepository.findByIdForUpdate(id)
+                .orElseThrow(() -> new EntityNotFoundException(Course.class.getName(), id));
     }
 
     @Override
@@ -60,27 +55,14 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    @CachePut(key = "#course.id")
     public Course update(Course course) {
-        findById(course.getId());
+        getById(course.getId());
         courseValidator.validateForUpdate(course);
         return courseRepository.save(course);
     }
 
     @Override
-    @CacheEvict
     public void deleteById(UUID id) {
         courseRepository.deleteById(id);
     }
-
-    private Course findById(UUID id) {
-        return courseRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(Course.class.getName(), id));
-    }
-
-    private Course findByIdForUpdate(UUID id) {
-        return courseRepository.findByIdForUpdate(id)
-                .orElseThrow(() -> new EntityNotFoundException(Course.class.getName(), id));
-    }
-
 }

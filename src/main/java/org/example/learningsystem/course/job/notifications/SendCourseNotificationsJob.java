@@ -2,7 +2,6 @@ package org.example.learningsystem.course.job.notifications;
 
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.course.service.CourseService;
-import org.example.learningsystem.course.config.CourseReminderProperties;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -23,5 +22,4 @@ public class SendCourseNotificationsJob {
         var upcomingCourses = courseService.getUpcoming(reminderProperties.getDaysBefore());
         courseNotificationsService.send(upcomingCourses);
     }
-
 }

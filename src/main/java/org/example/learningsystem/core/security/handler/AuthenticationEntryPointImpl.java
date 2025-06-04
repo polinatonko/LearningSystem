@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.example.learningsystem.core.exception.response.ErrorResponse;
+import org.example.learningsystem.core.exception.model.response.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -28,5 +28,4 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
         var writer = response.getWriter();
         writer.write(objectMapper.writeValueAsString(errorResponse));
     }
-
 }

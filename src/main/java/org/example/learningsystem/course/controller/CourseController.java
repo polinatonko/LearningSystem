@@ -8,14 +8,14 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.course.dto.CourseRequestDto;
 import org.example.learningsystem.course.dto.CourseResponseDto;
-import org.example.learningsystem.lesson.dto.lesson.LessonRequestDto;
-import org.example.learningsystem.lesson.dto.lesson.LessonResponseDto;
+import org.example.learningsystem.lesson.common.dto.LessonRequestDto;
+import org.example.learningsystem.lesson.common.dto.LessonResponseDto;
 import org.example.learningsystem.student.dto.StudentResponseDto;
 import org.example.learningsystem.course.mapper.CourseMapper;
-import org.example.learningsystem.lesson.mapper.LessonMapper;
+import org.example.learningsystem.lesson.common.mapper.LessonMapper;
 import org.example.learningsystem.student.mapper.StudentMapper;
 import org.example.learningsystem.course.service.CourseService;
-import org.example.learningsystem.lesson.service.LessonService;
+import org.example.learningsystem.lesson.common.service.LessonService;
 import org.example.learningsystem.student.service.StudentService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -89,8 +89,7 @@ public class CourseController {
     @GetMapping
     @Operation(summary = "Get all courses")
     @ApiResponse(responseCode = "200", description = "Courses were retrieved")
-    public PagedModel<CourseResponseDto> getAll(
-            @PageableDefault(size = 5, sort = "created") Pageable pageable) {
+    public PagedModel<CourseResponseDto> getAll(@PageableDefault(size = 5, sort = "created") Pageable pageable) {
         var courses = courseService.getAll(pageable);
         var mappedCourses = courses.map(courseMapper::toDto);
         return new PagedModel<>(mappedCourses);
@@ -103,7 +102,7 @@ public class CourseController {
             @ApiResponse(responseCode = "400", description = "Invalid value of path variable"),
             @ApiResponse(responseCode = "404", description = "Course was not found")
     })
-    public PagedModel<StudentResponseDto> getStudents(
+    public PagedModel<StudentResponseDto> getStudentsByCourseId(
             @PathVariable UUID id,
             @PageableDefault(size = 5, sort = "created") Pageable pageable) {
         var students = studentService.getAllByCourseId(id, pageable);
@@ -118,7 +117,7 @@ public class CourseController {
             @ApiResponse(responseCode = "400", description = "Invalid value of path variable"),
             @ApiResponse(responseCode = "404", description = "Course was not found")
     })
-    public PagedModel<LessonResponseDto> getLessons(
+    public PagedModel<LessonResponseDto> getLessonsByCourseId(
             @PathVariable UUID id,
             @PageableDefault(size = 5, sort = "created") Pageable pageable) {
         var lessons = lessonService.getAllByCourseId(id, pageable);
@@ -147,5 +146,4 @@ public class CourseController {
     public void deleteById(@PathVariable UUID id) {
         courseService.deleteById(id);
     }
-
 }

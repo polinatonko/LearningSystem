@@ -19,5 +19,4 @@ enum EmailComponent {
     public String getMessageCode() {
         return MESSAGE_CODE_TEMPLATE.formatted(parameterName);
     }
-
 }

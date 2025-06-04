@@ -9,9 +9,10 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import static org.example.learningsystem.core.util.format.DataFormatUtils.DATE_TIME_FORMAT;
+import static org.example.learningsystem.core.util.format.DateFormatUtils.DATE_TIME_FORMAT;
 
 public record CourseRequestDto(
+
         UUID id,
 
         @NotBlank
@@ -33,6 +34,5 @@ public record CourseRequestDto(
         @Schema(pattern = "YYYY/MM/dd HH:MM:ss")
         LocalDateTime endDate,
 
-        Boolean isPublic
-) {
+        Boolean isPublic) {
 }
