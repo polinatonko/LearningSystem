@@ -65,5 +65,4 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findByIdForUpdate(id)
                 .orElseThrow(() -> new EntityNotFoundException(Student.class.getName(), id));
     }
-
 }

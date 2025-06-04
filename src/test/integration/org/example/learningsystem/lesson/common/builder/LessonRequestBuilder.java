@@ -34,5 +34,4 @@ public class LessonRequestBuilder {
                 .contentType(APPLICATION_JSON)
                 .content(content);
     }
-
 }

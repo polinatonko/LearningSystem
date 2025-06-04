@@ -82,5 +82,4 @@ public class CloudOauth2TokenClient implements Oauth2TokenClient {
             throw new InvalidApiResponseException("Failed to parse the authentication server response");
         }
     }
-
 }

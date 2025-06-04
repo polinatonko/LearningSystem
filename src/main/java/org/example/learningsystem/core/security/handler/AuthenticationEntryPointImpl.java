@@ -28,5 +28,4 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
         var writer = response.getWriter();
         writer.write(objectMapper.writeValueAsString(errorResponse));
     }
-
 }

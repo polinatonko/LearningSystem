@@ -44,5 +44,4 @@ public class AuditorAwareImpl implements AuditorAware<String> {
                 .map(User.class::cast)
                 .map(User::getUsername);
     }
-
 }

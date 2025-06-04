@@ -41,5 +41,4 @@ public class CourseBuilderIT {
     public static CourseRequestDto buildUpdateCourseRequestDto(UUID id) {
         return new CourseRequestDto(id, TITLE, DESCRIPTION, PRICE, COINS_PAID, START_DATE, END_DATE, IS_PUBLIC);
     }
-
 }

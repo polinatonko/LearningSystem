@@ -38,5 +38,4 @@ public interface EntityValidator<T> {
             );
         }
     }
-
 }

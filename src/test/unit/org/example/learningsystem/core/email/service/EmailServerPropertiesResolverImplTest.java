@@ -76,5 +76,4 @@ class EmailServerPropertiesResolverImplTest {
                 () -> assertEquals(emailServerProperties.getPort(), resolvedEmailServerProperties.getPort())
         );
     }
-
 }

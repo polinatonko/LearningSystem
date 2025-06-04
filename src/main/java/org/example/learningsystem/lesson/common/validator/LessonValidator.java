@@ -28,5 +28,4 @@ public class LessonValidator implements EntityValidator<Lesson> {
             throw new IllegalNullValueException(COURSE_PROPERTY);
         }
     }
-
 }

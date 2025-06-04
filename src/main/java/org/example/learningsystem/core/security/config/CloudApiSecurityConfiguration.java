@@ -76,5 +76,4 @@ public class CloudApiSecurityConfiguration {
                 .accessDeniedHandler(accessDeniedHandler)
                 .authenticationEntryPoint(authenticationEntryPoint);
     }
-
 }

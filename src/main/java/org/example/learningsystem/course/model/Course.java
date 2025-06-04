@@ -62,5 +62,4 @@ public class Course extends AuditableEntity {
         this.settings = settings;
         settings.setCourse(this);
     }
-
 }

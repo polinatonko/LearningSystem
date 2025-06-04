@@ -159,5 +159,4 @@ class CourseEnrollmentServiceImplTest {
         verify(enrollmentRepository, times(1))
                 .deleteById(new CourseEnrollmentId(courseId, studentId));
     }
-
 }

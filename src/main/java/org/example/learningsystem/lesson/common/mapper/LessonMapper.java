@@ -13,8 +13,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.SubclassMapping;
 
-import static org.example.learningsystem.lesson.common.model.LessonTypeConstants.CLASSROOM;
-import static org.example.learningsystem.lesson.common.model.LessonTypeConstants.VIDEO;
+import static org.example.learningsystem.lesson.common.constant.LessonTypeConstants.CLASSROOM;
+import static org.example.learningsystem.lesson.common.constant.LessonTypeConstants.VIDEO;
 import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 
 @Mapper(componentModel = SPRING)
@@ -41,5 +41,4 @@ public interface LessonMapper {
     ClassroomLesson toEntity(ClassroomLessonRequestDto classroomLessonRequestDto);
 
     VideoLesson toEntity(VideoLessonRequestDto videoLessonRequestDto);
-
 }

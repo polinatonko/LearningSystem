@@ -16,5 +16,4 @@ public class AuditConfiguration {
     public AuditorAware<String> auditorProvider() {
         return new AuditorAwareImpl();
     }
-
 }

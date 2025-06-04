@@ -13,5 +13,4 @@ public class DestinationUtils {
         dto.setPort(PORT);
         return dto;
     }
-
 }

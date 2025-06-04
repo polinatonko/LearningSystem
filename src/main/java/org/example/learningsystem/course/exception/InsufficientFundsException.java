@@ -9,5 +9,4 @@ public class InsufficientFundsException extends RuntimeException {
         super("Insufficient funds to purchase the course: %.2f required [courseId = %s, studentId = %s]"
                 .formatted(price, courseId, studentId));
     }
-
 }

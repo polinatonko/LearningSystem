@@ -181,5 +181,4 @@ class StudentControllerIT extends AbstractCommonIT {
         var savedStudent = studentService.create(student);
         return savedStudent.getId();
     }
-
 }

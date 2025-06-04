@@ -28,5 +28,4 @@ public class AccessDeniedHandlerImpl implements AccessDeniedHandler {
         var writer = response.getWriter();
         writer.write(objectMapper.writeValueAsString(errorResponse));
     }
-
 }

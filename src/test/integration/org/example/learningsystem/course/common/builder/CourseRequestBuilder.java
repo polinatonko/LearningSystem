@@ -53,5 +53,4 @@ public class CourseRequestBuilder {
                 .contentType(APPLICATION_JSON)
                 .content(content);
     }
-
 }

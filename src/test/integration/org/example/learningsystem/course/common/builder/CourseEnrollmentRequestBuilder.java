@@ -18,5 +18,4 @@ public class CourseEnrollmentRequestBuilder {
     public static RequestBuilder buildUnenrollRequest(UUID courseId, UUID studentId) {
         return delete(ENROLLMENT_URL, courseId, studentId);
     }
-
 }

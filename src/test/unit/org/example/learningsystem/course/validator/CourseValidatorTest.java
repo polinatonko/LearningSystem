@@ -77,5 +77,4 @@ class CourseValidatorTest {
         settings.setStartDate(LocalDateTime.of(2025, 2, 1, 10, 0, 0));
         settings.setEndDate(LocalDateTime.of(2025, 1, 1, 10, 0, 0));
     }
-
 }

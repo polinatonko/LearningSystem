@@ -52,5 +52,4 @@ public class Student extends AuditableEntity {
 
     @OneToMany(mappedBy = "student", cascade = ALL)
     private Set<CourseEnrollment> enrollments;
-
 }

@@ -8,8 +8,8 @@ import org.example.learningsystem.lesson.video.model.VideoLesson;
 
 import java.util.UUID;
 
-import static org.example.learningsystem.lesson.common.model.LessonTypeConstants.CLASSROOM;
-import static org.example.learningsystem.lesson.common.model.LessonTypeConstants.VIDEO;
+import static org.example.learningsystem.lesson.common.constant.LessonTypeConstants.CLASSROOM;
+import static org.example.learningsystem.lesson.common.constant.LessonTypeConstants.VIDEO;
 
 public class LessonBuilderIT {
 
@@ -85,5 +85,4 @@ public class LessonBuilderIT {
                 .courseId(courseId)
                 .build();
     }
-
 }

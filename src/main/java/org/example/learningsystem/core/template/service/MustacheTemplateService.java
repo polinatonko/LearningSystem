@@ -26,5 +26,4 @@ public class MustacheTemplateService implements RenderTemplateService {
             throw new RenderTemplateException("Error during rendering %s: %s".formatted(path, e.getMessage()));
         }
     }
-
 }

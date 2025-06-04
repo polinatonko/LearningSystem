@@ -16,5 +16,4 @@ public class EmailServerPropertiesUtils {
     public static EmailServerPropertiesConfiguration buildEmailServerPropertiesConfiguration() {
         return new EmailServerPropertiesConfiguration(FROM, USER, PASSWORD, HOST, PORT, PROTOCOL, AUTH, STARTTLS_ENABLED);
     }
-
 }

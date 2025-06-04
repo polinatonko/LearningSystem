@@ -39,5 +39,4 @@ public class CourseEnrollment {
         this.student = student;
         this.id = new CourseEnrollmentId(course.getId(), student.getId());
     }
-
 }

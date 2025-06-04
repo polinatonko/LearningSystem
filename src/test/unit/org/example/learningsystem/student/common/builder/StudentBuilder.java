@@ -57,5 +57,4 @@ public class StudentBuilder {
                 .lastChanged(lastChanged)
                 .build();
     }
-
 }

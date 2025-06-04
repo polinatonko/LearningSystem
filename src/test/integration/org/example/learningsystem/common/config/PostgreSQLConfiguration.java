@@ -25,5 +25,4 @@ public class PostgreSQLConfiguration {
                 .withUsername(username)
                 .withPassword(password);
     }
-
 }

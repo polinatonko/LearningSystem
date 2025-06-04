@@ -15,5 +15,4 @@ public class LocalDestinationServiceImpl implements DestinationService {
     public DestinationDto getByName(String name) {
         return null;
     }
-
 }

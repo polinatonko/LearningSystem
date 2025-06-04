@@ -45,5 +45,4 @@ public class PaginatedRequestBuilder {
         var direction = order.getDirection();
         return ORDER_FORMAT.formatted(property, direction);
     }
-
 }

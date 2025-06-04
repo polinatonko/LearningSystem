@@ -84,5 +84,4 @@ public class LocalSecurityConfiguration {
                 .accessDeniedHandler(accessDeniedHandler)
                 .authenticationEntryPoint(authenticationEntryPoint);
     }
-
 }

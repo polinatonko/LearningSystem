@@ -48,5 +48,4 @@ public class StudentBuilderIT {
                 COINS,
                 LOCALE);
     }
-
 }

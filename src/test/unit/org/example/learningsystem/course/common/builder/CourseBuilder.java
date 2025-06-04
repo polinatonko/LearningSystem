@@ -83,5 +83,4 @@ public class CourseBuilder {
         course.setSettings(settings);
         return course;
     }
-
 }

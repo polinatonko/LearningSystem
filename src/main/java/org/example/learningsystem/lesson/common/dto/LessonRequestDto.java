@@ -16,8 +16,8 @@ import java.util.UUID;
 
 import static com.fasterxml.jackson.annotation.JsonTypeInfo.As.EXISTING_PROPERTY;
 import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
-import static org.example.learningsystem.lesson.common.model.LessonTypeConstants.CLASSROOM;
-import static org.example.learningsystem.lesson.common.model.LessonTypeConstants.VIDEO;
+import static org.example.learningsystem.lesson.common.constant.LessonTypeConstants.CLASSROOM;
+import static org.example.learningsystem.lesson.common.constant.LessonTypeConstants.VIDEO;
 
 @JsonTypeInfo(use = NAME, include = EXISTING_PROPERTY, property = "type", visible = true)
 @JsonSubTypes({

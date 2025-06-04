@@ -212,5 +212,4 @@ class CourseEnrollmentControllerIT extends AbstractCommonIT {
             studentService.deleteById(studentId);
         }
     }
-
 }

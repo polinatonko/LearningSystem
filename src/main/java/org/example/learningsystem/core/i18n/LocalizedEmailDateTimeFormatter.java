@@ -31,5 +31,4 @@ public class LocalizedEmailDateTimeFormatter {
                 ? date.format(formatter.withLocale(locale))
                 : EMPTY_DATE;
     }
-
 }

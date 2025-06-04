@@ -16,5 +16,4 @@ public class FeatureFlagTypeMismatchException extends UnsupportedOperationExcept
         super("Requested feature flag must be of type %s [featureName = %s]"
                 .formatted(flagType, featureName));
     }
-
 }

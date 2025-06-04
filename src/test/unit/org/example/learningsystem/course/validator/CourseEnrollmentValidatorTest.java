@@ -103,5 +103,4 @@ class CourseEnrollmentValidatorTest {
                 .coins(coins)
                 .build();
     }
-
 }

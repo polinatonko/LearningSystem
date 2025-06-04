@@ -198,5 +198,4 @@ class LessonControllerIT extends AbstractCommonIT {
         var course = buildCourse();
         return courseService.create(course);
     }
-
 }

@@ -281,5 +281,4 @@ class CourseControllerIT extends AbstractCommonIT {
         var savedCourse = courseService.create(course);
         return savedCourse.getId();
     }
-
 }

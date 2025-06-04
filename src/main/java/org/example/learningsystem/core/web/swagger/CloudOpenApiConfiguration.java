@@ -48,5 +48,4 @@ public class CloudOpenApiConfiguration extends OpenApiConfiguration {
             customizePath(openApi, actuatorPredicate.negate(), BEARER_AUTH_SCHEME);
         };
     }
-
 }

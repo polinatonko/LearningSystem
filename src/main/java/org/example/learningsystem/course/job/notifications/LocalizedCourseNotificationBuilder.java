@@ -81,5 +81,4 @@ public class LocalizedCourseNotificationBuilder implements CourseNotificationBui
     private String resolveFooter(Locale locale) {
         return resolveComponent(FOOTER, null, locale);
     }
-
 }

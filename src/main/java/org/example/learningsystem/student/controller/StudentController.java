@@ -92,5 +92,4 @@ public class StudentController {
     public void deleteById(@PathVariable UUID id) {
         studentService.deleteById(id);
     }
-
 }

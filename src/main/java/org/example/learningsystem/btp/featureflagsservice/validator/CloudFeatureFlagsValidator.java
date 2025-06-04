@@ -35,5 +35,4 @@ public class CloudFeatureFlagsValidator implements FeatureFlagsValidator {
             throw new FeatureFlagTypeMismatchException(requiredType, flag.featureName());
         }
     }
-
 }

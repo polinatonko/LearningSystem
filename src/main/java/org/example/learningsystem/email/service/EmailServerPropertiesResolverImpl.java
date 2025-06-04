@@ -41,5 +41,4 @@ public class EmailServerPropertiesResolverImpl implements EmailServerPropertiesR
         var mailDestination = destinationService.getByName(SMTP_DESTINATION);
         return (EmailServerProperties) mailDestination;
     }
-
 }

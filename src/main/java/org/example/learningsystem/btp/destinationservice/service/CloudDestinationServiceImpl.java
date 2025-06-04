@@ -62,5 +62,4 @@ public class CloudDestinationServiceImpl implements DestinationService {
         var clientSecret = properties.getClientSecret();
         oauth2TokenClient.refresh(tokenUrl, clientId, clientSecret);
     }
-
 }

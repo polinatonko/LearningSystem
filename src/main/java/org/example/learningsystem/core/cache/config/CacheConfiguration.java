@@ -36,5 +36,4 @@ public class CacheConfiguration {
                 .expireAfterWrite(Duration.ofMinutes(ACCESS_TOKENS_CACHE_TTL_MINUTES))
                 .recordStats();
     }
-
 }

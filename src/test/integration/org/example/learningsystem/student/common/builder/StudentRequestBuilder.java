@@ -41,5 +41,4 @@ public class StudentRequestBuilder {
                 .contentType(APPLICATION_JSON)
                 .content(content);
     }
-
 }

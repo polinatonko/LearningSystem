@@ -84,5 +84,4 @@ public class OpenApiConfiguration {
                         operation.setSecurity(Collections.singletonList(securityRequirement))
                 );
     }
-
 }

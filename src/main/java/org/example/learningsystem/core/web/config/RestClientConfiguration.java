@@ -14,5 +14,4 @@ public class RestClientConfiguration {
     public RestClient restClient(RestClient.Builder restClientBuilder) {
         return restClientBuilder.build();
     }
-
 }

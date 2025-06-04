@@ -65,5 +65,4 @@ public class CourseServiceImpl implements CourseService {
     public void deleteById(UUID id) {
         courseRepository.deleteById(id);
     }
-
 }

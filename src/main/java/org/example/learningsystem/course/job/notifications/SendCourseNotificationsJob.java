@@ -22,5 +22,4 @@ public class SendCourseNotificationsJob {
         var upcomingCourses = courseService.getUpcoming(reminderProperties.getDaysBefore());
         courseNotificationsService.send(upcomingCourses);
     }
-
 }

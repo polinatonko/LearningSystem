@@ -146,5 +146,4 @@ public class CourseController {
     public void deleteById(@PathVariable UUID id) {
         courseService.deleteById(id);
     }
-
 }

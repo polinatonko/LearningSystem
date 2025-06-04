@@ -49,5 +49,4 @@ public class SecurityConfiguration {
                 .roles(STUDENT.toString())
                 .build();
     }
-
 }

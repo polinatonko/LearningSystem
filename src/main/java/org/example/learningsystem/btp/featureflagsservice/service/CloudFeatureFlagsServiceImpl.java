@@ -51,5 +51,4 @@ public class CloudFeatureFlagsServiceImpl implements FeatureFlagsService {
         var authorizationHeader = HttpHeaders.encodeBasicAuth(username, password, null);
         headers.setBasicAuth(authorizationHeader);
     }
-
 }
