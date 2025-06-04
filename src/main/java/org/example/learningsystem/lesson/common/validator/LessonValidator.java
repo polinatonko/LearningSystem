@@ -1,7 +1,7 @@
-package org.example.learningsystem.lesson.validator;
+package org.example.learningsystem.lesson.common.validator;
 
 import org.example.learningsystem.core.util.validator.EntityValidator;
-import org.example.learningsystem.lesson.model.Lesson;
+import org.example.learningsystem.lesson.common.model.Lesson;
 import org.example.learningsystem.core.exception.model.validation.IllegalNullValueException;
 import org.springframework.stereotype.Component;
 

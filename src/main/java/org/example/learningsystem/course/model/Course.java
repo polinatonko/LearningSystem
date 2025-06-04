@@ -19,7 +19,7 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.example.learningsystem.core.audit.model.AuditableEntity;
-import org.example.learningsystem.lesson.model.Lesson;
+import org.example.learningsystem.lesson.common.model.Lesson;
 import org.hibernate.annotations.DynamicInsert;
 
 import static jakarta.persistence.CascadeType.ALL;

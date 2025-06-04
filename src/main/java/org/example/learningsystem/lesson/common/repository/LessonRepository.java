@@ -1,6 +1,6 @@
-package org.example.learningsystem.lesson.repository;
+package org.example.learningsystem.lesson.common.repository;
 
-import org.example.learningsystem.lesson.model.Lesson;
+import org.example.learningsystem.lesson.common.model.Lesson;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,6 +1,6 @@
-package org.example.learningsystem.lesson.service;
+package org.example.learningsystem.lesson.common.service;
 
-import org.example.learningsystem.lesson.model.Lesson;
+import org.example.learningsystem.lesson.common.model.Lesson;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

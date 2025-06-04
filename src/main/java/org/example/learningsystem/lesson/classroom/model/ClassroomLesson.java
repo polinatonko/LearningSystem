@@ -1,4 +1,4 @@
-package org.example.learningsystem.lesson.model;
+package org.example.learningsystem.lesson.classroom.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+import org.example.learningsystem.lesson.common.model.Lesson;
 
 @Entity
 @Table(name = "classroom_lesson")

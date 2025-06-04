@@ -1,4 +1,4 @@
-package org.example.learningsystem.lesson.dto;
+package org.example.learningsystem.lesson.common.dto;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -9,15 +9,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import org.example.learningsystem.lesson.dto.classroomlesson.ClassroomLessonRequestDto;
-import org.example.learningsystem.lesson.dto.videolesson.VideoLessonRequestDto;
+import org.example.learningsystem.lesson.classroom.dto.ClassroomLessonRequestDto;
+import org.example.learningsystem.lesson.video.dto.VideoLessonRequestDto;
 
 import java.util.UUID;
 
 import static com.fasterxml.jackson.annotation.JsonTypeInfo.As.EXISTING_PROPERTY;
 import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
-import static org.example.learningsystem.lesson.model.LessonTypeConstants.CLASSROOM;
-import static org.example.learningsystem.lesson.model.LessonTypeConstants.VIDEO;
+import static org.example.learningsystem.lesson.common.model.LessonTypeConstants.CLASSROOM;
+import static org.example.learningsystem.lesson.common.model.LessonTypeConstants.VIDEO;
 
 @JsonTypeInfo(use = NAME, include = EXISTING_PROPERTY, property = "type", visible = true)
 @JsonSubTypes({

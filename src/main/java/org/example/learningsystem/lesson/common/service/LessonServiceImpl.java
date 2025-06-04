@@ -1,11 +1,11 @@
-package org.example.learningsystem.lesson.service;
+package org.example.learningsystem.lesson.common.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.core.util.validator.EntityValidator;
 import org.example.learningsystem.course.model.Course;
-import org.example.learningsystem.lesson.model.Lesson;
+import org.example.learningsystem.lesson.common.model.Lesson;
 import org.example.learningsystem.core.exception.model.EntityNotFoundException;
-import org.example.learningsystem.lesson.repository.LessonRepository;
+import org.example.learningsystem.lesson.common.repository.LessonRepository;
 import org.example.learningsystem.course.service.CourseService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

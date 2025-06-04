@@ -1,6 +1,5 @@
-package org.example.learningsystem.lesson.dto.classroomlesson;
+package org.example.learningsystem.lesson.video.dto;
 
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -8,19 +7,21 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import org.example.learningsystem.lesson.dto.LessonRequestDto;
+import org.example.learningsystem.lesson.common.dto.LessonRequestDto;
+import org.hibernate.validator.constraints.URL;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
-public class ClassroomLessonRequestDto extends LessonRequestDto {
+public class VideoLessonRequestDto extends LessonRequestDto {
 
     @NotBlank
-    @Size(max = 100)
-    private String location;
+    @Size(max = 256)
+    @URL
+    private String url;
 
-    @Min(1)
-    private Integer capacity;
+    @Size(max = 100)
+    private String platform;
 }

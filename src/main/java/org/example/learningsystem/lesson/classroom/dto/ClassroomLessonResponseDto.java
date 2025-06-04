@@ -1,9 +1,9 @@
-package org.example.learningsystem.lesson.dto.classroomlesson;
+package org.example.learningsystem.lesson.classroom.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
-import org.example.learningsystem.lesson.dto.LessonResponseDto;
+import org.example.learningsystem.lesson.common.dto.LessonResponseDto;
 
 @Schema
 @Getter

@@ -1,4 +1,4 @@
-package org.example.learningsystem.lesson.controller;
+package org.example.learningsystem.lesson.common.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -6,10 +6,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.learningsystem.lesson.dto.LessonRequestDto;
-import org.example.learningsystem.lesson.dto.LessonResponseDto;
-import org.example.learningsystem.lesson.mapper.LessonMapper;
-import org.example.learningsystem.lesson.service.LessonService;
+import org.example.learningsystem.lesson.common.dto.LessonRequestDto;
+import org.example.learningsystem.lesson.common.dto.LessonResponseDto;
+import org.example.learningsystem.lesson.common.mapper.LessonMapper;
+import org.example.learningsystem.lesson.common.service.LessonService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.PagedModel;

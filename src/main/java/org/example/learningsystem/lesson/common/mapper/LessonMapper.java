@@ -1,20 +1,20 @@
-package org.example.learningsystem.lesson.mapper;
+package org.example.learningsystem.lesson.common.mapper;
 
-import org.example.learningsystem.lesson.dto.classroomlesson.ClassroomLessonRequestDto;
-import org.example.learningsystem.lesson.dto.classroomlesson.ClassroomLessonResponseDto;
-import org.example.learningsystem.lesson.dto.videolesson.VideoLessonRequestDto;
-import org.example.learningsystem.lesson.dto.videolesson.VideoLessonResponseDto;
-import org.example.learningsystem.lesson.model.ClassroomLesson;
-import org.example.learningsystem.lesson.model.Lesson;
-import org.example.learningsystem.lesson.dto.LessonRequestDto;
-import org.example.learningsystem.lesson.dto.LessonResponseDto;
-import org.example.learningsystem.lesson.model.VideoLesson;
+import org.example.learningsystem.lesson.classroom.dto.ClassroomLessonRequestDto;
+import org.example.learningsystem.lesson.classroom.dto.ClassroomLessonResponseDto;
+import org.example.learningsystem.lesson.video.dto.VideoLessonRequestDto;
+import org.example.learningsystem.lesson.video.dto.VideoLessonResponseDto;
+import org.example.learningsystem.lesson.classroom.model.ClassroomLesson;
+import org.example.learningsystem.lesson.common.model.Lesson;
+import org.example.learningsystem.lesson.common.dto.LessonRequestDto;
+import org.example.learningsystem.lesson.common.dto.LessonResponseDto;
+import org.example.learningsystem.lesson.video.model.VideoLesson;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.SubclassMapping;
 
-import static org.example.learningsystem.lesson.model.LessonTypeConstants.CLASSROOM;
-import static org.example.learningsystem.lesson.model.LessonTypeConstants.VIDEO;
+import static org.example.learningsystem.lesson.common.model.LessonTypeConstants.CLASSROOM;
+import static org.example.learningsystem.lesson.common.model.LessonTypeConstants.VIDEO;
 import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 
 @Mapper(componentModel = SPRING)

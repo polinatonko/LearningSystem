@@ -2,6 +2,11 @@ spring:
   config:
     import: secrets-local.yaml
 
+  datasource:
+    url: jdbc:postgresql://localhost:5432/lms
+    username: test
+    password: test
+
   jpa:
     show-sql: true
 
@@ -11,3 +16,13 @@ logging:
     org:
       springframework:
         cache: trace
+
+mail:
+  from: hello@demomailtrap.co
+  user: smtp@mailtrap.io
+  password:
+  host: live.smtp.mailtrap.io
+  port: 587
+  protocol: smtp
+  auth: true
+  start-tls-enable: true

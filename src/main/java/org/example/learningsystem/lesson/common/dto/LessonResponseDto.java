@@ -1,4 +1,4 @@
-package org.example.learningsystem.lesson.dto;
+package org.example.learningsystem.lesson.common.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;

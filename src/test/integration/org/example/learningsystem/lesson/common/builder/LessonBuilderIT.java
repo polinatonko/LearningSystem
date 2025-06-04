@@ -1,15 +1,15 @@
 package org.example.learningsystem.lesson.common.builder;
 
 import org.example.learningsystem.course.model.Course;
-import org.example.learningsystem.lesson.dto.classroomlesson.ClassroomLessonRequestDto;
-import org.example.learningsystem.lesson.dto.videolesson.VideoLessonRequestDto;
-import org.example.learningsystem.lesson.model.ClassroomLesson;
-import org.example.learningsystem.lesson.model.VideoLesson;
+import org.example.learningsystem.lesson.classroom.dto.ClassroomLessonRequestDto;
+import org.example.learningsystem.lesson.video.dto.VideoLessonRequestDto;
+import org.example.learningsystem.lesson.classroom.model.ClassroomLesson;
+import org.example.learningsystem.lesson.video.model.VideoLesson;
 
 import java.util.UUID;
 
-import static org.example.learningsystem.lesson.model.LessonTypeConstants.CLASSROOM;
-import static org.example.learningsystem.lesson.model.LessonTypeConstants.VIDEO;
+import static org.example.learningsystem.lesson.common.model.LessonTypeConstants.CLASSROOM;
+import static org.example.learningsystem.lesson.common.model.LessonTypeConstants.VIDEO;
 
 public class LessonBuilderIT {
 
