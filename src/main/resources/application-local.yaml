@@ -26,3 +26,26 @@ mail:
   protocol: smtp
   auth: true
   start-tls-enable: true
+
+approuter:
+  url:
+
+xsuaa:
+  client-id:
+  client-secret:
+  token-url:
+
+application:
+  dependencies:
+    -
+
+sap:
+  security:
+    services:
+      xsuaa:
+        xsappname: xsapp!t0815
+        uaadomain: localhost
+        clientid: sb-clientId!t0815
+        clientsecret: pwd
+        url: http://localhost
+        plan: application

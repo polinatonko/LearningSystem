@@ -13,24 +13,37 @@ modules:
       health-check-timeout: 30
       memory: 1500M
       routes:
-        - route: ${app-name}-${space}.${domain}
+        - route: ${protocol}://${app-name}-${space}.${domain}
     build-parameters:
-      builder: maven
+      commands:
+        - mvn clean package -Dmaven.test.skip=true
       build-result: target/*.jar
-    properties:
-      SPRING_PROFILES_ACTIVE: cloud
-      JBP_CONFIG_COMPONENTS: "jres: ['com.sap.xs.java.buildpack.jdk.SAPMachineJDK']"
-      JBP_CONFIG_JAVA_OPTS: "[java_opts: '-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000']"
-      JBP_CONFIG_SAP_MACHINE_JDK: "{ version: 21.+ }"
-      TARGET_RUNTIME: tomcat
 
     requires:
+      - name: approuter-api
       - name: lms-logs
       - name: lms-hana-schema
       - name: lms-feature-flags
       - name: lms-user-service
       - name: lms-destination-service
       - name: lms-xsuaa
+      - name: lms-saas-provisioning-service
+
+    properties:
+      SPRING_PROFILES_ACTIVE: cloud
+      JBP_CONFIG_COMPONENTS: "jres: ['com.sap.xs.java.buildpack.jdk.SAPMachineJDK']"
+      JBP_CONFIG_JAVA_OPTS: "[java_opts: '-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000']"
+      JBP_CONFIG_SAP_MACHINE_JDK: "{ version: 21.+ }"
+      TARGET_RUNTIME: tomcat
+      APPROUTER_URL: ~{approuter-api/url}
+      SAP_JWT_TRUST_ACL:
+        - clientid: "*"
+          identityzone: sap-provisioning
+
+    provides:
+      - name: lms-api
+        properties:
+          url: ${routes/0/route}
 
   - name: lms-approuter
     type: nodejs
@@ -38,14 +51,22 @@ modules:
     parameters:
       disk-quota: 256M
       memory: 256M
+      routes:
+        - route: ${org}-${app-name}-${space}.${domain}
     requires:
-      - name: lms
+      - name: lms-api
         group: destinations
         properties:
-          name: lms
-          url: https://lms-dev.cfapps.us10-001.hana.ondemand.com
+          name: lms-api
+          url: ~{url}
           forwardAuthToken: true
       - name: lms-xsuaa
+    properties:
+      TENANT_HOST_PATTERN: "^(.*)-${app-name}-${space}.${domain}"
+    provides:
+      - name: approuter-api
+        properties:
+          url: ${routes/0/route}
 
 resources:
   - name: lms-xsuaa
@@ -81,3 +102,10 @@ resources:
 
   - name: lms-user-service
     type: org.cloudfoundry.user-provided-service
+
+  - name: lms-saas-provisioning-service
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: saas-registry
+      service-plan: application
+      path: btp/saas-provisioning/config.json

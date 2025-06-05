@@ -45,6 +45,7 @@ public class LocalSecurityConfiguration {
                 .authorizeHttpRequests(this::configureActuatorAuthorization)
                 .httpBasic(withDefaults())
                 .exceptionHandling(this::configureExceptionHandling)
+                //.addFilterAfter(identifyTenantFilter, AuthorizationFilter.class)
                 .build();
     }
 

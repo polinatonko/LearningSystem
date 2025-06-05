@@ -1,8 +1,8 @@
 package org.example.learningsystem.core.security.config;
 
-import com.sap.cloud.security.spring.config.XsuaaServiceConfiguration;
-import com.sap.cloud.security.spring.token.authentication.XsuaaTokenAuthorizationConverter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.example.learningsystem.core.security.converter.JwtConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -20,22 +20,25 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
-import static com.sap.cloud.security.config.ServiceConstants.XSUAA.APP_ID;
+import static org.example.learningsystem.core.security.role.UserRole.ADMIN;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
 @Profile("cloud")
 @RequiredArgsConstructor
+@Slf4j
 public class CloudApiSecurityConfiguration {
 
     private static final int API_FILTER_CHAIN_ORDER = 2;
     private static final String ALL_ENDPOINTS = "/**";
     private static final String API_DOCS_ENDPOINTS = "/v3/api-docs/**";
     private static final String SWAGGER_ENDPOINTS = "/swagger-ui/**";
+    private static final String API_CALLBACK_ENDPOINT = "/api/v1/callback/**";
+    private static final String API_INFO_ENDPOINT = "/api/v1/application-info";
 
     private final AccessDeniedHandler accessDeniedHandler;
     private final AuthenticationEntryPoint authenticationEntryPoint;
-    private final XsuaaServiceConfiguration xsuaaServiceConfiguration;
+    private final Converter<Jwt, AbstractAuthenticationToken> xsuaaConverter;
 
     @Bean
     @Order(API_FILTER_CHAIN_ORDER)
@@ -52,8 +55,8 @@ public class CloudApiSecurityConfiguration {
     }
 
     @Bean
-    public Converter<Jwt, AbstractAuthenticationToken> xsuaaAuthConverter() {
-        return new XsuaaTokenAuthorizationConverter(xsuaaServiceConfiguration.getProperty(APP_ID));
+    public Converter<Jwt, AbstractAuthenticationToken> customXsuaaAuthConverter() {
+        return new JwtConverter(xsuaaConverter);
     }
 
     private void configureSession(SessionManagementConfigurer<HttpSecurity> session) {
@@ -62,13 +65,15 @@ public class CloudApiSecurityConfiguration {
 
     private void configureAuthorization(AuthorizeHttpRequestsConfigurer<?>.AuthorizationManagerRequestMatcherRegistry auth) {
         auth
+                .requestMatchers(API_CALLBACK_ENDPOINT).hasAuthority("Callback")
                 .requestMatchers(API_DOCS_ENDPOINTS).permitAll()
                 .requestMatchers(SWAGGER_ENDPOINTS).permitAll()
+                .requestMatchers(API_INFO_ENDPOINT).hasRole(ADMIN.toString())
                 .anyRequest().authenticated();
     }
 
     private void configureOauth2ResourceServer(OAuth2ResourceServerConfigurer<HttpSecurity> oauth2ResourceServer) {
-        oauth2ResourceServer.jwt(jwt -> jwt.jwtAuthenticationConverter(xsuaaAuthConverter()));
+        oauth2ResourceServer.jwt(jwt -> jwt.jwtAuthenticationConverter(customXsuaaAuthConverter()));
     }
 
     private void configureExceptionHandling(ExceptionHandlingConfigurer<HttpSecurity> exceptionHandler) {

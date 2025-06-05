@@ -14,6 +14,9 @@ spring:
         jwt:
           issuer-uri: ${vcap.services.lms-xsuaa.credentials.url}/oauth/token
 
+approuter:
+  url: ${approuter-url}
+
 feature-flags:
   uri: ${vcap.services.lms-feature-flags.credentials.uri}
   username: ${vcap.services.lms-feature-flags.credentials.username}
@@ -34,3 +37,17 @@ mail:
   protocol: ${vcap.services.lms-user-service.credentials.protocol}
   auth: ${vcap.services.lms-user-service.credentials.auth}
   start-tls-enable: ${vcap.services.lms-user-service.credentials.startTls}
+
+application:
+  dependencies:
+    - ${vcap.services.lms-destination-service.credentials.xsappname}
+
+sap:
+  security:
+    services:
+      xsuaa:
+        xsappname: ${vcap.services.lms-xsuaa.credentials.xsappname}
+        uaadomain: ${vcap.services.lms-xsuaa.credentials.uaadomain}
+        clientid: ${vcap.services.lms-xsuaa.credentials.clientid}
+        clientsecret: ${vcap.services.lms-xsuaa.credentials.clientsecret}
+        url: ${vcap.services.lms-xsuaa.credentials.url}
