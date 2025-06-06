@@ -3,6 +3,7 @@ package org.example.learningsystem.core.security.config;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.learningsystem.core.security.converter.JwtConverter;
+import org.example.learningsystem.core.web.tenant.TenantIdentifierFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -19,6 +20,7 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.access.intercept.AuthorizationFilter;
 
 import static org.example.learningsystem.core.security.constant.ApiConstants.API_CALLBACK_ENDPOINT;
 import static org.example.learningsystem.core.security.constant.ApiConstants.API_DOCS_ENDPOINTS;
@@ -37,6 +39,7 @@ public class CloudApiSecurityConfiguration {
 
     private final AccessDeniedHandler accessDeniedHandler;
     private final AuthenticationEntryPoint authenticationEntryPoint;
+    private final TenantIdentifierFilter identityTenantFilter;
     private final Converter<Jwt, AbstractAuthenticationToken> xsuaaConverter;
 
     @Bean
@@ -49,6 +52,7 @@ public class CloudApiSecurityConfiguration {
                 .authorizeHttpRequests(this::configureAuthorization)
                 .oauth2ResourceServer(this::configureOauth2ResourceServer)
                 .exceptionHandling(this::configureExceptionHandling)
+                .addFilterAfter(identityTenantFilter, AuthorizationFilter.class)
                 .build();
     }
 
