@@ -8,31 +8,24 @@ import org.springframework.context.annotation.Configuration;
 
 import java.time.Duration;
 
+import static org.example.learningsystem.core.cache.constant.CacheConstants.ACCESS_TOKENS_CACHE_MAXIMUM_SIZE;
+import static org.example.learningsystem.core.cache.constant.CacheConstants.ACCESS_TOKENS_CACHE_NAME;
+import static org.example.learningsystem.core.cache.constant.CacheConstants.ACCESS_TOKENS_CACHE_TTL_MINUTES;
+
 @Configuration
 @EnableCaching
 public class CacheConfiguration {
 
-    private static final String ACCESS_TOKENS_CACHE_NAME = "access_tokens";
-    private static final int ACCESS_TOKENS_CACHE_TTL_MINUTES = 60 * 12;
-    private static final int DEFAULT_CACHE_MAXIMUM_SIZE = 500;
-    private static final int DEFAULT_CACHE_TTL_MINUTES = 3;
-
     @Bean
     public CaffeineCacheManager caffeineCacheManager() {
-        var cacheManager = new CaffeineCacheManager();
-        cacheManager.setCaffeine(defaultCacheBuilder());
-        cacheManager.registerCustomCache(ACCESS_TOKENS_CACHE_NAME, accessTokenCacheBuilder().build());
+        var cacheManager = new CaffeineCacheManager(ACCESS_TOKENS_CACHE_NAME);
+        cacheManager.setCaffeine(cacheBuilder());
         return cacheManager;
     }
 
-    public Caffeine<Object, Object> defaultCacheBuilder() {
+    public Caffeine<Object, Object> cacheBuilder() {
         return Caffeine.newBuilder()
-                .maximumSize(DEFAULT_CACHE_MAXIMUM_SIZE)
-                .expireAfterWrite(Duration.ofMinutes(DEFAULT_CACHE_TTL_MINUTES));
-    }
-
-    public Caffeine<Object, Object> accessTokenCacheBuilder() {
-        return Caffeine.newBuilder()
+                .maximumSize(ACCESS_TOKENS_CACHE_MAXIMUM_SIZE)
                 .expireAfterWrite(Duration.ofMinutes(ACCESS_TOKENS_CACHE_TTL_MINUTES))
                 .recordStats();
     }
