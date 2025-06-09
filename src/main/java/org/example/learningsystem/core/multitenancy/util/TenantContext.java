@@ -1,4 +1,4 @@
-package org.example.learningsystem.core.web.tenant;
+package org.example.learningsystem.core.multitenancy.util;
 
 public class TenantContext {
 
