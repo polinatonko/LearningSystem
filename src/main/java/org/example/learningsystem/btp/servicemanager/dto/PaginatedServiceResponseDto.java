@@ -1,0 +1,14 @@
+package org.example.learningsystem.btp.servicemanager.dto;
+
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
+import java.util.List;
+
+import static com.fasterxml.jackson.databind.PropertyNamingStrategies.SnakeCaseStrategy;
+
+@JsonNaming(SnakeCaseStrategy.class)
+public record PaginatedServiceResponseDto<T>(
+        Integer numItems,
+        List<T> items
+) {
+}

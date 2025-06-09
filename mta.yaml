@@ -27,6 +27,7 @@ modules:
       - name: lms-destination-service
       - name: lms-xsuaa
       - name: lms-saas-provisioning-service
+      - name: service-manager
 
     properties:
       SPRING_PROFILES_ACTIVE: cloud
@@ -40,6 +41,9 @@ modules:
       - name: lms-api
         properties:
           url: ${routes/0/route}
+      - name: lms-api-actuator
+        properties:
+          url: ${routes/0/route}/actuator
 
   - name: lms-approuter
     type: nodejs
@@ -105,3 +109,9 @@ resources:
       service: saas-registry
       service-plan: application
       path: btp/saas-provisioning/config.json
+
+  - name: service-manager
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: service-manager
+      service-plan: container

@@ -49,17 +49,11 @@ public class CloudDestinationServiceImpl implements DestinationService {
     }
 
     private void addBearerAuthenticationHeader(HttpHeaders headers) {
-        var tokenUrl = properties.getTokenUrl();
-        var clientId = properties.getClientId();
-        var clientSecret = properties.getClientSecret();
-        var accessToken = oauth2TokenClient.get(tokenUrl, clientId, clientSecret);
+        var accessToken = oauth2TokenClient.get(properties);
         headers.setBearerAuth(accessToken);
     }
 
     private void refreshToken() {
-        var tokenUrl = properties.getTokenUrl();
-        var clientId = properties.getClientId();
-        var clientSecret = properties.getClientSecret();
-        oauth2TokenClient.refresh(tokenUrl, clientId, clientSecret);
+        oauth2TokenClient.refresh(properties);
     }
 }

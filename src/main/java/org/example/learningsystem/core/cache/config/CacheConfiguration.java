@@ -15,7 +15,7 @@ public class CacheConfiguration {
     private static final String ACCESS_TOKENS_CACHE_NAME = "access_tokens";
     private static final int ACCESS_TOKENS_CACHE_TTL_MINUTES = 60 * 12;
     private static final int DEFAULT_CACHE_MAXIMUM_SIZE = 500;
-    private static final int DEFAULT_CACHE_TTL_MINUTES = 60;
+    private static final int DEFAULT_CACHE_TTL_MINUTES = 3;
 
     @Bean
     public CaffeineCacheManager caffeineCacheManager() {

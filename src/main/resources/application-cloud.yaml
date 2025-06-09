@@ -51,3 +51,9 @@ sap:
         clientid: ${vcap.services.lms-xsuaa.credentials.clientid}
         clientsecret: ${vcap.services.lms-xsuaa.credentials.clientsecret}
         url: ${vcap.services.lms-xsuaa.credentials.url}
+
+service-manager:
+  client-id: ${vcap.services.service-manager.credentials.clientid}
+  client-secret:  ${vcap.services.service-manager.credentials.clientsecret}
+  token-url: ${vcap.services.service-manager.credentials.url}
+  url: ${vcap.services.service-manager.credentials.sm_url}

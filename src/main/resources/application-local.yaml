@@ -49,3 +49,9 @@ sap:
         clientsecret: pwd
         url: http://localhost
         plan: application
+
+service-manager:
+  client-id:
+  client-secret:
+  token-url:
+  url:

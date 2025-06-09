@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 @RestController
 @RequestMapping("/api/v1/callback")
@@ -32,6 +35,7 @@ public class SubscriptionController {
     }
 
     @DeleteMapping("/tenants/{tenantId}")
+    @ResponseStatus(NO_CONTENT)
     public void unsubscribe(
             @PathVariable("tenantId") String tenantId, @RequestBody SubscriptionRequestDto subscription) {
         log.info("Delete subscription callback [tenantId = {}, subdomain = {}]", tenantId, subscription.subscribedSubdomain());
