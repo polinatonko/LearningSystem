@@ -57,3 +57,5 @@ service-manager:
   client-secret:  ${vcap.services.service-manager.credentials.clientsecret}
   token-url: ${vcap.services.service-manager.credentials.url}
   url: ${vcap.services.service-manager.credentials.sm_url}
+
+default-tenant: 724669da-9da4-479b-a040-cbee69ac27d1

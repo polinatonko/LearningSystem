@@ -2,7 +2,7 @@ package org.example.learningsystem.core.security.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.learningsystem.core.security.converter.JwtConverter;
-import org.example.learningsystem.core.multitenancy.filter.TenantIdentifierFilter;
+import org.example.learningsystem.core.multitenancy.filter.CloudTenantIdentifierFilter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -51,7 +51,7 @@ public class CloudApiSecurityConfiguration {
     @Bean
     @Order(API_FILTER_CHAIN_ORDER)
     public SecurityFilterChain apiSecurityFilterChain(
-            HttpSecurity http, TenantIdentifierFilter tenantIdentifierFilter) throws Exception {
+            HttpSecurity http, CloudTenantIdentifierFilter cloudTenantIdentifierFilter) throws Exception {
         return http
                 .securityMatcher(API_ENDPOINTS)
                 .csrf(AbstractHttpConfigurer::disable)
@@ -59,7 +59,7 @@ public class CloudApiSecurityConfiguration {
                 .authorizeHttpRequests(this::configureAuthorization)
                 .oauth2ResourceServer(this::configureOauth2ResourceServer)
                 .exceptionHandling(this::configureExceptionHandling)
-                .addFilterAfter(tenantIdentifierFilter, AuthorizationFilter.class)
+                .addFilterAfter(cloudTenantIdentifierFilter, AuthorizationFilter.class)
                 .build();
     }
 

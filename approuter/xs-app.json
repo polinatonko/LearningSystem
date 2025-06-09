@@ -1,4 +1,5 @@
 {
+  "welcomeFile": "https://lms-dev.cfapps.us10-001.hana.ondemand.com/api/v1/application-info",
   "authenticationMethod": "route",
   "routes": [
     {

@@ -1,18 +1,23 @@
 package org.example.learningsystem.core.multitenancy.util;
 
+import lombok.NoArgsConstructor;
+
+import static lombok.AccessLevel.PRIVATE;
+
+@NoArgsConstructor(access = PRIVATE)
 public class TenantContext {
 
-    private static final ThreadLocal<String> subdomain = new ThreadLocal<>();
+    private static final ThreadLocal<String> tenant = new ThreadLocal<>();
 
-    public static String getSubdomain() {
-        return subdomain.get();
+    public static String getTenant() {
+        return tenant.get();
     }
 
-    public static void setSubdomain(String newSubdomain) {
-        subdomain.set(newSubdomain);
+    public static void setTenant(String newTenant) {
+        tenant.set(newTenant);
     }
 
     public static void clear() {
-        subdomain.remove();
+        tenant.remove();
     }
 }
