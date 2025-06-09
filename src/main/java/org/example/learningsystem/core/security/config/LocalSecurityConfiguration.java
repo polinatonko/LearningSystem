@@ -1,6 +1,6 @@
 package org.example.learningsystem.core.security.config;
 
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -27,11 +27,16 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 
 @Configuration
 @Profile("!cloud")
-@RequiredArgsConstructor
 public class LocalSecurityConfiguration {
 
     private final AccessDeniedHandler accessDeniedHandler;
     private final AuthenticationEntryPoint authenticationEntryPoint;
+
+    public LocalSecurityConfiguration(AccessDeniedHandler accessDeniedHandler,
+                                      @Qualifier("basicAuth") AuthenticationEntryPoint authenticationEntryPoint) {
+        this.accessDeniedHandler = accessDeniedHandler;
+        this.authenticationEntryPoint = authenticationEntryPoint;
+    }
 
     @Bean
     @Order(ACTUATOR_FILTER_CHAIN_ORDER)

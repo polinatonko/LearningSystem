@@ -1,9 +1,9 @@
 package org.example.learningsystem.core.security.config;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.learningsystem.core.security.converter.JwtConverter;
-import org.example.learningsystem.core.web.tenant.TenantIdentifierFilter;
+import org.example.learningsystem.core.multitenancy.filter.TenantIdentifierFilter;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -33,18 +33,25 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 
 @Configuration
 @Profile("cloud")
-@RequiredArgsConstructor
 @Slf4j
 public class CloudApiSecurityConfiguration {
 
     private final AccessDeniedHandler accessDeniedHandler;
     private final AuthenticationEntryPoint authenticationEntryPoint;
-    private final TenantIdentifierFilter identityTenantFilter;
     private final Converter<Jwt, AbstractAuthenticationToken> xsuaaConverter;
+
+    public CloudApiSecurityConfiguration(AccessDeniedHandler accessDeniedHandler,
+                                         @Qualifier("default") AuthenticationEntryPoint authenticationEntryPoint,
+                                         Converter<Jwt, AbstractAuthenticationToken> xsuaaConverter) {
+        this.accessDeniedHandler = accessDeniedHandler;
+        this.authenticationEntryPoint = authenticationEntryPoint;
+        this.xsuaaConverter = xsuaaConverter;
+    }
 
     @Bean
     @Order(API_FILTER_CHAIN_ORDER)
-    public SecurityFilterChain apiSecurityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain apiSecurityFilterChain(
+            HttpSecurity http, TenantIdentifierFilter tenantIdentifierFilter) throws Exception {
         return http
                 .securityMatcher(API_ENDPOINTS)
                 .csrf(AbstractHttpConfigurer::disable)
@@ -52,7 +59,7 @@ public class CloudApiSecurityConfiguration {
                 .authorizeHttpRequests(this::configureAuthorization)
                 .oauth2ResourceServer(this::configureOauth2ResourceServer)
                 .exceptionHandling(this::configureExceptionHandling)
-                .addFilterAfter(identityTenantFilter, AuthorizationFilter.class)
+                .addFilterAfter(tenantIdentifierFilter, AuthorizationFilter.class)
                 .build();
     }
 

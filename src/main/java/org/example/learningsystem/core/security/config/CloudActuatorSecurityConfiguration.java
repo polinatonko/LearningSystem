@@ -1,6 +1,7 @@
 package org.example.learningsystem.core.security.config;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -27,18 +28,19 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 public class CloudActuatorSecurityConfiguration {
 
     private final AccessDeniedHandler accessDeniedHandler;
-    private final AuthenticationEntryPoint authenticationEntryPoint;
 
     @Bean
     @Order(ACTUATOR_FILTER_CHAIN_ORDER)
-    public SecurityFilterChain actuatorSecurityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain actuatorSecurityFilterChain(
+            HttpSecurity http,
+            @Qualifier("basicAuth") AuthenticationEntryPoint authenticationEntryPoint) throws Exception {
         return http
                 .securityMatcher(ACTUATOR_ENDPOINTS)
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(this::configureSession)
                 .authorizeHttpRequests(this::configureAuthorization)
                 .httpBasic(withDefaults())
-                .exceptionHandling(this::configureExceptionHandling)
+                .exceptionHandling(ex -> configureExceptionHandling(ex, authenticationEntryPoint))
                 .build();
     }
 
@@ -52,7 +54,8 @@ public class CloudActuatorSecurityConfiguration {
                 .requestMatchers(ACTUATOR_ENDPOINTS).hasRole(MANAGER.toString());
     }
 
-    private void configureExceptionHandling(ExceptionHandlingConfigurer<HttpSecurity> exceptionHandler) {
+    private void configureExceptionHandling(ExceptionHandlingConfigurer<HttpSecurity> exceptionHandler,
+                                            AuthenticationEntryPoint authenticationEntryPoint) {
         exceptionHandler
                 .accessDeniedHandler(accessDeniedHandler)
                 .authenticationEntryPoint(authenticationEntryPoint);
