@@ -51,9 +51,9 @@ sap:
         plan: application
 
 service-manager:
-  client-id:
-  client-secret:
-  token-url:
-  url:
+  client-id: sb-1e5e36d7-09da-4416-b97e-bccdf8d3e889!b413607|service-manager!b1476
+  client-secret: 2cfb2233-0900-4a1e-ab54-cce9d53b0cc9$MtRVpACO1AwpU0mckpdJwZq7VuiLycKNB7hjhTVxiwo=
+  token-url: https://4a826b62trial.authentication.us10.hana.ondemand.com
+  url: https://service-manager.cfapps.us10.hana.ondemand.com
 
 default-tenant: trial

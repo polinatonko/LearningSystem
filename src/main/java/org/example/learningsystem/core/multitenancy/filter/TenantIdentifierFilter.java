@@ -6,25 +6,30 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.example.learningsystem.core.multitenancy.util.TenantContext;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-import static java.util.Objects.isNull;
-
+@Component
 @Slf4j
-public abstract class BaseTenantIdentifierFilter extends OncePerRequestFilter {
+public class TenantIdentifierFilter extends OncePerRequestFilter {
 
     private final String defaultTenant;
+    private final TenantResolver tenantResolver;
 
-    protected BaseTenantIdentifierFilter(String defaultTenant) {
+    protected TenantIdentifierFilter(@Value("${multitenancy.default-tenant}") String defaultTenant,
+                                     TenantResolver tenantResolver) {
         this.defaultTenant = defaultTenant;
+        this.tenantResolver = tenantResolver;
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        var tenant = identifyTenant(request);
-        setTenant(tenant);
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
+        var tenant = tenantResolver.resolve(request);
+        setTenant(tenant.orElse(defaultTenant));
 
         try {
             filterChain.doFilter(request, response);
@@ -33,10 +38,7 @@ public abstract class BaseTenantIdentifierFilter extends OncePerRequestFilter {
         }
     }
 
-    protected abstract String identifyTenant(HttpServletRequest request);
-
-    protected void setTenant(String nullableTenant) {
-        var tenant = isNull(nullableTenant) ? defaultTenant : nullableTenant;
+    protected void setTenant(String tenant) {
         TenantContext.setTenant(tenant);
         log.info("Tenant was set: {}", tenant);
     }

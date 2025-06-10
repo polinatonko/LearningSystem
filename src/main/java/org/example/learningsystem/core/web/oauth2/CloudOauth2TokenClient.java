@@ -28,7 +28,7 @@ import static org.springframework.security.oauth2.core.AuthorizationGrantType.CL
  */
 @Service
 @CacheConfig(cacheNames = ACCESS_TOKENS_CACHE_NAME)
-@Profile("cloud")
+@Profile("!cloud")
 @RequiredArgsConstructor
 @Slf4j
 public class CloudOauth2TokenClient implements Oauth2TokenClient {
