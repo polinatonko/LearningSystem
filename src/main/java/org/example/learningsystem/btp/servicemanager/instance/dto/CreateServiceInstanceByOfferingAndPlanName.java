@@ -1,4 +1,4 @@
-package org.example.learningsystem.btp.servicemanager.dto;
+package org.example.learningsystem.btp.servicemanager.instance.dto;
 
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 

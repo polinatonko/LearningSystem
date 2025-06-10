@@ -1,8 +1,9 @@
-package org.example.learningsystem.btp.servicemanager.util;
+package org.example.learningsystem.btp.servicemanager.common.util;
 
 import lombok.RequiredArgsConstructor;
-import org.example.learningsystem.btp.servicemanager.config.ServiceManagerProperties;
+import org.example.learningsystem.btp.servicemanager.common.config.ServiceManagerProperties;
 import org.example.learningsystem.core.web.oauth2.Oauth2TokenClient;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.client.ClientHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
@@ -12,6 +13,7 @@ import java.util.function.Function;
 import static org.springframework.web.client.HttpClientErrorException.Unauthorized;
 
 @Component
+@Profile("cloud")
 @RequiredArgsConstructor
 public class ServiceManagerAuthenticatedRequestExecutor {
 

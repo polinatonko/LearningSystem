@@ -2,7 +2,6 @@ package org.example.learningsystem.core.security.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.learningsystem.core.security.converter.JwtConverter;
-import org.example.learningsystem.core.multitenancy.filter.CloudTenantIdentifierFilter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +19,6 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.access.intercept.AuthorizationFilter;
 
 import static org.example.learningsystem.core.security.constant.ApiConstants.API_CALLBACK_ENDPOINT;
 import static org.example.learningsystem.core.security.constant.ApiConstants.API_DOCS_ENDPOINTS;
@@ -50,8 +48,7 @@ public class CloudApiSecurityConfiguration {
 
     @Bean
     @Order(API_FILTER_CHAIN_ORDER)
-    public SecurityFilterChain apiSecurityFilterChain(
-            HttpSecurity http, CloudTenantIdentifierFilter cloudTenantIdentifierFilter) throws Exception {
+    public SecurityFilterChain apiSecurityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .securityMatcher(API_ENDPOINTS)
                 .csrf(AbstractHttpConfigurer::disable)
@@ -59,7 +56,6 @@ public class CloudApiSecurityConfiguration {
                 .authorizeHttpRequests(this::configureAuthorization)
                 .oauth2ResourceServer(this::configureOauth2ResourceServer)
                 .exceptionHandling(this::configureExceptionHandling)
-                .addFilterAfter(cloudTenantIdentifierFilter, AuthorizationFilter.class)
                 .build();
     }
 

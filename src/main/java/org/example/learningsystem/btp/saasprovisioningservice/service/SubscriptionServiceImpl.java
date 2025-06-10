@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.learningsystem.btp.saasprovisioningservice.config.ServiceDependencies;
 import org.example.learningsystem.btp.saasprovisioningservice.dto.ServiceInfoDto;
 import org.example.learningsystem.btp.saasprovisioningservice.dto.SubscriptionRequestDto;
+import org.example.learningsystem.core.multitenancy.service.TenantSchemaManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -17,23 +18,27 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
     private final String appRouterUrl;
     private final ServiceDependencies serviceDependencies;
+    private final TenantSchemaManager tenantSchemaManager;
 
     public SubscriptionServiceImpl(@Value("${approuter.url}") String appRouterUrl,
-                                   ServiceDependencies serviceDependencies) {
+                                   ServiceDependencies serviceDependencies,
+                                   TenantSchemaManager tenantSchemaManager) {
         this.appRouterUrl = extractDomain(appRouterUrl);
         this.serviceDependencies = serviceDependencies;
+        this.tenantSchemaManager = tenantSchemaManager;
     }
 
     @Override
     public String subscribe(String tenantId, SubscriptionRequestDto subscription) {
         var tenantUrl = TENANT_SPECIFIC_URL_TEMPLATE.formatted(subscription.subscribedSubdomain(), appRouterUrl);
         log.info("Generated tenant url: tenantId = {}, tenantUrl = {}", tenantId, tenantUrl);
+        tenantSchemaManager.create(tenantId);
         return tenantUrl;
     }
 
     @Override
     public void unsubscribe(String tenantId, SubscriptionRequestDto subscription) {
-
+        tenantSchemaManager.delete(tenantId);
     }
 
     @Override

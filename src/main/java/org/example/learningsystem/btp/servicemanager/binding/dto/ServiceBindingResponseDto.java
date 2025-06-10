@@ -1,4 +1,4 @@
-package org.example.learningsystem.btp.servicemanager.dto;
+package org.example.learningsystem.btp.servicemanager.binding.dto;
 
 import java.util.Map;
 import java.util.UUID;

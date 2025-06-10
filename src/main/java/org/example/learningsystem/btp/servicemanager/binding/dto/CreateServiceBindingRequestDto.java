@@ -1,7 +1,9 @@
-package org.example.learningsystem.btp.servicemanager.dto;
+package org.example.learningsystem.btp.servicemanager.binding.dto;
 
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import static com.fasterxml.jackson.databind.PropertyNamingStrategies.SnakeCaseStrategy;
@@ -9,6 +11,7 @@ import static com.fasterxml.jackson.databind.PropertyNamingStrategies.SnakeCaseS
 @JsonNaming(SnakeCaseStrategy.class)
 public record CreateServiceBindingRequestDto(
         String name,
-        UUID serviceInstanceId
+        UUID serviceInstanceId,
+        Map<String, List<Object>> labels
 ) {
 }

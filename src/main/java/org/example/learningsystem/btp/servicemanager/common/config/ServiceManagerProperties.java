@@ -1,4 +1,4 @@
-package org.example.learningsystem.btp.servicemanager.config;
+package org.example.learningsystem.btp.servicemanager.common.config;
 
 import lombok.Getter;
 import lombok.Setter;
