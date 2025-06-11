@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/application-info")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class ApplicationController {
 
     private final ApplicationInfo applicationInfo;
 
-    @GetMapping
+    @GetMapping("/application-info")
     public ApplicationInfo getApplicationInfo() {
         return applicationInfo;
     }

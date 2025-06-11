@@ -20,6 +20,12 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
+import static org.example.learningsystem.core.security.constant.ApiConstants.API_CALLBACK_ENDPOINT;
+import static org.example.learningsystem.core.security.constant.ApiConstants.API_DOCS_ENDPOINTS;
+import static org.example.learningsystem.core.security.constant.ApiConstants.API_ENDPOINTS;
+import static org.example.learningsystem.core.security.constant.ApiConstants.API_FILTER_CHAIN_ORDER;
+import static org.example.learningsystem.core.security.constant.ApiConstants.API_INFO_ENDPOINT;
+import static org.example.learningsystem.core.security.constant.ApiConstants.SWAGGER_ENDPOINTS;
 import static org.example.learningsystem.core.security.role.UserRole.ADMIN;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
@@ -29,23 +35,15 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @Slf4j
 public class CloudApiSecurityConfiguration {
 
-    private static final int API_FILTER_CHAIN_ORDER = 2;
-    private static final String ALL_ENDPOINTS = "/**";
-    private static final String API_DOCS_ENDPOINTS = "/v3/api-docs/**";
-    private static final String SWAGGER_ENDPOINTS = "/swagger-ui/**";
-    private static final String API_CALLBACK_ENDPOINT = "/api/v1/callback/**";
-    private static final String API_INFO_ENDPOINT = "/api/v1/application-info";
-
     private final AccessDeniedHandler accessDeniedHandler;
     private final AuthenticationEntryPoint authenticationEntryPoint;
     private final Converter<Jwt, AbstractAuthenticationToken> xsuaaConverter;
 
     @Bean
     @Order(API_FILTER_CHAIN_ORDER)
-    public SecurityFilterChain apiSecurityFilterChain(
-            HttpSecurity http, AuthenticationEntryPoint authenticationEntryPoint) throws Exception {
+    public SecurityFilterChain apiSecurityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .securityMatcher(ALL_ENDPOINTS)
+                .securityMatcher(API_ENDPOINTS)
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(this::configureSession)
                 .authorizeHttpRequests(this::configureAuthorization)

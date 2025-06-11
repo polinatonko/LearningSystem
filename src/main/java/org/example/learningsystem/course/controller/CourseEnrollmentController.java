@@ -18,7 +18,7 @@ import java.util.UUID;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 @RestController
-@RequestMapping("/api/courses")
+@RequestMapping("/api/v1/courses")
 @RequiredArgsConstructor
 @Tag(name = "Course Enrollment Controller")
 public class CourseEnrollmentController {

@@ -14,6 +14,9 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
+import static org.example.learningsystem.core.security.constant.ApiConstants.ACTUATOR_ENDPOINTS;
+import static org.example.learningsystem.core.security.constant.ApiConstants.ACTUATOR_FILTER_CHAIN_ORDER;
+import static org.example.learningsystem.core.security.constant.ApiConstants.ACTUATOR_HEALTH_ENDPOINT;
 import static org.example.learningsystem.core.security.role.UserRole.MANAGER;
 import static org.springframework.security.config.Customizer.withDefaults;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
@@ -23,17 +26,12 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @RequiredArgsConstructor
 public class CloudActuatorSecurityConfiguration {
 
-    private static final int ACTUATOR_FILTER_CHAIN_ORDER = 1;
-    private static final String ACTUATOR_ENDPOINTS = "/actuator/**";
-    private static final String ACTUATOR_HEALTH_ENDPOINT = "/actuator/health";
-
     private final AccessDeniedHandler accessDeniedHandler;
     private final AuthenticationEntryPoint authenticationEntryPoint;
 
     @Bean
     @Order(ACTUATOR_FILTER_CHAIN_ORDER)
-    public SecurityFilterChain actuatorSecurityFilterChain(
-            HttpSecurity http, AuthenticationEntryPoint authenticationEntryPoint) throws Exception {
+    public SecurityFilterChain actuatorSecurityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .securityMatcher(ACTUATOR_ENDPOINTS)
                 .csrf(AbstractHttpConfigurer::disable)
