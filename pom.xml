@@ -12,7 +12,7 @@
 
 	<groupId>org.example</groupId>
 	<artifactId>learning-system</artifactId>
-	<version>1.4.0</version>
+	<version>1.5.0</version>
 	<name>LearningSystem</name>
 	<description>Learning Management System</description>
 
