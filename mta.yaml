@@ -15,8 +15,7 @@ modules:
       routes:
         - route: ${protocol}://${app-name}-${space}.${domain}
     build-parameters:
-      commands:
-        - mvn clean package -Dmaven.test.skip=true
+      builder: maven
       build-result: target/*.jar
 
     requires:

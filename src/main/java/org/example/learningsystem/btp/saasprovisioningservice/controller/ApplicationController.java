@@ -1,7 +1,7 @@
-package org.example.learningsystem.btp.saapprovisioningservice.controller;
+package org.example.learningsystem.btp.saasprovisioningservice.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.learningsystem.btp.saapprovisioningservice.dto.ApplicationInfoDto;
+import org.example.learningsystem.btp.saasprovisioningservice.config.ApplicationInfo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ApplicationController {
 
-    private final ApplicationInfoDto applicationInfoDto;
+    private final ApplicationInfo applicationInfo;
 
     @GetMapping
-    public ApplicationInfoDto getApplicationInfo() {
-        return applicationInfoDto;
+    public ApplicationInfo getApplicationInfo() {
+        return applicationInfo;
     }
 }

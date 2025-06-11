@@ -1,4 +1,4 @@
-package org.example.learningsystem.btp.saapprovisioningservice.dto;
+package org.example.learningsystem.btp.saasprovisioningservice.config;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "sap.security.services.xsuaa")
 @Getter
 @Setter
-public class ApplicationInfoDto {
+public class ApplicationInfo {
 
     @Name("url")
     private String tokenUrl;

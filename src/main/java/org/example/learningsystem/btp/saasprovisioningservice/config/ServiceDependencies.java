@@ -1,4 +1,4 @@
-package org.example.learningsystem.btp.saapprovisioningservice.config;
+package org.example.learningsystem.btp.saasprovisioningservice.config;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +11,7 @@ import java.util.List;
 @ConfigurationProperties(prefix = "application")
 @Getter
 @Setter
-public class ServiceDependenciesProperties {
+public class ServiceDependencies {
 
     private List<String> dependencies;
 }

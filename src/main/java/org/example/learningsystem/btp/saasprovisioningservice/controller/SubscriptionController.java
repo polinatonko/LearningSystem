@@ -1,11 +1,10 @@
-package org.example.learningsystem.btp.saapprovisioningservice.controller;
+package org.example.learningsystem.btp.saasprovisioningservice.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.learningsystem.btp.saapprovisioningservice.dto.ServiceInfoDto;
-import org.example.learningsystem.btp.saapprovisioningservice.dto.SubscriptionRequestDto;
-import org.example.learningsystem.btp.saapprovisioningservice.dto.SubscriptionResponseDto;
-import org.example.learningsystem.btp.saapprovisioningservice.service.SubscriptionService;
+import org.example.learningsystem.btp.saasprovisioningservice.dto.ServiceInfoDto;
+import org.example.learningsystem.btp.saasprovisioningservice.dto.SubscriptionRequestDto;
+import org.example.learningsystem.btp.saasprovisioningservice.service.SubscriptionService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +25,7 @@ public class SubscriptionController {
     private final SubscriptionService subscriptionService;
 
     @PutMapping("/tenants/{tenantId}")
-    public SubscriptionResponseDto subscribe(
+    public String subscribe(
             @PathVariable("tenantId") String tenantId, @RequestBody SubscriptionRequestDto subscription) {
         log.info("Subscription callback [tenantId = {}, subdomain = {}]", tenantId, subscription.subscribedSubdomain());
         return subscriptionService.subscribe(tenantId, subscription);
