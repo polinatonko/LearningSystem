@@ -2,8 +2,7 @@
   "authenticationMethod": "route",
   "routes": [
     {
-      "source": "^/(.*)$",
-      "target": "$1",
+      "source": "^/api/(.*)$",
       "destination": "lms-api",
       "authenticationType": "xsuaa",
       "csrfProtection": false
