@@ -36,9 +36,6 @@ modules:
       JBP_CONFIG_SAP_MACHINE_JDK: "{ version: 21.+ }"
       TARGET_RUNTIME: tomcat
       APPROUTER_URL: ~{approuter-api/url}
-      SAP_JWT_TRUST_ACL:
-        - clientid: "*"
-          identityzone: sap-provisioning
 
     provides:
       - name: lms-api
