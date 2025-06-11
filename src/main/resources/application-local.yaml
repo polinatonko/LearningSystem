@@ -29,10 +29,7 @@ mail:
 
 multitenancy:
   default-tenant: public
-
-  system-schemas:
-    - information_schema
-    - pg_
+  default-schema: public
 
 approuter:
   url:
@@ -58,9 +55,7 @@ sap:
         plan: application
 
 service-manager:
-  client-id: sb-dd066c8a-ad0c-4402-8b32-26fbb7be2bcd!b463125|service-manager!b1476
-  client-secret: 91269452-26b4-447f-b448-141d617fa87e$PVlyl0NKjotMXBfBLULBQ2RoaraFpEKMATAY2epgYNk=
-  token-url: https://a3b0b7cbtrial.authentication.us10.hana.ondemand.com
-  url: https://service-manager.cfapps.us10.hana.ondemand.com
-
-default-tenant: trial
+  client-id:
+  client-secret:
+  token-url:
+  url:
