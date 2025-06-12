@@ -1,10 +1,4 @@
 spring:
-  datasource:
-    driver-class-name: com.sap.db.jdbc.Driver
-    url: ${vcap.services.lms-hana-schema.credentials.url}
-    username: ${vcap.services.lms-hana-schema.credentials.user}
-    password: ${vcap.services.lms-hana-schema.credentials.password}
-
   main:
     allow-bean-definition-overriding: true
 
@@ -60,3 +54,8 @@ service-manager:
 
 multitenancy:
   default-tenant: 724669da-9da4-479b-a040-cbee69ac27d1
+
+datasource:
+  url: ${vcap.services.lms-hana-schema.credentials.url}
+  username: ${vcap.services.lms-hana-schema.credentials.user}
+  password: ${vcap.services.lms-hana-schema.credentials.password}

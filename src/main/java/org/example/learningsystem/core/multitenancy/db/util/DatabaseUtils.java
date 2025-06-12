@@ -1,7 +1,7 @@
-package org.example.learningsystem.core.multitenancy.util;
+package org.example.learningsystem.core.multitenancy.db.util;
 
 import lombok.NoArgsConstructor;
-import org.example.learningsystem.core.multitenancy.exception.DatabaseOperationException;
+import org.example.learningsystem.core.multitenancy.db.exception.DatabaseOperationException;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -17,7 +17,7 @@ public class DatabaseUtils {
         try (var statement = dataSource.getConnection().createStatement()) {
             statement.execute(query);
         } catch (SQLException e) {
-            throw new DatabaseOperationException("Failed to execute query: %s".formatted(e.getMessage()));
+            throw new DatabaseOperationException(e);
         }
     }
 
@@ -30,7 +30,7 @@ public class DatabaseUtils {
             }
             return list;
         } catch (SQLException e) {
-            throw new DatabaseOperationException("Failed to execute query: %s".formatted(e.getMessage()));
+            throw new DatabaseOperationException(e);
         }
     }
 }

@@ -40,13 +40,16 @@ public class JwtConverter implements Converter<Jwt, AbstractAuthenticationToken>
 
     private List<GrantedAuthority> fetchRoles(Jwt source) {
         var roles = new ArrayList<GrantedAuthority>();
-        var roleCollections = source.getClaimAsStringList("xs.system.attributes.xs.rolecollections");
-        if (nonNull(roleCollections)) {
-            var rolesList = roleCollections.stream()
-                    .map(ROLE_NAME_TEMPLATE::formatted)
-                    .map(SimpleGrantedAuthority::new)
-                    .toList();
-            roles.addAll(rolesList);
+        var extAttributes = source.getClaimAsMap("xs.system.attributes");
+        if (nonNull(extAttributes)) {
+            var roleCollections = (List<String>)extAttributes.get("xs.rolecollections");
+            if (nonNull(roleCollections)) {
+                var rolesList = roleCollections.stream()
+                        .map(ROLE_NAME_TEMPLATE::formatted)
+                        .map(SimpleGrantedAuthority::new)
+                        .toList();
+                roles.addAll(rolesList);
+            }
         }
         return roles;
     }

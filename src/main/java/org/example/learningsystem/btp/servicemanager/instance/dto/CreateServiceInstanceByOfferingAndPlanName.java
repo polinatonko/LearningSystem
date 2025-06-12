@@ -7,7 +7,13 @@ import java.util.Map;
 import static com.fasterxml.jackson.databind.PropertyNamingStrategies.SnakeCaseStrategy;
 
 @JsonNaming(SnakeCaseStrategy.class)
-public record CreateServiceInstanceByOfferingAndPlanName(String name, String serviceOfferingName,
-                                                         String servicePlanName,
-                                                         Map<String, String> parameters) {
+public record CreateServiceInstanceByOfferingAndPlanName(
+
+        String name,
+
+        String serviceOfferingName,
+
+        String servicePlanName,
+
+        Map<String, String> parameters) {
 }

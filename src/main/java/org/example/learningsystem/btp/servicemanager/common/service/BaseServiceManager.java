@@ -6,10 +6,14 @@ import org.example.learningsystem.btp.servicemanager.common.dto.PaginatedRespons
 import org.example.learningsystem.btp.servicemanager.common.util.ServiceManagerRestClient;
 import org.example.learningsystem.btp.servicemanager.common.util.ServiceManagerURIBuilder;
 import org.example.learningsystem.btp.servicemanager.common.validator.ServiceManagerResponseValidator;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Service;
 
 import java.net.URI;
 import java.util.UUID;
 
+@Service
+@Profile("cloud")
 @Slf4j
 @RequiredArgsConstructor
 public class BaseServiceManager {
@@ -18,21 +22,21 @@ public class BaseServiceManager {
     protected final ServiceManagerRestClient serviceManagerRestClient;
     protected final ServiceManagerURIBuilder serviceManagerURIBuilder;
 
-    public <T> T getServiceByField(String field, String value, String path, Class<T> serviceResponseType) {
+    public <T> T getByField(String field, String value, String path, Class<T> serviceResponseType) {
         var uri = serviceManagerURIBuilder.builder(path)
                 .fieldQuery(field, value)
                 .build();
-        return getService(uri, serviceResponseType, field, value);
+        return get(uri, serviceResponseType, field, value);
     }
 
-    public <T> T getServiceByLabel(String label, String value, String path, Class<T> serviceResponseType) {
+    public <T> T getByLabel(String label, String value, String path, Class<T> serviceResponseType) {
         var uri = serviceManagerURIBuilder.builder(path)
                 .labelQuery(label, value)
                 .build();
-        return getService(uri, serviceResponseType, label, value);
+        return get(uri, serviceResponseType, label, value);
     }
 
-    public <T> PaginatedResponseDto<T> getAllServices(URI uri, Class<T> itemType) {
+    public <T> PaginatedResponseDto<T> getAll(URI uri, Class<T> itemType) {
         return serviceManagerRestClient.getPaginated(uri, itemType);
     }
 
@@ -43,8 +47,8 @@ public class BaseServiceManager {
         serviceManagerRestClient.delete(uri);
     }
 
-    private <T> T getService(URI uri, Class<T> responseType, String property, String value) {
-        var response = getAllServices(uri, responseType);
+    private <T> T get(URI uri, Class<T> responseType, String property, String value) {
+        var response = getAll(uri, responseType);
         serviceManagerResponseValidator.validatePaginated(response, property, value);
 
         var items = response.items();

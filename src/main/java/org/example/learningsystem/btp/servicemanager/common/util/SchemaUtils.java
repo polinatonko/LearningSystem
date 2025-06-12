@@ -1,11 +1,9 @@
 package org.example.learningsystem.btp.servicemanager.common.util;
 
 import lombok.NoArgsConstructor;
-import org.springframework.context.annotation.Profile;
 
 import static lombok.AccessLevel.PRIVATE;
 
-@Profile("cloud")
 @NoArgsConstructor(access = PRIVATE)
 public class SchemaUtils {
 

@@ -10,8 +10,11 @@ import static com.fasterxml.jackson.databind.PropertyNamingStrategies.SnakeCaseS
 
 @JsonNaming(SnakeCaseStrategy.class)
 public record CreateServiceBindingRequestDto(
+
         String name,
+
         UUID serviceInstanceId,
+
         Map<String, List<Object>> labels
 ) {
 }

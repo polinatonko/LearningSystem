@@ -2,11 +2,6 @@ spring:
   config:
     import: secrets-local.yaml
 
-  datasource:
-    url: jdbc:postgresql://localhost:5432/lms
-    username: test
-    password: test
-
   jpa:
     show-sql: true
 
@@ -59,3 +54,8 @@ service-manager:
   client-secret:
   token-url:
   url:
+
+datasource:
+  url: jdbc:postgresql://localhost:5432/lms
+  username: test
+  password: test

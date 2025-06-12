@@ -1,13 +1,13 @@
 package org.example.learningsystem.btp.servicemanager.binding.service;
 
+import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.btp.servicemanager.binding.dto.CreateServiceBindingRequestDto;
 import org.example.learningsystem.btp.servicemanager.binding.dto.ServiceBindingResponseDto;
 import org.example.learningsystem.btp.servicemanager.common.service.BaseServiceManager;
+import org.example.learningsystem.btp.servicemanager.common.util.ServiceManagerRestClient;
 import org.example.learningsystem.btp.servicemanager.common.util.ServiceManagerURIBuilder;
-import org.example.learningsystem.btp.servicemanager.common.util.ServiceManagerRestClientImpl;
-import org.example.learningsystem.btp.servicemanager.common.validator.ServiceManagerResponseValidator;
 import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
@@ -17,15 +17,14 @@ import static org.example.learningsystem.btp.servicemanager.common.constant.Serv
 import static org.example.learningsystem.btp.servicemanager.common.constant.ServiceManagerResourceConstants.SERVICE_BINDINGS;
 import static org.example.learningsystem.btp.servicemanager.common.constant.ServiceManagerResourceConstants.TENANT_ID;
 
-@Component
+@Service
 @Profile("cloud")
-public class ServiceBindingManager extends BaseServiceManager {
+@RequiredArgsConstructor
+public class ServiceBindingManager {
 
-    public ServiceBindingManager(ServiceManagerResponseValidator serviceManagerResponseValidator,
-                                 ServiceManagerRestClientImpl serviceManagerRestClientImpl,
-                                 ServiceManagerURIBuilder serviceManagerURIBuilder) {
-        super(serviceManagerResponseValidator, serviceManagerRestClientImpl, serviceManagerURIBuilder);
-    }
+    private final BaseServiceManager baseServiceManager;
+    private final ServiceManagerRestClient serviceManagerRestClient;
+    private final ServiceManagerURIBuilder serviceManagerURIBuilder;
 
     public ServiceBindingResponseDto create(String name, UUID serviceInstanceId, String tenantId) {
         var uri = serviceManagerURIBuilder.builder(SERVICE_BINDINGS)
@@ -37,17 +36,17 @@ public class ServiceBindingManager extends BaseServiceManager {
     }
 
     public ServiceBindingResponseDto getByTenantId(String tenantId) {
-        return getServiceByLabel(TENANT_ID, tenantId, SERVICE_BINDINGS, ServiceBindingResponseDto.class);
+        return baseServiceManager.getByLabel(TENANT_ID, tenantId, SERVICE_BINDINGS, ServiceBindingResponseDto.class);
     }
 
     public void deleteByName(String name) {
-        var binding = getServiceByField(NAME, name, SERVICE_BINDINGS, ServiceBindingResponseDto.class);
-        deleteById(SERVICE_BINDINGS, binding.id());
+        var binding = baseServiceManager.getByField(NAME, name, SERVICE_BINDINGS, ServiceBindingResponseDto.class);
+        baseServiceManager.deleteById(SERVICE_BINDINGS, binding.id());
     }
 
     public List<ServiceBindingResponseDto> getAll() {
         var uri = serviceManagerURIBuilder.builder(SERVICE_BINDINGS).build();
-        var response = getAllServices(uri, ServiceBindingResponseDto.class);
+        var response = baseServiceManager.getAll(uri, ServiceBindingResponseDto.class);
         return response.items();
     }
 }

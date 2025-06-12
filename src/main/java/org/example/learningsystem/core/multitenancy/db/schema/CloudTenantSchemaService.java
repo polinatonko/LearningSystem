@@ -1,4 +1,4 @@
-package org.example.learningsystem.core.multitenancy.service;
+package org.example.learningsystem.core.multitenancy.db.schema;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +14,7 @@ import static org.example.learningsystem.btp.servicemanager.common.util.SchemaUt
 @Profile("cloud")
 @RequiredArgsConstructor
 @Slf4j
-public class CloudTenantSchemaManager implements TenantSchemaManager {
+public class CloudTenantSchemaService implements TenantSchemaService {
 
     private final ServiceBindingManager serviceBindingManager;
     private final ServiceInstanceManager serviceInstanceManager;

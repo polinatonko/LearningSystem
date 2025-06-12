@@ -41,9 +41,6 @@ modules:
       - name: lms-api
         properties:
           url: ${routes/0/route}
-      - name: lms-api-actuator
-        properties:
-          url: ${routes/0/route}/actuator
 
   - name: lms-approuter
     type: nodejs
