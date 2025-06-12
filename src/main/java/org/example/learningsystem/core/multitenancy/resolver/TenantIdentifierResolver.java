@@ -1,6 +1,6 @@
 package org.example.learningsystem.core.multitenancy.resolver;
 
-import org.example.learningsystem.core.multitenancy.util.TenantContext;
+import org.example.learningsystem.core.multitenancy.context.TenantContext;
 import org.hibernate.context.spi.CurrentTenantIdentifierResolver;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -18,8 +18,8 @@ public class TenantIdentifierResolver implements CurrentTenantIdentifierResolver
 
     @Override
     public String resolveCurrentTenantIdentifier() {
-        var tenant = TenantContext.getTenant();
-        return requireNonNullElse(tenant, defaultTenant);
+        var tenantId = TenantContext.getTenantId();
+        return requireNonNullElse(tenantId, defaultTenant);
     }
 
     @Override

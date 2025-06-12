@@ -3,7 +3,7 @@ package org.example.learningsystem.core.multitenancy.service;
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.btp.servicemanager.binding.dto.ServiceBindingResponseDto;
 import org.example.learningsystem.btp.servicemanager.binding.service.ServiceBindingManager;
-import org.example.learningsystem.core.multitenancy.util.TenantContext;
+import org.example.learningsystem.core.multitenancy.context.TenantContext;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +21,7 @@ public class CloudTenantSchemaProvider implements TenantSchemaProvider {
 
     @Override
     public String getCurrentTenantSchema() {
-        var tenantId = TenantContext.getTenant();
+        var tenantId = TenantContext.getTenantId();
         var schemaBinding = serviceBindingManager.getByTenantId(tenantId);
         return schemaBinding.credentials().get(SCHEMA_PROPERTY);
     }

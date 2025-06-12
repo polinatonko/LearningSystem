@@ -6,8 +6,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.learningsystem.core.multitenancy.context.TenantInfo;
 import org.example.learningsystem.core.multitenancy.exception.InvalidTenantException;
-import org.example.learningsystem.core.multitenancy.util.TenantContext;
+import org.example.learningsystem.core.multitenancy.context.TenantContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -18,7 +19,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class TenantIdentifierFilter extends OncePerRequestFilter {
 
-    private static final String TENANT_PATTERN = "[0-9a-zA-Z\\-_]+";
+    private static final String TENANT_ID_PATTERN = "[0-9a-zA-Z\\-_]+";
 
     private final TenantResolver tenantResolver;
 
@@ -35,12 +36,13 @@ public class TenantIdentifierFilter extends OncePerRequestFilter {
         }
     }
 
-    private void setTenant(String tenant) {
-        if (tenant.matches(TENANT_PATTERN)) {
+    private void setTenant(TenantInfo tenant) {
+        var tenantId = tenant.tenantId();
+        if (tenantId.matches(TENANT_ID_PATTERN)) {
             TenantContext.setTenant(tenant);
             log.info("Tenant was set: {}", tenant);
         } else {
-            throw new InvalidTenantException(tenant);
+            throw new InvalidTenantException(tenantId);
         }
     }
 }

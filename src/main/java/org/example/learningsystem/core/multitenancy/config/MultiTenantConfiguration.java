@@ -25,7 +25,7 @@ public class MultiTenantConfiguration {
         this.tenantSchemaProvider = tenantSchemaProvider;
     }
 
-    @Bean
+    /*@Bean
     @DependsOn("liquibase")
     public MultiTenantSpringLiquibase multiTenantSpringLiquibase(DataSource dataSource) {
         var schemas = tenantSchemaProvider.getSchemaNames();
@@ -36,5 +36,5 @@ public class MultiTenantConfiguration {
         liquibase.setChangeLog(liquibaseChangelog);
         liquibase.setShouldRun(true);
         return liquibase;
-    }
+    }*/
 }

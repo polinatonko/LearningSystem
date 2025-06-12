@@ -1,6 +1,6 @@
 package org.example.learningsystem.core.multitenancy.service;
 
-import org.example.learningsystem.core.multitenancy.util.TenantContext;
+import org.example.learningsystem.core.multitenancy.context.TenantContext;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -8,11 +8,10 @@ import org.springframework.stereotype.Component;
 import javax.sql.DataSource;
 import java.util.List;
 
-import static java.util.Objects.isNull;
+import static java.util.Objects.requireNonNullElse;
 import static org.example.learningsystem.core.multitenancy.constant.SqlConstants.SELECT_SCHEMAS_SQL;
 import static org.example.learningsystem.core.multitenancy.util.DatabaseUtils.queryForStringList;
 import static org.example.learningsystem.core.multitenancy.util.SchemaUtils.TENANT_SCHEMA_NAME_PREFIX;
-import static org.example.learningsystem.core.multitenancy.util.SchemaUtils.getSchemaName;
 
 @Component
 @Profile("!cloud")
@@ -29,8 +28,8 @@ public class LocalTenantSchemaProvider implements TenantSchemaProvider {
 
     @Override
     public String getCurrentTenantSchema() {
-        var tenantId = TenantContext.getTenant();
-        return isNull(tenantId) ? defaultSchema : getSchemaName(tenantId);
+        var tenantId = TenantContext.getTenantId();
+        return requireNonNullElse(tenantId, defaultSchema);
     }
 
     @Override
