@@ -1,4 +1,5 @@
 {
+  "welcomeFile": "/api/v1/application-info",
   "authenticationMethod": "route",
   "routes": [
     {

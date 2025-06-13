@@ -8,10 +8,12 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 
-import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
-
-import static java.util.Objects.nonNull;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Slf4j
 public class JwtConverter implements Converter<Jwt, AbstractAuthenticationToken> {
@@ -27,27 +29,31 @@ public class JwtConverter implements Converter<Jwt, AbstractAuthenticationToken>
     @Override
     public AbstractAuthenticationToken convert(Jwt source) {
         var token = delegate.convert(source);
-        var authorities = new ArrayList<GrantedAuthority>();
-        if (nonNull(token)) {
-            authorities.addAll(token.getAuthorities());
-            log.info("Jwt Authorities: {}", authorities);
-            var roles = fetchRoles(source);
-            log.info("Jwt Roles: {}", roles);
-            authorities.addAll(roles);
-        }
-        return new JwtAuthenticationToken(source, authorities);
+
+        var authorities = extractAuthorities(token);
+        var roles = extractRoles(source);
+
+        var combinedAuthorities = Stream.concat(authorities.stream(), roles.stream())
+                .toList();
+        log.info("Granted authorities: {}", combinedAuthorities);
+
+        return new JwtAuthenticationToken(source, combinedAuthorities);
     }
 
-    private List<GrantedAuthority> fetchRoles(Jwt source) {
-        var roles = new ArrayList<GrantedAuthority>();
-        var roleCollections = source.getClaimAsStringList("xs.system.attributes.xs.rolecollections");
-        if (nonNull(roleCollections)) {
-            var rolesList = roleCollections.stream()
-                    .map(ROLE_NAME_TEMPLATE::formatted)
-                    .map(SimpleGrantedAuthority::new)
-                    .toList();
-            roles.addAll(rolesList);
-        }
-        return roles;
+    private Collection<GrantedAuthority> extractAuthorities(AbstractAuthenticationToken token) {
+        return Optional.ofNullable(token)
+                .map(AbstractAuthenticationToken::getAuthorities)
+                .orElse(Collections.emptyList());
+    }
+
+    private List<GrantedAuthority> extractRoles(Jwt source) {
+        var attributes = source.getClaimAsMap("xs.system.attributes");
+        return Optional.ofNullable(attributes)
+                .map(attrs -> (List<String>) attrs.get("xs.rolecollections"))
+                .orElse(Collections.emptyList())
+                .stream()
+                .map(ROLE_NAME_TEMPLATE::formatted)
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
     }
 }

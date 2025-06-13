@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * Configuration properties for service dependencies required by the SaaS Provisioning Service.
+ * Application configuration properties.
  * <p>
  * Contains a list of services that the application depends on, which will be used during the subscription
  * callback process.
@@ -17,7 +17,7 @@ import java.util.List;
 @ConfigurationProperties(prefix = "application")
 @Getter
 @Setter
-public class ServiceDependencies {
+public class ApplicationProperties {
 
-    private List<String> dependencies;
+    private List<String> serviceDependencies;
 }

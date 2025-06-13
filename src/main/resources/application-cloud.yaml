@@ -1,32 +1,18 @@
+application:
+  service-dependencies:
+    - ${vcap.services.lms-destination-service.credentials.xsappname}
+
 spring:
   datasource:
-    driver-class-name: com.sap.db.jdbc.Driver
     url: ${vcap.services.lms-hana-schema.credentials.url}
     username: ${vcap.services.lms-hana-schema.credentials.user}
     password: ${vcap.services.lms-hana-schema.credentials.password}
-
-  main:
-    allow-bean-definition-overriding: true
 
   security:
     oauth2:
       resourceserver:
         jwt:
           issuer-uri: ${vcap.services.lms-xsuaa.credentials.url}/oauth/token
-
-approuter:
-  url: ${approuter-url}
-
-feature-flags:
-  uri: ${vcap.services.lms-feature-flags.credentials.uri}
-  username: ${vcap.services.lms-feature-flags.credentials.username}
-  password: ${vcap.services.lms-feature-flags.credentials.password}
-
-destination-service:
-  uri: ${vcap.services.lms-destination-service.credentials.uri}
-  token-url: ${vcap.services.lms-destination-service.credentials.url}
-  client_id: ${vcap.services.lms-destination-service.credentials.clientid}
-  client_secret: ${vcap.services.lms-destination-service.credentials.clientsecret}
 
 mail:
   from: ${vcap.services.lms-user-service.credentials.from}
@@ -38,13 +24,20 @@ mail:
   auth: ${vcap.services.lms-user-service.credentials.auth}
   start-tls-enable: ${vcap.services.lms-user-service.credentials.startTls}
 
-application:
-  dependencies:
-    - ${vcap.services.lms-destination-service.credentials.xsappname}
-
 sap:
   security:
     services:
+      destination-service:
+        uri: ${vcap.services.lms-destination-service.credentials.uri}
+        token-url: ${vcap.services.lms-destination-service.credentials.url}
+        client_id: ${vcap.services.lms-destination-service.credentials.clientid}
+        client_secret: ${vcap.services.lms-destination-service.credentials.clientsecret}
+
+      feature-flags:
+        uri: ${vcap.services.lms-feature-flags.credentials.uri}
+        username: ${vcap.services.lms-feature-flags.credentials.username}
+        password: ${vcap.services.lms-feature-flags.credentials.password}
+
       xsuaa:
         xsappname: ${vcap.services.lms-xsuaa.credentials.xsappname}
         uaadomain: ${vcap.services.lms-xsuaa.credentials.uaadomain}
