@@ -9,6 +9,11 @@ import lombok.AllArgsConstructor;
 public enum UserRole {
 
     /**
+     * Admin role with unrestricted access to the application.
+     */
+    ADMIN("Admin"),
+
+    /**
      * Manager role with elevated privileges for extended functions.
      */
     MANAGER("Manager"),

@@ -11,7 +11,7 @@ import org.springframework.validation.annotation.Validated;
 /**
  * Represents the configuration of the Destination Service.
  */
-@ConfigurationProperties(prefix = "destination-service")
+@ConfigurationProperties(prefix = "sap.security.services.destination-service")
 @Component
 @Profile("cloud")
 @Getter

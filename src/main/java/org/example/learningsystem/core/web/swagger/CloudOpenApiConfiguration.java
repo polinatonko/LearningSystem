@@ -22,11 +22,11 @@ public class CloudOpenApiConfiguration extends OpenApiConfiguration {
 
     public CloudOpenApiConfiguration(
             @Value("${spring.application.name}") String applicationName,
-            @Value("${spring.application.version}") String applicationVersion
-    ) {
+            @Value("${spring.application.version}") String applicationVersion) {
         super(applicationName, applicationVersion);
     }
 
+    @Bean
     @Override
     public OpenAPI openAPI() {
         return super.openAPI()

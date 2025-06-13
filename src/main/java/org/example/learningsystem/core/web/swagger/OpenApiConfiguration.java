@@ -6,9 +6,6 @@ import io.swagger.v3.oas.models.PathItem;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import java.util.Collections;
 import java.util.function.Predicate;
@@ -19,7 +16,6 @@ import static java.util.Map.Entry;
 /**
  * Configuration for the OpenAPI.
  */
-@Configuration
 public class OpenApiConfiguration {
 
     protected static final String BASIC_AUTH_SCHEME = "basicAuth";
@@ -28,15 +24,11 @@ public class OpenApiConfiguration {
     private final String applicationName;
     private final String applicationVersion;
 
-    public OpenApiConfiguration(
-            @Value("${spring.application.name}") String applicationName,
-            @Value("${spring.application.version}") String applicationVersion
-    ) {
+    public OpenApiConfiguration(String applicationName, String applicationVersion) {
         this.applicationName = applicationName;
         this.applicationVersion = applicationVersion;
     }
 
-    @Bean
     protected OpenAPI openAPI() {
         return new OpenAPI()
                 .addSecurityItem(new SecurityRequirement()
