@@ -36,12 +36,14 @@ public class ServiceManagerAuthenticatedRequestExecutor {
     }
 
     public RestClient withRefreshedToken() {
-        oauth2TokenClient.refresh(serviceManagerProperties);
+        var credentials = serviceManagerProperties.getOauth2ClientCredentials();
+        oauth2TokenClient.refresh(credentials);
         return withCurrentToken();
     }
 
     private void addBearerAuthenticationHeader(ClientHttpRequest request) {
-        var accessToken = oauth2TokenClient.get(serviceManagerProperties);
+        var credentials = serviceManagerProperties.getOauth2ClientCredentials();
+        var accessToken = oauth2TokenClient.get(credentials);
         var headers = request.getHeaders();
         headers.setBearerAuth(accessToken);
     }

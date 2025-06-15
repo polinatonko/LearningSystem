@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.learningsystem.core.multitenancy.context.TenantInfo;
 import org.example.learningsystem.core.multitenancy.exception.InvalidTenantException;
 import org.example.learningsystem.core.multitenancy.context.TenantContext;
+import org.example.learningsystem.core.multitenancy.exception.InvalidTenantIdentifierException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -42,7 +43,7 @@ public class TenantIdentifierFilter extends OncePerRequestFilter {
             TenantContext.setTenant(tenant);
             log.info("Tenant was set: {}", tenant);
         } else {
-            throw new InvalidTenantException(tenantId);
+            throw new InvalidTenantIdentifierException(tenantId);
         }
     }
 }

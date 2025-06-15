@@ -1,47 +1,46 @@
 package org.example.learningsystem.core.multitenancy.db.schema;
 
-import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.core.multitenancy.config.MultitenancyProperties;
+import org.example.learningsystem.core.multitenancy.db.exception.InvalidTenantSchemaException;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import static java.util.Objects.nonNull;
+import static java.util.Objects.isNull;
+import static org.example.learningsystem.core.multitenancy.db.constant.TenantConstants.TENANT_SCHEMA_NAME_PREFIX;
 
 @Component
 @Profile("!cloud")
-@RequiredArgsConstructor
 public class LocalTenantSchemaResolver implements TenantSchemaResolver {
 
-    private static final String TENANT_SCHEMA_NAME_PREFIX = "usr_";
+    private final String defaultSchema;
+    private final String defaultTenant;
 
-    private final MultitenancyProperties multitenancyProperties;
-
-    @Override
-    public boolean isTenantSchema(String schema) {
-        return schema.startsWith(TENANT_SCHEMA_NAME_PREFIX);
+    public LocalTenantSchemaResolver(MultitenancyProperties multitenancyProperties) {
+        defaultSchema = multitenancyProperties.getDefaultSchema();
+        defaultTenant = multitenancyProperties.getDefaultTenant();
     }
 
     @Override
-    public String resolveSchema(String tenantId) {
-        var defaultSchema = multitenancyProperties.getDefaultSchema();
-        var defaultTenant = multitenancyProperties.getDefaultTenant();
-
-        if (nonNull(tenantId) && !tenantId.equals(defaultTenant)) {
-            var processedTenantId = tenantId.replace("-", "_");
-            return TENANT_SCHEMA_NAME_PREFIX.concat(processedTenantId);
+    public String resolve(String tenantId) {
+        if (isNull(tenantId) || defaultTenant.equals(tenantId)) {
+            return defaultSchema;
         }
-        return defaultSchema;
+
+        var processedTenantId = tenantId.replace("-", "_");
+        return TENANT_SCHEMA_NAME_PREFIX.concat(processedTenantId);
     }
 
     @Override
     public String resolveTenantId(String schema) {
-        var defaultSchema = multitenancyProperties.getDefaultSchema();
-        var defaultTenant = multitenancyProperties.getDefaultTenant();
-
-        if (!schema.equals(defaultSchema)) {
-            var prefixLength = TENANT_SCHEMA_NAME_PREFIX.length();
-            return schema.substring(prefixLength);
+        if (defaultSchema.equals(schema)) {
+            return defaultTenant;
         }
-        return defaultTenant;
+
+        if (isNull(schema) || !schema.startsWith(TENANT_SCHEMA_NAME_PREFIX)) {
+            throw new InvalidTenantSchemaException(schema);
+        }
+
+        var prefixLength = TENANT_SCHEMA_NAME_PREFIX.length();
+        return schema.substring(prefixLength);
     }
 }

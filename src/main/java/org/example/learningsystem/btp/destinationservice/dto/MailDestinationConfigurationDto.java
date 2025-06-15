@@ -7,11 +7,11 @@ import lombok.Setter;
 import org.example.learningsystem.email.config.EmailServerProperties;
 
 /**
- * Represents an instance of the destination with SMTP server credentials.
+ * Represents an instance of the destination configuration with SMTP server credentials.
  */
 @Getter
 @Setter
-public class MailDestinationDto extends DestinationDto implements EmailServerProperties {
+public class MailDestinationConfigurationDto extends DestinationConfigurationDto implements EmailServerProperties {
 
     /**
      * Email address of the email sender.

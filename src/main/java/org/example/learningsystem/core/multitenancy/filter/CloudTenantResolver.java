@@ -14,7 +14,7 @@ import static java.util.Objects.nonNull;
 @Profile("cloud")
 public class CloudTenantResolver implements TenantResolver {
 
-    private static final String SUBDOMAIN_CLAIM = "subdomain";
+    private static final String SUBDOMAIN_CLAIM = "zdn";
     private static final String ZID_CLAIM = "zid";
 
     @Override
@@ -23,7 +23,8 @@ public class CloudTenantResolver implements TenantResolver {
         if (principal instanceof JwtAuthenticationToken jwt) {
             var token = jwt.getToken();
             var tenantId = token.getClaimAsString(ZID_CLAIM);
-            var subdomain = token.getClaimAsString(SUBDOMAIN_CLAIM);
+            var extAttrs = token.getClaimAsMap("ext_attr");
+            var subdomain = (String) extAttrs.get(SUBDOMAIN_CLAIM);
             if (nonNull(tenantId)) {
                 return Optional.of(new TenantInfo(tenantId, subdomain));
             }

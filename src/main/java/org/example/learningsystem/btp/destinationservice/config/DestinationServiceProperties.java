@@ -18,7 +18,7 @@ import org.springframework.validation.annotation.Validated;
 @Getter
 @Setter
 @Validated
-public class DestinationServiceProperties implements Oauth2ClientCredentials {
+public class DestinationServiceProperties {
 
     /**
      * URI of the Destination Service API.
@@ -43,4 +43,8 @@ public class DestinationServiceProperties implements Oauth2ClientCredentials {
      */
     @NotNull
     private String clientSecret;
+
+    public Oauth2ClientCredentials getOauth2ClientCredentials() {
+        return new Oauth2ClientCredentials(clientId, clientSecret, tokenUrl);
+    }
 }

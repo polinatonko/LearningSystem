@@ -38,22 +38,22 @@ public class CloudOauth2TokenClient implements Oauth2TokenClient {
     private final RestClient restClient;
 
     @Override
-    @Cacheable(key = "#clientCredentials.clientId")
+    @Cacheable(key = "{#clientCredentials.tokenUrl, #clientCredentials.clientId}")
     public String get(Oauth2ClientCredentials clientCredentials) {
         return getToken(
-                clientCredentials.getTokenUrl(),
-                clientCredentials.getClientId(),
-                clientCredentials.getClientSecret()
+                clientCredentials.tokenUrl(),
+                clientCredentials.clientId(),
+                clientCredentials.clientSecret()
         );
     }
 
     @Override
-    @CachePut(key = "#clientCredentials.clientId")
+    @CachePut(key = "{#clientCredentials.tokenUrl, #clientCredentials.clientId}")
     public String refresh(Oauth2ClientCredentials clientCredentials) {
         return getToken(
-                clientCredentials.getTokenUrl(),
-                clientCredentials.getClientId(),
-                clientCredentials.getClientSecret()
+                clientCredentials.tokenUrl(),
+                clientCredentials.clientId(),
+                clientCredentials.clientSecret()
         );
     }
 

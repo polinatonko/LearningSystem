@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.learningsystem.btp.servicemanager.binding.service.ServiceBindingManager;
 import org.example.learningsystem.btp.servicemanager.instance.service.ServiceInstanceManager;
+import org.example.learningsystem.core.multitenancy.context.TenantInfo;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -20,15 +21,15 @@ public class CloudTenantSchemaService implements TenantSchemaService {
     private final ServiceInstanceManager serviceInstanceManager;
 
     @Override
-    public void create(String tenantId) {
-        var schemaName = getSchemaName(tenantId);
-        var bindingName = getBindingName(tenantId);
+    public void create(TenantInfo tenantInfo) {
+        var schemaName = getSchemaName(tenantInfo.tenantId());
+        var bindingName = getBindingName(tenantInfo.tenantId());
 
         var instance = serviceInstanceManager.createByOfferingAndPlanName(schemaName, "hana", "schema");
         log.info("Created service instance {}", instance);
 
         var instanceId = instance.id();
-        var binding = serviceBindingManager.create(bindingName, instanceId, tenantId);
+        var binding = serviceBindingManager.create(bindingName, instanceId, tenantInfo);
         log.info("Created service binding {}", binding);
     }
 

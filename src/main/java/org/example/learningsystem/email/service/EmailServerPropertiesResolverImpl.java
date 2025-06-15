@@ -39,6 +39,6 @@ public class EmailServerPropertiesResolverImpl implements EmailServerPropertiesR
 
     private EmailServerProperties getPropertiesFromDestinationService() {
         var mailDestination = destinationService.getByName(SMTP_DESTINATION);
-        return (EmailServerProperties) mailDestination;
+        return (EmailServerProperties) mailDestination.getDestinationConfiguration();
     }
 }

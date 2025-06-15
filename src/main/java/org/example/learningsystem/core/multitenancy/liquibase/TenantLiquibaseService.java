@@ -5,6 +5,7 @@ import liquibase.exception.LiquibaseException;
 import liquibase.integration.spring.SpringLiquibase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.learningsystem.core.multitenancy.context.TenantInfo;
 import org.example.learningsystem.core.multitenancy.db.schema.TenantSchemaResolver;
 import org.example.learningsystem.core.multitenancy.db.datasource.TenantDataSourceProvider;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
@@ -30,14 +31,14 @@ public class TenantLiquibaseService {
         dataSources.forEach(this::runOnTenant);
     }
 
-    public void runOnTenant(String tenantId, DataSource dataSource) {
-        var schema = tenantSchemaResolver.resolveSchema(tenantId);
+    public void runOnTenant(TenantInfo tenantInfo, DataSource dataSource) {
+        var schema = tenantSchemaResolver.resolve(tenantInfo.tenantId());
         try {
             var liquibase = createLiquibase(dataSource, schema);
             log.info("Running liquibase for {} schema", schema);
             liquibase.afterPropertiesSet();
         } catch (LiquibaseException e) {
-            throw new LiquibaseMigrationException(tenantId, schema);
+            throw new LiquibaseMigrationException(tenantInfo.tenantId(), schema);
         }
     }
 

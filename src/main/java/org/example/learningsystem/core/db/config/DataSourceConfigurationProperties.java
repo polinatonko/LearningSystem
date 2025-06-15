@@ -1,6 +1,5 @@
 package org.example.learningsystem.core.db.config;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -17,4 +16,6 @@ public class DataSourceConfigurationProperties implements DataSourceProperties {
     private String username;
 
     private String password;
+
+    private String schema;
 }

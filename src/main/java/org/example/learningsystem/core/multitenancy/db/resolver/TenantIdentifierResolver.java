@@ -3,10 +3,11 @@ package org.example.learningsystem.core.multitenancy.db.resolver;
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.core.multitenancy.config.MultitenancyProperties;
 import org.example.learningsystem.core.multitenancy.context.TenantContext;
+import org.example.learningsystem.core.multitenancy.context.TenantInfo;
 import org.hibernate.context.spi.CurrentTenantIdentifierResolver;
 import org.springframework.stereotype.Component;
 
-import static java.util.Objects.requireNonNullElse;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -16,13 +17,14 @@ public class TenantIdentifierResolver implements CurrentTenantIdentifierResolver
 
     @Override
     public String resolveCurrentTenantIdentifier() {
-        var tenantId = TenantContext.getTenantId();
-        var defaultTenant = multitenancyProperties.getDefaultTenant();
-        return requireNonNullElse(tenantId, defaultTenant);
+        var tenant = TenantContext.getTenant();
+        return Optional.ofNullable(tenant)
+                .map(TenantInfo::tenantId)
+                .orElse(multitenancyProperties.getDefaultTenant());
     }
 
     @Override
     public boolean validateExistingCurrentSessions() {
-        return true;
+        return false;
     }
 }

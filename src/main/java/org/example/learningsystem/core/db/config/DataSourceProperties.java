@@ -7,4 +7,6 @@ public interface DataSourceProperties {
     String getUsername();
 
     String getPassword();
+
+    String getSchema();
 }

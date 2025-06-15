@@ -9,6 +9,7 @@ public class ServiceManagerResourceConstants {
 
     public static final String DATABASE_ID = "database_id";
     public static final String NAME = "name";
+    public static final String SUBDOMAIN = "subdomain";
     public static final String TENANT_ID = "tenant_id";
     public static final String BASE_PATH = "v1";
     public static final String EQUALS_QUERY = "%s eq '%s'";

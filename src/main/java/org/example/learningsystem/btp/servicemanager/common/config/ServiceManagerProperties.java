@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "service-manager")
 @Getter
 @Setter
-public class ServiceManagerProperties implements Oauth2ClientCredentials {
+public class ServiceManagerProperties {
 
     private String clientId;
 
@@ -19,4 +19,8 @@ public class ServiceManagerProperties implements Oauth2ClientCredentials {
     private String tokenUrl;
 
     private String url;
+
+    public Oauth2ClientCredentials getOauth2ClientCredentials() {
+        return new Oauth2ClientCredentials(clientId, clientSecret, tokenUrl);
+    }
 }

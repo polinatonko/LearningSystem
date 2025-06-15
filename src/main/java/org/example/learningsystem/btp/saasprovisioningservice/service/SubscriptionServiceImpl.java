@@ -32,13 +32,13 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     public String subscribe(String tenantId, SubscriptionRequestDto subscription) {
         var tenantUrl = TENANT_SPECIFIC_URL_TEMPLATE.formatted(subscription.subscribedSubdomain(), appRouterUrl);
         log.info("Generated tenant url: tenantId = {}, tenantUrl = {}", tenantId, tenantUrl);
-        tenantManagementService.create(tenantId);
+        tenantManagementService.create(tenantId, subscription.subscribedSubdomain());
         return tenantUrl;
     }
 
     @Override
     public void unsubscribe(String tenantId, SubscriptionRequestDto subscription) {
-        tenantManagementService.delete(tenantId);
+        tenantManagementService.delete(tenantId, subscription.subscribedSubdomain());
     }
 
     @Override

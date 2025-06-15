@@ -1,4 +1,4 @@
-package org.example.learningsystem.core.multitenancy.config;
+package org.example.learningsystem.core.multitenancy.db.config;
 
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.core.multitenancy.db.resolver.TenantIdentifierResolver;

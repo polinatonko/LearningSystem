@@ -2,6 +2,7 @@ package org.example.learningsystem.core.multitenancy.db.schema;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.learningsystem.core.multitenancy.context.TenantInfo;
 import org.example.learningsystem.core.multitenancy.db.util.DatabaseUtils;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -21,8 +22,8 @@ public class LocalTenantSchemaService implements TenantSchemaService {
     private final TenantSchemaResolver tenantSchemaResolver;
 
     @Override
-    public void create(String tenantId) {
-        var schema = tenantSchemaResolver.resolveSchema(tenantId);
+    public void create(TenantInfo tenantInfo) {
+        var schema = tenantSchemaResolver.resolve(tenantInfo.tenantId());
         log.info("Trying to create new tenant schema: {}", schema);
 
         var sql = CREATE_SCHEMA_SQL.formatted(schema);
@@ -32,7 +33,7 @@ public class LocalTenantSchemaService implements TenantSchemaService {
 
     @Override
     public void delete(String tenantId) {
-        var schema = tenantSchemaResolver.resolveSchema(tenantId);
+        var schema = tenantSchemaResolver.resolve(tenantId);
         log.info("Trying to drop tenant schema: {}", schema);
 
         var sql = DROP_SCHEMA_SQL.formatted(schema);
