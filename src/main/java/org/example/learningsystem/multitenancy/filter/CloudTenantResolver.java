@@ -8,8 +8,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-import static java.util.Objects.nonNull;
-
 /**
  * Cloud implementation of {@link TenantResolver} that extracts tenant information from JWT tokens.
  */
@@ -17,6 +15,7 @@ import static java.util.Objects.nonNull;
 @Profile("cloud")
 public class CloudTenantResolver implements TenantResolver {
 
+    private static final String EXT_ATTRIBUTES = "ext_attr";
     private static final String SUBDOMAIN_CLAIM = "zdn";
     private static final String ZID_CLAIM = "zid";
 
@@ -26,11 +25,10 @@ public class CloudTenantResolver implements TenantResolver {
         if (principal instanceof JwtAuthenticationToken jwt) {
             var token = jwt.getToken();
             var tenantId = token.getClaimAsString(ZID_CLAIM);
-            var extAttrs = token.getClaimAsMap("ext_attr");
+            var extAttrs = token.getClaimAsMap(EXT_ATTRIBUTES);
             var subdomain = (String) extAttrs.get(SUBDOMAIN_CLAIM);
-            if (nonNull(tenantId)) {
-                return Optional.of(new TenantInfo(tenantId, subdomain));
-            }
+            return Optional.ofNullable(tenantId)
+                    .map(id -> new TenantInfo(id, subdomain));
         }
         return Optional.empty();
     }

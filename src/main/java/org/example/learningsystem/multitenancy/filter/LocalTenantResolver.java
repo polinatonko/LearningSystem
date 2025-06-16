@@ -7,8 +7,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-import static java.util.Objects.nonNull;
-
 /**
  * Local implementation of {@link TenantResolver} that extracts tenant information from request
  * {@value TENANT_ID_HEADER} header locally.
@@ -22,6 +20,7 @@ public class LocalTenantResolver implements TenantResolver {
     @Override
     public Optional<TenantInfo> resolve(HttpServletRequest request) {
         var tenant = request.getHeader(TENANT_ID_HEADER);
-        return nonNull(tenant) ? Optional.of(new TenantInfo(tenant)) : Optional.empty();
+        return Optional.ofNullable(tenant)
+                .map(TenantInfo::new);
     }
 }
