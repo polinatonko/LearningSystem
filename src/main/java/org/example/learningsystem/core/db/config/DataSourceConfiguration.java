@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
 
-import static org.example.learningsystem.core.db.util.DataSourceHelper.create;
+import static org.example.learningsystem.core.db.util.DataSourceUtils.create;
 
 @Configuration
 public class DataSourceConfiguration {

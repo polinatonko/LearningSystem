@@ -1,9 +1,9 @@
 package org.example.learningsystem.course.job.notifications;
 
 import lombok.RequiredArgsConstructor;
-import org.example.learningsystem.core.multitenancy.context.TenantContext;
-import org.example.learningsystem.core.multitenancy.context.TenantInfo;
-import org.example.learningsystem.core.multitenancy.db.datasource.MultiTenantDataSource;
+import org.example.learningsystem.multitenancy.context.TenantContext;
+import org.example.learningsystem.multitenancy.context.TenantInfo;
+import org.example.learningsystem.multitenancy.db.datasource.MultiTenantDataSource;
 import org.example.learningsystem.course.service.CourseService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

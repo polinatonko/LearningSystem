@@ -43,8 +43,7 @@ public class ServiceManagerURIBuilder {
     }
 
     public ServiceManagerURIBuilder async(boolean isAsync) {
-        var async = isAsync ? "true" : "false";
-        uriComponentsBuilder = uriComponentsBuilder.queryParam("async", async);
+        uriComponentsBuilder = uriComponentsBuilder.queryParam("async", isAsync);
         return this;
     }
 

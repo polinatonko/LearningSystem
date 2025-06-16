@@ -36,7 +36,7 @@ public class CloudDestinationServiceImpl implements DestinationService {
         var tenantTokenUrl = getTenantTokenUrl();
         if (tenantTokenUrl.isPresent()) {
             try {
-                log.info("Trying to retrieve destination {} for tenant url {}", name, tenantTokenUrl);
+                log.info("Trying to retrieve destination {} for tenant url {}", name, tenantTokenUrl.get());
                 return tryToGetDestination(tenantTokenUrl.get(), name);
             } catch (NotFound e) {
                 log.info("Destination {} wasn't found for current tenant", name);

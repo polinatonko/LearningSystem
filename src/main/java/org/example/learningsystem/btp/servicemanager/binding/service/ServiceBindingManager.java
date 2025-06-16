@@ -6,7 +6,7 @@ import org.example.learningsystem.btp.servicemanager.binding.dto.ServiceBindingR
 import org.example.learningsystem.btp.servicemanager.common.service.BaseServiceManager;
 import org.example.learningsystem.btp.servicemanager.common.util.ServiceManagerRestClient;
 import org.example.learningsystem.btp.servicemanager.common.util.ServiceManagerURIBuilder;
-import org.example.learningsystem.core.multitenancy.context.TenantInfo;
+import org.example.learningsystem.multitenancy.context.TenantInfo;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 

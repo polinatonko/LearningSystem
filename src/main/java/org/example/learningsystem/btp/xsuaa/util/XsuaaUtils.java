@@ -1,8 +1,8 @@
 package org.example.learningsystem.btp.xsuaa.util;
 
 import lombok.NoArgsConstructor;
-import org.example.learningsystem.core.multitenancy.context.TenantContext;
-import org.example.learningsystem.core.multitenancy.context.TenantInfo;
+import org.example.learningsystem.multitenancy.context.TenantContext;
+import org.example.learningsystem.multitenancy.context.TenantInfo;
 
 import java.util.Optional;
 

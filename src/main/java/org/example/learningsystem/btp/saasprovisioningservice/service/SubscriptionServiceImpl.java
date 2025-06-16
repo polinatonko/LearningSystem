@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.learningsystem.btp.saasprovisioningservice.config.ServiceDependencies;
 import org.example.learningsystem.btp.saasprovisioningservice.dto.ServiceInfoDto;
 import org.example.learningsystem.btp.saasprovisioningservice.dto.SubscriptionRequestDto;
-import org.example.learningsystem.core.multitenancy.db.service.TenantManagementService;
+import org.example.learningsystem.multitenancy.db.service.TenantManagementService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
