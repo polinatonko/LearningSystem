@@ -11,6 +11,9 @@ import static org.example.learningsystem.multitenancy.db.util.TenantSchemaUtils.
 import static org.example.learningsystem.multitenancy.db.util.TenantSchemaUtils.getSchemaName;
 import static org.example.learningsystem.multitenancy.db.util.TenantSchemaUtils.isTenantSchema;
 
+/**
+ * Local implementation of {@link TenantSchemaResolver}.
+ */
 @Component
 @Profile("!cloud")
 @RequiredArgsConstructor

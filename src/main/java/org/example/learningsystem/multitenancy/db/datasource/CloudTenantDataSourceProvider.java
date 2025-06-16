@@ -3,7 +3,7 @@ package org.example.learningsystem.multitenancy.db.datasource;
 import org.example.learningsystem.btp.servicemanager.binding.service.ServiceBindingManager;
 import org.example.learningsystem.core.db.util.DataSourceUtils;
 import org.example.learningsystem.multitenancy.context.TenantInfo;
-import org.example.learningsystem.multitenancy.db.util.TenantUtils;
+import org.example.learningsystem.multitenancy.db.util.TenantBindingUtils;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +11,10 @@ import javax.sql.DataSource;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Cloud implementation of {@link TenantDataSourceProvider} that creates and retrieves data sources
+ * using SAP BTP service bindings.
+ */
 @Service
 @Profile("cloud")
 public class CloudTenantDataSourceProvider implements TenantDataSourceProvider {
@@ -22,7 +26,7 @@ public class CloudTenantDataSourceProvider implements TenantDataSourceProvider {
         this.dataSources = serviceBindingManager.getAll()
                 .stream()
                 .collect(Collectors.toMap(
-                        TenantUtils::extractTenantInfo,
+                        TenantBindingUtils::extractTenantInfo,
                         binding -> DataSourceUtils.create(binding.credentials())));
         this.serviceBindingManager = serviceBindingManager;
     }

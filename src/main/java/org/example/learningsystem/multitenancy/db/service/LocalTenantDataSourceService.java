@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
 
+/**
+ * Local implementation of {@link TenantDataSourceService} that uses a single shared data source for all tenants.
+ */
 @Service
 @Profile("!cloud")
 @RequiredArgsConstructor

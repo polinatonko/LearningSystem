@@ -14,6 +14,11 @@ import javax.sql.DataSource;
 
 import static org.example.learningsystem.multitenancy.liquibase.LiquibaseUtils.getLiquibase;
 
+/**
+ * Service for managing Liquibase database migrations for tenant schemas.
+ * <p>
+ * Handles running migrations for both new tenants in runtime and existing tenants during application startup.
+ */
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -23,12 +28,21 @@ public class TenantLiquibaseService {
     private final TenantDataSourceProvider tenantDataSourceProvider;
     private final TenantSchemaResolver tenantSchemaResolver;
 
+    /**
+     * Runs Liquibase migrations for all existing tenants.
+     */
     @PostConstruct
     public void runOnTenants() {
         var dataSources = tenantDataSourceProvider.getAll();
         dataSources.forEach(this::runOnTenant);
     }
 
+    /**
+     * Run Liquibase migrations for the specified tenant.
+     *
+     * @param tenantInfo the tenant information
+     * @param dataSource the tenant datasource to be used by Liquibase
+     */
     public void runOnTenant(TenantInfo tenantInfo, DataSource dataSource) {
         var schema = tenantSchemaResolver.resolve(tenantInfo.tenantId());
         try {

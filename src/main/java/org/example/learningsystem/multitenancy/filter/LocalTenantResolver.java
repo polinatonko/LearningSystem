@@ -9,6 +9,10 @@ import java.util.Optional;
 
 import static java.util.Objects.nonNull;
 
+/**
+ * Local implementation of {@link TenantResolver} that extracts tenant information from request
+ * {@value TENANT_ID_HEADER} header locally.
+ */
 @Component
 @Profile("!cloud")
 public class LocalTenantResolver implements TenantResolver {

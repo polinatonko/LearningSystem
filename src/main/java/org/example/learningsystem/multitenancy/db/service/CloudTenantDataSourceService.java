@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
 
+/**
+ * Cloud implementation of {@link TenantDataSourceService} that delegates to {@link MultiTenantDataSource}
+ * for managing tenant data sources.
+ */
 @Service
 @Profile("cloud")
 @RequiredArgsConstructor

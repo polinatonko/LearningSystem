@@ -11,6 +11,10 @@ import org.springframework.stereotype.Service;
 import static org.example.learningsystem.btp.servicemanager.common.builder.ServiceNameBuilder.buildBindingName;
 import static org.example.learningsystem.btp.servicemanager.common.builder.ServiceNameBuilder.buildInstanceName;
 
+/**
+ * Cloud implementation of {@link TenantSchemaService} that manages schemas through SAP BTP
+ * service instances and bindings.
+ */
 @Service
 @Profile("cloud")
 @RequiredArgsConstructor

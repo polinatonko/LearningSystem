@@ -9,6 +9,12 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import org.example.learningsystem.multitenancy.db.datasource.MultiTenantDataSource;
+
+/**
+ * Cloud implementation of {@link AbstractMultiTenantConnectionProvider} that uses a
+ * {@link MultiTenantDataSource} for tenant-aware connection routing.
+ */
 @Component
 @Slf4j
 @Profile("cloud")

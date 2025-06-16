@@ -8,10 +8,19 @@ import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import static lombok.AccessLevel.PRIVATE;
 import static org.springframework.util.StringUtils.collectionToCommaDelimitedString;
 
+/**
+ * Utility class for configuring Liquibase instances.
+ */
 @Slf4j
 @NoArgsConstructor(access = PRIVATE)
 public class LiquibaseUtils {
 
+    /**
+     * Creates a {@link SpringLiquibase} instance from specified properties.
+     *
+     * @param liquibaseProperties a {@link LiquibaseProperties} instance
+     * @return a new {@link SpringLiquibase} instance
+     */
     public static SpringLiquibase getLiquibase(LiquibaseProperties liquibaseProperties) {
         var liquibase = new SpringLiquibase();
         liquibase.setChangeLog(liquibaseProperties.getChangeLog());

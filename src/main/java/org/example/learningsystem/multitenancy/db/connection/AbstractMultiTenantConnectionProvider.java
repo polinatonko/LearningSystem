@@ -9,6 +9,12 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * Abstract base class for multitenant connection providers.
+ * <p>
+ * Provides common functionality for getting and releasing database connections in a multitenant environment.
+ * Concrete implementations should handle tenant-aware connection routing.
+ */
 public abstract class AbstractMultiTenantConnectionProvider implements MultiTenantConnectionProvider<String> {
 
     protected final DataSource dataSource;

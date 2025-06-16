@@ -14,6 +14,12 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+/**
+ * Request filter that identifies the current tenant for each request and sets the tenant context.
+ * <p>
+ * Uses the configured {@link TenantResolver} strategy to extract tenant information from the request and validates
+ * the tenant identifier format before setting the context.
+ */
 @Component
 @Slf4j
 @RequiredArgsConstructor

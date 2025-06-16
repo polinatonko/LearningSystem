@@ -10,6 +10,9 @@ import java.util.Optional;
 
 import static java.util.Objects.nonNull;
 
+/**
+ * Cloud implementation of {@link TenantResolver} that extracts tenant information from JWT tokens.
+ */
 @Component
 @Profile("cloud")
 public class CloudTenantResolver implements TenantResolver {

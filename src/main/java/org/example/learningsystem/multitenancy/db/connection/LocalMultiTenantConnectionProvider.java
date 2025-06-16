@@ -10,6 +10,10 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * Local implementation of {@link AbstractMultiTenantConnectionProvider} that configures
+ * connections to use tenant-specific schemas on a shared database instance.
+ */
 @Component
 @Slf4j
 @Profile("!cloud")

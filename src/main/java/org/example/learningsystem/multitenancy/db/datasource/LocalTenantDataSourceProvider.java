@@ -15,6 +15,10 @@ import java.util.stream.Collectors;
 import static org.example.learningsystem.multitenancy.constant.SqlConstants.SELECT_SCHEMAS_SQL;
 import static org.example.learningsystem.core.db.util.DatabaseUtils.queryForStringList;
 
+/**
+ * Local implementation of {@link TenantDataSourceProvider} that uses a single shared data source for all tenants,
+ * with schema-based isolation.
+ */
 @Service
 @Profile("!cloud")
 @RequiredArgsConstructor

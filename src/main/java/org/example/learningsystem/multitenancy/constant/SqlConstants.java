@@ -4,6 +4,9 @@ import lombok.NoArgsConstructor;
 
 import static lombok.AccessLevel.PRIVATE;
 
+/**
+ * Provides SQL query templates for local schema management.
+ */
 @NoArgsConstructor(access = PRIVATE)
 public class SqlConstants {
 

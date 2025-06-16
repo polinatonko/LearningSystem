@@ -7,6 +7,12 @@ import org.example.learningsystem.multitenancy.db.schema.TenantSchemaService;
 import org.example.learningsystem.multitenancy.liquibase.TenantLiquibaseService;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service for coordinating the onboarding and offboarding processes for tenants.
+ * <p>
+ * Manages the complete tenant onboarding and offboarding, including schema creation and deletion,
+ * data source configuration, and executing database migrations.
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -16,6 +22,12 @@ public class TenantManagementService {
     private final TenantLiquibaseService tenantLiquibaseService;
     private final TenantSchemaService tenantSchemaService;
 
+    /**
+     * Performs onboarding for the specified tenant.
+     *
+     * @param tenantId  the tenant identifier
+     * @param subdomain the tenant's subdomain
+     */
     public void create(String tenantId, String subdomain) {
         log.info("Starting onboarding process for new tenant: {}", tenantId);
 
@@ -28,6 +40,12 @@ public class TenantManagementService {
         log.info("Successfully completed onboarding for tenant: {}", tenantId);
     }
 
+    /**
+     * Performs offboarding for the specified tenant.
+     *
+     * @param tenantId  the tenant identifier
+     * @param subdomain the tenant's subdomain
+     */
     public void delete(String tenantId, String subdomain) {
         log.info("Starting offboarding for tenant: {}", tenantId);
 

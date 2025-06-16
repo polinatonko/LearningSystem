@@ -12,6 +12,9 @@ import javax.sql.DataSource;
 import static org.example.learningsystem.multitenancy.constant.SqlConstants.CREATE_SCHEMA_SQL;
 import static org.example.learningsystem.multitenancy.constant.SqlConstants.DROP_SCHEMA_SQL;
 
+/**
+ * Local implementation of {@link TenantSchemaService} that manages tenant schemas through direct SQL execution.
+ */
 @Service
 @Profile("!cloud")
 @RequiredArgsConstructor

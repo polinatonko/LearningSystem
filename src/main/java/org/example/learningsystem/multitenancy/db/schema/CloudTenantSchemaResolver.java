@@ -11,6 +11,10 @@ import org.springframework.stereotype.Component;
 
 import static java.util.Objects.isNull;
 
+/**
+ * Cloud implementation of {@link TenantSchemaResolver} that resolves schema names using SAP BTP service
+ * binding information.
+ */
 @Component
 @Profile("cloud")
 @RequiredArgsConstructor
