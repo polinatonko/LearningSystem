@@ -4,6 +4,11 @@ import lombok.NoArgsConstructor;
 
 import static lombok.AccessLevel.PRIVATE;
 
+/**
+ * Constants used for interacting with the Service Manager API.
+ * <p>
+ * Contains resource paths, query parameters, and field names used in API requests and responses.
+ */
 @NoArgsConstructor(access = PRIVATE)
 public class ServiceManagerResourceConstants {
 

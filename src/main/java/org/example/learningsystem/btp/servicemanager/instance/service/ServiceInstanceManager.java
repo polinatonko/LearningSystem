@@ -1,7 +1,7 @@
 package org.example.learningsystem.btp.servicemanager.instance.service;
 
 import org.example.learningsystem.btp.servicemanager.common.util.ServiceManagerRestClient;
-import org.example.learningsystem.btp.servicemanager.common.util.ServiceManagerURIBuilder;
+import org.example.learningsystem.btp.servicemanager.common.builder.ServiceManagerURIBuilder;
 import org.example.learningsystem.btp.servicemanager.instance.dto.CreateServiceInstanceByOfferingAndPlanName;
 import org.example.learningsystem.btp.servicemanager.instance.dto.ServiceInstanceResponseDto;
 import org.example.learningsystem.btp.servicemanager.common.service.BaseServiceManager;
@@ -16,6 +16,9 @@ import static org.example.learningsystem.btp.servicemanager.common.constant.Serv
 import static org.example.learningsystem.btp.servicemanager.common.constant.ServiceManagerResourceConstants.NAME;
 import static org.example.learningsystem.btp.servicemanager.common.constant.ServiceManagerResourceConstants.SERVICE_INSTANCES;
 
+/**
+ * Service for managing service instances in SAP BTP using the Service Manager API.
+ */
 @Service
 @Profile("cloud")
 public class ServiceInstanceManager {
@@ -35,6 +38,14 @@ public class ServiceInstanceManager {
         this.databaseId = databaseId;
     }
 
+    /**
+     * Creates a new service instance by specifying the service offering and plan names.
+     *
+     * @param name        the name of the instance
+     * @param offering    the name of the service offering
+     * @param servicePlan the name of the service plan
+     * @return the {@link ServiceInstanceResponseDto} instance
+     */
     public ServiceInstanceResponseDto createByOfferingAndPlanName(String name, String offering, String servicePlan) {
         var uri = serviceManagerURIBuilder.builder(SERVICE_INSTANCES)
                 .async(false)
@@ -44,6 +55,11 @@ public class ServiceInstanceManager {
         return serviceManagerRestClient.post(uri, body, ServiceInstanceResponseDto.class);
     }
 
+    /**
+     * Deletes a service instance by its name.
+     *
+     * @param name the name of the instance
+     */
     public void deleteByName(String name) {
         var instance = baseServiceManager.getByField(NAME, name, SERVICE_INSTANCES, ServiceInstanceResponseDto.class);
         baseServiceManager.deleteById(SERVICE_INSTANCES, instance.id());

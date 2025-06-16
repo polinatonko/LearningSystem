@@ -8,8 +8,8 @@ import org.example.learningsystem.multitenancy.context.TenantInfo;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import static org.example.learningsystem.btp.servicemanager.common.util.SchemaUtils.getBindingName;
-import static org.example.learningsystem.btp.servicemanager.common.util.SchemaUtils.getSchemaName;
+import static org.example.learningsystem.btp.servicemanager.common.builder.ServiceNameBuilder.buildBindingName;
+import static org.example.learningsystem.btp.servicemanager.common.builder.ServiceNameBuilder.buildInstanceName;
 
 @Service
 @Profile("cloud")
@@ -22,8 +22,8 @@ public class CloudTenantSchemaService implements TenantSchemaService {
 
     @Override
     public void create(TenantInfo tenantInfo) {
-        var schemaName = getSchemaName(tenantInfo.tenantId());
-        var bindingName = getBindingName(tenantInfo.tenantId());
+        var schemaName = buildInstanceName(tenantInfo.tenantId());
+        var bindingName = buildBindingName(tenantInfo.tenantId());
 
         var instance = serviceInstanceManager.createByOfferingAndPlanName(schemaName, "hana", "schema");
         log.info("Created service instance {}", instance);
@@ -35,8 +35,8 @@ public class CloudTenantSchemaService implements TenantSchemaService {
 
     @Override
     public void delete(String tenantId) {
-        var schemaName = getSchemaName(tenantId);
-        var bindingName = getBindingName(tenantId);
+        var schemaName = buildInstanceName(tenantId);
+        var bindingName = buildBindingName(tenantId);
 
         serviceBindingManager.deleteByName(bindingName);
         log.info("Removed binding {}", bindingName);

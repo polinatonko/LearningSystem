@@ -9,6 +9,10 @@ import org.springframework.stereotype.Component;
 
 import java.net.URI;
 
+/**
+ * Implementation of {@link ServiceManagerRestClient} that uses {@link ServiceManagerAuthenticatedRequestExecutor}
+ * for handling OAuth 2.0 token flow.
+ */
 @Component
 @Profile("cloud")
 @RequiredArgsConstructor

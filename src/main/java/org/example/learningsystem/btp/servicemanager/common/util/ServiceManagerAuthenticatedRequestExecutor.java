@@ -12,6 +12,11 @@ import java.util.function.Function;
 
 import static org.springframework.web.client.HttpClientErrorException.Unauthorized;
 
+/**
+ * Handles authenticated requests to the Service Manager API.
+ * <p>
+ * Manages OAuth 2.0 token acquisition and refresh automatically.
+ */
 @Component
 @Profile("cloud")
 @RequiredArgsConstructor
@@ -21,6 +26,13 @@ public class ServiceManagerAuthenticatedRequestExecutor {
     private final RestClient restClient;
     private final ServiceManagerProperties serviceManagerProperties;
 
+    /**
+     * Executes a REST operation with OAuth 2.0 authentication.
+     *
+     * @param operation the operation to execute
+     * @param <T>       the return type of the operation
+     * @return the result of the REST operation
+     */
     public <T> T execute(Function<RestClient, T> operation) {
         try {
             return operation.apply(withCurrentToken());
@@ -35,7 +47,7 @@ public class ServiceManagerAuthenticatedRequestExecutor {
                 .build();
     }
 
-    public RestClient withRefreshedToken() {
+    private RestClient withRefreshedToken() {
         var credentials = serviceManagerProperties.getOauth2ClientCredentials();
         oauth2TokenClient.refresh(credentials);
         return withCurrentToken();
