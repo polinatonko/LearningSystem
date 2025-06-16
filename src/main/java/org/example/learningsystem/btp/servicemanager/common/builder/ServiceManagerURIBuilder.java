@@ -8,7 +8,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 
-import static lombok.AccessLevel.PROTECTED;
 import static org.example.learningsystem.btp.servicemanager.common.constant.ServiceManagerResourceConstants.BASE_PATH;
 import static org.example.learningsystem.btp.servicemanager.common.constant.ServiceManagerResourceConstants.EQUALS_QUERY;
 import static org.example.learningsystem.btp.servicemanager.common.constant.ServiceManagerResourceConstants.FIELD_QUERY;
@@ -19,31 +18,25 @@ import static org.example.learningsystem.btp.servicemanager.common.constant.Serv
  */
 @Component
 @Profile("cloud")
-@RequiredArgsConstructor(access = PROTECTED)
+@RequiredArgsConstructor
 public class ServiceManagerURIBuilder {
 
     private final ServiceManagerProperties serviceManagerProperties;
 
     private UriComponentsBuilder uriComponentsBuilder;
 
-    private ServiceManagerURIBuilder(ServiceManagerProperties serviceManagerProperties,
-                                     UriComponentsBuilder uriComponentsBuilder) {
-        this.serviceManagerProperties = serviceManagerProperties;
-        this.uriComponentsBuilder = uriComponentsBuilder;
-    }
-
     /**
      * Creates a new URI builder initialized with the base uri of the Service Manager API
      * and the specified path segments.
      *
      * @param pathSegments the path segments to include in the URI
-     * @return a new {@link ServiceManagerURIBuilder} instance
+     * @return a {@link ServiceManagerURIBuilder} instance
      */
     public ServiceManagerURIBuilder builder(String pathSegments) {
-        var builder = UriComponentsBuilder.fromUriString(serviceManagerProperties.getUrl())
+        uriComponentsBuilder = UriComponentsBuilder.fromUriString(serviceManagerProperties.getUrl())
                 .pathSegment(BASE_PATH)
                 .pathSegment(pathSegments.split("/"));
-        return new ServiceManagerURIBuilder(serviceManagerProperties, builder);
+        return this;
     }
 
     /**
@@ -51,12 +44,12 @@ public class ServiceManagerURIBuilder {
      *
      * @param field the name of the field
      * @param value the value of the field
-     * @return a new {@link ServiceManagerURIBuilder} instance
+     * @return a {@link ServiceManagerURIBuilder} instance
      */
     public ServiceManagerURIBuilder fieldQuery(String field, String value) {
         var query = EQUALS_QUERY.formatted(field, value);
-        var builder = uriComponentsBuilder.queryParam(FIELD_QUERY, query);
-        return new ServiceManagerURIBuilder(serviceManagerProperties, builder);
+        uriComponentsBuilder = uriComponentsBuilder.queryParam(FIELD_QUERY, query);
+        return this;
     }
 
     /**
@@ -64,31 +57,32 @@ public class ServiceManagerURIBuilder {
      *
      * @param label the name of the field
      * @param value the value of the field
-     * @return a new {@link ServiceManagerURIBuilder} instance
+     * @return a {@link ServiceManagerURIBuilder} instance
      */
     public ServiceManagerURIBuilder labelQuery(String label, String value) {
         var query = EQUALS_QUERY.formatted(label, value);
-        var builder = uriComponentsBuilder.queryParam(LABEL_QUERY, query);
-        return new ServiceManagerURIBuilder(serviceManagerProperties, builder);
+        uriComponentsBuilder = uriComponentsBuilder.queryParam(LABEL_QUERY, query);
+        return this;
     }
 
     /**
      * Adds 'async' request parameter to the URI builder.
      *
      * @param isAsync the value of the parameter
-     * @return a new {@link ServiceManagerURIBuilder} instance
+     * @return a {@link ServiceManagerURIBuilder} instance
      */
     public ServiceManagerURIBuilder async(boolean isAsync) {
-        var builder = uriComponentsBuilder.queryParam("async", isAsync);
-        return new ServiceManagerURIBuilder(serviceManagerProperties, builder);
+        uriComponentsBuilder = uriComponentsBuilder.queryParam("async", isAsync);
+        return this;
     }
 
     /**
      * Builds a URI from the {@link UriComponentsBuilder}.
      *
-     * @return a new {@link URI} instance
+     * @return constructed {@link URI} instance
      */
     public URI build() {
-        return uriComponentsBuilder.build().toUri();
+        return uriComponentsBuilder.build()
+                .toUri();
     }
 }
