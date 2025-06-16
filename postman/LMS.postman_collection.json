@@ -1,12 +1,963 @@
 {
 	"info": {
-		"_postman_id": "c63fc5ac-efb2-49d0-96d3-f916bcbcdb92",
-		"name": "LMS Copy Stage-5",
+		"_postman_id": "09950966-9edd-40d4-ac96-5398810e7e3c",
+		"name": "LMS",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "44216725",
-		"_collection_link": "https://palinatanko.postman.co/workspace/Palina-Tanko's-Workspace~13e4ecc7-4f97-405e-8469-f183eab9f880/collection/44216725-c63fc5ac-efb2-49d0-96d3-f916bcbcdb92?action=share&source=collection_link&creator=44216725"
+		"_collection_link": "https://palinatanko.postman.co/workspace/Palina-Tanko's-Workspace~13e4ecc7-4f97-405e-8469-f183eab9f880/collection/44216725-09950966-9edd-40d4-ac96-5398810e7e3c?action=share&source=collection_link&creator=44216725"
 	},
 	"item": [
+		{
+			"name": "BTP",
+			"item": [
+				{
+					"name": "Service Manager",
+					"item": [
+						{
+							"name": "Tokens",
+							"item": [
+								{
+									"name": "Get User Token",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "grant_type",
+													"value": "password",
+													"type": "text"
+												},
+												{
+													"key": "username",
+													"value": "",
+													"type": "text"
+												},
+												{
+													"key": "password",
+													"value": "",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{serviceManagerUrl}}/v1/oauth/a3b0b7cbtrial/token",
+											"host": [
+												"{{serviceManagerUrl}}"
+											],
+											"path": [
+												"v1",
+												"oauth",
+												"a3b0b7cbtrial",
+												"token"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Technical Token",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "grant_type",
+													"value": "client_credentials",
+													"type": "text"
+												},
+												{
+													"key": "client_id",
+													"value": "sb-dd066c8a-ad0c-4402-8b32-26fbb7be2bcd!b463125|service-manager!b1476",
+													"type": "text"
+												},
+												{
+													"key": "client_secret",
+													"value": "43400661-9818-4e30-9023-f748f615f2ef$sltnWclQgvTpiE0KqLKbXUP61cpzUC1Z0G9z0PnBpTg=",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{uaa}}/oauth/token",
+											"host": [
+												"{{uaa}}"
+											],
+											"path": [
+												"oauth",
+												"token"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Service Offerings",
+							"item": [
+								{
+									"name": "Get All",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{serviceManagerUrl}}/v1/service_offerings?fieldQuery=name eq 'hana'",
+											"host": [
+												"{{serviceManagerUrl}}"
+											],
+											"path": [
+												"v1",
+												"service_offerings"
+											],
+											"query": [
+												{
+													"key": "fieldQuery",
+													"value": "name eq 'hana'"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get By Id",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{serviceManagerUrl}}/v1/service_offerings/bd5d9d23-96ce-409b-bb93-7c9225c4e56b",
+											"host": [
+												"{{serviceManagerUrl}}"
+											],
+											"path": [
+												"v1",
+												"service_offerings",
+												"bd5d9d23-96ce-409b-bb93-7c9225c4e56b"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Service Plans",
+							"item": [
+								{
+									"name": "Get All",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{serviceManagerUrl}}/v1/service_plans?fieldQuery=name contains 'schema'",
+											"host": [
+												"{{serviceManagerUrl}}"
+											],
+											"path": [
+												"v1",
+												"service_plans"
+											],
+											"query": [
+												{
+													"key": "fieldQuery",
+													"value": "name contains 'schema'"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get By Id",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{serviceManagerUrl}}/v1/service_plans/952cebb5-d773-4f54-9da8-c2c442da45c9",
+											"host": [
+												"{{serviceManagerUrl}}"
+											],
+											"path": [
+												"v1",
+												"service_plans",
+												"952cebb5-d773-4f54-9da8-c2c442da45c9"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Service Instances",
+							"item": [
+								{
+									"name": "Get All",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{serviceManagerUrl}}/v1/service_instances",
+											"host": [
+												"{{serviceManagerUrl}}"
+											],
+											"path": [
+												"v1",
+												"service_instances"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get By Id",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{serviceManagerUrl}}/v1/service_instances/aacd15e1-cc4a-436b-8af0-02bcb222fbf1",
+											"host": [
+												"{{serviceManagerUrl}}"
+											],
+											"path": [
+												"v1",
+												"service_instances",
+												"aacd15e1-cc4a-436b-8af0-02bcb222fbf1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create By Plan Id",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"lms-destination-service\",\r\n    \"service_plan_id\": \"952cebb5-d773-4f54-9da8-c2c442da45c9\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{serviceManagerUrl}}/v1/service_instances",
+											"host": [
+												"{{serviceManagerUrl}}"
+											],
+											"path": [
+												"v1",
+												"service_instances"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create By Offering And Plan Name",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"1ebd6692-faab-417d-b472-614f574f53e0-schema\",\r\n    \"service_offering_name\": \"hana\",\r\n    \"service_plan_name\": \"schema\",\r\n    \"labels\": {\r\n        \"tenant_id\": [\"1ebd6692-faab-417d-b472-614f574f53e0\"],\r\n        \"subdomain\": [\"subscriber-dejclbku\"]\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://service-manager.cfapps.us10.hana.ondemand.com/v1/service_instances?async=false",
+											"protocol": "https",
+											"host": [
+												"service-manager",
+												"cfapps",
+												"us10",
+												"hana",
+												"ondemand",
+												"com"
+											],
+											"path": [
+												"v1",
+												"service_instances"
+											],
+											"query": [
+												{
+													"key": "async",
+													"value": "false"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete By Id",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{serviceManagerUrl}}/v1/service_instances/b4771b19-b48d-4609-925b-6899c34382b5",
+											"host": [
+												"{{serviceManagerUrl}}"
+											],
+											"path": [
+												"v1",
+												"service_instances",
+												"b4771b19-b48d-4609-925b-6899c34382b5"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Parameters By Id",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{serviceManagerUrl}}/v1/service_instances/b5c744ca-9517-472c-897e-72db08b53a01/parameters",
+											"host": [
+												"{{serviceManagerUrl}}"
+											],
+											"path": [
+												"v1",
+												"service_instances",
+												"b5c744ca-9517-472c-897e-72db08b53a01",
+												"parameters"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Service Bindings",
+							"item": [
+								{
+									"name": "Get All",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{serviceManagerUrl}}/v1/service_bindings",
+											"host": [
+												"{{serviceManagerUrl}}"
+											],
+											"path": [
+												"v1",
+												"service_bindings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"1ebd6692-faab-417d-b472-614f574f53e0-schema-binding\",\r\n    \"service_instance_id\": \"c2e489b4-7973-460f-a630-1159d668d382\",\r\n    \"labels\": {\r\n        \"tenant_id\": [\"1ebd6692-faab-417d-b472-614f574f53e0\"],\r\n        \"subdomain\": [\"subscriber-dejclbku\"]\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{serviceManagerUrl}}/v1/service_bindings?async=false",
+											"host": [
+												"{{serviceManagerUrl}}"
+											],
+											"path": [
+												"v1",
+												"service_bindings"
+											],
+											"query": [
+												{
+													"key": "async",
+													"value": "false"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get By Id",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{serviceManagerUrl}}/v1/service_bindings/d20244ce-e908-48a2-bf79-c57d5ef5ace6/operations/e0aa6192-424b-4a3d-85c2-de7708e40bc7",
+											"host": [
+												"{{serviceManagerUrl}}"
+											],
+											"path": [
+												"v1",
+												"service_bindings",
+												"d20244ce-e908-48a2-bf79-c57d5ef5ace6",
+												"operations",
+												"e0aa6192-424b-4a3d-85c2-de7708e40bc7"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete By Id",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{serviceManagerUrl}}/v1/service_bindings/960bb7e0-7d7a-4c3d-97a7-11dc08f74428",
+											"host": [
+												"{{serviceManagerUrl}}"
+											],
+											"path": [
+												"v1",
+												"service_bindings",
+												"960bb7e0-7d7a-4c3d-97a7-11dc08f74428"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "SaaS Provisioning Service",
+					"item": [
+						{
+							"name": "Subscription callback",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "X-Tenant-ID",
+										"value": "1ebd6692-faab-417d-b472-614f574f53e0",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"subscribedTenantId\": \"123\",\r\n    \"subscribedSubdomain\": \"subscriber-dejclbku\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{cloudUrl}}/api/v1/callback/tenants/123",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"callback",
+										"tenants",
+										"123"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Unsubscription callback",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "X-Tenant-ID",
+										"value": "724669da-9da4-479b-a040-cbee69ac27d1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"subscribedTenantId\": \"123\",\r\n    \"subscribedSubdomain\": \"subscriber-dejclbku\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{cloudUrl}}/api/v1/callback/tenants/123",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"callback",
+										"tenants",
+										"123"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get dependencies callback",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{cloudUrl}}/api/v1/callback/dependencies?tenantId=123",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"callback",
+										"dependencies"
+									],
+									"query": [
+										{
+											"key": "tenantId",
+											"value": "123"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Destination Service",
+					"item": [
+						{
+							"name": "Get token",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "client_credentials",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "sb-cloneec09c1b4a6af4355953473d86b4b78b7!b463125|destination-xsappname!b62",
+											"type": "text"
+										},
+										{
+											"key": "client_secret",
+											"value": "de5e2329-b0c7-4fbe-b4da-23ab3673b3e4$Kd_S7A98P0m4sompKwlOg_nYzGXJziAL8L-z-PJyPzU=",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{uaaUrl}}/oauth/token",
+									"host": [
+										"{{uaaUrl}}"
+									],
+									"path": [
+										"oauth",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get by name",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{destinationsUrl}}/destination-configuration/v1/destinations/smtp-destination",
+									"host": [
+										"{{destinationsUrl}}"
+									],
+									"path": [
+										"destination-configuration",
+										"v1",
+										"destinations",
+										"smtp-destination"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Feature Flags",
+					"item": [
+						{
+							"name": "Get by name",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Basic c2Jzc19qcWcyaGM2em5iemUxZno1ejhrYXRhMWFqeXVpajdwbm1wa2M0Zml6eCt1Mm8yOWJoZXR1dWxjcXh2OWJnM3Uzayt1PTphYV9FNXBuYXlNU3BNREFsYVRNaGxHUTQrdXEvRUk9",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{featureFlagsUrl}}/api/v2/evaluate/destination-service-enabled",
+									"host": [
+										"{{featureFlagsUrl}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"evaluate",
+										"destination-service-enabled"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "XSUAA",
+					"item": [
+						{
+							"name": "Get access token by username and password",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "sb-lms!t463125",
+											"type": "text"
+										},
+										{
+											"key": "client_secret",
+											"value": "f2mD/ulzDEEUJVUNWAoudn9zBmo=",
+											"type": "text"
+										},
+										{
+											"key": "response_type",
+											"value": "token",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{uaaUrl}}/oauth/token",
+									"host": [
+										"{{uaaUrl}}"
+									],
+									"path": [
+										"oauth",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get access token by client_id and client_secret",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "client_credentials",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "sb-lms!t413607",
+											"type": "text"
+										},
+										{
+											"key": "client_secret",
+											"value": "010a29c2-c0e0-46d2-8b10-1131ef759035$BvgHn5fjkET89Vk6i6HHbJl4gxejLt00wOzamRQbIvY=",
+											"type": "text"
+										},
+										{
+											"key": "response_type",
+											"value": "token",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{uaaUrl}}/oauth/token",
+									"host": [
+										"{{uaaUrl}}"
+									],
+									"path": [
+										"oauth",
+										"token"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"description": "Collections related to the following SAP BTP services:\n\n1. Destination Service;\n    \n2. Feature Flags Service;\n    \n3. Service Manager;\n    \n4. SaaS Provisioning Service;\n    \n5. XSUAA."
+		},
 		{
 			"name": "API",
 			"item": [
@@ -922,385 +1873,7 @@
 					]
 				}
 			],
-			"description": "Collections related to the REST API of the Learning Management System:\n\n1. Courses for managing courses and enrollments;\n    \n2. Lessons;\n    \n3. Students;\n    \n4. Actuator for managing Spring Boot Actuator endpoints."
-		},
-		{
-			"name": "BTP",
-			"item": [
-				{
-					"name": "Destination Service",
-					"item": [
-						{
-							"name": "Get token",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "grant_type",
-											"value": "client_credentials",
-											"type": "text"
-										},
-										{
-											"key": "client_id",
-											"value": "sb-cloneec09c1b4a6af4355953473d86b4b78b7!b463125|destination-xsappname!b62",
-											"type": "text"
-										},
-										{
-											"key": "client_secret",
-											"value": "de5e2329-b0c7-4fbe-b4da-23ab3673b3e4$Kd_S7A98P0m4sompKwlOg_nYzGXJziAL8L-z-PJyPzU=",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "{{uaaUrl}}/oauth/token",
-									"host": [
-										"{{uaaUrl}}"
-									],
-									"path": [
-										"oauth",
-										"token"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get by name",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{destinationsUrl}}/destination-configuration/v1/destinations/smtp-destination",
-									"host": [
-										"{{destinationsUrl}}"
-									],
-									"path": [
-										"destination-configuration",
-										"v1",
-										"destinations",
-										"smtp-destination"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Feature Flags",
-					"item": [
-						{
-							"name": "Get by name",
-							"request": {
-								"auth": {
-									"type": "basic",
-									"basic": [
-										{
-											"key": "password",
-											"value": "",
-											"type": "string"
-										},
-										{
-											"key": "username",
-											"value": "",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Basic c2Jzc19qcWcyaGM2em5iemUxZno1ejhrYXRhMWFqeXVpajdwbm1wa2M0Zml6eCt1Mm8yOWJoZXR1dWxjcXh2OWJnM3Uzayt1PTphYV9FNXBuYXlNU3BNREFsYVRNaGxHUTQrdXEvRUk9",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"url": {
-									"raw": "{{featureFlagsUrl}}/api/v2/evaluate/destination-service-enabled",
-									"host": [
-										"{{featureFlagsUrl}}"
-									],
-									"path": [
-										"api",
-										"v2",
-										"evaluate",
-										"destination-service-enabled"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "XSUAA",
-					"item": [
-						{
-							"name": "Get access token by username and password",
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "grant_type",
-											"value": "password",
-											"type": "text"
-										},
-										{
-											"key": "username",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "password",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "client_id",
-											"value": "sb-lms!t463125",
-											"type": "text"
-										},
-										{
-											"key": "client_secret",
-											"value": "f2mD/ulzDEEUJVUNWAoudn9zBmo=",
-											"type": "text"
-										},
-										{
-											"key": "response_type",
-											"value": "token",
-											"type": "text",
-											"disabled": true
-										}
-									]
-								},
-								"url": {
-									"raw": "{{uaaUrl}}/oauth/token",
-									"host": [
-										"{{uaaUrl}}"
-									],
-									"path": [
-										"oauth",
-										"token"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get access token by client_id and client_secret",
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "grant_type",
-											"value": "client_credentials",
-											"type": "text"
-										},
-										{
-											"key": "client_id",
-											"value": "sb-lms!t413607",
-											"type": "text"
-										},
-										{
-											"key": "client_secret",
-											"value": "010a29c2-c0e0-46d2-8b10-1131ef759035$BvgHn5fjkET89Vk6i6HHbJl4gxejLt00wOzamRQbIvY=",
-											"type": "text"
-										},
-										{
-											"key": "response_type",
-											"value": "token",
-											"type": "text",
-											"disabled": true
-										}
-									]
-								},
-								"url": {
-									"raw": "{{uaaUrl}}/oauth/token",
-									"host": [
-										"{{uaaUrl}}"
-									],
-									"path": [
-										"oauth",
-										"token"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "SaaS Provisioning Service",
-					"item": [
-						{
-							"name": "Subscription callback",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "",
-											"type": "string"
-										}
-									]
-								},
-								"method": "PUT",
-								"header": [
-									{
-										"key": "X-Tenant-ID",
-										"value": "1ebd6692-faab-417d-b472-614f574f53e0",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"subscribedTenantId\": \"123\",\r\n    \"subscribedSubdomain\": \"subscriber-dejclbku\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{cloudUrl}}/api/v1/callback/tenants/123",
-									"host": [
-										"{{cloudUrl}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"callback",
-										"tenants",
-										"123"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Unsubscription callback",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "",
-											"type": "string"
-										}
-									]
-								},
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "X-Tenant-ID",
-										"value": "724669da-9da4-479b-a040-cbee69ac27d1",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"subscribedTenantId\": \"123\",\r\n    \"subscribedSubdomain\": \"subscriber-dejclbku\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{cloudUrl}}/api/v1/callback/tenants/123",
-									"host": [
-										"{{cloudUrl}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"callback",
-										"tenants",
-										"123"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get dependencies callback",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{cloudUrl}}/api/v1/callback/dependencies?tenantId=123",
-									"host": [
-										"{{cloudUrl}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"callback",
-										"dependencies"
-									],
-									"query": [
-										{
-											"key": "tenantId",
-											"value": "123"
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				}
-			],
-			"description": "Collections related to the following SAP BTP services:\n\n1. Destination Service;\n    \n2. Feature Flags Service;\n    \n3. XSUAA."
+			"description": "Collections related to the REST API of the Learning Management System:\n\n1. Courses for managing courses and enrollments;\n    \n2. Lessons;\n    \n3. Students;\n    \n4. Actuator for managing Spring Boot Actuator endpoints.\n    \n5. Application Information."
 		}
 	]
 }
