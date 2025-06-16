@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "sap.security.services.xsuaa")
 @Getter
 @Setter
-public class XSUAAProperties {
+public class XsuaaProperties {
 
     @Name("url")
     private String tokenUrl;

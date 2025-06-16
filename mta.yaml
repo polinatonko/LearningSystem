@@ -19,7 +19,6 @@ modules:
       build-result: target/*.jar
 
     requires:
-      - name: approuter-api
       - name: lms-logs
       - name: lms-hana-schema
       - name: lms-feature-flags
@@ -35,7 +34,6 @@ modules:
       JBP_CONFIG_JAVA_OPTS: "[java_opts: '-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000']"
       JBP_CONFIG_SAP_MACHINE_JDK: "{ version: 21.+ }"
       TARGET_RUNTIME: tomcat
-      APPROUTER_URL: ~{approuter-api/url}
 
     provides:
       - name: lms-api
@@ -60,10 +58,6 @@ modules:
       - name: lms-xsuaa
     properties:
       TENANT_HOST_PATTERN: "^(.*)-${app-name}-${space}.${domain}"
-    provides:
-      - name: approuter-api
-        properties:
-          url: ${routes/0/route}
 
 resources:
   - name: lms-xsuaa

@@ -1,3 +1,11 @@
+application:
+  service-dependencies:
+    -
+datasource:
+  url: jdbc:postgresql://localhost:5432/lms
+  username: test
+  password: test
+
 spring:
   config:
     import: secrets-local.yaml
@@ -26,21 +34,15 @@ multitenancy:
   default-tenant: public
   default-schema: public
 
-approuter:
-  url:
-
-xsuaa:
-  client-id:
-  client-secret:
-  token-url:
-
-application:
-  dependencies:
-    -
-
 sap:
   security:
     services:
+      service-manager:
+        client-id:
+        client-secret:
+        token-url:
+        url:
+
       xsuaa:
         xsappname: xsapp!t0815
         uaadomain: localhost
@@ -48,14 +50,3 @@ sap:
         clientsecret: pwd
         url: http://localhost
         plan: application
-
-service-manager:
-  client-id:
-  client-secret:
-  token-url:
-  url:
-
-datasource:
-  url: jdbc:postgresql://localhost:5432/lms
-  username: test
-  password: test
