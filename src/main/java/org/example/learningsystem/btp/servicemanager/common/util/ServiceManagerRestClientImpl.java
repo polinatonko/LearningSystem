@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.ResolvableType;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.net.URI;
 
@@ -27,15 +28,6 @@ public class ServiceManagerRestClientImpl implements ServiceManagerRestClient {
                         .uri(uri)
                         .retrieve()
                         .toBodilessEntity());
-    }
-
-    @Override
-    public <T> T get(URI uri, Class<T> responseType) {
-        return serviceManagerAuthenticatedRequestExecutor.execute(restClient ->
-                restClient.get()
-                        .uri(uri)
-                        .retrieve()
-                        .body(responseType));
     }
 
     @Override

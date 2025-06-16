@@ -17,16 +17,6 @@ public interface ServiceManagerRestClient {
     void delete(URI uri);
 
     /**
-     * Performs a GET request.
-     *
-     * @param uri          the target URI for the request
-     * @param responseType the class type of the response
-     * @param <T>          the type of the response
-     * @return requested resource
-     */
-    <T> T get(URI uri, Class<T> responseType);
-
-    /**
      * Performs a GET request with pagination.
      *
      * @param uri      the target URI for the request
