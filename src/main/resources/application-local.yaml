@@ -1,14 +1,15 @@
 application:
   service-dependencies:
     -
-datasource:
-  url: jdbc:postgresql://localhost:5432/lms
-  username: test
-  password: test
 
 spring:
   config:
     import: secrets-local.yaml
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/lms
+    username: test
+    password: test
 
   jpa:
     show-sql: true

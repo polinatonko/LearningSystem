@@ -3,14 +3,14 @@ package org.example.learningsystem.btp.servicemanager.binding.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
-import org.example.learningsystem.core.db.config.DataSourceProperties;
+import org.example.learningsystem.core.db.config.CustomDataSourceProperties;
 
 /**
  * Represents the credentials for an SAP HANA Database schema binding.
  */
 @Getter
 @Setter
-public class HanaBindingCredentials implements DataSourceProperties {
+public class HanaBindingCredentials implements CustomDataSourceProperties {
 
     /**
      * The JDBC URL for connecting to the schema.

@@ -2,12 +2,12 @@ application:
   service-dependencies:
     - ${vcap.services.lms-destination-service.credentials.xsappname}
 
-datasource:
-  url: ${vcap.services.lms-hana-schema.credentials.url}
-  username: ${vcap.services.lms-hana-schema.credentials.user}
-  password: ${vcap.services.lms-hana-schema.credentials.password}
-
 spring:
+  datasource:
+    url: ${vcap.services.lms-hana-schema.credentials.url}
+    username: ${vcap.services.lms-hana-schema.credentials.user}
+    password: ${vcap.services.lms-hana-schema.credentials.password}
+
   security:
     oauth2:
       resourceserver:

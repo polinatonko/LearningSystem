@@ -1,6 +1,6 @@
 package org.example.learningsystem.core.db.config;
 
-public interface DataSourceProperties {
+public interface CustomDataSourceProperties {
 
     String getUrl();
 
