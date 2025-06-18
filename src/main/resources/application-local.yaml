@@ -1,6 +1,8 @@
 application:
+  name: lms
   service-dependencies:
     -
+  uri: http://localhost:8080
 
 spring:
   config:
@@ -31,13 +33,11 @@ mail:
   auth: true
   start-tls-enable: true
 
-sap:
-  security:
-    services:
-      xsuaa:
-        xsappname: xsapp!t0815
-        uaadomain: localhost
-        clientid: sb-clientId!t0815
-        clientsecret: pwd
-        url: http://localhost
-        plan: application
+btp:
+  services:
+    xsuaa:
+      xsappname: xsapp!t0815
+      uaadomain: localhost
+      client-id: sb-clientId!t0815
+      clients-secret: pwd
+      token-url: http://localhost

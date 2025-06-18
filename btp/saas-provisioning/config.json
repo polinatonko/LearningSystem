@@ -4,8 +4,8 @@
   "description": "Learning Management System platform",
   "category": "Test",
   "appUrls": {
-    "getDependencies": "https://lms-dev.cfapps.us10-001.hana.ondemand.com/api/v1/callback/dependencies",
-    "onSubscription": "https://lms-dev.cfapps.us10-001.hana.ondemand.com/api/v1/callback/tenants/{tenantId}"
+    "getDependencies": "https://lms-dev.cfapps.us10-001.hana.ondemand.com/api/v1/subscriptions/dependencies",
+    "onSubscription": "https://lms-dev.cfapps.us10-001.hana.ondemand.com/api/v1/subscriptions/tenants/{tenantId}"
   },
   "appPlans": [
     {

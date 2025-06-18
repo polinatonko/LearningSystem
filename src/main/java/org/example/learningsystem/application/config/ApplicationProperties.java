@@ -1,4 +1,4 @@
-package org.example.learningsystem.btp.saasprovisioningservice.config;
+package org.example.learningsystem.application.config;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +18,10 @@ import java.util.List;
 @Getter
 @Setter
 public class ApplicationProperties {
+
+    private String name;
+
+    private String uri;
 
     private List<String> serviceDependencies;
 }

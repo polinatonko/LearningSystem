@@ -1,8 +1,9 @@
 package org.example.learningsystem.core.security.config;
 
+import com.sap.cloud.security.xsuaa.XsuaaServiceConfiguration;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.learningsystem.core.security.converter.JwtConverter;
+import org.example.learningsystem.btp.xsuaa.converter.JwtConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -20,7 +21,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
-import static org.example.learningsystem.core.security.constant.ApiConstants.API_CALLBACK_ENDPOINT;
+import static org.example.learningsystem.core.security.constant.ApiConstants.API_SUBSCRIPTION_ENDPOINT;
 import static org.example.learningsystem.core.security.constant.ApiConstants.API_DOCS_ENDPOINTS;
 import static org.example.learningsystem.core.security.constant.ApiConstants.API_ENDPOINTS;
 import static org.example.learningsystem.core.security.constant.ApiConstants.API_FILTER_CHAIN_ORDER;
@@ -37,7 +38,7 @@ public class CloudApiSecurityConfiguration {
 
     private final AccessDeniedHandler accessDeniedHandler;
     private final AuthenticationEntryPoint authenticationEntryPoint;
-    private final Converter<Jwt, AbstractAuthenticationToken> xsuaaConverter;
+    private final XsuaaServiceConfiguration xsuaaServiceConfiguration;
 
     @Bean
     @Order(API_FILTER_CHAIN_ORDER)
@@ -54,7 +55,7 @@ public class CloudApiSecurityConfiguration {
 
     @Bean
     public Converter<Jwt, AbstractAuthenticationToken> customXsuaaAuthConverter() {
-        return new JwtConverter(xsuaaConverter);
+        return new JwtConverter(xsuaaServiceConfiguration);
     }
 
     private void configureSession(SessionManagementConfigurer<HttpSecurity> session) {
@@ -63,7 +64,7 @@ public class CloudApiSecurityConfiguration {
 
     private void configureAuthorization(AuthorizeHttpRequestsConfigurer<?>.AuthorizationManagerRequestMatcherRegistry auth) {
         auth
-                .requestMatchers(API_CALLBACK_ENDPOINT).hasAuthority("Callback")
+                .requestMatchers(API_SUBSCRIPTION_ENDPOINT).hasAuthority("Callback")
                 .requestMatchers(API_DOCS_ENDPOINTS).permitAll()
                 .requestMatchers(SWAGGER_ENDPOINTS).permitAll()
                 .requestMatchers(API_INFO_ENDPOINT).hasRole(ADMIN.toString())

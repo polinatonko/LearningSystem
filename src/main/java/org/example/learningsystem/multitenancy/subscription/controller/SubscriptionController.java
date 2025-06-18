@@ -1,10 +1,10 @@
-package org.example.learningsystem.btp.saasprovisioningservice.controller;
+package org.example.learningsystem.multitenancy.subscription.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.learningsystem.btp.saasprovisioningservice.dto.ServiceInfoDto;
-import org.example.learningsystem.btp.saasprovisioningservice.dto.SubscriptionRequestDto;
-import org.example.learningsystem.btp.saasprovisioningservice.service.SubscriptionService;
+import org.example.learningsystem.multitenancy.subscription.dto.ServiceInfoDto;
+import org.example.learningsystem.multitenancy.subscription.dto.SubscriptionRequestDto;
+import org.example.learningsystem.multitenancy.subscription.service.SubscriptionService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/callback")
+@RequestMapping("/api/v1/subscriptions")
 @RequiredArgsConstructor
 @Slf4j
 public class SubscriptionController {

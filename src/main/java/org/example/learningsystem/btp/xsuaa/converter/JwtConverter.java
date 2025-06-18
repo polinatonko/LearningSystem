@@ -1,5 +1,7 @@
-package org.example.learningsystem.core.security.converter;
+package org.example.learningsystem.btp.xsuaa.converter;
 
+import com.sap.cloud.security.xsuaa.XsuaaServiceConfiguration;
+import com.sap.cloud.security.xsuaa.token.TokenAuthenticationConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
@@ -22,8 +24,10 @@ public class JwtConverter implements Converter<Jwt, AbstractAuthenticationToken>
 
     private final Converter<Jwt, AbstractAuthenticationToken> delegate;
 
-    public JwtConverter(Converter<Jwt, AbstractAuthenticationToken> delegate) {
-        this.delegate = delegate;
+    public JwtConverter(XsuaaServiceConfiguration xsuaaServiceConfiguration) {
+        var converter = new TokenAuthenticationConverter(xsuaaServiceConfiguration);
+        converter.setLocalScopeAsAuthorities(true);
+        this.delegate = converter;
     }
 
     @Override

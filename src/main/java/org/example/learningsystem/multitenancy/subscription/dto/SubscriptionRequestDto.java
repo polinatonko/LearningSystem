@@ -1,4 +1,4 @@
-package org.example.learningsystem.btp.saasprovisioningservice.dto;
+package org.example.learningsystem.multitenancy.subscription.dto;
 
 /**
  * Represents data transmitted by subscription to a multi-tenant application callback.

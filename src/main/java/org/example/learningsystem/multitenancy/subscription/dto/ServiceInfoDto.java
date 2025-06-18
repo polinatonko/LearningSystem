@@ -1,4 +1,4 @@
-package org.example.learningsystem.btp.saasprovisioningservice.dto;
+package org.example.learningsystem.multitenancy.subscription.dto;
 
 /**
  * Represents a service dependency information required for SaaS Provisioning Service subscription.
