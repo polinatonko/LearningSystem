@@ -3,6 +3,7 @@ spring:
     import: secrets-local.yaml
 
   datasource:
+    url: jdbc:postgresql:///lms
     username: test
     password: test
 
@@ -15,3 +16,7 @@ mail:
   protocol: smtp
   auth: true
   start-tls-enable: true
+
+multitenancy:
+  default-tenant: public
+  default-schema: public

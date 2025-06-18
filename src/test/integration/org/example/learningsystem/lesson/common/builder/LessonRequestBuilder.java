@@ -13,8 +13,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 public class LessonRequestBuilder {
 
-    private static final String LESSONS_URL = "/lessons";
-    private static final String LESSON_URL = "/lessons/{id}";
+    private static final String LESSONS_URL = "/api/v1/lessons";
+    private static final String LESSON_URL = "/api/v1/lessons/{id}";
 
     public static RequestBuilder buildDeleteByIdRequest(UUID id) {
         return delete(LESSON_URL, id);
