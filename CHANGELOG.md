@@ -15,12 +15,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Database schema creation/deletion on tenant subscription/unsubscription.
 - Connection to required schema using Hibernate.
 - Data source per tenant in cloud.
+- Binding to the Application Autoscaler
 
 ### Changed
 
 - Adapt Liquibase schema migration to multitenant mode.
 - Adjust logic with Destination service integration to multitenant mode.
 - Cache configuration.
+- Send emails with course reminders asynchronously
 
 ## [1.4.0] - 2025-06-13 Author: Polina Tonko
 
