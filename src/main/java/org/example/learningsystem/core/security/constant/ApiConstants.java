@@ -14,6 +14,4 @@ public class ApiConstants {
     public static final String API_DOCS_ENDPOINTS = "/v3/api-docs/**";
     public static final String API_INFO_ENDPOINT = "/api/v1/application-info";
     public static final String SWAGGER_ENDPOINTS = "/swagger-ui/**";
-    public static final int ACTUATOR_FILTER_CHAIN_ORDER = 1;
-    public static final int API_FILTER_CHAIN_ORDER = 2;
 }

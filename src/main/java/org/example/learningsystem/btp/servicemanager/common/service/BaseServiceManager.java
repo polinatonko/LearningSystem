@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.learningsystem.btp.servicemanager.common.dto.PaginatedResponseDto;
 import org.example.learningsystem.btp.servicemanager.common.util.ServiceManagerRestClient;
-import org.example.learningsystem.btp.servicemanager.common.builder.ServiceManagerURIBuilder;
+import org.example.learningsystem.btp.servicemanager.common.builder.ServiceManagerUriBuilder;
 import org.example.learningsystem.btp.servicemanager.common.validator.ServiceManagerResponseValidator;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class BaseServiceManager {
 
     protected final ServiceManagerResponseValidator serviceManagerResponseValidator;
     protected final ServiceManagerRestClient serviceManagerRestClient;
-    protected final ServiceManagerURIBuilder serviceManagerURIBuilder;
+    protected final ServiceManagerUriBuilder serviceManagerURIBuilder;
 
     /**
      * Retrieves a service by searching with a field query.

@@ -21,7 +21,7 @@ public class LocalTenantSchemaService implements TenantSchemaService {
     @Override
     public void create(TenantInfo tenantInfo) {
         var schema = tenantSchemaResolver.resolve(tenantInfo.tenantId());
-        log.info("Trying to create new tenant schema: {}", schema);
+        log.info("Trying to createSchema new tenant schema: {}", schema);
 
         localSchemaHelper.create(schema);
         log.info("Created tenant schema: {}", schema);

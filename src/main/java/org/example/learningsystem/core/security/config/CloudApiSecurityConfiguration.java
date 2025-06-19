@@ -20,10 +20,10 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
+import static org.example.learningsystem.core.config.constant.FilterChainOrderConstants.API_FILTER_CHAIN_ORDER;
 import static org.example.learningsystem.core.security.constant.ApiConstants.API_CALLBACK_ENDPOINT;
 import static org.example.learningsystem.core.security.constant.ApiConstants.API_DOCS_ENDPOINTS;
 import static org.example.learningsystem.core.security.constant.ApiConstants.API_ENDPOINTS;
-import static org.example.learningsystem.core.security.constant.ApiConstants.API_FILTER_CHAIN_ORDER;
 import static org.example.learningsystem.core.security.constant.ApiConstants.API_INFO_ENDPOINT;
 import static org.example.learningsystem.core.security.constant.ApiConstants.SWAGGER_ENDPOINTS;
 import static org.example.learningsystem.core.security.role.UserRole.ADMIN;

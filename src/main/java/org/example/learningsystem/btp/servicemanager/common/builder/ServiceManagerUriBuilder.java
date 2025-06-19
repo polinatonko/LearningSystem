@@ -19,7 +19,7 @@ import static org.example.learningsystem.btp.servicemanager.common.constant.Serv
 @Component
 @Profile("cloud")
 @RequiredArgsConstructor
-public class ServiceManagerURIBuilder {
+public class ServiceManagerUriBuilder {
 
     private final ServiceManagerProperties serviceManagerProperties;
 
@@ -30,9 +30,9 @@ public class ServiceManagerURIBuilder {
      * and the specified path segments.
      *
      * @param pathSegments the path segments to include in the URI
-     * @return a {@link ServiceManagerURIBuilder} instance
+     * @return a {@link ServiceManagerUriBuilder} instance
      */
-    public ServiceManagerURIBuilder builder(String pathSegments) {
+    public ServiceManagerUriBuilder builder(String pathSegments) {
         uriComponentsBuilder = UriComponentsBuilder.fromUriString(serviceManagerProperties.getUrl())
                 .pathSegment(BASE_PATH)
                 .pathSegment(pathSegments.split("/"));
@@ -44,9 +44,9 @@ public class ServiceManagerURIBuilder {
      *
      * @param field the name of the field
      * @param value the value of the field
-     * @return a {@link ServiceManagerURIBuilder} instance
+     * @return a {@link ServiceManagerUriBuilder} instance
      */
-    public ServiceManagerURIBuilder fieldQuery(String field, String value) {
+    public ServiceManagerUriBuilder fieldQuery(String field, String value) {
         var query = EQUALS_QUERY.formatted(field, value);
         uriComponentsBuilder = uriComponentsBuilder.queryParam(FIELD_QUERY, query);
         return this;
@@ -57,9 +57,9 @@ public class ServiceManagerURIBuilder {
      *
      * @param label the name of the field
      * @param value the value of the field
-     * @return a {@link ServiceManagerURIBuilder} instance
+     * @return a {@link ServiceManagerUriBuilder} instance
      */
-    public ServiceManagerURIBuilder labelQuery(String label, String value) {
+    public ServiceManagerUriBuilder labelQuery(String label, String value) {
         var query = EQUALS_QUERY.formatted(label, value);
         uriComponentsBuilder = uriComponentsBuilder.queryParam(LABEL_QUERY, query);
         return this;
@@ -69,9 +69,9 @@ public class ServiceManagerURIBuilder {
      * Adds 'async' request parameter to the URI builder.
      *
      * @param isAsync the value of the parameter
-     * @return a {@link ServiceManagerURIBuilder} instance
+     * @return a {@link ServiceManagerUriBuilder} instance
      */
-    public ServiceManagerURIBuilder async(boolean isAsync) {
+    public ServiceManagerUriBuilder async(boolean isAsync) {
         uriComponentsBuilder = uriComponentsBuilder.queryParam("async", isAsync);
         return this;
     }

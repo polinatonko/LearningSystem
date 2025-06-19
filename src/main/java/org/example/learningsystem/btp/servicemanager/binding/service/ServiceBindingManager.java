@@ -5,7 +5,7 @@ import org.example.learningsystem.btp.servicemanager.binding.dto.CreateServiceBi
 import org.example.learningsystem.btp.servicemanager.binding.dto.ServiceBindingResponseDto;
 import org.example.learningsystem.btp.servicemanager.common.service.BaseServiceManager;
 import org.example.learningsystem.btp.servicemanager.common.util.ServiceManagerRestClient;
-import org.example.learningsystem.btp.servicemanager.common.builder.ServiceManagerURIBuilder;
+import org.example.learningsystem.btp.servicemanager.common.builder.ServiceManagerUriBuilder;
 import org.example.learningsystem.multitenancy.context.TenantInfo;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,7 @@ public class ServiceBindingManager {
 
     private final BaseServiceManager baseServiceManager;
     private final ServiceManagerRestClient serviceManagerRestClient;
-    private final ServiceManagerURIBuilder serviceManagerURIBuilder;
+    private final ServiceManagerUriBuilder serviceManagerURIBuilder;
 
     /**
      * Creates a new service binding.

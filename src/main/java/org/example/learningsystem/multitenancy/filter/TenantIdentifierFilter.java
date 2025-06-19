@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.learningsystem.multitenancy.context.TenantInfo;
 import org.example.learningsystem.multitenancy.context.TenantContext;
 import org.example.learningsystem.multitenancy.exception.InvalidTenantIdentifierException;
+import org.example.learningsystem.multitenancy.resolver.TenantResolver;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 

@@ -29,6 +29,7 @@ modules:
       - name: service-manager
 
     properties:
+      DEFAULT_TENANT: 414d6836-cc18-44cb-bf66-9668cf9baf6f
       SPRING_PROFILES_ACTIVE: cloud
       JBP_CONFIG_COMPONENTS: "jres: ['com.sap.xs.java.buildpack.jdk.SAPMachineJDK']"
       JBP_CONFIG_JAVA_OPTS: "[java_opts: '-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000']"

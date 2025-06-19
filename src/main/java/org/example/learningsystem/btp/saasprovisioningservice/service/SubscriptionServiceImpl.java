@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.learningsystem.btp.saasprovisioningservice.config.ApplicationProperties;
 import org.example.learningsystem.btp.saasprovisioningservice.dto.ServiceInfoDto;
 import org.example.learningsystem.btp.saasprovisioningservice.dto.SubscriptionRequestDto;
-import org.example.learningsystem.multitenancy.db.service.TenantManagementService;
+import org.example.learningsystem.multitenancy.db.service.TenantDatabaseManagementService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,19 +18,19 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     private static final String TENANT_SPECIFIC_URL_TEMPLATE = "https://%s-lms-approuter-dev.cfapps.us10-001.hana.ondemand.com";
 
     private final ApplicationProperties applicationProperties;
-    private final TenantManagementService tenantManagementService;
+    private final TenantDatabaseManagementService tenantDatabaseManagementService;
 
     @Override
     public String subscribe(String tenantId, SubscriptionRequestDto subscription) {
         var tenantUrl = TENANT_SPECIFIC_URL_TEMPLATE.formatted(subscription.subscribedSubdomain());
         log.info("Generated tenant url: tenantId = {}, tenantUrl = {}", tenantId, tenantUrl);
-        tenantManagementService.create(tenantId, subscription.subscribedSubdomain());
+        tenantDatabaseManagementService.createSchema(tenantId, subscription.subscribedSubdomain());
         return tenantUrl;
     }
 
     @Override
     public void unsubscribe(String tenantId, SubscriptionRequestDto subscription) {
-        tenantManagementService.delete(tenantId, subscription.subscribedSubdomain());
+        tenantDatabaseManagementService.deleteSchema(tenantId, subscription.subscribedSubdomain());
     }
 
     @Override

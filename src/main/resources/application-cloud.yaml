@@ -25,7 +25,7 @@ mail:
   start-tls-enable: ${vcap.services.lms-user-service.credentials.startTls}
 
 multitenancy:
-  default-tenant: 724669da-9da4-479b-a040-cbee69ac27d1
+  default-tenant: ${DEFAULT_TENANT}
 
 sap:
   security:
