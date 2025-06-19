@@ -27,20 +27,20 @@ public class SubscriptionController {
     @PutMapping("/tenants/{tenantId}")
     public String subscribe(
             @PathVariable("tenantId") String tenantId, @RequestBody SubscriptionRequestDto subscription) {
-        log.info("Subscription callback [tenantId = {}, subdomain = {}]", tenantId, subscription.subscribedSubdomain());
+        log.info("Subscription request [tenantId = {}, subdomain = {}]", tenantId, subscription.subscribedSubdomain());
         return subscriptionService.subscribe(tenantId, subscription);
     }
 
     @DeleteMapping("/tenants/{tenantId}")
     public void unsubscribe(
             @PathVariable("tenantId") String tenantId, @RequestBody SubscriptionRequestDto subscription) {
-        log.info("Delete subscription callback [tenantId = {}, subdomain = {}]", tenantId, subscription.subscribedSubdomain());
+        log.info("Delete subscription request [tenantId = {}, subdomain = {}]", tenantId, subscription.subscribedSubdomain());
         subscriptionService.unsubscribe(tenantId, subscription);
     }
 
     @GetMapping("/dependencies")
     public List<ServiceInfoDto> getDependencies(@RequestParam("tenantId") String tenantId) {
-        log.info("Dependencies callback [tenantId = {}]", tenantId);
+        log.info("Dependencies request [tenantId = {}]", tenantId);
         var dependencies = subscriptionService.getDependencies();
         log.info("Retrieved dependencies: {}", dependencies);
         return dependencies;

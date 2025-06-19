@@ -1,13 +1,8 @@
 application:
   name: lms
-  service-dependencies:
-    -
   uri: http://localhost:8080
 
 spring:
-  config:
-    import: secrets-local.yaml
-
   datasource:
     url: jdbc:postgresql://localhost:5432/lms
     username: test
@@ -32,12 +27,3 @@ mail:
   protocol: smtp
   auth: true
   start-tls-enable: true
-
-btp:
-  services:
-    xsuaa:
-      xsappname: xsapp!t0815
-      uaadomain: localhost
-      client-id: sb-clientId!t0815
-      clients-secret: pwd
-      token-url: http://localhost

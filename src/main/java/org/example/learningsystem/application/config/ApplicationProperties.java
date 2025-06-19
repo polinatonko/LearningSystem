@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * Application configuration properties.
  * <p>
- * Contains a list of services that the application depends on, which will be used during the subscription
- * callback process.
+ * Contains the name and uri of the application, and a list of services that the application depends on, which will
+ * be used during the subscription callback process.
  */
 @Component
 @ConfigurationProperties(prefix = "application")

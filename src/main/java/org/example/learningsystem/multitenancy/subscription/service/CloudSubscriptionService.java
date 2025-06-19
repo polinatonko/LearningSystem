@@ -1,10 +1,9 @@
-package org.example.learningsystem.btp.saasprovisioningservice.service;
+package org.example.learningsystem.multitenancy.subscription.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.learningsystem.application.config.ApplicationProperties;
 import org.example.learningsystem.multitenancy.subscription.dto.ServiceInfoDto;
 import org.example.learningsystem.multitenancy.subscription.dto.SubscriptionRequestDto;
-import org.example.learningsystem.multitenancy.subscription.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -22,8 +21,8 @@ public class CloudSubscriptionService implements SubscriptionService {
     private final String approuterName;
 
     public CloudSubscriptionService(
-            @Value("${vcap.services.lms-user-service.credentials.approuter.name}") String approuterName,
-            ApplicationProperties applicationProperties) {
+            ApplicationProperties applicationProperties,
+            @Value("${vcap.services.lms-user-service.credentials.approuter.name}") String approuterName) {
         this.applicationProperties = applicationProperties;
         this.approuterName = approuterName;
     }
@@ -32,9 +31,8 @@ public class CloudSubscriptionService implements SubscriptionService {
 
     @Override
     public String subscribe(String tenantId, SubscriptionRequestDto subscription) {
-        var applicationUri = applicationProperties.getUri();
-        var approuterUri = applicationUri.replace(applicationProperties.getName(), approuterName);
-        var tenantUrl = TENANT_SPECIFIC_URL_TEMPLATE.formatted(HTTPS_PROTOCOL, subscription.subscribedSubdomain(), approuterUri);
+        var tenantSubdomain = subscription.subscribedSubdomain();
+        var tenantUrl = buildTenantUrl(tenantSubdomain);
         log.info("Generated tenant url: tenantId = {}, tenantUrl = {}", tenantId, tenantUrl);
         return tenantUrl;
     }
@@ -50,5 +48,12 @@ public class CloudSubscriptionService implements SubscriptionService {
                 .stream()
                 .map(ServiceInfoDto::new)
                 .toList();
+    }
+
+    private String buildTenantUrl(String tenantSubdomain) {
+        var applicationName = applicationProperties.getName();
+        var applicationUri = applicationProperties.getUri();
+        var approuterUri = applicationUri.replace(applicationName, approuterName);
+        return TENANT_SPECIFIC_URL_TEMPLATE.formatted(HTTPS_PROTOCOL, tenantSubdomain, approuterUri);
     }
 }

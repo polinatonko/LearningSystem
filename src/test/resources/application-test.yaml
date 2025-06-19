@@ -1,7 +1,4 @@
 spring:
-  config:
-    import: secrets-local.yaml
-
   datasource:
     username: test
     password: test
