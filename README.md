@@ -1,6 +1,6 @@
 # Learning Management System
 
-Learning Management System allows Students to enroll in variety of Courses using virtual coins. 
+_Learning Management System_ allows Students to enroll in variety of Courses using virtual coins. 
 Each Course is composed of multiple Lessons. To keep Students informed and engaged, 
 platform provides automated reminders for upcoming Courses.
 
@@ -16,19 +16,20 @@ libraries.
 
 ## Technology Stack
 
-- Programming languages: Java 21
-- Frameworks and Libraries: Spring (MVC, Data, Security, AOP, Boot), JPA/Hibernate, Swagger, Liquibase
-- Databases: H2, PostgreSQL, HANA DB
-- Platforms: SAP BTP
-- Technologies: Docker
-- Testing: JUnit, Mockito
-- SAP BTP Services: HANA DB, XSUUAA Service, Application Logging Service, Destination Service, Feature Flags Service, 
+- **Programming languages:** Java 21
+- **Frameworks and Libraries:** Spring (MVC, Data, Security, AOP, Boot), JPA/Hibernate, Swagger, Liquibase
+- **Databases:** H2, PostgreSQL, HANA DB
+- **Platforms:** SAP BTP
+- **Technologies:** Docker
+- **Testing:** JUnit, Mockito
+- **SAP BTP Services:** HANA DB, XSUUAA Service, Application Logging Service, Destination Service, Feature Flags Service, 
 Service Manager, SaaS Registry, User-provided service, Application Autoscaler
 
 ## Local Setup
 
 ### Prerequisites
 
+Ensure you have the following installed on your system:
 - Java 21
 - Docker
 
@@ -37,14 +38,17 @@ Service Manager, SaaS Registry, User-provided service, Application Autoscaler
 1. Clone the repository:
    ```
    git clone https://github.com/polinatonko/LearningSystem.git
+   cd LearningSystem
    ```
 
-2. To build command in the project's root directory use:
+2. Build the project:
    ```
    ./mvnw clean package
    ```
 
 3. Run the application with the ***local*** profile active:
    ```
-   ./mvnw spring-boot:run -D"spring.profiles.active=local"
+   ./mvnw spring-boot:run "-Dspring-boot.run.profiles=local"
    ```
+
+4. To verify the application is running, open [Health Check Endpoint](http://localhost:8080/actuator/health)

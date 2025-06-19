@@ -3,9 +3,6 @@ application:
     -
 
 spring:
-  config:
-    import: secrets-local.yaml
-
   datasource:
     url: jdbc:postgresql://localhost:5432/lms
     username: test
