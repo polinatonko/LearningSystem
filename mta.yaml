@@ -1,6 +1,6 @@
 _schema-version: "3.3"
 ID: mta_lms
-version: 1.4.0
+version: 1.5.0
 
 modules:
   - name: lms
@@ -26,8 +26,10 @@ modules:
       - name: lms-destination-service
       - name: lms-xsuaa
       - name: lms-saas-provisioning-service
+      - name: service-manager
 
     properties:
+      DEFAULT_TENANT: 414d6836-cc18-44cb-bf66-9668cf9baf6f
       SPRING_PROFILES_ACTIVE: cloud
       JBP_CONFIG_COMPONENTS: "jres: ['com.sap.xs.java.buildpack.jdk.SAPMachineJDK']"
       JBP_CONFIG_JAVA_OPTS: "[java_opts: '-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000']"
@@ -99,3 +101,9 @@ resources:
       service: saas-registry
       service-plan: application
       path: btp/saas-provisioning/config.json
+
+  - name: service-manager
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: service-manager
+      service-plan: container

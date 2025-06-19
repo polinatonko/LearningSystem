@@ -39,9 +39,18 @@ btp:
       username: ${vcap.services.lms-feature-flags.credentials.username}
       password: ${vcap.services.lms-feature-flags.credentials.password}
 
+    service-manager:
+      client-id: ${vcap.services.service-manager.credentials.clientid}
+      client-secret: ${vcap.services.service-manager.credentials.clientsecret}
+      token-url: ${vcap.services.service-manager.credentials.url}
+      url: ${vcap.services.service-manager.credentials.sm_url}
+
     xsuaa:
       xsappname: ${vcap.services.lms-xsuaa.credentials.xsappname}
       uaadomain: ${vcap.services.lms-xsuaa.credentials.uaadomain}
-      client-id: ${vcap.services.lms-xsuaa.credentials.clientid}
-      client-secret: ${vcap.services.lms-xsuaa.credentials.clientsecret}
-      token-url: ${vcap.services.lms-xsuaa.credentials.url}
+      clientid: ${vcap.services.lms-xsuaa.credentials.clientid}
+      clientsecret: ${vcap.services.lms-xsuaa.credentials.clientsecret}
+      url: ${vcap.services.lms-xsuaa.credentials.url}
+
+multitenancy:
+  default-tenant: ${DEFAULT_TENANT}

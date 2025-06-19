@@ -27,3 +27,14 @@ mail:
   protocol: smtp
   auth: true
   start-tls-enable: true
+
+multitenancy:
+  default-tenant: public
+  default-schema: public
+
+vcap:
+  services:
+    lms-user-service:
+      credentials:
+        approuter:
+          name: lms-approuter

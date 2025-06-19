@@ -3,6 +3,7 @@ package org.example.learningsystem.btp.destinationservice.config;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import org.example.learningsystem.core.web.oauth2.Oauth2ClientCredentials;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -42,4 +43,8 @@ public class DestinationServiceProperties {
      */
     @NotNull
     private String clientSecret;
+
+    public Oauth2ClientCredentials getOauth2ClientCredentials() {
+        return new Oauth2ClientCredentials(clientId, clientSecret, tokenUrl);
+    }
 }

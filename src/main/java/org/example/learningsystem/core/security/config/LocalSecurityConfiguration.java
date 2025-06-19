@@ -1,6 +1,6 @@
 package org.example.learningsystem.core.security.config;
 
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -14,24 +14,30 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
-import static org.example.learningsystem.core.security.constant.ApiConstants.ACTUATOR_ENDPOINTS;
-import static org.example.learningsystem.core.security.constant.ApiConstants.ACTUATOR_FILTER_CHAIN_ORDER;
-import static org.example.learningsystem.core.security.constant.ApiConstants.ACTUATOR_HEALTH_ENDPOINT;
-import static org.example.learningsystem.core.security.constant.ApiConstants.API_DOCS_ENDPOINTS;
-import static org.example.learningsystem.core.security.constant.ApiConstants.API_ENDPOINTS;
-import static org.example.learningsystem.core.security.constant.ApiConstants.API_FILTER_CHAIN_ORDER;
-import static org.example.learningsystem.core.security.constant.ApiConstants.SWAGGER_ENDPOINTS;
+import static org.example.learningsystem.core.config.constant.ApiUriConstants.API_SUBSCRIPTIONS_ENDPOINTS;
+import static org.example.learningsystem.core.config.constant.FilterChainOrderConstants.ACTUATOR_FILTER_CHAIN_ORDER;
+import static org.example.learningsystem.core.config.constant.FilterChainOrderConstants.API_FILTER_CHAIN_ORDER;
+import static org.example.learningsystem.core.config.constant.ApiUriConstants.ACTUATOR_ENDPOINTS;
+import static org.example.learningsystem.core.config.constant.ApiUriConstants.ACTUATOR_HEALTH_ENDPOINT;
+import static org.example.learningsystem.core.config.constant.ApiUriConstants.API_DOCS_ENDPOINTS;
+import static org.example.learningsystem.core.config.constant.ApiUriConstants.API_ENDPOINTS;
+import static org.example.learningsystem.core.config.constant.ApiUriConstants.SWAGGER_ENDPOINTS;
 import static org.example.learningsystem.core.security.role.UserRole.MANAGER;
 import static org.springframework.security.config.Customizer.withDefaults;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
 @Profile("!cloud")
-@RequiredArgsConstructor
 public class LocalSecurityConfiguration {
 
     private final AccessDeniedHandler accessDeniedHandler;
     private final AuthenticationEntryPoint authenticationEntryPoint;
+
+    public LocalSecurityConfiguration(AccessDeniedHandler accessDeniedHandler,
+                                      @Qualifier("basicAuth") AuthenticationEntryPoint authenticationEntryPoint) {
+        this.accessDeniedHandler = accessDeniedHandler;
+        this.authenticationEntryPoint = authenticationEntryPoint;
+    }
 
     @Bean
     @Order(ACTUATOR_FILTER_CHAIN_ORDER)
@@ -71,6 +77,7 @@ public class LocalSecurityConfiguration {
 
     private void configureApiAuthorization(AuthorizeHttpRequestsConfigurer<?>.AuthorizationManagerRequestMatcherRegistry auth) {
         auth
+                .requestMatchers(API_SUBSCRIPTIONS_ENDPOINTS).hasAuthority("Callback")
                 .requestMatchers(API_DOCS_ENDPOINTS).permitAll()
                 .requestMatchers(SWAGGER_ENDPOINTS).permitAll()
                 .anyRequest().authenticated();

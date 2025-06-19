@@ -24,6 +24,11 @@ public class CourseEmailNotificationsService implements CourseNotificationsServi
     @Override
     public void send(List<Course> courses) {
         var emailServerProperties = emailServerPropertiesResolver.resolve();
+        log.info("SMTP server properties: {} {} {}",
+                emailServerProperties.getHost(),
+                emailServerProperties.getPort(),
+                emailServerProperties.getFrom());
+
         courses.forEach(course -> sendNotifications(course, emailServerProperties));
     }
 

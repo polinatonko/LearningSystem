@@ -7,6 +7,9 @@ import org.example.learningsystem.application.dto.ApplicationInfoDto;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+/**
+ * Cloud implementation of {@link ApplicationInfoService}.
+ */
 @Service
 @Profile("cloud")
 @RequiredArgsConstructor
