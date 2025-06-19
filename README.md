@@ -41,12 +41,19 @@ Ensure you have the following installed on your system:
    cd LearningSystem
    ```
 
-2. Build the project:
+2. Run the Docker container:
+   ```
+   cd docker
+   docker compose up -d
+   cd ..
+   ```
+   
+3. Build the project:
    ```
    ./mvnw clean package
    ```
 
-3. Run the application with the ***local*** profile active:
+4. Run the application with the ***local*** profile active:
    ```
    ./mvnw spring-boot:run "-Dspring-boot.run.profiles=local"
    ```
