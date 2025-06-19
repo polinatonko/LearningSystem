@@ -28,6 +28,8 @@ modules:
       - name: lms-saas-provisioning-service
       - name: service-manager
       - name: lms-autoscaler
+        parameters:
+          path: btp/autoscaler/config.json
 
     properties:
       SPRING_PROFILES_ACTIVE: cloud
@@ -113,4 +115,3 @@ resources:
     parameters:
       service: autoscaler
       service-plan: standard
-      path: btp/autoscaler/config.json
