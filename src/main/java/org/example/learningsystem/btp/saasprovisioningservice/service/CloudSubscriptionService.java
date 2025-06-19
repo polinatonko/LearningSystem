@@ -22,7 +22,7 @@ public class CloudSubscriptionService implements SubscriptionService {
     private final String approuterName;
 
     public CloudSubscriptionService(
-            @Value("${vcap.services.lms-route-user-service.credentials.approuterName}") String approuterName,
+            @Value("${vcap.services.lms-user-service.credentials.approuter.name}") String approuterName,
             ApplicationProperties applicationProperties) {
         this.applicationProperties = applicationProperties;
         this.approuterName = approuterName;

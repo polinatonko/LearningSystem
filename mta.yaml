@@ -23,7 +23,6 @@ modules:
       - name: lms-hana-schema
       - name: lms-feature-flags
       - name: lms-user-service
-      - name: lms-route-user-service
       - name: lms-destination-service
       - name: lms-xsuaa
       - name: lms-saas-provisioning-service
@@ -92,9 +91,6 @@ resources:
       service-plan: lite
 
   - name: lms-user-service
-    type: org.cloudfoundry.user-provided-service
-
-  - name: lms-route-user-service
     type: org.cloudfoundry.user-provided-service
 
   - name: lms-saas-provisioning-service
