@@ -29,12 +29,12 @@ public class CloudTenantSchemaService implements TenantSchemaService {
         var schemaName = buildInstanceName(tenantInfo.tenantId());
         var bindingName = buildBindingName(tenantInfo.tenantId());
 
-        var instance = serviceInstanceManager.createByOfferingAndPlanName(schemaName, "hana", "schema");
-        log.info("Created service instance {}", instance);
+        var serviceInstance = serviceInstanceManager.createByOfferingAndPlanName(schemaName, "hana", "schema");
+        log.info("Created service instance {}", serviceInstance);
 
-        var instanceId = instance.id();
-        var binding = serviceBindingManager.create(bindingName, instanceId, tenantInfo);
-        log.info("Created service binding {}", binding);
+        var instanceId = serviceInstance.id();
+        var serviceBinding = serviceBindingManager.create(bindingName, instanceId, tenantInfo);
+        log.info("Created service binding {}", serviceBinding);
     }
 
     @Override

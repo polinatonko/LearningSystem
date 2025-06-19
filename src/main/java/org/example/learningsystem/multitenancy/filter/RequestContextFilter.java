@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.learningsystem.multitenancy.context.TenantInfo;
 import org.example.learningsystem.multitenancy.context.TenantContext;
 import org.example.learningsystem.multitenancy.exception.InvalidTenantIdentifierException;
-import org.springframework.stereotype.Component;
+import org.example.learningsystem.multitenancy.resolver.TenantResolver;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -20,10 +20,9 @@ import java.io.IOException;
  * Uses the configured {@link TenantResolver} strategy to extract tenant information from the request and validates
  * the tenant identifier format before setting the context.
  */
-@Component
 @Slf4j
 @RequiredArgsConstructor
-public class TenantIdentifierFilter extends OncePerRequestFilter {
+public class RequestContextFilter extends OncePerRequestFilter {
 
     private static final String TENANT_ID_PATTERN = "[0-9a-zA-Z\\-_]+";
 
@@ -32,10 +31,9 @@ public class TenantIdentifierFilter extends OncePerRequestFilter {
     @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        var tenant = tenantResolver.resolve(request);
-        tenant.ifPresent(this::setTenant);
-
         try {
+            var tenant = tenantResolver.resolve(request);
+            tenant.ifPresent(this::setTenant);
             filterChain.doFilter(request, response);
         } finally {
             TenantContext.clear();

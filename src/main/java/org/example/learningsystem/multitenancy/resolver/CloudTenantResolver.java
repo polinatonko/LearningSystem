@@ -1,4 +1,4 @@
-package org.example.learningsystem.multitenancy.filter;
+package org.example.learningsystem.multitenancy.resolver;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.example.learningsystem.multitenancy.context.TenantInfo;

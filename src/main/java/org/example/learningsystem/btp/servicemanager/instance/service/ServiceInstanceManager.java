@@ -1,7 +1,7 @@
 package org.example.learningsystem.btp.servicemanager.instance.service;
 
 import org.example.learningsystem.btp.servicemanager.common.util.ServiceManagerRestClient;
-import org.example.learningsystem.btp.servicemanager.common.builder.ServiceManagerURIBuilder;
+import org.example.learningsystem.btp.servicemanager.common.builder.ServiceManagerUriBuilder;
 import org.example.learningsystem.btp.servicemanager.instance.dto.CreateServiceInstanceByOfferingAndPlanName;
 import org.example.learningsystem.btp.servicemanager.instance.dto.ServiceInstanceResponseDto;
 import org.example.learningsystem.btp.servicemanager.common.service.BaseServiceManager;
@@ -26,12 +26,12 @@ public class ServiceInstanceManager {
     private final BaseServiceManager baseServiceManager;
     private final String databaseId;
     private final ServiceManagerRestClient serviceManagerRestClient;
-    private final ServiceManagerURIBuilder serviceManagerURIBuilder;
+    private final ServiceManagerUriBuilder serviceManagerURIBuilder;
 
     public ServiceInstanceManager(@Value("${vcap.services.lms-hana-schema.credentials.database_id}") String databaseId,
                                   BaseServiceManager baseServiceManager,
                                   ServiceManagerRestClientImpl serviceManagerRestClientImpl,
-                                  ServiceManagerURIBuilder serviceManagerURIBuilder) {
+                                  ServiceManagerUriBuilder serviceManagerURIBuilder) {
         this.baseServiceManager = baseServiceManager;
         this.serviceManagerRestClient = serviceManagerRestClientImpl;
         this.serviceManagerURIBuilder = serviceManagerURIBuilder;

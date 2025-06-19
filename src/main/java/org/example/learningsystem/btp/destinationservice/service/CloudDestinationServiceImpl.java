@@ -11,6 +11,8 @@ import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
+import java.util.Optional;
+
 import static org.example.learningsystem.btp.xsuaa.util.XsuaaUtils.getTenantTokenUrl;
 import static org.springframework.web.client.HttpClientErrorException.NotFound;
 import static org.springframework.web.client.HttpClientErrorException.Unauthorized;
@@ -33,16 +35,25 @@ public class CloudDestinationServiceImpl implements DestinationService {
     @Override
     @Retryable(retryFor = Unauthorized.class, maxAttempts = 2)
     public DestinationDto getByName(String name) {
+        var tenantDestination = tryToGetTenantDestination(name);
+        return tenantDestination.orElseGet(() -> getProviderDestination(name));
+    }
+
+    private Optional<DestinationDto> tryToGetTenantDestination(String name) {
         var tenantTokenUrl = getTenantTokenUrl();
         if (tenantTokenUrl.isPresent()) {
             try {
                 log.info("Trying to retrieve destination {} for tenant url {}", name, tenantTokenUrl.get());
-                return tryToGetDestination(tenantTokenUrl.get(), name);
+                var destination = tryToGetDestination(tenantTokenUrl.get(), name);
+                return Optional.of(destination);
             } catch (NotFound e) {
                 log.info("Destination {} wasn't found for current tenant", name);
             }
         }
+        return Optional.empty();
+    }
 
+    private DestinationDto getProviderDestination(String name) {
         var providerTokenUrl = properties.getTokenUrl();
         log.info("Retrieving destination {} for provider url {}", name, providerTokenUrl);
         return tryToGetDestination(providerTokenUrl, name);
@@ -59,7 +70,7 @@ public class CloudDestinationServiceImpl implements DestinationService {
                     .retrieve()
                     .body(DestinationDto.class);
         } catch (Unauthorized e) {
-            refreshToken();
+            refreshToken(tokenUrl);
             throw e;
         }
     }
@@ -71,8 +82,9 @@ public class CloudDestinationServiceImpl implements DestinationService {
         headers.setBearerAuth(accessToken);
     }
 
-    private void refreshToken() {
-        var credentials = properties.getOauth2ClientCredentials();
+    private void refreshToken(String tokenUrl) {
+        var credentials = properties.getOauth2ClientCredentials()
+                .withTokenUrl(tokenUrl);
         oauth2TokenClient.refresh(credentials);
     }
 }

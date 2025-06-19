@@ -1,10 +1,10 @@
-package org.example.learningsystem.btp.saasprovisioningservice.controller;
+package org.example.learningsystem.multitenancy.subscription.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.learningsystem.btp.saasprovisioningservice.dto.ServiceInfoDto;
-import org.example.learningsystem.btp.saasprovisioningservice.dto.SubscriptionRequestDto;
-import org.example.learningsystem.btp.saasprovisioningservice.service.SubscriptionService;
+import org.example.learningsystem.multitenancy.subscription.dto.ServiceInfoDto;
+import org.example.learningsystem.multitenancy.subscription.dto.SubscriptionRequestDto;
+import org.example.learningsystem.multitenancy.subscription.service.SubscriptionService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +20,7 @@ import java.util.List;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 @RestController
-@RequestMapping("/api/v1/callback")
+@RequestMapping("/api/v1/subscriptions")
 @RequiredArgsConstructor
 @Slf4j
 public class SubscriptionController {
@@ -30,7 +30,7 @@ public class SubscriptionController {
     @PutMapping("/tenants/{tenantId}")
     public String subscribe(
             @PathVariable("tenantId") String tenantId, @RequestBody SubscriptionRequestDto subscription) {
-        log.info("Subscription callback [tenantId = {}, subdomain = {}]", tenantId, subscription.subscribedSubdomain());
+        log.info("Subscription request [tenantId = {}, subdomain = {}]", tenantId, subscription.subscribedSubdomain());
         return subscriptionService.subscribe(tenantId, subscription);
     }
 
@@ -38,13 +38,13 @@ public class SubscriptionController {
     @ResponseStatus(NO_CONTENT)
     public void unsubscribe(
             @PathVariable("tenantId") String tenantId, @RequestBody SubscriptionRequestDto subscription) {
-        log.info("Delete subscription callback [tenantId = {}, subdomain = {}]", tenantId, subscription.subscribedSubdomain());
+        log.info("Delete subscription request [tenantId = {}, subdomain = {}]", tenantId, subscription.subscribedSubdomain());
         subscriptionService.unsubscribe(tenantId, subscription);
     }
 
     @GetMapping("/dependencies")
     public List<ServiceInfoDto> getDependencies(@RequestParam("tenantId") String tenantId) {
-        log.info("Dependencies callback [tenantId = {}]", tenantId);
+        log.info("Dependencies request [tenantId = {}]", tenantId);
         var dependencies = subscriptionService.getDependencies();
         log.info("Retrieved dependencies: {}", dependencies);
         return dependencies;

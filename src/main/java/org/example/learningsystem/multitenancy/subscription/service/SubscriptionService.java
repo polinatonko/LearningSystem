@@ -1,13 +1,12 @@
-package org.example.learningsystem.btp.saasprovisioningservice.service;
+package org.example.learningsystem.multitenancy.subscription.service;
 
-import org.example.learningsystem.btp.saasprovisioningservice.dto.ServiceInfoDto;
-import org.example.learningsystem.btp.saasprovisioningservice.dto.SubscriptionRequestDto;
+import org.example.learningsystem.multitenancy.subscription.dto.ServiceInfoDto;
+import org.example.learningsystem.multitenancy.subscription.dto.SubscriptionRequestDto;
 
 import java.util.List;
 
 /**
- * Interface for handling tenant subscription and unsubscription operations
- * with the SaaS Provisioning Service.
+ * Interface for handling tenant subscription and unsubscription operations.
  */
 public interface SubscriptionService {
 

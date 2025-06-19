@@ -62,7 +62,7 @@ public class CloudOauth2TokenClient implements Oauth2TokenClient {
         var body = buildCredentials(clientId, clientSecret);
 
         var accessToken = retrieveToken(accessTokenUri, body);
-        log.info("Access token received for client_id = {}", clientId);
+        log.info("Access token received [url = {}, client_id = {}]", url, clientId);
         return accessToken;
     }
 

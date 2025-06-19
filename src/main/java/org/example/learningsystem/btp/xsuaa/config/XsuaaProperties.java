@@ -1,9 +1,9 @@
-package org.example.learningsystem.btp.saasprovisioningservice.config;
+package org.example.learningsystem.btp.xsuaa.config;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.bind.Name;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,17 +12,15 @@ import org.springframework.stereotype.Component;
  * Contains credentials and endpoint information required to authenticate with the XSUAA service.
  */
 @Component
-@ConfigurationProperties(prefix = "sap.security.services.xsuaa")
+@ConfigurationProperties(prefix = "btp.services.xsuaa")
+@Profile("cloud")
 @Getter
 @Setter
 public class XsuaaProperties {
 
-    @Name("url")
     private String tokenUrl;
 
-    @Name("clientid")
     private String clientId;
 
-    @Name("clientsecret")
     private String clientSecret;
 }

@@ -1,6 +1,6 @@
 application:
-  service-dependencies:
-    -
+  name: lms
+  uri: http://localhost:8080
 
 spring:
   datasource:
@@ -32,19 +32,9 @@ multitenancy:
   default-tenant: public
   default-schema: public
 
-sap:
-  security:
-    services:
-      service-manager:
-        client-id:
-        client-secret:
-        token-url:
-        url:
-
-      xsuaa:
-        xsappname: xsapp!t0815
-        uaadomain: localhost
-        clientid: sb-clientId!t0815
-        clientsecret: pwd
-        url: http://localhost
-        plan: application
+vcap:
+  services:
+    lms-user-service:
+      credentials:
+        approuter:
+          name: lms-approuter

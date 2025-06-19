@@ -11,14 +11,6 @@ import java.util.Map;
 public interface TenantDataSourceProvider {
 
     /**
-     * Creates or retrieves a {@link DataSource} for specified tenant.
-     *
-     * @param tenant the tenant information
-     * @return a configured {@link DataSource} for tenant
-     */
-    DataSource create(TenantInfo tenant);
-
-    /**
      * Returns map with tenant data sources.
      *
      * @return a map of tenant information to their corresponding data sources

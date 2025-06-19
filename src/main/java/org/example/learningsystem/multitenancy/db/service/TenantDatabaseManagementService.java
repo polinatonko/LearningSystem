@@ -8,27 +8,26 @@ import org.example.learningsystem.multitenancy.liquibase.TenantLiquibaseService;
 import org.springframework.stereotype.Service;
 
 /**
- * Service for coordinating the onboarding and offboarding processes for tenants.
+ * Service for coordinating the onboarding and offboarding database-related processes for tenants.
  * <p>
- * Manages the complete tenant onboarding and offboarding, including schema creation and deletion,
- * data source configuration, and executing database migrations.
+ * Manages schema creation and deletion, data source configuration, and executing database migrations.
  */
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class TenantManagementService {
+public class TenantDatabaseManagementService {
 
     private final TenantDataSourceService tenantDataSourceService;
     private final TenantLiquibaseService tenantLiquibaseService;
     private final TenantSchemaService tenantSchemaService;
 
     /**
-     * Performs onboarding for the specified tenant.
+     * Creates database schema for the specified tenant.
      *
      * @param tenantId  the tenant identifier
      * @param subdomain the tenant's subdomain
      */
-    public void create(String tenantId, String subdomain) {
+    public void createSchema(String tenantId, String subdomain) {
         log.info("Starting onboarding process for new tenant: {}", tenantId);
 
         var tenantInfo = new TenantInfo(tenantId, subdomain);
@@ -41,12 +40,12 @@ public class TenantManagementService {
     }
 
     /**
-     * Performs offboarding for the specified tenant.
+     * Deletes database schema for the specified tenant.
      *
      * @param tenantId  the tenant identifier
      * @param subdomain the tenant's subdomain
      */
-    public void delete(String tenantId, String subdomain) {
+    public void deleteSchema(String tenantId, String subdomain) {
         log.info("Starting offboarding for tenant: {}", tenantId);
 
         var tenantInfo = new TenantInfo(tenantId, subdomain);

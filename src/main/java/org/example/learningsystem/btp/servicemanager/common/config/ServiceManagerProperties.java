@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  * Contains OAuth 2.0 client credentials and service endpoint URLs.
  */
 @Component
-@ConfigurationProperties(prefix = "sap.security.services.service-manager")
+@ConfigurationProperties(prefix = "btp.services.service-manager")
 @Getter
 @Setter
 public class ServiceManagerProperties {
