@@ -19,6 +19,7 @@
     <properties>
         <java.version>21</java.version>
 
+        <cf.logging.version>3.8.5</cf.logging.version>
         <liquibase-hanadb.version>4.31.1</liquibase-hanadb.version>
         <mapstruct.version>1.6.3</mapstruct.version>
         <ngdbc.version>2.24.7</ngdbc.version>
@@ -114,6 +115,12 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
+        </dependency>
+        <!-- Logging -->
+        <dependency>
+            <groupId>com.sap.hcp.cf.logging</groupId>
+            <artifactId>cf-java-logging-support-logback</artifactId>
+            <version>${cf.logging.version}</version>
         </dependency>
         <!-- Testing -->
         <dependency>
