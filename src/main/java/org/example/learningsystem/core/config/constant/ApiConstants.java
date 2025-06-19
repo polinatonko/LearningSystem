@@ -1,4 +1,4 @@
-package org.example.learningsystem.core.security.constant;
+package org.example.learningsystem.core.config.constant;
 
 import lombok.NoArgsConstructor;
 

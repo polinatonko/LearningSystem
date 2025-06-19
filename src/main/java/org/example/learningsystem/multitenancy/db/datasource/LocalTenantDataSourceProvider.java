@@ -26,11 +26,6 @@ public class LocalTenantDataSourceProvider implements TenantDataSourceProvider {
     private final TenantSchemaResolver tenantSchemaResolver;
 
     @Override
-    public DataSource create(TenantInfo tenant) {
-        return dataSource;
-    }
-
-    @Override
     public Map<TenantInfo, DataSource> getAll() {
         var names = localSchemaHelper.getAll();
         return names.stream()

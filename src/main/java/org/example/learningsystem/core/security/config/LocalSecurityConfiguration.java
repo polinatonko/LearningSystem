@@ -16,11 +16,11 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 
 import static org.example.learningsystem.core.config.constant.FilterChainOrderConstants.ACTUATOR_FILTER_CHAIN_ORDER;
 import static org.example.learningsystem.core.config.constant.FilterChainOrderConstants.API_FILTER_CHAIN_ORDER;
-import static org.example.learningsystem.core.security.constant.ApiConstants.ACTUATOR_ENDPOINTS;
-import static org.example.learningsystem.core.security.constant.ApiConstants.ACTUATOR_HEALTH_ENDPOINT;
-import static org.example.learningsystem.core.security.constant.ApiConstants.API_DOCS_ENDPOINTS;
-import static org.example.learningsystem.core.security.constant.ApiConstants.API_ENDPOINTS;
-import static org.example.learningsystem.core.security.constant.ApiConstants.SWAGGER_ENDPOINTS;
+import static org.example.learningsystem.core.config.constant.ApiConstants.ACTUATOR_ENDPOINTS;
+import static org.example.learningsystem.core.config.constant.ApiConstants.ACTUATOR_HEALTH_ENDPOINT;
+import static org.example.learningsystem.core.config.constant.ApiConstants.API_DOCS_ENDPOINTS;
+import static org.example.learningsystem.core.config.constant.ApiConstants.API_ENDPOINTS;
+import static org.example.learningsystem.core.config.constant.ApiConstants.SWAGGER_ENDPOINTS;
 import static org.example.learningsystem.core.security.role.UserRole.MANAGER;
 import static org.springframework.security.config.Customizer.withDefaults;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;

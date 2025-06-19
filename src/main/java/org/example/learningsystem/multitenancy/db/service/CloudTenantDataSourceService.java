@@ -21,11 +21,11 @@ public class CloudTenantDataSourceService implements TenantDataSourceService {
 
     @Override
     public DataSource create(TenantInfo tenant) {
-        return multiTenantDataSource.createDataSource(tenant);
+        return multiTenantDataSource.create(tenant);
     }
 
     @Override
     public void delete(TenantInfo tenant) {
-        multiTenantDataSource.removeDataSource(tenant);
+        multiTenantDataSource.delete(tenant);
     }
 }

@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 public class CloudTenantDataSourceProvider implements TenantDataSourceProvider {
 
     private final Map<TenantInfo, DataSource> dataSources;
-    private final ServiceBindingManager serviceBindingManager;
 
     public CloudTenantDataSourceProvider(ServiceBindingManager serviceBindingManager) {
         this.dataSources = serviceBindingManager.getAll()
@@ -28,14 +27,6 @@ public class CloudTenantDataSourceProvider implements TenantDataSourceProvider {
                 .collect(Collectors.toMap(
                         TenantBindingUtils::extractTenantInfo,
                         binding -> DataSourceUtils.create(binding.credentials())));
-        this.serviceBindingManager = serviceBindingManager;
-    }
-
-    @Override
-    public DataSource create(TenantInfo tenant) {
-        var binding = serviceBindingManager.getByTenantId(tenant.tenantId());
-        var credentials = binding.credentials();
-        return DataSourceUtils.create(credentials);
     }
 
     @Override
