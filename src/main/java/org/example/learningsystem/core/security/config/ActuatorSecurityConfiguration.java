@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -15,17 +14,16 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
-import static org.example.learningsystem.core.config.constant.FilterChainOrderConstants.ACTUATOR_FILTER_CHAIN_ORDER;
 import static org.example.learningsystem.core.config.constant.ApiUriConstants.ACTUATOR_ENDPOINTS;
 import static org.example.learningsystem.core.config.constant.ApiUriConstants.ACTUATOR_HEALTH_ENDPOINT;
+import static org.example.learningsystem.core.config.constant.FilterChainOrderConstants.ACTUATOR_FILTER_CHAIN_ORDER;
 import static org.example.learningsystem.core.security.authority.UserAuthority.MANAGER;
 import static org.springframework.security.config.Customizer.withDefaults;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
-@Profile("cloud")
 @RequiredArgsConstructor
-public class CloudActuatorSecurityConfiguration {
+public class ActuatorSecurityConfiguration {
 
     private final AccessDeniedHandler accessDeniedHandler;
 
