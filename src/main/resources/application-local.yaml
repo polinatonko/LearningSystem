@@ -1,7 +1,8 @@
-spring:
-  config:
-    import: secrets-local.yaml
+application:
+  name: lms
+  uri: http://localhost:8080
 
+spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/lms
     username: test
@@ -12,7 +13,6 @@ spring:
 
 logging:
   level:
-    liquibase: info
     org:
       springframework:
         cache: trace
@@ -26,3 +26,7 @@ mail:
   protocol: smtp
   auth: true
   start-tls-enable: true
+
+multitenancy:
+  default-tenant: public
+  default-schema: public

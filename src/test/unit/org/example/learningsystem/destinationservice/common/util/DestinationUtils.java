@@ -1,16 +1,17 @@
 package org.example.learningsystem.destinationservice.common.util;
 
-import org.example.learningsystem.btp.destinationservice.dto.MailDestinationDto;
+import org.example.learningsystem.btp.destinationservice.dto.DestinationDto;
+import org.example.learningsystem.btp.destinationservice.dto.MailDestinationConfigurationDto;
 
 public class DestinationUtils {
 
     private static final String HOST = "live.smtp.mailtrap.io";
     private static final String PORT = "587";
 
-    public static MailDestinationDto buildMailDestinationDto() {
-        var dto = new MailDestinationDto();
-        dto.setHost(HOST);
-        dto.setPort(PORT);
-        return dto;
+    public static DestinationDto buildMailDestinationDto() {
+        var dtoConfiguration = new MailDestinationConfigurationDto();
+        dtoConfiguration.setHost(HOST);
+        dtoConfiguration.setPort(PORT);
+        return new DestinationDto(null, dtoConfiguration);
     }
 }

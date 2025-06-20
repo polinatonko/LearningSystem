@@ -2,6 +2,7 @@ package org.example.learningsystem.email.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.learningsystem.email.config.EmailServerProperties;
+import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -36,9 +37,13 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public void send(String to, String subject, String text, EmailServerProperties serverProperties) {
-        var sender = getSender(serverProperties);
-        var message = buildMessage(to, serverProperties.getFrom(), subject, text);
-        sender.send(message);
+        try {
+            var sender = getSender(serverProperties);
+            var message = buildMessage(to, serverProperties.getFrom(), subject, text);
+            sender.send(message);
+        } catch (MailException e) {
+            log.error("Failed to send email to {}: {}", to, e.getMessage());
+        }
     }
 
     private JavaMailSender getSender(EmailServerProperties serverProperties) {

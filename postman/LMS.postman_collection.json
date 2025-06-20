@@ -8,6 +8,817 @@
 	},
 	"item": [
 		{
+			"name": "BTP",
+			"item": [
+				{
+					"name": "Service Manager",
+					"item": [
+						{
+							"name": "Tokens",
+							"item": [
+								{
+									"name": "Get User Token",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "grant_type",
+													"value": "password",
+													"type": "text"
+												},
+												{
+													"key": "username",
+													"value": "",
+													"type": "text"
+												},
+												{
+													"key": "password",
+													"value": "",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{serviceManagerUrl}}/v1/oauth/a3b0b7cbtrial/token",
+											"host": [
+												"{{serviceManagerUrl}}"
+											],
+											"path": [
+												"v1",
+												"oauth",
+												"a3b0b7cbtrial",
+												"token"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Technical Token",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "grant_type",
+													"value": "client_credentials",
+													"type": "text"
+												},
+												{
+													"key": "client_id",
+													"value": "sb-dd066c8a-ad0c-4402-8b32-26fbb7be2bcd!b463125|service-manager!b1476",
+													"type": "text"
+												},
+												{
+													"key": "client_secret",
+													"value": "43400661-9818-4e30-9023-f748f615f2ef$sltnWclQgvTpiE0KqLKbXUP61cpzUC1Z0G9z0PnBpTg=",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{uaa}}/oauth/token",
+											"host": [
+												"{{uaa}}"
+											],
+											"path": [
+												"oauth",
+												"token"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Service Offerings",
+							"item": [
+								{
+									"name": "Get All",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{serviceManagerUrl}}/v1/service_offerings?fieldQuery=name eq 'hana'",
+											"host": [
+												"{{serviceManagerUrl}}"
+											],
+											"path": [
+												"v1",
+												"service_offerings"
+											],
+											"query": [
+												{
+													"key": "fieldQuery",
+													"value": "name eq 'hana'"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get By Id",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{serviceManagerUrl}}/v1/service_offerings/bd5d9d23-96ce-409b-bb93-7c9225c4e56b",
+											"host": [
+												"{{serviceManagerUrl}}"
+											],
+											"path": [
+												"v1",
+												"service_offerings",
+												"bd5d9d23-96ce-409b-bb93-7c9225c4e56b"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Service Plans",
+							"item": [
+								{
+									"name": "Get All",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{serviceManagerUrl}}/v1/service_plans?fieldQuery=name contains 'schema'",
+											"host": [
+												"{{serviceManagerUrl}}"
+											],
+											"path": [
+												"v1",
+												"service_plans"
+											],
+											"query": [
+												{
+													"key": "fieldQuery",
+													"value": "name contains 'schema'"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get By Id",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{serviceManagerUrl}}/v1/service_plans/952cebb5-d773-4f54-9da8-c2c442da45c9",
+											"host": [
+												"{{serviceManagerUrl}}"
+											],
+											"path": [
+												"v1",
+												"service_plans",
+												"952cebb5-d773-4f54-9da8-c2c442da45c9"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Service Instances",
+							"item": [
+								{
+									"name": "Get All",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{serviceManagerUrl}}/v1/service_instances",
+											"host": [
+												"{{serviceManagerUrl}}"
+											],
+											"path": [
+												"v1",
+												"service_instances"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get By Id",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{serviceManagerUrl}}/v1/service_instances/aacd15e1-cc4a-436b-8af0-02bcb222fbf1",
+											"host": [
+												"{{serviceManagerUrl}}"
+											],
+											"path": [
+												"v1",
+												"service_instances",
+												"aacd15e1-cc4a-436b-8af0-02bcb222fbf1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create By Plan Id",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"lms-destination-service\",\r\n    \"service_plan_id\": \"952cebb5-d773-4f54-9da8-c2c442da45c9\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{serviceManagerUrl}}/v1/service_instances",
+											"host": [
+												"{{serviceManagerUrl}}"
+											],
+											"path": [
+												"v1",
+												"service_instances"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create By Offering And Plan Name",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"1ebd6692-faab-417d-b472-614f574f53e0-schema\",\r\n    \"service_offering_name\": \"hana\",\r\n    \"service_plan_name\": \"schema\",\r\n    \"labels\": {\r\n        \"tenant_id\": [\"1ebd6692-faab-417d-b472-614f574f53e0\"],\r\n        \"subdomain\": [\"subscriber-dejclbku\"]\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://service-manager.cfapps.us10.hana.ondemand.com/v1/service_instances?async=false",
+											"protocol": "https",
+											"host": [
+												"service-manager",
+												"cfapps",
+												"us10",
+												"hana",
+												"ondemand",
+												"com"
+											],
+											"path": [
+												"v1",
+												"service_instances"
+											],
+											"query": [
+												{
+													"key": "async",
+													"value": "false"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete By Id",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{serviceManagerUrl}}/v1/service_instances/b4771b19-b48d-4609-925b-6899c34382b5",
+											"host": [
+												"{{serviceManagerUrl}}"
+											],
+											"path": [
+												"v1",
+												"service_instances",
+												"b4771b19-b48d-4609-925b-6899c34382b5"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Parameters By Id",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{serviceManagerUrl}}/v1/service_instances/b5c744ca-9517-472c-897e-72db08b53a01/parameters",
+											"host": [
+												"{{serviceManagerUrl}}"
+											],
+											"path": [
+												"v1",
+												"service_instances",
+												"b5c744ca-9517-472c-897e-72db08b53a01",
+												"parameters"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Service Bindings",
+							"item": [
+								{
+									"name": "Get All",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{serviceManagerUrl}}/v1/service_bindings",
+											"host": [
+												"{{serviceManagerUrl}}"
+											],
+											"path": [
+												"v1",
+												"service_bindings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"1ebd6692-faab-417d-b472-614f574f53e0-schema-binding\",\r\n    \"service_instance_id\": \"c2e489b4-7973-460f-a630-1159d668d382\",\r\n    \"labels\": {\r\n        \"tenant_id\": [\"1ebd6692-faab-417d-b472-614f574f53e0\"],\r\n        \"subdomain\": [\"subscriber-dejclbku\"]\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{serviceManagerUrl}}/v1/service_bindings?async=false",
+											"host": [
+												"{{serviceManagerUrl}}"
+											],
+											"path": [
+												"v1",
+												"service_bindings"
+											],
+											"query": [
+												{
+													"key": "async",
+													"value": "false"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get By Id",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{serviceManagerUrl}}/v1/service_bindings/d20244ce-e908-48a2-bf79-c57d5ef5ace6/operations/e0aa6192-424b-4a3d-85c2-de7708e40bc7",
+											"host": [
+												"{{serviceManagerUrl}}"
+											],
+											"path": [
+												"v1",
+												"service_bindings",
+												"d20244ce-e908-48a2-bf79-c57d5ef5ace6",
+												"operations",
+												"e0aa6192-424b-4a3d-85c2-de7708e40bc7"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete By Id",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{serviceManagerUrl}}/v1/service_bindings/960bb7e0-7d7a-4c3d-97a7-11dc08f74428",
+											"host": [
+												"{{serviceManagerUrl}}"
+											],
+											"path": [
+												"v1",
+												"service_bindings",
+												"960bb7e0-7d7a-4c3d-97a7-11dc08f74428"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Destination Service",
+					"item": [
+						{
+							"name": "Get token",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "client_credentials",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "sb-cloneec09c1b4a6af4355953473d86b4b78b7!b463125|destination-xsappname!b62",
+											"type": "text"
+										},
+										{
+											"key": "client_secret",
+											"value": "65748f9e-a150-4013-a693-4855bc56d283$5sRcWRlttZMF-0HhgHbdX2aySrwxPvAti3RQIqcwzsM=",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{uaaUrl}}/oauth/token",
+									"host": [
+										"{{uaaUrl}}"
+									],
+									"path": [
+										"oauth",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get by name",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{destinationsUrl}}/destination-configuration/v1/destinations/smtp-destination",
+									"host": [
+										"{{destinationsUrl}}"
+									],
+									"path": [
+										"destination-configuration",
+										"v1",
+										"destinations",
+										"smtp-destination"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Feature Flags",
+					"item": [
+						{
+							"name": "Get by name",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Basic c2Jzc19qcWcyaGM2em5iemUxZno1ejhrYXRhMWFqeXVpajdwbm1wa2M0Zml6eCt1Mm8yOWJoZXR1dWxjcXh2OWJnM3Uzayt1PTphYV9FNXBuYXlNU3BNREFsYVRNaGxHUTQrdXEvRUk9",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{featureFlagsUrl}}/api/v2/evaluate/destination-service-enabled",
+									"host": [
+										"{{featureFlagsUrl}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"evaluate",
+										"destination-service-enabled"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "XSUAA",
+					"item": [
+						{
+							"name": "Get access token by username and password",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "sb-lms!t463125",
+											"type": "text"
+										},
+										{
+											"key": "client_secret",
+											"value": "f2mD/ulzDEEUJVUNWAoudn9zBmo=",
+											"type": "text"
+										},
+										{
+											"key": "response_type",
+											"value": "token",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{uaaUrl}}/oauth/token",
+									"host": [
+										"{{uaaUrl}}"
+									],
+									"path": [
+										"oauth",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get access token by client_id and client_secret",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "client_credentials",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "sb-cloneec09c1b4a6af4355953473d86b4b78b7!b463125|destination-xsappname!b62",
+											"type": "text"
+										},
+										{
+											"key": "client_secret",
+											"value": "4527f74f-3c2d-4e92-9f65-324333e26c4d$nQLg9AaXz4-qDnpcZ4ZuJ3TVLq7t-zXs7n0kvOUy9Nk=",
+											"type": "text"
+										},
+										{
+											"key": "response_type",
+											"value": "token",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{uaaUrl}}/oauth/token",
+									"host": [
+										"{{uaaUrl}}"
+									],
+									"path": [
+										"oauth",
+										"token"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"description": "Collections related to the following SAP BTP services:\n\n1. Destination Service;\n    \n2. Feature Flags Service;\n    \n3. Service Manager;\n    \n4. SaaS Provisioning Service;\n    \n5. XSUAA."
+		},
+		{
 			"name": "API",
 			"item": [
 				{
@@ -41,11 +852,13 @@
 									}
 								},
 								"url": {
-									"raw": "{{cloudUrl}}/courses/8b2b5e8f-9c1b-4562-92d2-06debfd8b7df",
+									"raw": "{{cloudUrl}}/api/v1/courses/8b2b5e8f-9c1b-4562-92d2-06debfd8b7df",
 									"host": [
 										"{{cloudUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"courses",
 										"8b2b5e8f-9c1b-4562-92d2-06debfd8b7df"
 									]
@@ -67,10 +880,28 @@
 									]
 								},
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "X-Tenant-ID",
+										"value": "123",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJSUzI1NiIsImprdSI6Imh0dHBzOi8vYTNiMGI3Y2J0cmlhbC5hdXRoZW50aWNhdGlvbi51czEwLmhhbmEub25kZW1hbmQuY29tL3Rva2VuX2tleXMiLCJraWQiOiJkZWZhdWx0LWp3dC1rZXktNzIyMGVlMDQzYiIsInR5cCI6IkpXVCIsImppZCI6ICJhZ2pKS3VCRDc1Nkt3MEg4bEhNZTVnUGxmSitabVJUc3gycU9uYjIvZy9zPSJ9.eyJqdGkiOiI5OTQyNzkzYjUwNjE0ZGU3OTFmMDdmNGJkNzg4OTk1ZCIsImV4dF9hdHRyIjp7ImVuaGFuY2VyIjoiWFNVQUEiLCJzdWJhY2NvdW50aWQiOiI0MTRkNjgzNi1jYzE4LTQ0Y2ItYmY2Ni05NjY4Y2Y5YmFmNmYiLCJ6ZG4iOiJhM2IwYjdjYnRyaWFsIn0sInVzZXJfdXVpZCI6IjY5NjlhMDgyLTc0ZmItNDNkZC1hNWFiLWIwOTY1NmEwMzc5NSIsInhzLnVzZXIuYXR0cmlidXRlcyI6e30sInhzLnN5c3RlbS5hdHRyaWJ1dGVzIjp7InhzLnJvbGVjb2xsZWN0aW9ucyI6WyJTdWJhY2NvdW50IFNlcnZpY2UgQWRtaW5pc3RyYXRvciIsIlNBUCBIQU5BIENsb3VkIEFkbWluaXN0cmF0b3IiLCJTdWJhY2NvdW50IEFkbWluaXN0cmF0b3IiLCJNYW5hZ2VyIiwiQWRtaW4iXX0sImdpdmVuX25hbWUiOiJQb2xpbmEiLCJmYW1pbHlfbmFtZSI6IlRvbmtvIiwic3ViIjoiYjVjMWUwMTItZjJkYS00ZTIzLTkyM2YtM2I0NGY1ODcyNDFkIiwic2NvcGUiOlsibG1zIXQ0NjMxMjUuU3R1ZGVudCIsIm9wZW5pZCIsImxtcyF0NDYzMTI1Lk1hbmFnZXIiLCJsbXMhdDQ2MzEyNS5BZG1pbiJdLCJjbGllbnRfaWQiOiJzYi1sbXMhdDQ2MzEyNSIsImNpZCI6InNiLWxtcyF0NDYzMTI1IiwiYXpwIjoic2ItbG1zIXQ0NjMxMjUiLCJncmFudF90eXBlIjoicGFzc3dvcmQiLCJ1c2VyX2lkIjoiYjVjMWUwMTItZjJkYS00ZTIzLTkyM2YtM2I0NGY1ODcyNDFkIiwib3JpZ2luIjoic2FwLmRlZmF1bHQiLCJ1c2VyX25hbWUiOiJwb2xpbmEudG9ua29AZ21haWwuY29tIiwiZW1haWwiOiJwb2xpbmEudG9ua29AZ21haWwuY29tIiwiYXV0aF90aW1lIjoxNzQ5NzMxMzQ0LCJyZXZfc2lnIjoiZDNjMGQzOGEiLCJpYXQiOjE3NDk3MzEzNDQsImV4cCI6MTc0OTc3NDU0NCwiaXNzIjoiaHR0cHM6Ly9hM2IwYjdjYnRyaWFsLmF1dGhlbnRpY2F0aW9uLnVzMTAuaGFuYS5vbmRlbWFuZC5jb20vb2F1dGgvdG9rZW4iLCJ6aWQiOiI0MTRkNjgzNi1jYzE4LTQ0Y2ItYmY2Ni05NjY4Y2Y5YmFmNmYiLCJhdWQiOlsic2ItbG1zIXQ0NjMxMjUiLCJvcGVuaWQiLCJsbXMhdDQ2MzEyNSJdfQ.n9xyYXM4F2SyRYaRRaGxKt5GyGXkEQxjWdn-XQUOiNuwt3WKgMQeir_XwmZUcGLvEhnelUa1o7hjtxjhZ6_pi0d3zjCNp3aw_BH70j2qVIUjAAgpnq-vYCOIXLWUWoB92QwNhLdjhcn_35-_TGIw0hSbRl65YBilCLpe8TnLN-8Lmb-FvgLWr_kN3ciTS2fwlPztAYCZpM8G9zNBAGA8-PYHcpvfn0YshvJJj4hpAtXKBRh6t-TE89AnIyGJLpBy_o_kVs1c_ILg04WpAi5rTrlInM_ieOO3gJ84ae4bvnBpaWclPaRLruE9go6AwycZoo30T3QponlAFqF5Lo55VQ",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "",
+										"value": "724669da_9da4_479b_a040_cbee69ac27d1",
+										"type": "text",
+										"disabled": true
+									}
+								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"title\": \"Test Course\",\r\n    \"startDate\": \"2025/05/19 10:00:00\",\r\n    \"endDate\": \"2025/05/19 12:00:00\",\r\n    \"price\": 110,\r\n    \"isPublic\": true\r\n}",
+									"raw": "{\r\n    \"title\": \"Subscriber 2 course\",\r\n    \"startDate\": \"2025/06/20 10:00:00\",\r\n    \"endDate\": \"2025/06/20 12:00:00\",\r\n    \"price\": 190,\r\n    \"isPublic\": true\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -78,11 +909,13 @@
 									}
 								},
 								"url": {
-									"raw": "{{cloudUrl}}/courses",
+									"raw": "{{cloudUrl}}/api/v1/courses",
 									"host": [
 										"{{cloudUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"courses"
 									]
 								}
@@ -106,7 +939,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"id\": \"423b6919-f09f-4beb-846d-53f232ac8415\",\r\n    \"title\": \"UX/UI\",\r\n    \"price\": 120,\r\n    \"coinsPaid\": 0,\r\n    \"startDate\": \"2025/05/31 18:00:00\",\r\n    \"endDate\": \"2025/06/01 15:00:00\",\r\n    \"isPublic\": true\r\n}",
+									"raw": "{\r\n            \"id\": \"1d03eb59-03e7-4f57-8df1-27d6d8b01e4a\",\r\n            \"title\": \"Main course\",\r\n            \"price\": 1.9E+2,\r\n            \"coinsPaid\": 0,\r\n            \"startDate\": \"2025/06/20 10:00:00\",\r\n            \"endDate\": \"2025/06/20 12:00:00\",\r\n            \"isPublic\": true\r\n        }",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -114,13 +947,15 @@
 									}
 								},
 								"url": {
-									"raw": "{{cloudUrl}}/courses/423b6919-f09f-4beb-846d-53f232ac8415",
+									"raw": "{{cloudUrl}}/api/v1/courses/1d03eb59-03e7-4f57-8df1-27d6d8b01e4a",
 									"host": [
 										"{{cloudUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"courses",
-										"423b6919-f09f-4beb-846d-53f232ac8415"
+										"1d03eb59-03e7-4f57-8df1-27d6d8b01e4a"
 									]
 								}
 							},
@@ -142,11 +977,13 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{cloudUrl}}/courses/232ab211-5544-49ed-b5c4-ebbb326c0452",
+									"raw": "{{cloudUrl}}/api/v1/courses/232ab211-5544-49ed-b5c4-ebbb326c0452",
 									"host": [
 										"{{cloudUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"courses",
 										"232ab211-5544-49ed-b5c4-ebbb326c0452"
 									]
@@ -168,21 +1005,29 @@
 									]
 								},
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "X-Tenant-ID",
+										"value": "123",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "urlencoded",
 									"urlencoded": []
 								},
 								"url": {
-									"raw": "{{cloudUrl}}/courses/423b6919-f09f-4beb-846d-53f232ac8415/students/b3dba3de-138f-44c8-8093-ba919d041685",
+									"raw": "{{cloudUrl}}/api/v1/courses/6b3d8a74-4302-4837-960f-f362b44572a1/students/02e2e26d-bd3c-40b9-86e7-b2142cb4ad75",
 									"host": [
 										"{{cloudUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"courses",
-										"423b6919-f09f-4beb-846d-53f232ac8415",
+										"6b3d8a74-4302-4837-960f-f362b44572a1",
 										"students",
-										"b3dba3de-138f-44c8-8093-ba919d041685"
+										"02e2e26d-bd3c-40b9-86e7-b2142cb4ad75"
 									]
 								}
 							},
@@ -204,11 +1049,13 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{cloudUrl}}/courses/e26197f9-b381-4905-a349-9d0e1b0f7491/students/187fdbb0-1c7b-4d10-955b-ef1813514262",
+									"raw": "{{cloudUrl}}/api/v1/courses/e26197f9-b381-4905-a349-9d0e1b0f7491/students/187fdbb0-1c7b-4d10-955b-ef1813514262",
 									"host": [
 										"{{cloudUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"courses",
 										"e26197f9-b381-4905-a349-9d0e1b0f7491",
 										"students",
@@ -234,13 +1081,15 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{cloudUrl}}/courses/e26197f9-b381-4905-a349-9d0e1b0f7491/students",
+									"raw": "{{cloudUrl}}/api/v1/courses/6b3d8a74-4302-4837-960f-f362b44572a1/students",
 									"host": [
 										"{{cloudUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"courses",
-										"e26197f9-b381-4905-a349-9d0e1b0f7491",
+										"6b3d8a74-4302-4837-960f-f362b44572a1",
 										"students"
 									]
 								}
@@ -261,13 +1110,22 @@
 									]
 								},
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "X-Tenant-ID",
+										"value": "1234",
+										"type": "text",
+										"disabled": true
+									}
+								],
 								"url": {
-									"raw": "{{cloudUrl}}/courses?page=0&size=2&sort=title,desc&sort=price,asc",
+									"raw": "{{cloudUrl}}/api/v1/courses?page=0&size=2&sort=title,desc&sort=price,asc",
 									"host": [
 										"{{cloudUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"courses"
 									],
 									"query": [
@@ -309,7 +1167,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"title\": \"Lesson 1\",\r\n    \"duration\": 60,\r\n    \"type\": \"VIDEO\",\r\n    \"platform\": \"Zoom\",\r\n    \"url\": \"https://google.com\"\r\n}",
+									"raw": "{\r\n    \"title\": \"Lesson 666\",\r\n    \"duration\": 90,\r\n    \"type\": \"VIDEO\",\r\n    \"platform\": \"LMS\",\r\n    \"url\": \"https://lms.com\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -317,13 +1175,15 @@
 									}
 								},
 								"url": {
-									"raw": "{{cloudUrl}}/courses/8b2b5e8f-9c1b-4562-92d2-06debfd8b7df/lessons",
+									"raw": "{{cloudUrl}}/api/v1/courses/cddc1d5a-ac93-46e4-8a7e-8402c70f0cf8/lessons",
 									"host": [
 										"{{cloudUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"courses",
-										"8b2b5e8f-9c1b-4562-92d2-06debfd8b7df",
+										"cddc1d5a-ac93-46e4-8a7e-8402c70f0cf8",
 										"lessons"
 									]
 								}
@@ -346,13 +1206,15 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{cloudUrl}}/courses/8b2b5e8f-9c1b-4562-92d2-06debfd8b7df/lessons?page=0&size=2",
+									"raw": "{{cloudUrl}}/api/v1/courses/2b2096a8-cc1c-42cf-b163-adab4f39eac6/lessons?page=0&size=2",
 									"host": [
 										"{{cloudUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"courses",
-										"8b2b5e8f-9c1b-4562-92d2-06debfd8b7df",
+										"2b2096a8-cc1c-42cf-b163-adab4f39eac6",
 										"lessons"
 									],
 									"query": [
@@ -399,11 +1261,13 @@
 									}
 								},
 								"url": {
-									"raw": "{{cloudUrl}}/lessons/cb90610c-ed23-4439-a6c1-df8dd3651688",
+									"raw": "{{cloudUrl}}/api/v1/lessons/cb90610c-ed23-4439-a6c1-df8dd3651688",
 									"host": [
 										"{{cloudUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"lessons",
 										"cb90610c-ed23-4439-a6c1-df8dd3651688"
 									]
@@ -427,11 +1291,13 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{cloudUrl}}/lessons/fd15eef3-fceb-49a7-abd1-42cd75dedc72",
+									"raw": "{{cloudUrl}}/api/v1/lessons/fd15eef3-fceb-49a7-abd1-42cd75dedc72",
 									"host": [
 										"{{cloudUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"lessons",
 										"fd15eef3-fceb-49a7-abd1-42cd75dedc72"
 									]
@@ -455,11 +1321,13 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{cloudUrl}}/lessons/8928a18c-004f-4700-b4e4-5394262f5f90",
+									"raw": "{{cloudUrl}}/api/v1/lessons/8928a18c-004f-4700-b4e4-5394262f5f90",
 									"host": [
 										"{{cloudUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"lessons",
 										"8928a18c-004f-4700-b4e4-5394262f5f90"
 									]
@@ -483,11 +1351,13 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{cloudUrl}}/lessons",
+									"raw": "{{cloudUrl}}/api/v1/lessons",
 									"host": [
 										"{{cloudUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"lessons"
 									]
 								}
@@ -515,11 +1385,13 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{cloudUrl}}/students/187fdbb0-1c7b-4d10-955b-ef1813514262",
+									"raw": "{{cloudUrl}}/api/v1/students/187fdbb0-1c7b-4d10-955b-ef1813514262",
 									"host": [
 										"{{cloudUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"students",
 										"187fdbb0-1c7b-4d10-955b-ef1813514262"
 									]
@@ -541,10 +1413,16 @@
 									]
 								},
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "X-Tenant-ID",
+										"value": "123",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"firstName\": \"User1\",\r\n    \"lastName\": \"User1\",\r\n    \"email\": \"p-tonko@mail.ru\",\r\n    \"dateOfBirth\": \"2010/10/01\",\r\n    \"coins\": 150\r\n}",
+									"raw": "{\r\n    \"firstName\": \"Subscriber2\",\r\n    \"lastName\": \"Subscriber2\",\r\n    \"email\": \"subscriber2@gmail.com\",\r\n    \"dateOfBirth\": \"2010/10/01\",\r\n    \"coins\": 200\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -552,11 +1430,13 @@
 									}
 								},
 								"url": {
-									"raw": "{{cloudUrl}}/students",
+									"raw": "{{cloudUrl}}/api/v1/students",
 									"host": [
 										"{{cloudUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"students"
 									]
 								}
@@ -580,7 +1460,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"id\": \"6aba6bef-9562-4e99-b82f-3e7f90a03dcd\",\r\n    \"firstName\": \"User1\",\r\n    \"lastName\": \"User1\",\r\n    \"email\": \"p-tonko@mail.ru\",\r\n    \"dateOfBirth\": \"2010/10/01\",\r\n    \"coins\": 150,\r\n    \"language\": null\r\n}",
+									"raw": "{\r\n    \"id\": \"bb6ef005-d002-4ff0-b200-ffa7f663b7cb\",\r\n    \"firstName\": \"User1\",\r\n    \"lastName\": \"User1\",\r\n    \"email\": \"p-tonko@mail.ru\",\r\n    \"dateOfBirth\": \"2010/10/01\",\r\n    \"coins\": 250,\r\n    \"locale\": \"en\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -588,13 +1468,15 @@
 									}
 								},
 								"url": {
-									"raw": "{{cloudUrl}}/students/6aba6bef-9562-4e99-b82f-3e7f90a03dcd",
+									"raw": "{{cloudUrl}}/api/v1/students/bb6ef005-d002-4ff0-b200-ffa7f663b7cb",
 									"host": [
 										"{{cloudUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"students",
-										"6aba6bef-9562-4e99-b82f-3e7f90a03dcd"
+										"bb6ef005-d002-4ff0-b200-ffa7f663b7cb"
 									]
 								}
 							},
@@ -616,11 +1498,13 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{cloudUrl}}/students/3bc8d12e-ff1a-4e0d-8951-e7ee06ae5c15",
+									"raw": "{{cloudUrl}}/api/v1/students/3bc8d12e-ff1a-4e0d-8951-e7ee06ae5c15",
 									"host": [
 										"{{cloudUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"students",
 										"3bc8d12e-ff1a-4e0d-8951-e7ee06ae5c15"
 									]
@@ -644,11 +1528,13 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{cloudUrl}}/students",
+									"raw": "{{cloudUrl}}/api/v1/students",
 									"host": [
 										"{{cloudUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"students"
 									]
 								}
@@ -721,19 +1607,25 @@
 									"type": "basic",
 									"basic": [
 										{
-											"key": "password",
-											"value": "manager",
+											"key": "username",
+											"value": "manager@gmail.com",
 											"type": "string"
 										},
 										{
-											"key": "username",
-											"value": "manager@gmail.com",
+											"key": "password",
+											"value": "manager",
 											"type": "string"
 										}
 									]
 								},
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "X-Tenant-ID",
+										"value": "my-tenant",
+										"type": "text"
+									}
+								],
 								"url": {
 									"raw": "{{cloudUrl}}/actuator/info",
 									"host": [
@@ -829,29 +1721,8 @@
 					]
 				},
 				{
-					"name": "Actuator",
+					"name": "Application Info",
 					"item": [
-						{
-							"name": "Health Check",
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{cloudUrl}}/actuator/health",
-									"host": [
-										"{{cloudUrl}}"
-									],
-									"path": [
-										"actuator",
-										"health"
-									]
-								}
-							},
-							"response": []
-						},
 						{
 							"name": "Get",
 							"request": {
@@ -873,20 +1744,26 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{cloudUrl}}/actuator/loggers",
+									"raw": "{{cloudUrl}}/api/v1/application-info",
 									"host": [
 										"{{cloudUrl}}"
 									],
 									"path": [
-										"actuator",
-										"loggers"
+										"api",
+										"v1",
+										"application-info"
 									]
 								}
 							},
 							"response": []
-						},
+						}
+					]
+				},
+				{
+					"name": "Subscriptions",
+					"item": [
 						{
-							"name": "Get Info",
+							"name": "Subscribe",
 							"request": {
 								"auth": {
 									"type": "basic",
@@ -903,80 +1780,17 @@
 										}
 									]
 								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{cloudUrl}}/actuator/info",
-									"host": [
-										"{{cloudUrl}}"
-									],
-									"path": [
-										"actuator",
-										"info"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get Caches",
-							"request": {
-								"auth": {
-									"type": "basic",
-									"basic": [
-										{
-											"key": "password",
-											"value": "manager",
-											"type": "string"
-										},
-										{
-											"key": "username",
-											"value": "manager@gmail.com",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{cloudUrl}}/actuator/caches",
-									"host": [
-										"{{cloudUrl}}"
-									],
-									"path": [
-										"actuator",
-										"caches"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Loggers",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"auth": {
-									"type": "basic",
-									"basic": [
-										{
-											"key": "password",
-											"value": "manager",
-											"type": "string"
-										},
-										{
-											"key": "username",
-											"value": "manager@gmail.com",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
+								"method": "PUT",
+								"header": [
+									{
+										"key": "X-Tenant-ID",
+										"value": "1ebd6692-faab-417d-b472-614f574f53e0",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"configuredLevel\": \"TRACE\"\r\n}\r\n\r\n",
+									"raw": "{\r\n    \"subscribedTenantId\": \"1234\",\r\n    \"subscribedSubdomain\": \"subscriber-dejclbku\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -984,14 +1798,103 @@
 									}
 								},
 								"url": {
-									"raw": "{{cloudUrl}}/actuator/loggers/org.hibernate.SQL",
+									"raw": "{{baseUrl}}/api/v1/subscriptions/tenants/1234",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"subscriptions",
+										"tenants",
+										"1234"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Unsubscribe",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "manager",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "manager@gmail.com",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "X-Tenant-ID",
+										"value": "724669da-9da4-479b-a040-cbee69ac27d1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"subscribedTenantId\": \"1234\",\r\n    \"subscribedSubdomain\": \"subscriber-dejclbku\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/subscriptions/tenants/1234",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"subscriptions",
+										"tenants",
+										"1234"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get dependencies",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{cloudUrl}}/api/v1/subscriptions/dependencies?tenantId=123",
 									"host": [
 										"{{cloudUrl}}"
 									],
 									"path": [
-										"actuator",
-										"loggers",
-										"org.hibernate.SQL"
+										"api",
+										"v1",
+										"subscriptions",
+										"dependencies"
+									],
+									"query": [
+										{
+											"key": "tenantId",
+											"value": "123"
+										}
 									]
 								}
 							},
@@ -1000,491 +1903,7 @@
 					]
 				}
 			],
-			"description": "Collections related to the REST API of the Learning Management System:\n\n1. Courses for managing courses and enrollments;\n    \n2. Lessons;\n    \n3. Students;\n    \n4. Actuator for managing Spring Boot Actuator endpoints."
-		},
-		{
-			"name": "BTP",
-			"item": [
-				{
-					"name": "Destination Service",
-					"item": [
-						{
-							"name": "Get token for Destination Service",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "grant_type",
-											"value": "client_credentials",
-											"type": "text"
-										},
-										{
-											"key": "client_id",
-											"value": "sb-cloned464b795571141f6a2bec1151f719ef1!b413607|destination-xsappname!b62",
-											"type": "text"
-										},
-										{
-											"key": "client_secret",
-											"value": "0b2f1bdd-f845-448a-abea-57159870faa1$FkEY4KqZoh_G49SS4RWj5c5XWwGh9IgqZ5abxpi65yw=",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "{{uaaUrl}}/oauth/token",
-									"host": [
-										"{{uaaUrl}}"
-									],
-									"path": [
-										"oauth",
-										"token"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get by name",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{destinationsUrl}}/destination-configuration/v1/instanceDestinations/smtp-destination",
-									"host": [
-										"{{destinationsUrl}}"
-									],
-									"path": [
-										"destination-configuration",
-										"v1",
-										"instanceDestinations",
-										"smtp-destination"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Feature Flags",
-					"item": [
-						{
-							"name": "Get by name",
-							"request": {
-								"auth": {
-									"type": "basic",
-									"basic": [
-										{
-											"key": "password",
-											"value": "aa_q0pl2T7G0Cm9a47i8Pu1C2zFHUI=",
-											"type": "string"
-										},
-										{
-											"key": "username",
-											"value": "sbss_pq1habrd5jgv2haignkfdm8nkfq3gsln8vavwzwvt2jbdzyhh/jj2bl/yt+pktnmdj8=",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Basic c2Jzc19qcWcyaGM2em5iemUxZno1ejhrYXRhMWFqeXVpajdwbm1wa2M0Zml6eCt1Mm8yOWJoZXR1dWxjcXh2OWJnM3Uzayt1PTphYV9FNXBuYXlNU3BNREFsYVRNaGxHUTQrdXEvRUk9",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"url": {
-									"raw": "{{featureFlagsUrl}}/api/v2/evaluate/destination-service-enabled",
-									"host": [
-										"{{featureFlagsUrl}}"
-									],
-									"path": [
-										"api",
-										"v2",
-										"evaluate",
-										"destination-service-enabled"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "XSUAA",
-					"item": [
-						{
-							"name": "Get access token by username and password",
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "grant_type",
-											"value": "password",
-											"type": "text"
-										},
-										{
-											"key": "username",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "password",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "client_id",
-											"value": "sb-lms!t413607",
-											"type": "text"
-										},
-										{
-											"key": "client_secret",
-											"value": "RMyeEhnC7s7yZTQRef79RKtEWQc=",
-											"type": "text"
-										},
-										{
-											"key": "response_type",
-											"value": "token",
-											"type": "text",
-											"disabled": true
-										}
-									]
-								},
-								"url": {
-									"raw": "{{uaaUrl}}/oauth/token",
-									"host": [
-										"{{uaaUrl}}"
-									],
-									"path": [
-										"oauth",
-										"token"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get access token by client_id and client_secret",
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "grant_type",
-											"value": "client_credentials",
-											"type": "text"
-										},
-										{
-											"key": "client_id",
-											"value": "sb-lms!t413607",
-											"type": "text"
-										},
-										{
-											"key": "client_secret",
-											"value": "RMyeEhnC7s7yZTQRef79RKtEWQc=",
-											"type": "text"
-										},
-										{
-											"key": "response_type",
-											"value": "token",
-											"type": "text",
-											"disabled": true
-										}
-									]
-								},
-								"url": {
-									"raw": "{{uaaUrl}}/oauth/token",
-									"host": [
-										"{{uaaUrl}}"
-									],
-									"path": [
-										"oauth",
-										"token"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Destination Service",
-					"item": [
-						{
-							"name": "Get token for Destination Service",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "grant_type",
-											"value": "client_credentials",
-											"type": "text"
-										},
-										{
-											"key": "client_id",
-											"value": "sb-cloned464b795571141f6a2bec1151f719ef1!b413607|destination-xsappname!b62",
-											"type": "text"
-										},
-										{
-											"key": "client_secret",
-											"value": "0b2f1bdd-f845-448a-abea-57159870faa1$FkEY4KqZoh_G49SS4RWj5c5XWwGh9IgqZ5abxpi65yw=",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "{{uaaUrl}}/oauth/token",
-									"host": [
-										"{{uaaUrl}}"
-									],
-									"path": [
-										"oauth",
-										"token"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get by name",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{destinationsUrl}}/destination-configuration/v1/instanceDestinations/smtp-destination",
-									"host": [
-										"{{destinationsUrl}}"
-									],
-									"path": [
-										"destination-configuration",
-										"v1",
-										"instanceDestinations",
-										"smtp-destination"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Feature Flags",
-					"item": [
-						{
-							"name": "Get by name",
-							"request": {
-								"auth": {
-									"type": "basic",
-									"basic": [
-										{
-											"key": "password",
-											"value": "aa_q0pl2T7G0Cm9a47i8Pu1C2zFHUI=",
-											"type": "string"
-										},
-										{
-											"key": "username",
-											"value": "sbss_pq1habrd5jgv2haignkfdm8nkfq3gsln8vavwzwvt2jbdzyhh/jj2bl/yt+pktnmdj8=",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Basic c2Jzc19qcWcyaGM2em5iemUxZno1ejhrYXRhMWFqeXVpajdwbm1wa2M0Zml6eCt1Mm8yOWJoZXR1dWxjcXh2OWJnM3Uzayt1PTphYV9FNXBuYXlNU3BNREFsYVRNaGxHUTQrdXEvRUk9",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"url": {
-									"raw": "{{featureFlagsUrl}}/api/v2/evaluate/destination-service-enabled",
-									"host": [
-										"{{featureFlagsUrl}}"
-									],
-									"path": [
-										"api",
-										"v2",
-										"evaluate",
-										"destination-service-enabled"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "XSUAA",
-					"item": [
-						{
-							"name": "Get access token by username and password",
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "grant_type",
-											"value": "password",
-											"type": "text"
-										},
-										{
-											"key": "username",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "password",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "client_id",
-											"value": "sb-lms!t413607",
-											"type": "text"
-										},
-										{
-											"key": "client_secret",
-											"value": "RMyeEhnC7s7yZTQRef79RKtEWQc=",
-											"type": "text"
-										},
-										{
-											"key": "response_type",
-											"value": "token",
-											"type": "text",
-											"disabled": true
-										}
-									]
-								},
-								"url": {
-									"raw": "{{uaaUrl}}/oauth/token",
-									"host": [
-										"{{uaaUrl}}"
-									],
-									"path": [
-										"oauth",
-										"token"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get access token by client_id and client_secret",
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "grant_type",
-											"value": "client_credentials",
-											"type": "text"
-										},
-										{
-											"key": "client_id",
-											"value": "sb-lms!t413607",
-											"type": "text"
-										},
-										{
-											"key": "client_secret",
-											"value": "RMyeEhnC7s7yZTQRef79RKtEWQc=",
-											"type": "text"
-										},
-										{
-											"key": "response_type",
-											"value": "token",
-											"type": "text",
-											"disabled": true
-										}
-									]
-								},
-								"url": {
-									"raw": "{{uaaUrl}}/oauth/token",
-									"host": [
-										"{{uaaUrl}}"
-									],
-									"path": [
-										"oauth",
-										"token"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				}
-			],
-			"description": "Collections related to the following SAP BTP services:\n\n1. Destination Service;\n    \n2. Feature Flags Service;\n    \n3. XSUAA."
+			"description": "Collections related to the REST API of the Learning Management System:\n\n1. Courses for managing courses and enrollments;\n    \n2. Lessons;\n    \n3. Students;\n    \n4. Actuator for managing Spring Boot Actuator endpoints.\n    \n5. Application Information."
 		}
 	]
 }

@@ -1,6 +1,6 @@
 package org.example.learningsystem.core.email.service;
 
-import org.example.learningsystem.btp.destinationservice.dto.MailDestinationDto;
+import org.example.learningsystem.btp.destinationservice.dto.MailDestinationConfigurationDto;
 import org.example.learningsystem.btp.destinationservice.service.DestinationService;
 import org.example.learningsystem.btp.featureflagsservice.service.FeatureFlagsService;
 import org.example.learningsystem.email.config.EmailServerProperties;
@@ -53,10 +53,11 @@ class EmailServerPropertiesResolverImplTest {
         var resolvedEmailServerProperties = emailServerPropertiesResolver.resolve();
 
         // then
-        assertInstanceOf(MailDestinationDto.class, resolvedEmailServerProperties);
+        var configuration = (MailDestinationConfigurationDto) mailDestinationDto.getDestinationConfiguration();
+        assertInstanceOf(MailDestinationConfigurationDto.class, resolvedEmailServerProperties);
         assertAll(
-                () -> assertEquals(mailDestinationDto.getHost(), resolvedEmailServerProperties.getHost()),
-                () -> assertEquals(mailDestinationDto.getPort(), resolvedEmailServerProperties.getPort())
+                () -> assertEquals(configuration.getHost(), resolvedEmailServerProperties.getHost()),
+                () -> assertEquals(configuration.getPort(), resolvedEmailServerProperties.getPort())
         );
     }
 

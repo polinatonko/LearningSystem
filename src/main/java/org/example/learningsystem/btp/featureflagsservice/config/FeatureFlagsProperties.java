@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 /**
  * Represents the configuration of the Feature Flags Service.
  */
-@ConfigurationProperties(prefix = "feature-flags")
+@ConfigurationProperties(prefix = "btp.services.feature-flags")
 @Component
 @Getter
 @Setter

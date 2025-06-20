@@ -10,8 +10,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
-import static org.example.learningsystem.core.security.role.UserRole.MANAGER;
-import static org.example.learningsystem.core.security.role.UserRole.STUDENT;
+import static org.example.learningsystem.core.security.authority.UserAuthority.MANAGER;
+import static org.example.learningsystem.core.security.authority.UserAuthority.STUDENT;
 
 @Configuration
 @RequiredArgsConstructor
@@ -37,7 +37,7 @@ public class SecurityConfiguration {
 
         return User.withUsername(managerCredentials.username())
                 .password(passwordEncoder().encode(managerCredentials.password()))
-                .roles(MANAGER.toString())
+                .authorities(MANAGER.toString())
                 .build();
     }
 
@@ -46,7 +46,7 @@ public class SecurityConfiguration {
 
         return User.withUsername(studentCredentials.username())
                 .password(passwordEncoder().encode(studentCredentials.password()))
-                .roles(STUDENT.toString())
+                .authorities(STUDENT.toString())
                 .build();
     }
 }

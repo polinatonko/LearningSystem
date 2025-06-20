@@ -1,26 +1,70 @@
 {
   "xsappname": "lms",
-  "tenant-mode": "dedicated",
+  "tenant-mode": "shared",
+  "oauth2-configuration": {
+    "redirect-uris" : [
+      "https://*.us10-001.hana.ondemand.com/login/callback"
+    ]
+  },
   "scopes": [
     {
-      "name": "$XSAPPNAME.Student",
-      "description": "Enroll to courses or unenroll from them, manage their content"
+      "name": "$XSAPPNAME.Admin",
+      "description": "View system info about application"
+    },
+    {
+      "name": "$XSAPPNAME.Callback",
+      "description": "With this scope set, the callbacks for subscribe, unsubscribe and getDependencies can be called.",
+      "grant-as-authority-to-apps": [
+        "$XSAPPNAME(application,sap-provisioning,tenant-onboarding)"
+      ]
     },
     {
       "name": "$XSAPPNAME.Manager",
       "description": "View actuator endpoints"
+    },
+    {
+      "name": "$XSAPPNAME.Student",
+      "description": "Enroll to courses or unenroll from them, manage their content"
     }
   ],
   "role-templates": [
     {
-      "name": "Student",
-      "description": "Student of LMS",
-      "scope-references": ["$XSAPPNAME.Student"]
+      "name": "Admin",
+      "description": "Admin of LMS",
+      "scope-references": ["$XSAPPNAME.Admin"]
     },
     {
       "name": "Manager",
       "description": "Manager of LMS",
       "scope-references": ["$XSAPPNAME.Student", "$XSAPPNAME.Manager"]
+    },
+    {
+      "name": "Student",
+      "description": "Student of LMS",
+      "scope-references": ["$XSAPPNAME.Student"]
+    }
+  ],
+  "role-collections": [
+    {
+      "name": "LMS Admin",
+      "description": "Admin of LMS",
+      "role-template-references": [
+        "$XSAPPNAME.Admin"
+      ]
+    },
+    {
+      "name": "LMS Manager",
+      "description": "Manager of LMS",
+      "role-template-references": [
+        "$XSAPPNAME.Manager"
+      ]
+    },
+    {
+      "name": "LMS Student",
+      "description": "Student of LMS",
+      "role-template-references": [
+        "$XSAPPNAME.Student"
+      ]
     }
   ]
 }

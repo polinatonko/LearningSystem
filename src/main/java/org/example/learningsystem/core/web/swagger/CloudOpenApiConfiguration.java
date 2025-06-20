@@ -22,14 +22,16 @@ public class CloudOpenApiConfiguration extends OpenApiConfiguration {
 
     public CloudOpenApiConfiguration(
             @Value("${spring.application.name}") String applicationName,
-            @Value("${spring.application.version}") String applicationVersion
-    ) {
+            @Value("${spring.application.version}") String applicationVersion) {
         super(applicationName, applicationVersion);
     }
 
+    @Bean
     @Override
     public OpenAPI openAPI() {
         return super.openAPI()
+                .addSecurityItem(new SecurityRequirement()
+                        .addList(BASIC_AUTH_SCHEME))
                 .addSecurityItem(new SecurityRequirement()
                         .addList(BEARER_AUTH_SCHEME))
                 .components(new Components()

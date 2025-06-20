@@ -1,6 +1,11 @@
+application:
+  name: ${vcap.application.name}
+  service-dependencies:
+    - ${vcap.services.lms-destination-service.credentials.xsappname}
+  uri: ${vcap.application.application_uris[0]}
+
 spring:
   datasource:
-    driver-class-name: com.sap.db.jdbc.Driver
     url: ${vcap.services.lms-hana-schema.credentials.url}
     username: ${vcap.services.lms-hana-schema.credentials.user}
     password: ${vcap.services.lms-hana-schema.credentials.password}
@@ -11,16 +16,29 @@ spring:
         jwt:
           issuer-uri: ${vcap.services.lms-xsuaa.credentials.url}/oauth/token
 
-feature-flags:
-  uri: ${vcap.services.lms-feature-flags.credentials.uri}
-  username: ${vcap.services.lms-feature-flags.credentials.username}
-  password: ${vcap.services.lms-feature-flags.credentials.password}
+btp:
+  services:
+    destination-service:
+      uri: ${vcap.services.lms-destination-service.credentials.uri}
+      token-url: ${vcap.services.lms-destination-service.credentials.url}
+      client-id: ${vcap.services.lms-destination-service.credentials.clientid}
+      client-secret: ${vcap.services.lms-destination-service.credentials.clientsecret}
 
-destination-service:
-  uri: ${vcap.services.lms-destination-service.credentials.uri}
-  token-url: ${vcap.services.lms-destination-service.credentials.url}
-  client_id: ${vcap.services.lms-destination-service.credentials.clientid}
-  client_secret: ${vcap.services.lms-destination-service.credentials.clientsecret}
+    feature-flags:
+      uri: ${vcap.services.lms-feature-flags.credentials.uri}
+      username: ${vcap.services.lms-feature-flags.credentials.username}
+      password: ${vcap.services.lms-feature-flags.credentials.password}
+
+    service-manager:
+      client-id: ${vcap.services.service-manager.credentials.clientid}
+      client-secret: ${vcap.services.service-manager.credentials.clientsecret}
+      token-url: ${vcap.services.service-manager.credentials.url}
+      url: ${vcap.services.service-manager.credentials.sm_url}
+
+    xsuaa:
+      token-url: ${vcap.services.lms-xsuaa.credentials.url}
+      client-id: ${vcap.services.lms-xsuaa.credentials.clientid}
+      client-secret: ${vcap.services.lms-xsuaa.credentials.clientsecret}
 
 mail:
   from: ${vcap.services.lms-user-service.credentials.from}
@@ -31,3 +49,6 @@ mail:
   protocol: ${vcap.services.lms-user-service.credentials.protocol}
   auth: ${vcap.services.lms-user-service.credentials.auth}
   start-tls-enable: ${vcap.services.lms-user-service.credentials.startTls}
+
+multitenancy:
+  default-tenant: ${DEFAULT_TENANT}
