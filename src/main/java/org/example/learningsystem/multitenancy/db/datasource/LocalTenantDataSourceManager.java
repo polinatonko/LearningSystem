@@ -13,17 +13,22 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * Local implementation of {@link TenantDataSourceProvider} that uses a single shared data source for all tenants,
+ * Local implementation of {@link TenantDataSourceManager} that uses a single shared data source for all tenants,
  * with schema-based isolation.
  */
 @Service
 @Profile("!cloud")
 @RequiredArgsConstructor
-public class LocalTenantDataSourceProvider implements TenantDataSourceProvider {
+public class LocalTenantDataSourceManager implements TenantDataSourceManager {
 
     private final DataSource dataSource;
     private final LocalSchemaHelper localSchemaHelper;
     private final TenantSchemaResolver tenantSchemaResolver;
+
+    @Override
+    public DataSource create(TenantInfo tenant) {
+        return dataSource;
+    }
 
     @Override
     public Map<TenantInfo, DataSource> getAll() {

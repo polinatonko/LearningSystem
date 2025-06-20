@@ -18,7 +18,7 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import static org.example.learningsystem.core.config.constant.FilterChainOrderConstants.ACTUATOR_FILTER_CHAIN_ORDER;
 import static org.example.learningsystem.core.config.constant.ApiUriConstants.ACTUATOR_ENDPOINTS;
 import static org.example.learningsystem.core.config.constant.ApiUriConstants.ACTUATOR_HEALTH_ENDPOINT;
-import static org.example.learningsystem.core.security.role.UserRole.MANAGER;
+import static org.example.learningsystem.core.security.authority.UserAuthority.MANAGER;
 import static org.springframework.security.config.Customizer.withDefaults;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
@@ -51,7 +51,7 @@ public class CloudActuatorSecurityConfiguration {
     private void configureAuthorization(AuthorizeHttpRequestsConfigurer<?>.AuthorizationManagerRequestMatcherRegistry auth) {
         auth
                 .requestMatchers(ACTUATOR_HEALTH_ENDPOINT).permitAll()
-                .requestMatchers(ACTUATOR_ENDPOINTS).hasRole(MANAGER.toString());
+                .requestMatchers(ACTUATOR_ENDPOINTS).hasAuthority(MANAGER.toString());
     }
 
     private void configureExceptionHandling(ExceptionHandlingConfigurer<HttpSecurity> exceptionHandler,

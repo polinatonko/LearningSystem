@@ -6,21 +6,27 @@ import org.example.learningsystem.multitenancy.db.service.TenantDatabaseManageme
 import org.example.learningsystem.multitenancy.subscription.dto.ServiceInfoDto;
 import org.example.learningsystem.multitenancy.subscription.dto.SubscriptionRequestDto;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Cloud implementation of {@link SubscriptionService}.
+ */
 @Service
+@Profile("cloud")
 @Slf4j
-public class SubscriptionServiceImpl implements SubscriptionService {
+public class CloudSubscriptionService implements SubscriptionService {
 
     private static final String HTTPS_PROTOCOL = "https";
     private static final String TENANT_SPECIFIC_URL_TEMPLATE = "%s://%s-%s";
 
+    private final ApplicationProperties applicationProperties;
     private final String approuterName;
     private final TenantDatabaseManagementService tenantDatabaseManagementService;
 
-    public SubscriptionServiceImpl(
+    public CloudSubscriptionService(
             ApplicationProperties applicationProperties,
             @Value("${vcap.services.lms-user-service.credentials.approuter.name}") String approuterName,
             TenantDatabaseManagementService tenantDatabaseManagementService) {
@@ -28,8 +34,6 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         this.approuterName = approuterName;
         this.tenantDatabaseManagementService = tenantDatabaseManagementService;
     }
-
-    private final ApplicationProperties applicationProperties;
 
     @Override
     public String subscribe(String tenantId, SubscriptionRequestDto subscription) {

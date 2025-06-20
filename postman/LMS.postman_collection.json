@@ -584,153 +584,13 @@
 					]
 				},
 				{
-					"name": "SaaS Provisioning Service",
-					"item": [
-						{
-							"name": "Subscription callback",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "",
-											"type": "string"
-										}
-									]
-								},
-								"method": "PUT",
-								"header": [
-									{
-										"key": "X-Tenant-ID",
-										"value": "1ebd6692-faab-417d-b472-614f574f53e0",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"subscribedTenantId\": \"123\",\r\n    \"subscribedSubdomain\": \"subscriber-dejclbku\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{cloudUrl}}/api/v1/callback/tenants/123",
-									"host": [
-										"{{cloudUrl}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"callback",
-										"tenants",
-										"123"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Unsubscription callback",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "",
-											"type": "string"
-										}
-									]
-								},
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "X-Tenant-ID",
-										"value": "724669da-9da4-479b-a040-cbee69ac27d1",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"subscribedTenantId\": \"123\",\r\n    \"subscribedSubdomain\": \"subscriber-dejclbku\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{cloudUrl}}/api/v1/callback/tenants/123",
-									"host": [
-										"{{cloudUrl}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"callback",
-										"tenants",
-										"123"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get dependencies callback",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{cloudUrl}}/api/v1/callback/dependencies?tenantId=123",
-									"host": [
-										"{{cloudUrl}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"callback",
-										"dependencies"
-									],
-									"query": [
-										{
-											"key": "tenantId",
-											"value": "123"
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
 					"name": "Destination Service",
 					"item": [
 						{
 							"name": "Get token",
 							"request": {
 								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "",
-											"type": "string"
-										}
-									]
+									"type": "noauth"
 								},
 								"method": "POST",
 								"header": [],
@@ -749,7 +609,7 @@
 										},
 										{
 											"key": "client_secret",
-											"value": "de5e2329-b0c7-4fbe-b4da-23ab3673b3e4$Kd_S7A98P0m4sompKwlOg_nYzGXJziAL8L-z-PJyPzU=",
+											"value": "65748f9e-a150-4013-a693-4855bc56d283$5sRcWRlttZMF-0HhgHbdX2aySrwxPvAti3RQIqcwzsM=",
 											"type": "text"
 										}
 									]
@@ -924,12 +784,12 @@
 										},
 										{
 											"key": "client_id",
-											"value": "sb-lms!t413607",
+											"value": "sb-cloneec09c1b4a6af4355953473d86b4b78b7!b463125|destination-xsappname!b62",
 											"type": "text"
 										},
 										{
 											"key": "client_secret",
-											"value": "010a29c2-c0e0-46d2-8b10-1131ef759035$BvgHn5fjkET89Vk6i6HHbJl4gxejLt00wOzamRQbIvY=",
+											"value": "4527f74f-3c2d-4e92-9f65-324333e26c4d$nQLg9AaXz4-qDnpcZ4ZuJ3TVLq7t-zXs7n0kvOUy9Nk=",
 											"type": "text"
 										},
 										{
@@ -992,11 +852,13 @@
 									}
 								},
 								"url": {
-									"raw": "{{cloudUrl}}/courses/8b2b5e8f-9c1b-4562-92d2-06debfd8b7df",
+									"raw": "{{cloudUrl}}/api/v1/courses/8b2b5e8f-9c1b-4562-92d2-06debfd8b7df",
 									"host": [
 										"{{cloudUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"courses",
 										"8b2b5e8f-9c1b-4562-92d2-06debfd8b7df"
 									]
@@ -1039,7 +901,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"title\": \"Course 123\",\r\n    \"startDate\": \"2025/06/15 10:00:00\",\r\n    \"endDate\": \"2025/06/15 12:00:00\",\r\n    \"price\": 190,\r\n    \"isPublic\": true\r\n}",
+									"raw": "{\r\n    \"title\": \"Subscriber 2 course\",\r\n    \"startDate\": \"2025/06/20 10:00:00\",\r\n    \"endDate\": \"2025/06/20 12:00:00\",\r\n    \"price\": 190,\r\n    \"isPublic\": true\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1047,9 +909,9 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/v1/courses",
+									"raw": "{{cloudUrl}}/api/v1/courses",
 									"host": [
-										"{{baseUrl}}"
+										"{{cloudUrl}}"
 									],
 									"path": [
 										"api",
@@ -1077,7 +939,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n            \"id\": \"2b2096a8-cc1c-42cf-b163-adab4f39eac6\",\r\n            \"title\": \"Main Course\",\r\n            \"description\": null,\r\n            \"price\": 190,\r\n            \"coinsPaid\": 0,\r\n            \"startDate\": \"2025/06/15 10:00:00\",\r\n            \"endDate\": \"2025/06/15 12:00:00\",\r\n            \"isPublic\": true\r\n        }",
+									"raw": "{\r\n            \"id\": \"1d03eb59-03e7-4f57-8df1-27d6d8b01e4a\",\r\n            \"title\": \"Main course\",\r\n            \"price\": 1.9E+2,\r\n            \"coinsPaid\": 0,\r\n            \"startDate\": \"2025/06/20 10:00:00\",\r\n            \"endDate\": \"2025/06/20 12:00:00\",\r\n            \"isPublic\": true\r\n        }",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1085,7 +947,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{cloudUrl}}/api/v1/courses/2b2096a8-cc1c-42cf-b163-adab4f39eac6",
+									"raw": "{{cloudUrl}}/api/v1/courses/1d03eb59-03e7-4f57-8df1-27d6d8b01e4a",
 									"host": [
 										"{{cloudUrl}}"
 									],
@@ -1093,7 +955,7 @@
 										"api",
 										"v1",
 										"courses",
-										"2b2096a8-cc1c-42cf-b163-adab4f39eac6"
+										"1d03eb59-03e7-4f57-8df1-27d6d8b01e4a"
 									]
 								}
 							},
@@ -1115,11 +977,13 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{cloudUrl}}/courses/232ab211-5544-49ed-b5c4-ebbb326c0452",
+									"raw": "{{cloudUrl}}/api/v1/courses/232ab211-5544-49ed-b5c4-ebbb326c0452",
 									"host": [
 										"{{cloudUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"courses",
 										"232ab211-5544-49ed-b5c4-ebbb326c0452"
 									]
@@ -1153,7 +1017,7 @@
 									"urlencoded": []
 								},
 								"url": {
-									"raw": "{{cloudUrl}}/api/v1/courses/1d03eb59-03e7-4f57-8df1-27d6d8b01e4a/students/dedaf6c7-1d7c-4e5e-a059-124dcfb1dfc0",
+									"raw": "{{cloudUrl}}/api/v1/courses/6b3d8a74-4302-4837-960f-f362b44572a1/students/02e2e26d-bd3c-40b9-86e7-b2142cb4ad75",
 									"host": [
 										"{{cloudUrl}}"
 									],
@@ -1161,9 +1025,9 @@
 										"api",
 										"v1",
 										"courses",
-										"1d03eb59-03e7-4f57-8df1-27d6d8b01e4a",
+										"6b3d8a74-4302-4837-960f-f362b44572a1",
 										"students",
-										"dedaf6c7-1d7c-4e5e-a059-124dcfb1dfc0"
+										"02e2e26d-bd3c-40b9-86e7-b2142cb4ad75"
 									]
 								}
 							},
@@ -1185,11 +1049,13 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{cloudUrl}}/courses/e26197f9-b381-4905-a349-9d0e1b0f7491/students/187fdbb0-1c7b-4d10-955b-ef1813514262",
+									"raw": "{{cloudUrl}}/api/v1/courses/e26197f9-b381-4905-a349-9d0e1b0f7491/students/187fdbb0-1c7b-4d10-955b-ef1813514262",
 									"host": [
 										"{{cloudUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"courses",
 										"e26197f9-b381-4905-a349-9d0e1b0f7491",
 										"students",
@@ -1215,7 +1081,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{cloudUrl}}/api/v1/courses/2b2096a8-cc1c-42cf-b163-adab4f39eac6/students",
+									"raw": "{{cloudUrl}}/api/v1/courses/6b3d8a74-4302-4837-960f-f362b44572a1/students",
 									"host": [
 										"{{cloudUrl}}"
 									],
@@ -1223,7 +1089,7 @@
 										"api",
 										"v1",
 										"courses",
-										"2b2096a8-cc1c-42cf-b163-adab4f39eac6",
+										"6b3d8a74-4302-4837-960f-f362b44572a1",
 										"students"
 									]
 								}
@@ -1247,7 +1113,7 @@
 								"header": [
 									{
 										"key": "X-Tenant-ID",
-										"value": "123",
+										"value": "1234",
 										"type": "text",
 										"disabled": true
 									}
@@ -1309,11 +1175,13 @@
 									}
 								},
 								"url": {
-									"raw": "{{cloudUrl}}/courses/cddc1d5a-ac93-46e4-8a7e-8402c70f0cf8/lessons",
+									"raw": "{{cloudUrl}}/api/v1/courses/cddc1d5a-ac93-46e4-8a7e-8402c70f0cf8/lessons",
 									"host": [
 										"{{cloudUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"courses",
 										"cddc1d5a-ac93-46e4-8a7e-8402c70f0cf8",
 										"lessons"
@@ -1393,11 +1261,13 @@
 									}
 								},
 								"url": {
-									"raw": "{{cloudUrl}}/lessons/cb90610c-ed23-4439-a6c1-df8dd3651688",
+									"raw": "{{cloudUrl}}/api/v1/lessons/cb90610c-ed23-4439-a6c1-df8dd3651688",
 									"host": [
 										"{{cloudUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"lessons",
 										"cb90610c-ed23-4439-a6c1-df8dd3651688"
 									]
@@ -1421,11 +1291,13 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{cloudUrl}}/lessons/fd15eef3-fceb-49a7-abd1-42cd75dedc72",
+									"raw": "{{cloudUrl}}/api/v1/lessons/fd15eef3-fceb-49a7-abd1-42cd75dedc72",
 									"host": [
 										"{{cloudUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"lessons",
 										"fd15eef3-fceb-49a7-abd1-42cd75dedc72"
 									]
@@ -1449,11 +1321,13 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{cloudUrl}}/lessons/8928a18c-004f-4700-b4e4-5394262f5f90",
+									"raw": "{{cloudUrl}}/api/v1/lessons/8928a18c-004f-4700-b4e4-5394262f5f90",
 									"host": [
 										"{{cloudUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"lessons",
 										"8928a18c-004f-4700-b4e4-5394262f5f90"
 									]
@@ -1477,11 +1351,13 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{cloudUrl}}/lessons",
+									"raw": "{{cloudUrl}}/api/v1/lessons",
 									"host": [
 										"{{cloudUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"lessons"
 									]
 								}
@@ -1509,11 +1385,13 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{cloudUrl}}/students/187fdbb0-1c7b-4d10-955b-ef1813514262",
+									"raw": "{{cloudUrl}}/api/v1/students/187fdbb0-1c7b-4d10-955b-ef1813514262",
 									"host": [
 										"{{cloudUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"students",
 										"187fdbb0-1c7b-4d10-955b-ef1813514262"
 									]
@@ -1544,7 +1422,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"firstName\": \"User123\",\r\n    \"lastName\": \"User123\",\r\n    \"email\": \"tonkopolina@gmail.com\",\r\n    \"dateOfBirth\": \"2010/10/01\",\r\n    \"coins\": 200\r\n}",
+									"raw": "{\r\n    \"firstName\": \"Subscriber2\",\r\n    \"lastName\": \"Subscriber2\",\r\n    \"email\": \"subscriber2@gmail.com\",\r\n    \"dateOfBirth\": \"2010/10/01\",\r\n    \"coins\": 200\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1620,11 +1498,13 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{cloudUrl}}/students/3bc8d12e-ff1a-4e0d-8951-e7ee06ae5c15",
+									"raw": "{{cloudUrl}}/api/v1/students/3bc8d12e-ff1a-4e0d-8951-e7ee06ae5c15",
 									"host": [
 										"{{cloudUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"students",
 										"3bc8d12e-ff1a-4e0d-8951-e7ee06ae5c15"
 									]
@@ -1648,11 +1528,13 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{cloudUrl}}/students",
+									"raw": "{{cloudUrl}}/api/v1/students",
 									"host": [
 										"{{cloudUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"students"
 									]
 								}
@@ -1845,11 +1727,16 @@
 							"name": "Get",
 							"request": {
 								"auth": {
-									"type": "bearer",
-									"bearer": [
+									"type": "basic",
+									"basic": [
 										{
-											"key": "token",
-											"value": "",
+											"key": "password",
+											"value": "manager",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "manager@gmail.com",
 											"type": "string"
 										}
 									]
@@ -1865,6 +1752,149 @@
 										"api",
 										"v1",
 										"application-info"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Subscriptions",
+					"item": [
+						{
+							"name": "Subscribe",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "manager",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "manager@gmail.com",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "X-Tenant-ID",
+										"value": "1ebd6692-faab-417d-b472-614f574f53e0",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"subscribedTenantId\": \"1234\",\r\n    \"subscribedSubdomain\": \"subscriber-dejclbku\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/subscriptions/tenants/1234",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"subscriptions",
+										"tenants",
+										"1234"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Unsubscribe",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "manager",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "manager@gmail.com",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "X-Tenant-ID",
+										"value": "724669da-9da4-479b-a040-cbee69ac27d1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"subscribedTenantId\": \"1234\",\r\n    \"subscribedSubdomain\": \"subscriber-dejclbku\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/subscriptions/tenants/1234",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"subscriptions",
+										"tenants",
+										"1234"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get dependencies",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{cloudUrl}}/api/v1/subscriptions/dependencies?tenantId=123",
+									"host": [
+										"{{cloudUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"subscriptions",
+										"dependencies"
+									],
+									"query": [
+										{
+											"key": "tenantId",
+											"value": "123"
+										}
 									]
 								}
 							},

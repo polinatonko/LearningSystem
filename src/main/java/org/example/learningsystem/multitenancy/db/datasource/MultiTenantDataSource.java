@@ -1,8 +1,6 @@
 package org.example.learningsystem.multitenancy.db.datasource;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.learningsystem.btp.servicemanager.binding.service.ServiceBindingManager;
-import org.example.learningsystem.core.db.util.DataSourceUtils;
 import org.example.learningsystem.multitenancy.context.TenantContext;
 import org.example.learningsystem.multitenancy.context.TenantInfo;
 import org.springframework.beans.factory.DisposableBean;
@@ -13,7 +11,10 @@ import org.springframework.stereotype.Component;
 import javax.sql.DataSource;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+
+import static java.util.Objects.nonNull;
 
 /**
  * Implementation of {@link AbstractRoutingDataSource} that selects the appropriate target data source
@@ -24,14 +25,13 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 public class MultiTenantDataSource extends AbstractRoutingDataSource implements DisposableBean {
 
-    private final ServiceBindingManager serviceBindingManager;
     private final Map<Object, Object> targetDataSources;
+    private final TenantDataSourceManager tenantDataSourceManager;
 
     public MultiTenantDataSource(DataSource defaultDataSource,
-                                 ServiceBindingManager serviceBindingManager,
-                                 TenantDataSourceProvider tenantDataSourceProvider) {
-        this.serviceBindingManager = serviceBindingManager;
-        var dataSources = tenantDataSourceProvider.getAll();
+                                 TenantDataSourceManager tenantDataSourceManager) {
+        this.tenantDataSourceManager = tenantDataSourceManager;
+        var dataSources = tenantDataSourceManager.getAll();
         targetDataSources = new ConcurrentHashMap<>(dataSources);
         setDefaultTargetDataSource(defaultDataSource);
         setTargetDataSources(targetDataSources);
@@ -49,10 +49,7 @@ public class MultiTenantDataSource extends AbstractRoutingDataSource implements 
             return (DataSource) targetDataSources.get(tenantInfo);
         }
 
-        var serviceBinding = serviceBindingManager.getByTenantId(tenantInfo.tenantId());
-        var credentials = serviceBinding.credentials();
-        var dataSource = DataSourceUtils.create(credentials);
-
+        var dataSource = tenantDataSourceManager.create(tenantInfo);
         targetDataSources.put(tenantInfo, dataSource);
         updateTargetDataSources();
         return dataSource;
@@ -64,6 +61,9 @@ public class MultiTenantDataSource extends AbstractRoutingDataSource implements 
      * @param tenantInfo the tenant information
      */
     public synchronized void delete(TenantInfo tenantInfo) {
+        Optional.ofNullable(targetDataSources.get(tenantInfo))
+                .ifPresent(this::tryToCloseDataSource);
+
         targetDataSources.remove(tenantInfo);
         updateTargetDataSources();
     }

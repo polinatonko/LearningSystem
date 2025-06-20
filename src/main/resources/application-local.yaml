@@ -13,7 +13,6 @@ spring:
 
 logging:
   level:
-    liquibase: info
     org:
       springframework:
         cache: trace
@@ -31,10 +30,3 @@ mail:
 multitenancy:
   default-tenant: public
   default-schema: public
-
-vcap:
-  services:
-    lms-user-service:
-      credentials:
-        approuter:
-          name: lms-approuter

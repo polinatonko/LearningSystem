@@ -8,7 +8,15 @@ import java.util.Map;
 /**
  * Interface for providing tenant-specific data sources.
  */
-public interface TenantDataSourceProvider {
+public interface TenantDataSourceManager {
+
+    /**
+     * Creates or retrieves a {@link DataSource} for specified tenant.
+     *
+     * @param tenant the tenant information
+     * @return a configured {@link DataSource} for tenant
+     */
+    DataSource create(TenantInfo tenant);
 
     /**
      * Returns map with tenant data sources.

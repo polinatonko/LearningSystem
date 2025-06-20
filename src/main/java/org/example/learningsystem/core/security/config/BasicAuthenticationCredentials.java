@@ -1,6 +1,6 @@
 package org.example.learningsystem.core.security.config;
 
-import org.example.learningsystem.core.security.role.UserRole;
+import org.example.learningsystem.core.security.authority.UserAuthority;
 import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,14 +20,14 @@ import org.springframework.validation.annotation.Validated;
 public class BasicAuthenticationCredentials {
 
     /**
-     * Credentials for user with {@link UserRole#MANAGER} role.
+     * Credentials for user with {@link UserAuthority#MANAGER} authority.
      */
     @Valid
     @NestedConfigurationProperty
     private UserCredentials manager;
 
     /**
-     * Credentials for user with {@link UserRole#STUDENT} role.
+     * Credentials for user with {@link UserAuthority#STUDENT} authority.
      */
     @Valid
     @NestedConfigurationProperty

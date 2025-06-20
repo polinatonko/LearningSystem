@@ -1,8 +1,8 @@
 package org.example.learningsystem.core.security.config;
 
 import com.sap.cloud.security.xsuaa.XsuaaServiceConfiguration;
+import com.sap.cloud.security.xsuaa.token.TokenAuthenticationConverter;
 import lombok.extern.slf4j.Slf4j;
-import org.example.learningsystem.btp.xsuaa.converter.JwtConverter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +27,7 @@ import static org.example.learningsystem.core.config.constant.ApiUriConstants.AP
 import static org.example.learningsystem.core.config.constant.ApiUriConstants.API_ENDPOINTS;
 import static org.example.learningsystem.core.config.constant.ApiUriConstants.API_INFO_ENDPOINT;
 import static org.example.learningsystem.core.config.constant.ApiUriConstants.SWAGGER_ENDPOINTS;
-import static org.example.learningsystem.core.security.role.UserRole.ADMIN;
+import static org.example.learningsystem.core.security.authority.UserAuthority.ADMIN;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -62,7 +62,9 @@ public class CloudApiSecurityConfiguration {
 
     @Bean
     public Converter<Jwt, AbstractAuthenticationToken> customXsuaaAuthConverter() {
-        return new JwtConverter(xsuaaServiceConfiguration);
+        var converter = new TokenAuthenticationConverter(xsuaaServiceConfiguration);
+        converter.setLocalScopeAsAuthorities(true);
+        return converter;
     }
 
     private void configureSession(SessionManagementConfigurer<HttpSecurity> session) {
@@ -74,7 +76,7 @@ public class CloudApiSecurityConfiguration {
                 .requestMatchers(API_SUBSCRIPTIONS_ENDPOINTS).hasAuthority("Callback")
                 .requestMatchers(API_DOCS_ENDPOINTS).permitAll()
                 .requestMatchers(SWAGGER_ENDPOINTS).permitAll()
-                .requestMatchers(API_INFO_ENDPOINT).hasRole(ADMIN.toString())
+                .requestMatchers(API_INFO_ENDPOINT).hasAuthority(ADMIN.toString())
                 .anyRequest().authenticated();
     }
 
