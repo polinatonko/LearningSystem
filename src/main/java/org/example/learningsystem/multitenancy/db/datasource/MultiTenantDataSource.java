@@ -11,7 +11,10 @@ import org.springframework.stereotype.Component;
 import javax.sql.DataSource;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+
+import static java.util.Objects.nonNull;
 
 /**
  * Implementation of {@link AbstractRoutingDataSource} that selects the appropriate target data source
@@ -58,6 +61,9 @@ public class MultiTenantDataSource extends AbstractRoutingDataSource implements 
      * @param tenantInfo the tenant information
      */
     public synchronized void delete(TenantInfo tenantInfo) {
+        Optional.ofNullable(targetDataSources.get(tenantInfo))
+                .ifPresent(this::tryToCloseDataSource);
+
         targetDataSources.remove(tenantInfo);
         updateTargetDataSources();
     }
