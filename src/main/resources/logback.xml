@@ -6,7 +6,7 @@
     <springProfile name="local,test">
         <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
             <encoder>
-                <pattern>%date %blue(%-5level) [${applicationName}:${applicationVersion}] - %magenta([%thread]) - %cyan([%logger]) - %msg%n</pattern>
+                <pattern>%date %blue(%-5level) --- [${applicationName}:${applicationVersion}] - %magenta([%thread]) - %cyan(%logger) : %msg%n</pattern>
             </encoder>
         </appender>
         <root level="${LOG_ROOT_LEVEL:-INFO}">

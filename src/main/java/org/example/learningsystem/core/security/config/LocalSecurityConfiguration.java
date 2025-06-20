@@ -14,14 +14,10 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
-import static org.example.learningsystem.core.config.constant.FilterChainOrderConstants.ACTUATOR_FILTER_CHAIN_ORDER;
 import static org.example.learningsystem.core.config.constant.FilterChainOrderConstants.API_FILTER_CHAIN_ORDER;
-import static org.example.learningsystem.core.config.constant.ApiUriConstants.ACTUATOR_ENDPOINTS;
-import static org.example.learningsystem.core.config.constant.ApiUriConstants.ACTUATOR_HEALTH_ENDPOINT;
 import static org.example.learningsystem.core.config.constant.ApiUriConstants.API_DOCS_ENDPOINTS;
 import static org.example.learningsystem.core.config.constant.ApiUriConstants.API_ENDPOINTS;
 import static org.example.learningsystem.core.config.constant.ApiUriConstants.SWAGGER_ENDPOINTS;
-import static org.example.learningsystem.core.security.authority.UserAuthority.MANAGER;
 import static org.springframework.security.config.Customizer.withDefaults;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
@@ -39,19 +35,6 @@ public class LocalSecurityConfiguration {
     }
 
     @Bean
-    @Order(ACTUATOR_FILTER_CHAIN_ORDER)
-    public SecurityFilterChain actuatorSecurityFilterChain(HttpSecurity http) throws Exception {
-        return http
-                .securityMatcher(ACTUATOR_ENDPOINTS)
-                .csrf(AbstractHttpConfigurer::disable)
-                .sessionManagement(this::configureSession)
-                .authorizeHttpRequests(this::configureActuatorAuthorization)
-                .httpBasic(withDefaults())
-                .exceptionHandling(this::configureExceptionHandling)
-                .build();
-    }
-
-    @Bean
     @Order(API_FILTER_CHAIN_ORDER)
     public SecurityFilterChain apiSecurityFilterChain(HttpSecurity http) throws Exception {
         return http
@@ -66,12 +49,6 @@ public class LocalSecurityConfiguration {
 
     private void configureSession(SessionManagementConfigurer<HttpSecurity> session) {
         session.sessionCreationPolicy(STATELESS);
-    }
-
-    private void configureActuatorAuthorization(AuthorizeHttpRequestsConfigurer<?>.AuthorizationManagerRequestMatcherRegistry auth) {
-        auth
-                .requestMatchers(ACTUATOR_HEALTH_ENDPOINT).permitAll()
-                .requestMatchers(ACTUATOR_ENDPOINTS).hasAuthority(MANAGER.toString());
     }
 
     private void configureApiAuthorization(AuthorizeHttpRequestsConfigurer<?>.AuthorizationManagerRequestMatcherRegistry auth) {

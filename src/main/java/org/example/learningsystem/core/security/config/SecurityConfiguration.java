@@ -3,6 +3,7 @@ package org.example.learningsystem.core.security.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,10 +11,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
+import static org.example.learningsystem.core.security.authority.UserAuthority.ADMIN;
 import static org.example.learningsystem.core.security.authority.UserAuthority.MANAGER;
 import static org.example.learningsystem.core.security.authority.UserAuthority.STUDENT;
 
 @Configuration
+@EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration {
 
@@ -21,15 +24,25 @@ public class SecurityConfiguration {
 
     @Bean
     public UserDetailsService userDetailsService() {
+        var adminDetails = buildAdminDetails();
         var managerDetails = buildManagerDetails();
         var studentDetails = buildStudentDetails();
 
-        return new InMemoryUserDetailsManager(managerDetails, studentDetails);
+        return new InMemoryUserDetailsManager(adminDetails, managerDetails, studentDetails);
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    private UserDetails buildAdminDetails() {
+        var adminCredentials = basicAuthCredentialsConfiguration.getAdmin();
+
+        return User.withUsername(adminCredentials.username())
+                .password(passwordEncoder().encode(adminCredentials.password()))
+                .authorities(ADMIN.toString())
+                .build();
     }
 
     private UserDetails buildManagerDetails() {

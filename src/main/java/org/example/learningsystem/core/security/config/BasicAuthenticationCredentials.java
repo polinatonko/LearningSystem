@@ -20,6 +20,13 @@ import org.springframework.validation.annotation.Validated;
 public class BasicAuthenticationCredentials {
 
     /**
+     * Credentials for user with {@link UserAuthority#ADMIN} authority.
+     */
+    @Valid
+    @NestedConfigurationProperty
+    private UserCredentials admin;
+
+    /**
      * Credentials for user with {@link UserAuthority#MANAGER} authority.
      */
     @Valid

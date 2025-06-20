@@ -22,12 +22,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
 import static org.example.learningsystem.core.config.constant.FilterChainOrderConstants.API_FILTER_CHAIN_ORDER;
-import static org.example.learningsystem.core.config.constant.ApiUriConstants.API_SUBSCRIPTIONS_ENDPOINTS;
 import static org.example.learningsystem.core.config.constant.ApiUriConstants.API_DOCS_ENDPOINTS;
 import static org.example.learningsystem.core.config.constant.ApiUriConstants.API_ENDPOINTS;
-import static org.example.learningsystem.core.config.constant.ApiUriConstants.API_INFO_ENDPOINT;
 import static org.example.learningsystem.core.config.constant.ApiUriConstants.SWAGGER_ENDPOINTS;
-import static org.example.learningsystem.core.security.authority.UserAuthority.ADMIN;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -73,10 +70,8 @@ public class CloudApiSecurityConfiguration {
 
     private void configureAuthorization(AuthorizeHttpRequestsConfigurer<?>.AuthorizationManagerRequestMatcherRegistry auth) {
         auth
-                .requestMatchers(API_SUBSCRIPTIONS_ENDPOINTS).hasAuthority("Callback")
                 .requestMatchers(API_DOCS_ENDPOINTS).permitAll()
                 .requestMatchers(SWAGGER_ENDPOINTS).permitAll()
-                .requestMatchers(API_INFO_ENDPOINT).hasAuthority(ADMIN.toString())
                 .anyRequest().authenticated();
     }
 
