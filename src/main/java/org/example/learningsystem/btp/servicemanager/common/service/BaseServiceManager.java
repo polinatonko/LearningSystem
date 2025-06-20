@@ -84,7 +84,7 @@ public class BaseServiceManager {
         serviceManagerRestClient.delete(uri);
     }
 
-    private <T> T get(URI uri, Class<T> responseType, String property, String value) {
+    protected <T> T get(URI uri, Class<T> responseType, String property, String value) {
         var response = getAll(uri, responseType);
         serviceManagerResponseValidator.validatePaginated(response, property, value);
 
