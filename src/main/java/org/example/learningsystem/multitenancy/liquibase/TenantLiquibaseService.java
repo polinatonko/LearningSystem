@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.learningsystem.multitenancy.context.TenantInfo;
 import org.example.learningsystem.multitenancy.db.schema.TenantSchemaResolver;
-import org.example.learningsystem.multitenancy.db.datasource.TenantDataSourceProvider;
+import org.example.learningsystem.multitenancy.db.datasource.TenantDataSourceManager;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +25,7 @@ import static org.example.learningsystem.multitenancy.liquibase.LiquibaseUtils.g
 public class TenantLiquibaseService {
 
     private final LiquibaseProperties liquibaseProperties;
-    private final TenantDataSourceProvider tenantDataSourceProvider;
+    private final TenantDataSourceManager tenantDataSourceManager;
     private final TenantSchemaResolver tenantSchemaResolver;
 
     /**
@@ -33,7 +33,7 @@ public class TenantLiquibaseService {
      */
     @PostConstruct
     public void runOnTenants() {
-        var dataSources = tenantDataSourceProvider.getAll();
+        var dataSources = tenantDataSourceManager.getAll();
         dataSources.forEach(this::runOnTenant);
     }
 

@@ -12,21 +12,30 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * Cloud implementation of {@link TenantDataSourceProvider} that creates and retrieves data sources
+ * Cloud implementation of {@link TenantDataSourceManager} that creates and retrieves data sources
  * using SAP BTP service bindings.
  */
 @Service
 @Profile("cloud")
-public class CloudTenantDataSourceProvider implements TenantDataSourceProvider {
+public class CloudTenantDataSourceManager implements TenantDataSourceManager {
 
     private final Map<TenantInfo, DataSource> dataSources;
+    private final ServiceBindingManager serviceBindingManager;
 
-    public CloudTenantDataSourceProvider(ServiceBindingManager serviceBindingManager) {
+    public CloudTenantDataSourceManager(ServiceBindingManager serviceBindingManager) {
+        this.serviceBindingManager = serviceBindingManager;
         this.dataSources = serviceBindingManager.getAll()
                 .stream()
                 .collect(Collectors.toMap(
                         TenantBindingUtils::extractTenantInfo,
                         binding -> DataSourceUtils.create(binding.credentials())));
+    }
+
+    @Override
+    public DataSource create(TenantInfo tenant) {
+        var serviceBinding = serviceBindingManager.getByTenantId(tenant.tenantId());
+        var credentials = serviceBinding.credentials();
+        return DataSourceUtils.create(credentials);
     }
 
     @Override
