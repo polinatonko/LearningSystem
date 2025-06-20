@@ -1,9 +1,11 @@
 package org.example.learningsystem.multitenancy.db.datasource;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.learningsystem.multitenancy.context.TenantContext;
 import org.example.learningsystem.multitenancy.context.TenantInfo;
 import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.stereotype.Component;
@@ -14,28 +16,36 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static java.util.Objects.nonNull;
-
 /**
  * Implementation of {@link AbstractRoutingDataSource} that selects the appropriate target data source
  * based on the current tenant context.
  */
 @Component
 @Qualifier("multiTenantDataSource")
+@RequiredArgsConstructor
 @Slf4j
-public class MultiTenantDataSource extends AbstractRoutingDataSource implements DisposableBean {
+public class MultiTenantDataSource extends AbstractRoutingDataSource implements InitializingBean, DisposableBean {
 
-    private final Map<Object, Object> targetDataSources;
+    private final DataSource defaultDataSource;
     private final TenantDataSourceManager tenantDataSourceManager;
 
-    public MultiTenantDataSource(DataSource defaultDataSource,
-                                 TenantDataSourceManager tenantDataSourceManager) {
-        this.tenantDataSourceManager = tenantDataSourceManager;
+    private Map<Object, Object> targetDataSources;
+
+    @Override
+    public void afterPropertiesSet() {
         var dataSources = tenantDataSourceManager.getAll();
         targetDataSources = new ConcurrentHashMap<>(dataSources);
         setDefaultTargetDataSource(defaultDataSource);
         setTargetDataSources(targetDataSources);
         initialize();
+    }
+
+    @Override
+    public void destroy() throws Exception {
+        targetDataSources.values()
+                .forEach(this::tryToCloseDataSource);
+        targetDataSources.clear();
+        log.info("Tenant data sources were closed");
     }
 
     /**
@@ -76,14 +86,6 @@ public class MultiTenantDataSource extends AbstractRoutingDataSource implements 
     private void updateTargetDataSources() {
         setTargetDataSources(targetDataSources);
         initialize();
-    }
-
-    @Override
-    public void destroy() throws Exception {
-        targetDataSources.values()
-                .forEach(this::tryToCloseDataSource);
-        targetDataSources.clear();
-        log.info("Tenant data sources were closed");
     }
 
     private void tryToCloseDataSource(Object dataSource) {
