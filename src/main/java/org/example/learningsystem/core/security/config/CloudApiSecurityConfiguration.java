@@ -27,7 +27,7 @@ import static org.example.learningsystem.core.config.constant.ApiUriConstants.AP
 import static org.example.learningsystem.core.config.constant.ApiUriConstants.API_ENDPOINTS;
 import static org.example.learningsystem.core.config.constant.ApiUriConstants.API_INFO_ENDPOINT;
 import static org.example.learningsystem.core.config.constant.ApiUriConstants.SWAGGER_ENDPOINTS;
-import static org.example.learningsystem.core.security.role.UserRole.ADMIN;
+import static org.example.learningsystem.core.security.authority.UserAuthority.ADMIN;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration

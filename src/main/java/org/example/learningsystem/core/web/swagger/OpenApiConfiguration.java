@@ -31,10 +31,7 @@ public class OpenApiConfiguration {
 
     protected OpenAPI openAPI() {
         return new OpenAPI()
-                .addSecurityItem(new SecurityRequirement()
-                        .addList(BASIC_AUTH_SCHEME))
-                .components(new Components()
-                        .addSecuritySchemes(BASIC_AUTH_SCHEME, basicAuthSecurityScheme()))
+
                 .info(new Info()
                         .title(applicationName)
                         .version(applicationVersion)
@@ -46,7 +43,7 @@ public class OpenApiConfiguration {
     protected SecurityScheme bearerAuthSecurityScheme() {
         return new SecurityScheme()
                 .type(HTTP)
-                .name(BASIC_AUTH_SCHEME)
+                .name(BEARER_AUTH_SCHEME)
                 .bearerFormat("JWT")
                 .scheme("bearer");
     }
@@ -54,7 +51,7 @@ public class OpenApiConfiguration {
     protected SecurityScheme basicAuthSecurityScheme() {
         return new SecurityScheme()
                 .type(HTTP)
-                .name(BEARER_AUTH_SCHEME)
+                .name(BASIC_AUTH_SCHEME)
                 .scheme("basic");
     }
 

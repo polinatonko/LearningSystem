@@ -10,8 +10,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
-import static org.example.learningsystem.core.security.role.UserRole.MANAGER;
-import static org.example.learningsystem.core.security.role.UserRole.STUDENT;
+import static org.example.learningsystem.core.security.authority.UserAuthority.MANAGER;
+import static org.example.learningsystem.core.security.authority.UserAuthority.STUDENT;
 
 @Configuration
 @RequiredArgsConstructor
