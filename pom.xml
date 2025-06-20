@@ -11,10 +11,10 @@
     </parent>
 
 	<groupId>org.example</groupId>
-	<artifactId>learning-system</artifactId>
+	<artifactId>learning-management-system</artifactId>
 	<version>1.5.0</version>
-	<name>LearningSystem</name>
-	<description>Learning Management System</description>
+	<name>Learning Management System</name>
+	<description>Platform provides a functionality for managing the learning system and allows students to enroll in variety of courses</description>
 
     <properties>
         <java.version>21</java.version>

@@ -52,8 +52,5 @@ btp:
       clientsecret: ${vcap.services.lms-xsuaa.credentials.clientsecret}
       url: ${vcap.services.lms-xsuaa.credentials.url}
 
-logging:
-  config: classpath:logback-cloud.xml
-
 multitenancy:
   default-tenant: ${DEFAULT_TENANT}

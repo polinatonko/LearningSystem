@@ -1,11 +1,11 @@
 info:
   application:
-    name: LearningManagementSystem
-    description: API provides a functionality for managing the learning system and allows students to enroll in variety of courses
+    name: @project.name@
+    description: @project.description@
 
 spring:
   application:
-    name: LearningManagementSystem
+    name: @project.name@
     version: @project.version@
 
   jpa:
