@@ -43,5 +43,28 @@
       "description": "Student of LMS",
       "scope-references": ["$XSAPPNAME.Student"]
     }
+  ],
+  "role-collections": [
+    {
+      "name": "LMS Admin",
+      "description": "Admin of LMS",
+      "role-template-references": [
+        "$XSAPPNAME.Admin"
+      ]
+    },
+    {
+      "name": "LMS Manager",
+      "description": "Manager of LMS",
+      "role-template-references": [
+        "$XSAPPNAME.Manager"
+      ]
+    },
+    {
+      "name": "LMS Student",
+      "description": "Student of LMS",
+      "role-template-references": [
+        "$XSAPPNAME.Student"
+      ]
+    }
   ]
 }
