@@ -71,7 +71,7 @@ public class LocalSecurityConfiguration {
     private void configureActuatorAuthorization(AuthorizeHttpRequestsConfigurer<?>.AuthorizationManagerRequestMatcherRegistry auth) {
         auth
                 .requestMatchers(ACTUATOR_HEALTH_ENDPOINT).permitAll()
-                .requestMatchers(ACTUATOR_ENDPOINTS).hasRole(MANAGER.toString());
+                .requestMatchers(ACTUATOR_ENDPOINTS).hasAuthority(MANAGER.toString());
     }
 
     private void configureApiAuthorization(AuthorizeHttpRequestsConfigurer<?>.AuthorizationManagerRequestMatcherRegistry auth) {

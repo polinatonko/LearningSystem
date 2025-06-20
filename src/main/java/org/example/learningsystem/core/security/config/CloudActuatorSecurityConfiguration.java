@@ -51,7 +51,7 @@ public class CloudActuatorSecurityConfiguration {
     private void configureAuthorization(AuthorizeHttpRequestsConfigurer<?>.AuthorizationManagerRequestMatcherRegistry auth) {
         auth
                 .requestMatchers(ACTUATOR_HEALTH_ENDPOINT).permitAll()
-                .requestMatchers(ACTUATOR_ENDPOINTS).hasRole(MANAGER.toString());
+                .requestMatchers(ACTUATOR_ENDPOINTS).hasAuthority(MANAGER.toString());
     }
 
     private void configureExceptionHandling(ExceptionHandlingConfigurer<HttpSecurity> exceptionHandler,

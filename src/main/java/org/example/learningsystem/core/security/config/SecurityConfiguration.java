@@ -37,7 +37,7 @@ public class SecurityConfiguration {
 
         return User.withUsername(managerCredentials.username())
                 .password(passwordEncoder().encode(managerCredentials.password()))
-                .roles(MANAGER.toString())
+                .authorities(MANAGER.toString())
                 .build();
     }
 
@@ -46,7 +46,7 @@ public class SecurityConfiguration {
 
         return User.withUsername(studentCredentials.username())
                 .password(passwordEncoder().encode(studentCredentials.password()))
-                .roles(STUDENT.toString())
+                .authorities(STUDENT.toString())
                 .build();
     }
 }
