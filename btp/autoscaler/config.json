@@ -6,12 +6,14 @@
       "metric_type": "cpuutil",
       "threshold": 85,
       "operator": ">=",
+      "breach_duration_secs": 60,
       "adjustment": "+1"
     },
     {
       "metric_type": "cpuutil",
       "threshold": 85,
       "operator": "<",
+      "breach_duration_secs": 60,
       "adjustment": "-1"
     }
   ]

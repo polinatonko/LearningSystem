@@ -19,7 +19,7 @@ public class SendCourseNotificationsJob {
             return;
         }
 
-        tenantService.executeForAllTenants(this::sendNotifications);
+        tenantService.executeForAll(this::sendNotifications);
     }
 
     public void sendNotifications() {

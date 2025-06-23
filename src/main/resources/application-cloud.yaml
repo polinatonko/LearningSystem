@@ -16,6 +16,11 @@ spring:
         jwt:
           issuer-uri: ${vcap.services.lms-xsuaa.credentials.url}/oauth/token
 
+basic-authentication:
+  manager:
+    username: manager@gmail.com
+    password: manager
+
 btp:
   services:
     destination-service:

@@ -12,7 +12,7 @@ public class TenantService {
 
     private final MultiTenantDataSource multiTenantDataSource;
 
-    public void executeForAllTenants(Runnable runnable) {
+    public void executeForAll(Runnable runnable) {
         try {
             runnable.run();
 

@@ -11,9 +11,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
-import static org.example.learningsystem.core.security.authority.UserAuthority.ADMIN;
-import static org.example.learningsystem.core.security.authority.UserAuthority.MANAGER;
-import static org.example.learningsystem.core.security.authority.UserAuthority.STUDENT;
+import static org.example.learningsystem.core.security.role.UserRole.ADMIN;
+import static org.example.learningsystem.core.security.role.UserRole.MANAGER;
+import static org.example.learningsystem.core.security.role.UserRole.STUDENT;
 
 @Configuration
 @EnableMethodSecurity
@@ -41,7 +41,7 @@ public class SecurityConfiguration {
 
         return User.withUsername(adminCredentials.username())
                 .password(passwordEncoder().encode(adminCredentials.password()))
-                .authorities(ADMIN.toString())
+                .authorities(ADMIN.getGrantedAuthorities())
                 .build();
     }
 
@@ -50,7 +50,7 @@ public class SecurityConfiguration {
 
         return User.withUsername(managerCredentials.username())
                 .password(passwordEncoder().encode(managerCredentials.password()))
-                .authorities(MANAGER.toString())
+                .authorities(MANAGER.getGrantedAuthorities())
                 .build();
     }
 
@@ -59,7 +59,7 @@ public class SecurityConfiguration {
 
         return User.withUsername(studentCredentials.username())
                 .password(passwordEncoder().encode(studentCredentials.password()))
-                .authorities(STUDENT.toString())
+                .authorities(STUDENT.getGrantedAuthorities())
                 .build();
     }
 }

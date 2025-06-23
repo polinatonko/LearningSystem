@@ -20,19 +20,6 @@ spring:
     basename: i18n/messages
     encoding: UTF-8
 
-basic-authentication:
-  admin:
-    username: admin@gmail.com
-    password: admin
-
-  manager:
-    username: manager@gmail.com
-    password: manager
-
-  student:
-    username: student1@gmail.com
-    password: student1
-
 course:
   reminder:
     cron: "0 0 9 * * *"
