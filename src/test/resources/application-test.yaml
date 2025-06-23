@@ -4,6 +4,19 @@ spring:
     username: test
     password: test
 
+basic-authentication:
+  admin:
+    username: admin@gmail.com
+    password: admin
+
+  manager:
+    username: manager@gmail.com
+    password: manager
+
+  student:
+    username: student1@gmail.com
+    password: student1
+
 mail:
   from: hello@demomailtrap.co
   user: smtp@mailtrap.io

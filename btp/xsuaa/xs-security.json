@@ -8,8 +8,8 @@
   },
   "scopes": [
     {
-      "name": "$XSAPPNAME.Admin",
-      "description": "View system info about application"
+      "name": "$XSAPPNAME.Administrate",
+      "description": "Administrate application"
     },
     {
       "name": "$XSAPPNAME.Callback",
@@ -19,29 +19,33 @@
       ]
     },
     {
-      "name": "$XSAPPNAME.Manager",
-      "description": "View actuator endpoints"
+      "name": "$XSAPPNAME.Manage",
+      "description": "Perform management operations"
     },
     {
-      "name": "$XSAPPNAME.Student",
-      "description": "Enroll to courses or unenroll from them, manage their content"
+      "name": "$XSAPPNAME.Read",
+      "description": "Read content"
+    },
+    {
+      "name": "$XSAPPNAME.Write",
+      "description": "Write content"
     }
   ],
   "role-templates": [
     {
       "name": "Admin",
       "description": "Admin of LMS",
-      "scope-references": ["$XSAPPNAME.Admin"]
+      "scope-references": ["$XSAPPNAME.Read", "$XSAPPNAME.Write", "$XSAPPNAME.Manage", "$XSAPPNAME.Administrate"]
     },
     {
       "name": "Manager",
       "description": "Manager of LMS",
-      "scope-references": ["$XSAPPNAME.Student", "$XSAPPNAME.Manager"]
+      "scope-references": ["$XSAPPNAME.Read", "$XSAPPNAME.Write", "$XSAPPNAME.Manage"]
     },
     {
       "name": "Student",
       "description": "Student of LMS",
-      "scope-references": ["$XSAPPNAME.Student"]
+      "scope-references": ["$XSAPPNAME.Read", "$XSAPPNAME.Write"]
     }
   ],
   "role-collections": [
