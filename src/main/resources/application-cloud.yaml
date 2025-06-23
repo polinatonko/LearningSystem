@@ -17,9 +17,15 @@ spring:
           issuer-uri: ${vcap.services.lms-xsuaa.credentials.url}/oauth/token
 
 basic-authentication:
+  admin:
+    username: ${vcap.services.lms-user-service.credentials.basic-authentication.admin.username}
+    password: ${vcap.services.lms-user-service.credentials.basic-authentication.admin.password}
   manager:
-    username: manager@gmail.com
-    password: manager
+    username: ${vcap.services.lms-user-service.credentials.basic-authentication.manager.username}
+    password: ${vcap.services.lms-user-service.credentials.basic-authentication.manager.password}
+  student:
+    username: ${vcap.services.lms-user-service.credentials.basic-authentication.student.username}
+    password: ${vcap.services.lms-user-service.credentials.basic-authentication.student.password}
 
 btp:
   services:

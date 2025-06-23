@@ -7,9 +7,9 @@ import org.example.learningsystem.email.config.EmailServerProperties;
 import org.example.learningsystem.email.service.EmailService;
 import org.example.learningsystem.student.model.Student;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 @RequiredArgsConstructor
 @Slf4j
 public class CourseEmailNotificationsSender {
