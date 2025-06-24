@@ -1,0 +1,2 @@
+org.example.btp.featureflagsservice.config.CloudFeatureFlagsAutoConfiguration
+org.example.btp.featureflagsservice.config.LocalFeatureFlagsAutoConfiguration

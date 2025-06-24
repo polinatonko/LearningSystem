@@ -1,0 +1,6 @@
+btp:
+  services:
+    feature-flags:
+      uri: ${vcap.services.lms-feature-flags.credentials.uri}
+      username: ${vcap.services.lms-feature-flags.credentials.username}
+      password: ${vcap.services.lms-feature-flags.credentials.password}
