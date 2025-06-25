@@ -13,6 +13,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class FeatureFlagsProperties {
 
     /**
+     * Flag to activate integration with SAP BTP Feature Flags Service.
+     */
+    private Boolean enabled;
+
+    /**
      * URI of the Feature Flags Service API.
      */
     private String uri;

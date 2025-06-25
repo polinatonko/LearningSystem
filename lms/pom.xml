@@ -10,7 +10,8 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-	<artifactId>lms</artifactId>
+    <groupId>org.example</groupId>
+	<artifactId>learning-management-system</artifactId>
 	<version>1.5.0</version>
     <name>Learning Management System</name>
 	<description>Platform provides a functionality for managing the learning system and allows students to enroll in variety of courses</description>
@@ -157,6 +158,11 @@
             <groupId>org.testcontainers</groupId>
             <artifactId>postgresql</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>starter-feature-flags</artifactId>
+            <version>${starter.feature.flags.version}</version>
         </dependency>
     </dependencies>
 

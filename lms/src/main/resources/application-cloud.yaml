@@ -35,11 +35,6 @@ btp:
       client-id: ${vcap.services.lms-destination-service.credentials.clientid}
       client-secret: ${vcap.services.lms-destination-service.credentials.clientsecret}
 
-    feature-flags:
-      uri: ${vcap.services.lms-feature-flags.credentials.uri}
-      username: ${vcap.services.lms-feature-flags.credentials.username}
-      password: ${vcap.services.lms-feature-flags.credentials.password}
-
     service-manager:
       client-id: ${vcap.services.service-manager.credentials.clientid}
       client-secret: ${vcap.services.service-manager.credentials.clientsecret}

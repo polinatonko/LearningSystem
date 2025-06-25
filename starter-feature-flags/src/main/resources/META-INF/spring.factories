@@ -1,0 +1,2 @@
+org.springframework.boot.env.EnvironmentPostProcessor=\
+org.example.btp.featureflagsservice.core.processor.EnvironmentPropertiesPostProcessor

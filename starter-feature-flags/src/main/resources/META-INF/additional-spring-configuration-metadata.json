@@ -1,0 +1,10 @@
+{
+  "properties": [
+    {
+      "name": "btp.services.feature-flags.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Activates integration with SAP BTP Feature Flags Service",
+      "defaultValue": true
+    }
+  ]
+}
