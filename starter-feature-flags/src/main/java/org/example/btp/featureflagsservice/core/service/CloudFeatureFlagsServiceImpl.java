@@ -1,9 +1,9 @@
-package org.example.btp.featureflagsservice.service;
+package org.example.btp.featureflagsservice.core.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.btp.featureflagsservice.config.FeatureFlagsProperties;
-import org.example.btp.featureflagsservice.dto.FlagDto;
-import org.example.btp.featureflagsservice.validator.FeatureFlagsValidator;
+import org.example.btp.featureflagsservice.core.config.FeatureFlagsProperties;
+import org.example.btp.featureflagsservice.core.dto.FlagDto;
+import org.example.btp.featureflagsservice.core.validator.FeatureFlagsValidator;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestClient;
 

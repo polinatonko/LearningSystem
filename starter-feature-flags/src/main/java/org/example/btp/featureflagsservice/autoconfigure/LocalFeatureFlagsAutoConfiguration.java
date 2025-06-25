@@ -1,10 +1,10 @@
-package org.example.btp.featureflagsservice.config;
+package org.example.btp.featureflagsservice.autoconfigure;
 
-import org.example.btp.featureflagsservice.service.FeatureFlagsService;
-import org.example.btp.featureflagsservice.service.LocalFeatureFlagsServiceImpl;
+import org.example.btp.featureflagsservice.core.condition.ConditionalOnFeatureFlagsProperties;
+import org.example.btp.featureflagsservice.core.service.FeatureFlagsService;
+import org.example.btp.featureflagsservice.core.service.LocalFeatureFlagsServiceImpl;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 
 /**
@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Bean;
  * @see CloudFeatureFlagsAutoConfiguration
  */
 @AutoConfiguration
-@ConditionalOnProperty(value = "btp.services.feature-flags.enabled", havingValue = "false")
+@ConditionalOnFeatureFlagsProperties(name = "enabled", value = "false", matchIfMissing = false)
 public class LocalFeatureFlagsAutoConfiguration {
 
     @Bean

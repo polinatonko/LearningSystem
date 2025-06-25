@@ -1,6 +1,6 @@
-package org.example.btp.featureflagsservice.validator;
+package org.example.btp.featureflagsservice.core.validator;
 
-import org.example.btp.featureflagsservice.dto.FlagDto;
+import org.example.btp.featureflagsservice.core.dto.FlagDto;
 
 /**
  * Interface for validating {@link FlagDto} instances.

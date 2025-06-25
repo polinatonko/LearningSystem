@@ -1,12 +1,13 @@
-package org.example.btp.featureflagsservice.config;
+package org.example.btp.featureflagsservice.autoconfigure;
 
-import org.example.btp.featureflagsservice.service.CloudFeatureFlagsServiceImpl;
-import org.example.btp.featureflagsservice.service.FeatureFlagsService;
-import org.example.btp.featureflagsservice.validator.CloudFeatureFlagsValidator;
-import org.example.btp.featureflagsservice.validator.FeatureFlagsValidator;
+import org.example.btp.featureflagsservice.core.condition.ConditionalOnFeatureFlagsProperties;
+import org.example.btp.featureflagsservice.core.config.FeatureFlagsProperties;
+import org.example.btp.featureflagsservice.core.service.CloudFeatureFlagsServiceImpl;
+import org.example.btp.featureflagsservice.core.service.FeatureFlagsService;
+import org.example.btp.featureflagsservice.core.validator.CloudFeatureFlagsValidator;
+import org.example.btp.featureflagsservice.core.validator.FeatureFlagsValidator;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -20,7 +21,7 @@ import org.springframework.web.client.RestClient;
  * @see LocalFeatureFlagsAutoConfiguration
  */
 @AutoConfiguration
-@ConditionalOnProperty(name = "btp.services.feature-flags.enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnFeatureFlagsProperties(name = "enabled", value = "true")
 @EnableConfigurationProperties(FeatureFlagsProperties.class)
 public class CloudFeatureFlagsAutoConfiguration {
 

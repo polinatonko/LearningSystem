@@ -1,4 +1,4 @@
-package org.example.btp.featureflagsservice.dto;
+package org.example.btp.featureflagsservice.core.dto;
 
 /**
  * Represents a feature flag evaluation response.

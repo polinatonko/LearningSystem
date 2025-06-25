@@ -1,6 +1,6 @@
 package org.example.learningsystem.core.email.service;
 
-import org.example.btp.featureflagsservice.service.FeatureFlagsService;
+import org.example.btp.featureflagsservice.core.service.FeatureFlagsService;
 import org.example.learningsystem.btp.destinationservice.dto.MailDestinationConfigurationDto;
 import org.example.learningsystem.btp.destinationservice.service.DestinationService;
 import org.example.learningsystem.email.config.EmailServerProperties;

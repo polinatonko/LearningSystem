@@ -1,4 +1,4 @@
-package org.example.btp.featureflagsservice.config;
+package org.example.btp.featureflagsservice.core.config;
 
 import lombok.Getter;
 import lombok.Setter;

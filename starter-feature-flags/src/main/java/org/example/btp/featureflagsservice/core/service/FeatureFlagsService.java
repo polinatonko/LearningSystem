@@ -1,6 +1,6 @@
-package org.example.btp.featureflagsservice.service;
+package org.example.btp.featureflagsservice.core.service;
 
-import org.example.btp.featureflagsservice.dto.FlagDto;
+import org.example.btp.featureflagsservice.core.dto.FlagDto;
 
 /**
  * Interface for interacting with the Feature Flags Service.

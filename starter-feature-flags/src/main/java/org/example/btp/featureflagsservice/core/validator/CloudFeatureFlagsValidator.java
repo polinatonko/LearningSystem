@@ -1,8 +1,8 @@
-package org.example.btp.featureflagsservice.validator;
+package org.example.btp.featureflagsservice.core.validator;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.btp.featureflagsservice.dto.FlagDto;
-import org.example.btp.featureflagsservice.exception.FeatureFlagTypeMismatchException;
+import org.example.btp.featureflagsservice.core.dto.FlagDto;
+import org.example.btp.featureflagsservice.core.exception.FeatureFlagTypeMismatchException;
 
 import static java.util.Objects.isNull;
 import static org.springframework.http.HttpStatus.OK;

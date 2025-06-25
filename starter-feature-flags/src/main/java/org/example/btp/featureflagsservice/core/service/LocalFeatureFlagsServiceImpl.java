@@ -1,6 +1,6 @@
-package org.example.btp.featureflagsservice.service;
+package org.example.btp.featureflagsservice.core.service;
 
-import org.example.btp.featureflagsservice.dto.FlagDto;
+import org.example.btp.featureflagsservice.core.dto.FlagDto;
 
 /**
  * {@link FeatureFlagsService} implementation for the local development and testing.

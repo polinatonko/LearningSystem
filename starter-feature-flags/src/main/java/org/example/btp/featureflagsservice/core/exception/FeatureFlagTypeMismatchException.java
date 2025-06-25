@@ -1,4 +1,4 @@
-package org.example.btp.featureflagsservice.exception;
+package org.example.btp.featureflagsservice.core.exception;
 
 /**
  * Exception thrown when a feature flag type mismatch error is encountered (the requested flag type does not match
