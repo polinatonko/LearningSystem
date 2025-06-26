@@ -1,7 +1,6 @@
 target/
-approuter/node_modules
-mta_archives/
-src/main/resources/secrets-local.yaml
+lms/approuter/node_modules
+lms/mta_archives/
 
 ### IntelliJ IDEA ###
 .idea

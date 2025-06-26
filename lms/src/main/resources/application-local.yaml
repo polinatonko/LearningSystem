@@ -1,0 +1,50 @@
+application:
+  name: lms
+  uri: http://localhost:8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/lms
+    username: test
+    password: test
+
+  jpa:
+    show-sql: true
+
+basic-authentication:
+  admin:
+    username: admin@gmail.com
+    password: admin
+
+  manager:
+    username: manager@gmail.com
+    password: manager
+
+  student:
+    username: student1@gmail.com
+    password: student1
+
+btp:
+  services:
+    feature-flags:
+      enabled: false
+
+logging:
+  level:
+    org:
+      springframework:
+        cache: trace
+
+mail:
+  from: hello@demomailtrap.co
+  user: smtp@mailtrap.io
+  password:
+  host: live.smtp.mailtrap.io
+  port: 587
+  protocol: smtp
+  auth: true
+  start-tls-enable: true
+
+multitenancy:
+  default-tenant: public
+  default-schema: public
