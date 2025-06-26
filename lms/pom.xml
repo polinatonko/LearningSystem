@@ -159,11 +159,6 @@
             <artifactId>postgresql</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>starter-feature-flags</artifactId>
-            <version>${starter.feature.flags.version}</version>
-        </dependency>
     </dependencies>
 
     <build>
