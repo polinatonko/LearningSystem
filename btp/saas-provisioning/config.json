@@ -1,0 +1,17 @@
+{
+  "xsappname": "lms",
+  "displayName": "Learning Management System",
+  "description": "Learning Management System platform",
+  "category": "Test",
+  "appUrls": {
+    "getDependencies": "https://lms-dev.cfapps.us10-001.hana.ondemand.com/api/v1/subscriptions/dependencies",
+    "onSubscription": "https://lms-dev.cfapps.us10-001.hana.ondemand.com/api/v1/subscriptions/tenants/{tenantId}"
+  },
+  "appPlans": [
+    {
+      "name": "application",
+      "description": "Plan for development purposes"
+    }
+  ],
+  "onSubscriptionAsync": false
+}

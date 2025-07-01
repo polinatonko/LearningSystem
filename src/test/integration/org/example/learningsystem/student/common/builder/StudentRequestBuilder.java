@@ -14,8 +14,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 public class StudentRequestBuilder {
 
-    private static final String STUDENTS_URL = "/students";
-    private static final String STUDENT_URL = "/students/{id}";
+    private static final String STUDENTS_URL = "/api/v1/students";
+    private static final String STUDENT_URL = "/api/v1/students/{id}";
 
     public static RequestBuilder buildCreateRequest(String content) {
         return post(STUDENTS_URL)

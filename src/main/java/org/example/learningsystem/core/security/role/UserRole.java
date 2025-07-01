@@ -1,30 +1,45 @@
 package org.example.learningsystem.core.security.role;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static org.example.learningsystem.core.security.role.UserAuthority.ADMINISTRATE;
+import static org.example.learningsystem.core.security.role.UserAuthority.MANAGE;
+import static org.example.learningsystem.core.security.role.UserAuthority.READ;
+import static org.example.learningsystem.core.security.role.UserAuthority.WRITE;
 
 /**
- * Represents user roles in the business domain.
+ * Represents a user role with associated permissions.
  */
 @AllArgsConstructor
 public enum UserRole {
 
-    /**
-     * Manager role with elevated privileges for extended functions.
-     */
-    MANAGER("Manager"),
+    ADMIN("Admin", Set.of(READ, WRITE, MANAGE, ADMINISTRATE)),
 
-    /**
-     * Student role with access to basic functionality.
-     */
-    STUDENT("Student");
+    MANAGER("Manager", Set.of(READ, WRITE, MANAGE)),
 
-    /**
-     * The human-readable name of the role.
-     */
-    final String name;
+    STUDENT("Student", Set.of(READ, WRITE));
+
+    private final String name;
+    private final Set<UserAuthority> authorities;
+
+    public List<GrantedAuthority> getGrantedAuthorities() {
+        var authorityStream = this.authorities.stream()
+                .map(UserAuthority::toString)
+                .map(SimpleGrantedAuthority::new);
+        var roleStream = Stream.of(new SimpleGrantedAuthority(toString()));
+        return Stream.concat(authorityStream, roleStream)
+                .collect(Collectors.toList());
+    }
 
     @Override
     public String toString() {
-        return name;
+        return "ROLE_%s".formatted(name);
     }
 }

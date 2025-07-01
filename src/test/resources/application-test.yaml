@@ -1,10 +1,21 @@
 spring:
-  config:
-    import: secrets-local.yaml
-
   datasource:
+    url: jdbc:postgresql:///lms
     username: test
     password: test
+
+basic-authentication:
+  admin:
+    username: admin@gmail.com
+    password: admin
+
+  manager:
+    username: manager@gmail.com
+    password: manager
+
+  student:
+    username: student1@gmail.com
+    password: student1
 
 mail:
   from: hello@demomailtrap.co
@@ -15,3 +26,7 @@ mail:
   protocol: smtp
   auth: true
   start-tls-enable: true
+
+multitenancy:
+  default-tenant: public
+  default-schema: public

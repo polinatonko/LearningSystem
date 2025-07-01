@@ -3,7 +3,7 @@ package org.example.learningsystem.email.service;
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.btp.destinationservice.service.DestinationService;
 import org.example.learningsystem.btp.featureflagsservice.service.FeatureFlagsService;
-import org.example.learningsystem.email.config.EmailServerProperties;
+import org.example.learningsystem.email.model.EmailServerProperties;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
  * <p>
  * Chooses between dynamic configuration from {@link DestinationService} (when {@value #FLAG_DESTINATION_SERVICE_ENABLED}
  * flag is enabled) and static configuration from {@link EmailServerProperties}.
- * </p>
  */
 @Service
 @RequiredArgsConstructor
@@ -39,6 +38,6 @@ public class EmailServerPropertiesResolverImpl implements EmailServerPropertiesR
 
     private EmailServerProperties getPropertiesFromDestinationService() {
         var mailDestination = destinationService.getByName(SMTP_DESTINATION);
-        return (EmailServerProperties) mailDestination;
+        return (EmailServerProperties) mailDestination.getDestinationConfiguration();
     }
 }

@@ -1,7 +1,7 @@
 package org.example.learningsystem.btp.featureflagsservice.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.learningsystem.btp.featureflagsservice.config.FeatureFlagsProperties;
+import org.example.learningsystem.btp.featureflagsservice.model.FeatureFlagsProperties;
 import org.example.learningsystem.btp.featureflagsservice.dto.FlagDto;
 import org.example.learningsystem.btp.featureflagsservice.validator.FeatureFlagsValidator;
 import org.springframework.context.annotation.Profile;
@@ -48,7 +48,6 @@ public class CloudFeatureFlagsServiceImpl implements FeatureFlagsService {
     private void addBasicAuthHeader(HttpHeaders headers) {
         var username = properties.getUsername();
         var password = properties.getPassword();
-        var authorizationHeader = HttpHeaders.encodeBasicAuth(username, password, null);
-        headers.setBasicAuth(authorizationHeader);
+        headers.setBasicAuth(username, password);
     }
 }

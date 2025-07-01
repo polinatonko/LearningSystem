@@ -1,16 +1,20 @@
 package org.example.learningsystem.btp.destinationservice.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.learningsystem.core.web.oauth2.Oauth2TokenClient;
-import org.example.learningsystem.btp.destinationservice.config.DestinationServiceProperties;
+import lombok.extern.slf4j.Slf4j;
 import org.example.learningsystem.btp.destinationservice.dto.DestinationDto;
+import org.example.learningsystem.btp.destinationservice.client.DestinationServiceClient;
+import org.example.learningsystem.btp.xsuaa.util.XsuaaUrlProvider;
+import org.example.learningsystem.core.exception.model.LearningManagementSystemException;
+import org.example.learningsystem.core.web.oauth2.Oauth2ClientCredentials;
+import org.example.learningsystem.btp.destinationservice.model.DestinationServiceProperties;
 import org.springframework.context.annotation.Profile;
-import org.springframework.http.HttpHeaders;
-import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClient;
 
-import static org.springframework.web.client.HttpClientErrorException.Unauthorized;
+import java.util.Optional;
+import java.util.function.Supplier;
+
+import static org.springframework.web.client.HttpClientErrorException.NotFound;
 
 /**
  * Cloud {@link DestinationService} implementation that integrates with a remote Destination Service.
@@ -18,48 +22,56 @@ import static org.springframework.web.client.HttpClientErrorException.Unauthoriz
 @Service
 @RequiredArgsConstructor
 @Profile("cloud")
+@Slf4j
 public class CloudDestinationServiceImpl implements DestinationService {
 
-    private static final String DESTINATION_URI_TEMPLATE = "%s/destination-configuration/v1/instanceDestinations/%s";
-
-    private final Oauth2TokenClient oauth2TokenClient;
+    private final DestinationServiceClient destinationServiceClient;
     private final DestinationServiceProperties properties;
-    private final RestClient restClient;
+    private final XsuaaUrlProvider xsuaaUrlProvider;
 
     @Override
-    @Retryable(retryFor = Unauthorized.class, maxAttempts = 2)
     public DestinationDto getByName(String name) {
-        return tryToGetDestination(name);
+        return findDestinationOnSubscriberLevel(name)
+                .or(() -> findDestinationOnProviderLevel(name))
+                .orElseThrow(() -> new LearningManagementSystemException("Destination was not found [name = %s]".formatted(name)));
     }
 
-    private DestinationDto tryToGetDestination(String name) {
+    private Optional<DestinationDto> findDestinationOnSubscriberLevel(String name) {
+        Supplier<Oauth2ClientCredentials> clientCredentialsSupplier = this::buildClientCredentialsForSubscriber;
+        return tryToGetTenantDestination(name, clientCredentialsSupplier);
+    }
+
+    private Optional<DestinationDto> findDestinationOnProviderLevel(String name) {
+        Supplier<Oauth2ClientCredentials> clientCredentialsSupplier = this::buildClientCredentialsForProvider;
+        return tryToGetTenantDestination(name, clientCredentialsSupplier);
+    }
+
+    private Oauth2ClientCredentials buildClientCredentialsForSubscriber() {
+        var tenantTokenUrl = xsuaaUrlProvider.get();
+        return new Oauth2ClientCredentials(
+                properties.getClientId(),
+                properties.getClientSecret(),
+                tenantTokenUrl
+        );
+    }
+
+    private Oauth2ClientCredentials buildClientCredentialsForProvider() {
+        return new Oauth2ClientCredentials(
+                properties.getClientId(),
+                properties.getClientSecret(),
+                properties.getTokenUrl()
+        );
+    }
+
+    private Optional<DestinationDto> tryToGetTenantDestination(String name, Supplier<Oauth2ClientCredentials> clientCredentialsSupplier) {
         try {
-            var baseUri = properties.getUri();
-            var uri = DESTINATION_URI_TEMPLATE.formatted(baseUri, name);
-
-            return restClient.get()
-                    .uri(uri)
-                    .headers(this::addBearerAuthenticationHeader)
-                    .retrieve()
-                    .body(DestinationDto.class);
-        } catch (Unauthorized e) {
-            refreshToken();
-            throw e;
+            var clientCredentials = clientCredentialsSupplier.get();
+            log.debug("Trying to get destination [name = {}, url = {}]", name, clientCredentials.tokenUrl());
+            var destination = destinationServiceClient.getByName(name, clientCredentials);
+            return Optional.ofNullable(destination);
+        } catch (NotFound e) {
+            log.info("Failed to get destination [name = {}]", name);
+            return Optional.empty();
         }
-    }
-
-    private void addBearerAuthenticationHeader(HttpHeaders headers) {
-        var tokenUrl = properties.getTokenUrl();
-        var clientId = properties.getClientId();
-        var clientSecret = properties.getClientSecret();
-        var accessToken = oauth2TokenClient.get(tokenUrl, clientId, clientSecret);
-        headers.setBearerAuth(accessToken);
-    }
-
-    private void refreshToken() {
-        var tokenUrl = properties.getTokenUrl();
-        var clientId = properties.getClientId();
-        var clientSecret = properties.getClientSecret();
-        oauth2TokenClient.refresh(tokenUrl, clientId, clientSecret);
     }
 }

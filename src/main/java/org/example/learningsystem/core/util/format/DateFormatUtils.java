@@ -1,8 +1,13 @@
 package org.example.learningsystem.core.util.format;
 
+import lombok.NoArgsConstructor;
+
+import static lombok.AccessLevel.PRIVATE;
+
 /**
  * Utility class containing date and time format patterns.
  */
+@NoArgsConstructor(access = PRIVATE)
 public class DateFormatUtils {
 
     /**

@@ -1,11 +1,11 @@
 info:
   application:
-    name: LearningManagementSystem
-    description: API provides a functionality for managing the learning system and allows students to enroll in variety of courses
+    name: @project.name@
+    description: @project.description@
 
 spring:
   application:
-    name: LearningManagementSystem
+    name: @project.name@
     version: @project.version@
 
   jpa:
@@ -20,17 +20,8 @@ spring:
     basename: i18n/messages
     encoding: UTF-8
 
-basic-authentication:
-  manager:
-    username: manager@gmail.com
-    password: manager
-
-  student:
-    username: student1@gmail.com
-    password: student1
-
 course:
-  reminder:
+  notifications:
     cron: "0 0 9 * * *"
     daysBefore: 1
 

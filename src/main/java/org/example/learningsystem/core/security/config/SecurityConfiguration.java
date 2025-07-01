@@ -1,8 +1,10 @@
 package org.example.learningsystem.core.security.config;
 
 import lombok.RequiredArgsConstructor;
+import org.example.learningsystem.core.security.model.BasicAuthenticationCredentials;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,10 +12,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
+import static org.example.learningsystem.core.security.role.UserRole.ADMIN;
 import static org.example.learningsystem.core.security.role.UserRole.MANAGER;
 import static org.example.learningsystem.core.security.role.UserRole.STUDENT;
 
 @Configuration
+@EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration {
 
@@ -21,10 +25,11 @@ public class SecurityConfiguration {
 
     @Bean
     public UserDetailsService userDetailsService() {
+        var adminDetails = buildAdminDetails();
         var managerDetails = buildManagerDetails();
         var studentDetails = buildStudentDetails();
 
-        return new InMemoryUserDetailsManager(managerDetails, studentDetails);
+        return new InMemoryUserDetailsManager(adminDetails, managerDetails, studentDetails);
     }
 
     @Bean
@@ -32,12 +37,21 @@ public class SecurityConfiguration {
         return new BCryptPasswordEncoder();
     }
 
+    private UserDetails buildAdminDetails() {
+        var adminCredentials = basicAuthCredentialsConfiguration.getAdmin();
+
+        return User.withUsername(adminCredentials.username())
+                .password(passwordEncoder().encode(adminCredentials.password()))
+                .authorities(ADMIN.getGrantedAuthorities())
+                .build();
+    }
+
     private UserDetails buildManagerDetails() {
         var managerCredentials = basicAuthCredentialsConfiguration.getManager();
 
         return User.withUsername(managerCredentials.username())
                 .password(passwordEncoder().encode(managerCredentials.password()))
-                .roles(MANAGER.toString())
+                .authorities(MANAGER.getGrantedAuthorities())
                 .build();
     }
 
@@ -46,7 +60,7 @@ public class SecurityConfiguration {
 
         return User.withUsername(studentCredentials.username())
                 .password(passwordEncoder().encode(studentCredentials.password()))
-                .roles(STUDENT.toString())
+                .authorities(STUDENT.getGrantedAuthorities())
                 .build();
     }
 }

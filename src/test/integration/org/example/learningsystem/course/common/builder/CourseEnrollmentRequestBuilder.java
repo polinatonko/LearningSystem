@@ -9,7 +9,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 public class CourseEnrollmentRequestBuilder {
 
-    private static final String ENROLLMENT_URL = "/courses/{id}/students/{studentId}";
+    private static final String ENROLLMENT_URL = "/api/v1/courses/{id}/students/{studentId}";
 
     public static RequestBuilder buildEnrollRequest(UUID courseId, UUID studentId) {
         return post(ENROLLMENT_URL, courseId, studentId);

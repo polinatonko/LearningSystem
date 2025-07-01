@@ -13,7 +13,7 @@ public class FeatureFlagTypeMismatchException extends UnsupportedOperationExcept
      * @param featureName the name of the feature
      */
     public FeatureFlagTypeMismatchException(String flagType, String featureName) {
-        super("Requested feature flag must be of type %s [featureName = %s]"
+        super("Feature flag type mismatch [expectedType = %s, featureName = %s]"
                 .formatted(flagType, featureName));
     }
 }

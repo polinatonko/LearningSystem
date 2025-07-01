@@ -1,14 +1,11 @@
 package org.example.learningsystem.core.web.swagger;
 
-import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.PathItem;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import lombok.RequiredArgsConstructor;
 
 import java.util.Collections;
 import java.util.function.Predicate;
@@ -19,7 +16,7 @@ import static java.util.Map.Entry;
 /**
  * Configuration for the OpenAPI.
  */
-@Configuration
+@RequiredArgsConstructor
 public class OpenApiConfiguration {
 
     protected static final String BASIC_AUTH_SCHEME = "basicAuth";
@@ -28,33 +25,19 @@ public class OpenApiConfiguration {
     private final String applicationName;
     private final String applicationVersion;
 
-    public OpenApiConfiguration(
-            @Value("${spring.application.name}") String applicationName,
-            @Value("${spring.application.version}") String applicationVersion
-    ) {
-        this.applicationName = applicationName;
-        this.applicationVersion = applicationVersion;
-    }
-
-    @Bean
     protected OpenAPI openAPI() {
         return new OpenAPI()
-                .addSecurityItem(new SecurityRequirement()
-                        .addList(BASIC_AUTH_SCHEME))
-                .components(new Components()
-                        .addSecuritySchemes(BASIC_AUTH_SCHEME, basicAuthSecurityScheme()))
                 .info(new Info()
                         .title(applicationName)
                         .version(applicationVersion)
                         .description("API provides a functionality for managing the learning system and allows " +
-                                "Students to enroll in variety of Courses using virtual coins.")
-                );
+                                "Students to enroll in variety of Courses using virtual coins."));
     }
 
     protected SecurityScheme bearerAuthSecurityScheme() {
         return new SecurityScheme()
                 .type(HTTP)
-                .name(BASIC_AUTH_SCHEME)
+                .name(BEARER_AUTH_SCHEME)
                 .bearerFormat("JWT")
                 .scheme("bearer");
     }
@@ -62,7 +45,7 @@ public class OpenApiConfiguration {
     protected SecurityScheme basicAuthSecurityScheme() {
         return new SecurityScheme()
                 .type(HTTP)
-                .name(BEARER_AUTH_SCHEME)
+                .name(BASIC_AUTH_SCHEME)
                 .scheme("basic");
     }
 
@@ -81,7 +64,6 @@ public class OpenApiConfiguration {
         entry.getValue()
                 .readOperations()
                 .forEach(operation ->
-                        operation.setSecurity(Collections.singletonList(securityRequirement))
-                );
+                        operation.setSecurity(Collections.singletonList(securityRequirement)));
     }
 }

@@ -14,9 +14,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 public class CourseRequestBuilder {
 
-    private static final String COURSES_URL = "/courses";
-    private static final String COURSE_URL = "/courses/{courseId}";
-    private static final String COURSE_LESSONS_URL = "/courses/{courseId}/lessons";
+    private static final String COURSES_URL = "/api/v1/courses";
+    private static final String COURSE_URL = "/api/v1/courses/{courseId}";
+    private static final String COURSE_LESSONS_URL = "/api/v1/courses/{courseId}/lessons";
 
     public static RequestBuilder buildCreateRequest(String content) {
         return post(COURSES_URL)
