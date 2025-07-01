@@ -13,7 +13,7 @@ public interface SubscriptionService {
     /**
      * Handles the subscription of a new tenant to the application.
      *
-     * @param tenantId the unique identifier of the subscribing tenant
+     * @param tenantId     the unique identifier of the subscribing tenant
      * @param subscription the subscription request details
      * @return the tenant-specific application URL that will be accessible to the subscriber
      */
@@ -22,7 +22,7 @@ public interface SubscriptionService {
     /**
      * Handles the unsubscription of a tenant from the application.
      *
-     * @param tenantId the unique identifier of the subscribing tenant
+     * @param tenantId     the unique identifier of the subscribing tenant
      * @param subscription the subscription request details
      */
     void unsubscribe(String tenantId, SubscriptionRequestDto subscription);

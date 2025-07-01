@@ -1,4 +1,4 @@
-package org.example.learningsystem.lesson.common.constants;
+package org.example.learningsystem.lesson.common.constant;
 
 public final class LessonTypeConstants {
 

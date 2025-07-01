@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
-import static org.example.learningsystem.btp.servicemanager.common.constants.ServiceManagerResourceConstants.DATABASE_ID;
-import static org.example.learningsystem.btp.servicemanager.common.constants.ServiceManagerResourceConstants.NAME;
-import static org.example.learningsystem.btp.servicemanager.common.constants.ServiceManagerResourceConstants.SERVICE_INSTANCES;
+import static org.example.learningsystem.btp.servicemanager.common.constant.ServiceManagerResourceConstants.DATABASE_ID;
+import static org.example.learningsystem.btp.servicemanager.common.constant.ServiceManagerResourceConstants.NAME;
+import static org.example.learningsystem.btp.servicemanager.common.constant.ServiceManagerResourceConstants.SERVICE_INSTANCES;
 
 /**
  * Service for managing service instances in SAP BTP using the Service Manager API.

@@ -26,7 +26,6 @@
         <sap.cloud.security.version>3.6.0</sap.cloud.security.version>
         <springdoc.version>2.8.6</springdoc.version>
 
-        <git.commit-id.version>9.0.1</git.commit-id.version>
         <jacoco.version>0.8.13</jacoco.version>
     </properties>
 

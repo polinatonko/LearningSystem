@@ -14,7 +14,7 @@ import org.springframework.web.client.RestClient;
 import java.util.Map;
 
 import static java.util.Objects.isNull;
-import static org.example.learningsystem.core.cache.constants.CacheConstants.ACCESS_TOKENS_CACHE_NAME;
+import static org.example.learningsystem.core.cache.constant.CacheConstants.ACCESS_TOKENS_CACHE_NAME;
 import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED;
 import static org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames.CLIENT_ID;
 import static org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames.CLIENT_SECRET;

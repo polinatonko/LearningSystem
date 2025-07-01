@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
  * <p>
  * Chooses between dynamic configuration from {@link DestinationService} (when {@value #FLAG_DESTINATION_SERVICE_ENABLED}
  * flag is enabled) and static configuration from {@link EmailServerProperties}.
- * </p>
  */
 @Service
 @RequiredArgsConstructor

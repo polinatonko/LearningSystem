@@ -11,8 +11,9 @@ public class RenderTemplateException extends LearningManagementSystemException {
      * Constructor for the {@link RenderTemplateException}.
      *
      * @param errorMessage the error message
+     * @param cause        the cause
      */
-    public RenderTemplateException(String errorMessage, Throwable throwable) {
-        super(errorMessage, throwable);
+    public RenderTemplateException(String errorMessage, Throwable cause) {
+        super(errorMessage, cause);
     }
 }

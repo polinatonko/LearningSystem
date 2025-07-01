@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-import static org.example.learningsystem.core.db.constants.SqlConstants.CREATE_SCHEMA_SQL;
-import static org.example.learningsystem.core.db.constants.SqlConstants.DROP_SCHEMA_SQL;
-import static org.example.learningsystem.core.db.constants.SqlConstants.SELECT_SCHEMAS_SQL;
+import static org.example.learningsystem.core.db.constant.SqlConstants.CREATE_SCHEMA_SQL;
+import static org.example.learningsystem.core.db.constant.SqlConstants.DROP_SCHEMA_SQL;
+import static org.example.learningsystem.core.db.constant.SqlConstants.SELECT_SCHEMAS_SQL;
 
 /**
  * A helper class for managing database schemas in a non-cloud environment via direct executing of

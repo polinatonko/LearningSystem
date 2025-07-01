@@ -8,10 +8,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 
-import static org.example.learningsystem.btp.servicemanager.common.constants.ServiceManagerResourceConstants.BASE_PATH;
-import static org.example.learningsystem.btp.servicemanager.common.constants.ServiceManagerResourceConstants.EQUALS_QUERY;
-import static org.example.learningsystem.btp.servicemanager.common.constants.ServiceManagerResourceConstants.FIELD_QUERY;
-import static org.example.learningsystem.btp.servicemanager.common.constants.ServiceManagerResourceConstants.LABEL_QUERY;
+import static org.example.learningsystem.btp.servicemanager.common.constant.ServiceManagerResourceConstants.BASE_PATH;
+import static org.example.learningsystem.btp.servicemanager.common.constant.ServiceManagerResourceConstants.EQUALS_QUERY;
+import static org.example.learningsystem.btp.servicemanager.common.constant.ServiceManagerResourceConstants.FIELD_QUERY;
+import static org.example.learningsystem.btp.servicemanager.common.constant.ServiceManagerResourceConstants.LABEL_QUERY;
 
 /**
  * Provides methods for constructing URIs to access the Service Manager API.
@@ -26,7 +26,7 @@ public class ServiceManagerUriBuilder {
     private UriComponentsBuilder uriComponentsBuilder;
 
     /**
-     * Creates a new URI builder initialized with the base uri of the Service Manager API
+     * Creates a new URI builder initialized with the base URI of the Service Manager API
      * and the specified path segments.
      *
      * @param pathSegments the path segments to include in the URI

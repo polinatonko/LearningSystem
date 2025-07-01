@@ -14,6 +14,6 @@ public class EntityNotFoundException extends LearningManagementSystemException {
      * @param id        the identifier that was searched for
      */
     public EntityNotFoundException(String className, UUID id) {
-        super("Entity %s not found [id = %s]".formatted(className, id));
+        super("Entity not found [class = %s, id = %s]".formatted(className, id));
     }
 }

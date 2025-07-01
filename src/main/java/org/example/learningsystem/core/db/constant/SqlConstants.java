@@ -1,4 +1,4 @@
-package org.example.learningsystem.core.db.constants;
+package org.example.learningsystem.core.db.constant;
 
 import lombok.NoArgsConstructor;
 

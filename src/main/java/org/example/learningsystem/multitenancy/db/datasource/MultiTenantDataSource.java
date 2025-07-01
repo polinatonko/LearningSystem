@@ -71,11 +71,12 @@ public class MultiTenantDataSource extends AbstractRoutingDataSource implements 
      * @param tenantInfo the tenant information
      */
     public synchronized void delete(TenantInfo tenantInfo) {
-        Optional.ofNullable(targetDataSources.get(tenantInfo))
-                .ifPresent(this::tryToCloseDataSource);
-
-        targetDataSources.remove(tenantInfo);
-        updateTargetDataSources();
+        if (targetDataSources.containsKey(tenantInfo)) {
+            var dataSource = targetDataSources.get(tenantInfo);
+            tryToCloseDataSource(dataSource);
+            targetDataSources.remove(tenantInfo);
+            updateTargetDataSources();
+        }
     }
 
     @Override

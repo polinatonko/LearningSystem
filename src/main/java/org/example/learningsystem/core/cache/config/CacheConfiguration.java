@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
 
 import java.time.Duration;
 
-import static org.example.learningsystem.core.cache.constants.CacheConstants.ACCESS_TOKENS_CACHE_MAXIMUM_SIZE;
-import static org.example.learningsystem.core.cache.constants.CacheConstants.ACCESS_TOKENS_CACHE_TTL_MINUTES;
+import static org.example.learningsystem.core.cache.constant.CacheConstants.ACCESS_TOKENS_CACHE_MAXIMUM_SIZE;
+import static org.example.learningsystem.core.cache.constant.CacheConstants.ACCESS_TOKENS_CACHE_TTL_MINUTES;
 
 @Configuration
 @EnableCaching

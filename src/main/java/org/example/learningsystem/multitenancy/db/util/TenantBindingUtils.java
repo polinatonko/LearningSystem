@@ -5,8 +5,8 @@ import org.example.learningsystem.btp.servicemanager.binding.dto.ServiceBindingR
 import org.example.learningsystem.multitenancy.context.TenantInfo;
 
 import static lombok.AccessLevel.PRIVATE;
-import static org.example.learningsystem.btp.servicemanager.common.constants.ServiceManagerResourceConstants.SUBDOMAIN;
-import static org.example.learningsystem.btp.servicemanager.common.constants.ServiceManagerResourceConstants.TENANT_ID;
+import static org.example.learningsystem.btp.servicemanager.common.constant.ServiceManagerResourceConstants.SUBDOMAIN;
+import static org.example.learningsystem.btp.servicemanager.common.constant.ServiceManagerResourceConstants.TENANT_ID;
 
 /**
  * Utility class for working with tenant information in cloud.

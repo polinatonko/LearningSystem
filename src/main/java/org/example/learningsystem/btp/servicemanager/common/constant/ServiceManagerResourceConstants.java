@@ -1,4 +1,4 @@
-package org.example.learningsystem.btp.servicemanager.common.constants;
+package org.example.learningsystem.btp.servicemanager.common.constant;
 
 import lombok.NoArgsConstructor;
 

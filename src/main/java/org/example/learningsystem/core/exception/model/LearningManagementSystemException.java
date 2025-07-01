@@ -9,7 +9,7 @@ public class LearningManagementSystemException extends RuntimeException {
         super(errorMessage);
     }
 
-    public LearningManagementSystemException(String errorMessage, Throwable throwable) {
-        super(errorMessage, throwable);
+    public LearningManagementSystemException(String errorMessage, Throwable cause) {
+        super(errorMessage, cause);
     }
 }
