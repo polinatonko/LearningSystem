@@ -12,8 +12,8 @@ public interface TemplateBuilder {
      * Builds a template with the provided arguments.
      *
      * @param path      the path to the template file (e.g, "templates/example.html")
-     * @param arguments the object containing values for template placeholders
+     * @param args the object containing values for template placeholders
      * @return the rendered template content
      */
-    String build(String path, Object arguments);
+    String build(String path, Object args);
 }

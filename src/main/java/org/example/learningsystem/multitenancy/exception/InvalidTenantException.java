@@ -7,7 +7,7 @@ import org.example.learningsystem.core.exception.model.LearningManagementSystemE
  */
 public class InvalidTenantException extends LearningManagementSystemException {
 
-    public InvalidTenantException(String errMessage) {
-        super(errMessage);
+    public InvalidTenantException(String errorMessage) {
+        super(errorMessage);
     }
 }

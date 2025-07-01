@@ -18,11 +18,11 @@ public class MustacheTemplateBuilder implements TemplateBuilder {
     private final MustacheResourceTemplateLoader templateLoader;
 
     @Override
-    public String build(String path, Object arguments) {
+    public String build(String path, Object args) {
         try {
             var reader = templateLoader.getTemplate(path);
             var template = mustacheCompiler.compile(reader);
-            return template.execute(arguments);
+            return template.execute(args);
         } catch (Exception e) {
             throw new RenderTemplateException("Error occurred while reading template [path = %s]".formatted(path), e);
         }

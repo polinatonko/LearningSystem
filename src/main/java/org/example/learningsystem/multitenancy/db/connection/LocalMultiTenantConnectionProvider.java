@@ -32,7 +32,7 @@ public class LocalMultiTenantConnectionProvider extends AbstractMultiTenantConne
 
     @Override
     public Connection getConnection(String tenantId) throws SQLException {
-        log.debug("Getting connection for tenant [id = {}]", tenantId);
+        log.debug("Getting connection for tenant [tenantId = {}]", tenantId);
         var connection = getAnyConnection();
         var schema = tenantSchemaResolver.resolve(tenantId);
         connection.setSchema(schema);

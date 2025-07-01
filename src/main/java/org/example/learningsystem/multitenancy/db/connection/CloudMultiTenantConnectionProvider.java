@@ -24,7 +24,7 @@ public class CloudMultiTenantConnectionProvider extends AbstractMultiTenantConne
 
     @Override
     public Connection getConnection(String tenantId) throws SQLException {
-        log.debug("Getting connection for tenant [id = {}]", tenantId);
+        log.debug("Getting connection for tenant [tenantId = {}]", tenantId);
         return getAnyConnection();
     }
 

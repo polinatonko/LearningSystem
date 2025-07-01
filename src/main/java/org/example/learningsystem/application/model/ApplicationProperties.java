@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Application configuration properties.
  * <p>
- * Contains the name and uri of the application, and a list of services that the application depends on, which will
+ * Contains the name and URI of the application, and a list of services that the application depends on, which will
  * be used during the subscription callback process.
  */
 @Component

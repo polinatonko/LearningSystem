@@ -39,7 +39,7 @@ public class CloudSubscriptionService implements SubscriptionService {
     public String subscribe(String tenantId, SubscriptionRequestDto subscription) {
         var tenantSubdomain = subscription.subscribedSubdomain();
         var tenantUrl = buildTenantUrl(tenantSubdomain);
-        log.info("Generated tenant url [id = {}, url = {}]", tenantId, tenantUrl);
+        log.info("Generated tenant url [tenantId = {}, url = {}]", tenantId, tenantUrl);
         tenantDatabaseManagementService.createSchema(tenantId, subscription.subscribedSubdomain());
         return tenantUrl;
     }

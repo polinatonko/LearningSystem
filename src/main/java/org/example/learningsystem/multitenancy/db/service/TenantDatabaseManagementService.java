@@ -28,7 +28,7 @@ public class TenantDatabaseManagementService {
      * @param subdomain the tenant's subdomain
      */
     public void createSchema(String tenantId, String subdomain) {
-        log.info("Starting onboarding process for new tenant [id = {}]", tenantId);
+        log.info("Starting onboarding process for new tenant [tenantId = {}]", tenantId);
 
         var tenantInfo = new TenantInfo(tenantId, subdomain);
         tenantSchemaService.create(tenantInfo);
@@ -36,7 +36,7 @@ public class TenantDatabaseManagementService {
         var dataSource = tenantDataSourceService.create(tenantInfo);
         tenantLiquibaseService.runOnTenant(tenantInfo, dataSource);
 
-        log.info("Successfully completed onboarding for tenant [id = {}]", tenantId);
+        log.info("Successfully completed onboarding for tenant [tenantId = {}]", tenantId);
     }
 
     /**
@@ -46,12 +46,12 @@ public class TenantDatabaseManagementService {
      * @param subdomain the tenant's subdomain
      */
     public void deleteSchema(String tenantId, String subdomain) {
-        log.info("Starting offboarding for tenant [id = {}]", tenantId);
+        log.info("Starting offboarding for tenant [tenantId = {}]", tenantId);
 
         var tenantInfo = new TenantInfo(tenantId, subdomain);
         tenantSchemaService.delete(tenantId);
         tenantDataSourceService.delete(tenantInfo);
 
-        log.info("Successfully completed offboarding for tenant [id = {}]", tenantId);
+        log.info("Successfully completed offboarding for tenant [tenantId = {}]", tenantId);
     }
 }

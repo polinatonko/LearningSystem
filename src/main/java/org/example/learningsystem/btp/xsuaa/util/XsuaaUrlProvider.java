@@ -1,9 +1,9 @@
 package org.example.learningsystem.btp.xsuaa.util;
 
-import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.btp.xsuaa.model.XsuaaProperties;
 import org.example.learningsystem.multitenancy.context.TenantContext;
 import org.example.learningsystem.multitenancy.context.TenantInfo;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -14,12 +14,17 @@ import java.util.Optional;
  */
 @Component
 @Profile("cloud")
-@RequiredArgsConstructor
 public class XsuaaUrlProvider {
 
-    private static final String XSUAA_URI_TEMPLATE = "https://%s.authentication.us10.hana.ondemand.com";
-
+    private final String xsuaaUriTemplate;
     private final XsuaaProperties xsuaaProperties;
+
+    public XsuaaUrlProvider(
+            @Value("${vcap.services.lms-user-service.credentials.xsuaa.uriTemplate}") String xsuaaUriTemplate,
+            XsuaaProperties xsuaaProperties) {
+        this.xsuaaUriTemplate = xsuaaUriTemplate;
+        this.xsuaaProperties = xsuaaProperties;
+    }
 
     /**
      * Returns the tenant-specific XSUAA URL based on the current tenant context.
@@ -32,7 +37,7 @@ public class XsuaaUrlProvider {
         var providerUrl = xsuaaProperties.getTokenUrl();
         return Optional.ofNullable(tenant)
                 .map(TenantInfo::subdomain)
-                .map(XSUAA_URI_TEMPLATE::formatted)
+                .map(xsuaaUriTemplate::formatted)
                 .orElse(providerUrl);
     }
 }
