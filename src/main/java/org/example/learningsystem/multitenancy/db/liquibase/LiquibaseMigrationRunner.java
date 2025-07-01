@@ -5,6 +5,7 @@ import liquibase.exception.LiquibaseException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.learningsystem.multitenancy.context.TenantInfo;
+import org.example.learningsystem.multitenancy.db.migration.DatabaseMigrationRunner;
 import org.example.learningsystem.multitenancy.db.schema.TenantSchemaResolver;
 import org.example.learningsystem.multitenancy.db.datasource.TenantDataSourceManager;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
@@ -15,34 +16,27 @@ import javax.sql.DataSource;
 import static org.example.learningsystem.multitenancy.db.liquibase.LiquibaseUtils.getLiquibase;
 
 /**
- * Service for managing Liquibase database migrations for tenant schemas.
+ * Implementation of {@link DatabaseMigrationRunner} for Liquibase.
  * <p>
  * Handles running migrations for both new tenants in runtime and existing tenants during application startup.
  */
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class TenantLiquibaseService {
+public class LiquibaseMigrationRunner implements DatabaseMigrationRunner {
 
     private final LiquibaseProperties liquibaseProperties;
     private final TenantDataSourceManager tenantDataSourceManager;
     private final TenantSchemaResolver tenantSchemaResolver;
 
-    /**
-     * Runs Liquibase migrations for all existing tenants.
-     */
     @PostConstruct
+    @Override
     public void runOnTenants() {
         var dataSources = tenantDataSourceManager.getAll();
         dataSources.forEach(this::runOnTenant);
     }
 
-    /**
-     * Run Liquibase migrations for the specified tenant.
-     *
-     * @param tenantInfo the tenant information
-     * @param dataSource the tenant datasource to be used by Liquibase
-     */
+    @Override
     public void runOnTenant(TenantInfo tenantInfo, DataSource dataSource) {
         var schema = tenantSchemaResolver.resolve(tenantInfo.tenantId());
         try {

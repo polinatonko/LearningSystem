@@ -3,8 +3,8 @@ package org.example.learningsystem.multitenancy.db.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.learningsystem.multitenancy.context.TenantInfo;
+import org.example.learningsystem.multitenancy.db.migration.DatabaseMigrationRunner;
 import org.example.learningsystem.multitenancy.db.schema.TenantSchemaService;
-import org.example.learningsystem.multitenancy.db.liquibase.TenantLiquibaseService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,8 +17,8 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class TenantDatabaseManagementService {
 
+    private final DatabaseMigrationRunner databaseMigrationRunner;
     private final TenantDataSourceService tenantDataSourceService;
-    private final TenantLiquibaseService tenantLiquibaseService;
     private final TenantSchemaService tenantSchemaService;
 
     /**
@@ -34,7 +34,7 @@ public class TenantDatabaseManagementService {
         tenantSchemaService.create(tenantInfo);
 
         var dataSource = tenantDataSourceService.create(tenantInfo);
-        tenantLiquibaseService.runOnTenant(tenantInfo, dataSource);
+        databaseMigrationRunner.runOnTenant(tenantInfo, dataSource);
 
         log.info("Successfully completed onboarding for tenant [tenantId = {}]", tenantId);
     }
