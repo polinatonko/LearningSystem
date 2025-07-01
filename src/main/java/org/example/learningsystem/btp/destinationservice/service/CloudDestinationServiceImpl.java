@@ -7,7 +7,7 @@ import org.example.learningsystem.btp.destinationservice.client.DestinationServi
 import org.example.learningsystem.btp.xsuaa.util.XsuaaUrlProvider;
 import org.example.learningsystem.core.exception.model.LearningManagementSystemException;
 import org.example.learningsystem.core.web.oauth2.Oauth2ClientCredentials;
-import org.example.learningsystem.btp.destinationservice.config.DestinationServiceProperties;
+import org.example.learningsystem.btp.destinationservice.model.DestinationServiceProperties;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -66,7 +66,7 @@ public class CloudDestinationServiceImpl implements DestinationService {
     private Optional<DestinationDto> tryToGetTenantDestination(String name, Supplier<Oauth2ClientCredentials> clientCredentialsSupplier) {
         try {
             var clientCredentials = clientCredentialsSupplier.get();
-            log.info("Trying to get destination [name = {}, url = {}]", name, clientCredentials.tokenUrl());
+            log.debug("Trying to get destination [name = {}, url = {}]", name, clientCredentials.tokenUrl());
             var destination = destinationServiceClient.getByName(name, clientCredentials);
             return Optional.ofNullable(destination);
         } catch (NotFound e) {

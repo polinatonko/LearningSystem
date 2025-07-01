@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-import static org.example.learningsystem.multitenancy.constant.SqlConstants.CREATE_SCHEMA_SQL;
-import static org.example.learningsystem.multitenancy.constant.SqlConstants.DROP_SCHEMA_SQL;
-import static org.example.learningsystem.multitenancy.constant.SqlConstants.SELECT_SCHEMAS_SQL;
+import static org.example.learningsystem.core.db.constants.SqlConstants.CREATE_SCHEMA_SQL;
+import static org.example.learningsystem.core.db.constants.SqlConstants.DROP_SCHEMA_SQL;
+import static org.example.learningsystem.core.db.constants.SqlConstants.SELECT_SCHEMAS_SQL;
 
 @Component
 @Profile("!cloud")
@@ -40,7 +40,7 @@ public class LocalSchemaHelper {
 
     private static void validateSchemaName(String schema) {
         if (!schema.matches(SCHEMA_NAME_PATTERN)) {
-            throw new IllegalArgumentException("Invalid schema name provided [schema = %s]".formatted(schema));
+            throw new IllegalArgumentException("Invalid schema name provided [name = %s]".formatted(schema));
         }
     }
 }

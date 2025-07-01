@@ -12,7 +12,13 @@ import lombok.Setter;
 @Setter
 public class DestinationDto {
 
+    /**
+     * Owner of the destination.
+     */
     private OwnerDto owner;
 
+    /**
+     * Configuration properties of the destination.
+     */
     private DestinationConfigurationDto destinationConfiguration;
 }

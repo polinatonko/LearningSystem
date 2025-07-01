@@ -6,7 +6,6 @@ import org.example.learningsystem.multitenancy.context.TenantContext;
 import org.example.learningsystem.multitenancy.context.TenantInfo;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.stereotype.Component;
 
@@ -24,7 +23,6 @@ import static java.util.Map.Entry;
  * based on the current tenant context.
  */
 @Component
-@Qualifier("multiTenantDataSource")
 @RequiredArgsConstructor
 @Slf4j
 public class MultiTenantDataSource extends AbstractRoutingDataSource implements InitializingBean, DisposableBean {
@@ -47,7 +45,7 @@ public class MultiTenantDataSource extends AbstractRoutingDataSource implements 
         targetDataSources.values()
                 .forEach(this::tryToCloseDataSource);
         targetDataSources.clear();
-        log.info("Tenant data sources were closed");
+        log.debug("Tenant data sources were closed");
     }
 
     /**

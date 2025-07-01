@@ -1,7 +1,7 @@
 package org.example.learningsystem.application.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.learningsystem.application.config.ApplicationProperties;
+import org.example.learningsystem.application.model.ApplicationProperties;
 import org.example.learningsystem.application.dto.ApplicationInfoDto;
 import org.example.learningsystem.application.dto.LocalApplicationInfoDto;
 import org.springframework.context.annotation.Profile;

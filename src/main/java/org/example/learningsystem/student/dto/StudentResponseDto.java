@@ -35,8 +35,6 @@ public record StudentResponseDto(
 
         Locale locale,
 
-        Boolean isPublic,
-
         @JsonFormat(pattern = DATE_TIME_FORMAT, timezone = "UTC")
         Instant created,
 

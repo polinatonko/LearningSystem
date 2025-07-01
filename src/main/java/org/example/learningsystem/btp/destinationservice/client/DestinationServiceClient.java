@@ -1,7 +1,7 @@
 package org.example.learningsystem.btp.destinationservice.client;
 
 import lombok.RequiredArgsConstructor;
-import org.example.learningsystem.btp.destinationservice.config.DestinationServiceProperties;
+import org.example.learningsystem.btp.destinationservice.model.DestinationServiceProperties;
 import org.example.learningsystem.btp.destinationservice.dto.DestinationDto;
 import org.example.learningsystem.core.web.oauth2.Oauth2ClientCredentials;
 import org.example.learningsystem.core.web.oauth2.Oauth2TokenClient;

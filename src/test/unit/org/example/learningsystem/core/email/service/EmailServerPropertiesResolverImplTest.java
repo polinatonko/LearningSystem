@@ -3,8 +3,8 @@ package org.example.learningsystem.core.email.service;
 import org.example.learningsystem.btp.destinationservice.dto.MailDestinationConfigurationDto;
 import org.example.learningsystem.btp.destinationservice.service.DestinationService;
 import org.example.learningsystem.btp.featureflagsservice.service.FeatureFlagsService;
-import org.example.learningsystem.email.config.EmailServerProperties;
-import org.example.learningsystem.email.config.EmailServerPropertiesConfiguration;
+import org.example.learningsystem.email.model.EmailServerProperties;
+import org.example.learningsystem.email.model.EmailServerPropertiesImpl;
 import org.example.learningsystem.email.service.EmailServerPropertiesResolverImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -71,7 +71,7 @@ class EmailServerPropertiesResolverImplTest {
         var resolvedEmailServerProperties = emailServerPropertiesResolver.resolve();
 
         // then
-        assertInstanceOf(EmailServerPropertiesConfiguration.class, resolvedEmailServerProperties);
+        assertInstanceOf(EmailServerPropertiesImpl.class, resolvedEmailServerProperties);
         assertAll(
                 () -> assertEquals(emailServerProperties.getHost(), resolvedEmailServerProperties.getHost()),
                 () -> assertEquals(emailServerProperties.getPort(), resolvedEmailServerProperties.getPort())

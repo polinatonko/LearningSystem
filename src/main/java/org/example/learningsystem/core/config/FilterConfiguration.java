@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
-import static org.example.learningsystem.core.config.constant.FilterChainOrderConstants.REQUEST_CONTEXT_FILTER_CHAIN_ORDER;
-import static org.example.learningsystem.core.config.constant.FilterUriConstants.API_ENDPOINTS;
+import static org.example.learningsystem.core.config.constants.FilterChainOrderConstants.REQUEST_CONTEXT_FILTER_CHAIN_ORDER;
+import static org.example.learningsystem.core.config.constants.FilterUriConstants.API_ENDPOINTS;
 
 @Configuration
 @RequiredArgsConstructor

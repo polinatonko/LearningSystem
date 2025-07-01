@@ -44,7 +44,7 @@ public class RequestContextFilter extends OncePerRequestFilter {
         var tenantId = tenant.tenantId();
         if (tenantId.matches(TENANT_ID_PATTERN)) {
             TenantContext.setTenant(tenant);
-            log.info("Tenant was set: {}", tenant);
+            log.debug("Tenant was set: {}", tenant);
         } else {
             throw new InvalidTenantIdentifierException(tenantId);
         }

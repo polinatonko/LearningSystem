@@ -1,7 +1,7 @@
 package org.example.learningsystem.multitenancy.db.resolver;
 
 import lombok.RequiredArgsConstructor;
-import org.example.learningsystem.multitenancy.config.MultitenancyProperties;
+import org.example.learningsystem.multitenancy.model.MultitenancyProperties;
 import org.example.learningsystem.multitenancy.context.TenantContext;
 import org.example.learningsystem.multitenancy.context.TenantInfo;
 import org.hibernate.context.spi.CurrentTenantIdentifierResolver;

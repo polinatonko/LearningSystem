@@ -2,7 +2,7 @@ package org.example.learningsystem.core.db.util;
 
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.NoArgsConstructor;
-import org.example.learningsystem.core.db.config.CustomDataSourceProperties;
+import org.example.learningsystem.core.db.model.CustomDataSourceProperties;
 
 import javax.sql.DataSource;
 

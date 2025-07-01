@@ -2,7 +2,7 @@ package org.example.learningsystem.application.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.example.learningsystem.btp.xsuaa.config.XsuaaProperties;
+import org.example.learningsystem.btp.xsuaa.model.XsuaaProperties;
 
 /**
  * DTO representing cloud-specific application information.

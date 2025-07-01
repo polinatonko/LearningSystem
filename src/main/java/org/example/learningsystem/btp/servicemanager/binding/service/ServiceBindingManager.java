@@ -14,10 +14,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import static org.example.learningsystem.btp.servicemanager.common.constant.ServiceManagerResourceConstants.NAME;
-import static org.example.learningsystem.btp.servicemanager.common.constant.ServiceManagerResourceConstants.SERVICE_BINDINGS;
-import static org.example.learningsystem.btp.servicemanager.common.constant.ServiceManagerResourceConstants.SUBDOMAIN;
-import static org.example.learningsystem.btp.servicemanager.common.constant.ServiceManagerResourceConstants.TENANT_ID;
+import static org.example.learningsystem.btp.servicemanager.common.constants.ServiceManagerResourceConstants.NAME;
+import static org.example.learningsystem.btp.servicemanager.common.constants.ServiceManagerResourceConstants.SERVICE_BINDINGS;
+import static org.example.learningsystem.btp.servicemanager.common.constants.ServiceManagerResourceConstants.SUBDOMAIN;
+import static org.example.learningsystem.btp.servicemanager.common.constants.ServiceManagerResourceConstants.TENANT_ID;
 
 /**
  * Service for managing service bindings in SAP BTP using the Service Manager API.

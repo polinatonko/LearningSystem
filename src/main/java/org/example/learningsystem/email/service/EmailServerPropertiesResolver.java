@@ -1,6 +1,6 @@
 package org.example.learningsystem.email.service;
 
-import org.example.learningsystem.email.config.EmailServerProperties;
+import org.example.learningsystem.email.model.EmailServerProperties;
 
 /**
  * Interface for resolving SMTP server configuration properties.

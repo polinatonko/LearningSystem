@@ -1,7 +1,7 @@
 package org.example.learningsystem.btp.servicemanager.common.util;
 
 import lombok.RequiredArgsConstructor;
-import org.example.learningsystem.btp.servicemanager.common.config.ServiceManagerProperties;
+import org.example.learningsystem.btp.servicemanager.common.model.ServiceManagerProperties;
 import org.example.learningsystem.core.web.oauth2.Oauth2TokenClient;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.client.ClientHttpRequest;

@@ -43,9 +43,9 @@ public class CloudTenantSchemaService implements TenantSchemaService {
         var bindingName = buildBindingName(tenantId);
 
         serviceBindingManager.deleteByName(bindingName);
-        log.info("Removed binding {}", bindingName);
+        log.info("Removed binding [name = {}]", bindingName);
 
         serviceInstanceManager.deleteByName(schemaName);
-        log.info("Removed service instance {}", schemaName);
+        log.info("Removed service instance [name = {}]", schemaName);
     }
 }

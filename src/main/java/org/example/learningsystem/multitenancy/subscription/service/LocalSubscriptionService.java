@@ -1,7 +1,7 @@
 package org.example.learningsystem.multitenancy.subscription.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.learningsystem.application.config.ApplicationProperties;
+import org.example.learningsystem.application.model.ApplicationProperties;
 import org.example.learningsystem.multitenancy.db.service.TenantDatabaseManagementService;
 import org.example.learningsystem.multitenancy.subscription.dto.ServiceInfoDto;
 import org.example.learningsystem.multitenancy.subscription.dto.SubscriptionRequestDto;

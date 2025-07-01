@@ -49,7 +49,7 @@ public class TenantLiquibaseService {
             var liquibase = getLiquibase(liquibaseProperties);
             liquibase.setDataSource(dataSource);
             liquibase.setDefaultSchema(schema);
-            log.info("Running liquibase for {} schema", schema);
+            log.info("Running Liquibase for tenant schema [name = {}]", schema);
             liquibase.afterPropertiesSet();
         } catch (LiquibaseException e) {
             throw new LiquibaseMigrationException(tenantInfo.tenantId(), schema);

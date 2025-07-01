@@ -1,7 +1,7 @@
 package org.example.learningsystem.multitenancy.subscription.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.learningsystem.application.config.ApplicationProperties;
+import org.example.learningsystem.application.model.ApplicationProperties;
 import org.example.learningsystem.multitenancy.db.service.TenantDatabaseManagementService;
 import org.example.learningsystem.multitenancy.subscription.dto.ServiceInfoDto;
 import org.example.learningsystem.multitenancy.subscription.dto.SubscriptionRequestDto;
@@ -39,7 +39,7 @@ public class CloudSubscriptionService implements SubscriptionService {
     public String subscribe(String tenantId, SubscriptionRequestDto subscription) {
         var tenantSubdomain = subscription.subscribedSubdomain();
         var tenantUrl = buildTenantUrl(tenantSubdomain);
-        log.info("Generated tenant url: tenantId = {}, tenantUrl = {}", tenantId, tenantUrl);
+        log.info("Generated tenant url [id = {}, url = {}]", tenantId, tenantUrl);
         tenantDatabaseManagementService.createSchema(tenantId, subscription.subscribedSubdomain());
         return tenantUrl;
     }

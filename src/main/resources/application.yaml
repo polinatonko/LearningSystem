@@ -21,7 +21,7 @@ spring:
     encoding: UTF-8
 
 course:
-  reminder:
+  notifications:
     cron: "0 0 9 * * *"
     daysBefore: 1
 

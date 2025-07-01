@@ -2,7 +2,7 @@ package org.example.learningsystem.application.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.example.learningsystem.application.config.ApplicationProperties;
+import org.example.learningsystem.application.model.ApplicationProperties;
 
 /**
  * DTO representing local application information.

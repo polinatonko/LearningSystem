@@ -21,18 +21,18 @@ public class LocalTenantSchemaService implements TenantSchemaService {
     @Override
     public void create(TenantInfo tenantInfo) {
         var schema = tenantSchemaResolver.resolve(tenantInfo.tenantId());
-        log.info("Trying to createSchema new tenant schema: {}", schema);
+        log.debug("Trying to create new tenant schema [name = {}]", schema);
 
         localSchemaHelper.create(schema);
-        log.info("Created tenant schema: {}", schema);
+        log.info("Created tenant schema [name = {}]", schema);
     }
 
     @Override
     public void delete(String tenantId) {
         var schema = tenantSchemaResolver.resolve(tenantId);
-        log.info("Trying to drop tenant schema: {}", schema);
+        log.debug("Trying to drop tenant schema [name = {}]", schema);
 
         localSchemaHelper.drop(schema);
-        log.info("Deleted tenant schema: {}", schema);
+        log.info("Deleted tenant schema [name = {}]", schema);
     }
 }

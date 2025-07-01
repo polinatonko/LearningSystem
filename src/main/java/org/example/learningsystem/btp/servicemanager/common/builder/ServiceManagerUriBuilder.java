@@ -1,17 +1,17 @@
 package org.example.learningsystem.btp.servicemanager.common.builder;
 
 import lombok.RequiredArgsConstructor;
-import org.example.learningsystem.btp.servicemanager.common.config.ServiceManagerProperties;
+import org.example.learningsystem.btp.servicemanager.common.model.ServiceManagerProperties;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 
-import static org.example.learningsystem.btp.servicemanager.common.constant.ServiceManagerResourceConstants.BASE_PATH;
-import static org.example.learningsystem.btp.servicemanager.common.constant.ServiceManagerResourceConstants.EQUALS_QUERY;
-import static org.example.learningsystem.btp.servicemanager.common.constant.ServiceManagerResourceConstants.FIELD_QUERY;
-import static org.example.learningsystem.btp.servicemanager.common.constant.ServiceManagerResourceConstants.LABEL_QUERY;
+import static org.example.learningsystem.btp.servicemanager.common.constants.ServiceManagerResourceConstants.BASE_PATH;
+import static org.example.learningsystem.btp.servicemanager.common.constants.ServiceManagerResourceConstants.EQUALS_QUERY;
+import static org.example.learningsystem.btp.servicemanager.common.constants.ServiceManagerResourceConstants.FIELD_QUERY;
+import static org.example.learningsystem.btp.servicemanager.common.constants.ServiceManagerResourceConstants.LABEL_QUERY;
 
 /**
  * Provides methods for constructing URIs to access the Service Manager API.

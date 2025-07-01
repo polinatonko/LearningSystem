@@ -2,7 +2,7 @@ package org.example.learningsystem.application.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.application.dto.CloudApplicationInfoDto;
-import org.example.learningsystem.btp.xsuaa.config.XsuaaProperties;
+import org.example.learningsystem.btp.xsuaa.model.XsuaaProperties;
 import org.example.learningsystem.application.dto.ApplicationInfoDto;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;

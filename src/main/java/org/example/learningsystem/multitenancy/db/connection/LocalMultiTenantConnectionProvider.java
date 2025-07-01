@@ -1,7 +1,7 @@
 package org.example.learningsystem.multitenancy.db.connection;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.learningsystem.multitenancy.config.MultitenancyProperties;
+import org.example.learningsystem.multitenancy.model.MultitenancyProperties;
 import org.example.learningsystem.multitenancy.db.schema.TenantSchemaResolver;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -32,7 +32,7 @@ public class LocalMultiTenantConnectionProvider extends AbstractMultiTenantConne
 
     @Override
     public Connection getConnection(String tenantId) throws SQLException {
-        log.info("Getting connection for tenant: {}", tenantId);
+        log.debug("Getting connection for tenant [id = {}]", tenantId);
         var connection = getAnyConnection();
         var schema = tenantSchemaResolver.resolve(tenantId);
         connection.setSchema(schema);

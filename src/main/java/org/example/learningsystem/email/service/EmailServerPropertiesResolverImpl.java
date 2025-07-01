@@ -3,7 +3,7 @@ package org.example.learningsystem.email.service;
 import lombok.RequiredArgsConstructor;
 import org.example.learningsystem.btp.destinationservice.service.DestinationService;
 import org.example.learningsystem.btp.featureflagsservice.service.FeatureFlagsService;
-import org.example.learningsystem.email.config.EmailServerProperties;
+import org.example.learningsystem.email.model.EmailServerProperties;
 import org.springframework.stereotype.Service;
 
 /**

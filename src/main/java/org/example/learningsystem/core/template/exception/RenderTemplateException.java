@@ -3,7 +3,7 @@ package org.example.learningsystem.core.template.exception;
 import org.example.learningsystem.core.exception.model.LearningManagementSystemException;
 
 /**
- * Exception thrown when a render template error is encountered.
+ * Exception thrown when a build template error is encountered.
  */
 public class RenderTemplateException extends LearningManagementSystemException {
 
@@ -12,7 +12,7 @@ public class RenderTemplateException extends LearningManagementSystemException {
      *
      * @param errorMessage the error message
      */
-    public RenderTemplateException(String errorMessage) {
-        super(errorMessage);
+    public RenderTemplateException(String errorMessage, Throwable throwable) {
+        super(errorMessage, throwable);
     }
 }

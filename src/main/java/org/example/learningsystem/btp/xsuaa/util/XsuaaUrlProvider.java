@@ -1,7 +1,7 @@
 package org.example.learningsystem.btp.xsuaa.util;
 
 import lombok.RequiredArgsConstructor;
-import org.example.learningsystem.btp.xsuaa.config.XsuaaProperties;
+import org.example.learningsystem.btp.xsuaa.model.XsuaaProperties;
 import org.example.learningsystem.multitenancy.context.TenantContext;
 import org.example.learningsystem.multitenancy.context.TenantInfo;
 import org.springframework.context.annotation.Profile;

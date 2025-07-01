@@ -60,8 +60,6 @@ public class SubscriptionController {
     @Operation(summary = "Get application dependencies")
     public List<ServiceInfoDto> getDependencies(@RequestParam("tenantId") String tenantId) {
         log.info("Dependencies request [tenantId = {}]", tenantId);
-        var dependencies = subscriptionService.getDependencies();
-        log.info("Retrieved dependencies: {}", dependencies);
-        return dependencies;
+        return subscriptionService.getDependencies();
     }
 }

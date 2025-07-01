@@ -1,6 +1,7 @@
 package org.example.learningsystem.core.security.config;
 
 import lombok.RequiredArgsConstructor;
+import org.example.learningsystem.core.security.model.BasicAuthenticationCredentials;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;

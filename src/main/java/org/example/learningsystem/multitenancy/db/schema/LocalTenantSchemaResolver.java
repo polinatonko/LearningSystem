@@ -1,7 +1,7 @@
 package org.example.learningsystem.multitenancy.db.schema;
 
 import lombok.RequiredArgsConstructor;
-import org.example.learningsystem.multitenancy.config.MultitenancyProperties;
+import org.example.learningsystem.multitenancy.model.MultitenancyProperties;
 import org.example.learningsystem.multitenancy.db.exception.InvalidTenantSchemaException;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
