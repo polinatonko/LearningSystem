@@ -1,4 +1,4 @@
-package org.example.learningsystem.multitenancy.liquibase;
+package org.example.learningsystem.multitenancy.db.liquibase;
 
 import liquibase.integration.spring.SpringLiquibase;
 import lombok.NoArgsConstructor;

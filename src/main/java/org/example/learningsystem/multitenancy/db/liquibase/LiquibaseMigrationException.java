@@ -1,4 +1,4 @@
-package org.example.learningsystem.multitenancy.liquibase;
+package org.example.learningsystem.multitenancy.db.liquibase;
 
 import org.example.learningsystem.core.exception.model.LearningManagementSystemException;
 

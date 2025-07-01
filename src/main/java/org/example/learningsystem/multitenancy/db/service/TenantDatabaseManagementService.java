@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.learningsystem.multitenancy.context.TenantInfo;
 import org.example.learningsystem.multitenancy.db.schema.TenantSchemaService;
-import org.example.learningsystem.multitenancy.liquibase.TenantLiquibaseService;
+import org.example.learningsystem.multitenancy.db.liquibase.TenantLiquibaseService;
 import org.springframework.stereotype.Service;
 
 /**

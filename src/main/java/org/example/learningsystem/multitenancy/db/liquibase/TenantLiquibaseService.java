@@ -1,4 +1,4 @@
-package org.example.learningsystem.multitenancy.liquibase;
+package org.example.learningsystem.multitenancy.db.liquibase;
 
 import jakarta.annotation.PostConstruct;
 import liquibase.exception.LiquibaseException;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
 
-import static org.example.learningsystem.multitenancy.liquibase.LiquibaseUtils.getLiquibase;
+import static org.example.learningsystem.multitenancy.db.liquibase.LiquibaseUtils.getLiquibase;
 
 /**
  * Service for managing Liquibase database migrations for tenant schemas.
