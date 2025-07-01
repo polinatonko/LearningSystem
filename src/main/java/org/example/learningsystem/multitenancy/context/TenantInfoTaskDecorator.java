@@ -2,6 +2,9 @@ package org.example.learningsystem.multitenancy.context;
 
 import org.springframework.core.task.TaskDecorator;
 
+/**
+ * A {@link TaskDecorator} that propagates the current tenant context to new thread.
+ */
 public class TenantInfoTaskDecorator implements TaskDecorator {
 
     @Override
