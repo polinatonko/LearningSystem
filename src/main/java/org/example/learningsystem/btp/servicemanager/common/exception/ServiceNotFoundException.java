@@ -1,9 +1,11 @@
 package org.example.learningsystem.btp.servicemanager.common.exception;
 
+import org.example.learningsystem.core.exception.model.LearningManagementSystemException;
+
 /**
  * Exception thrown when a requested through Service Manager API service cannot be found.
  */
-public class ServiceNotFoundException extends RuntimeException {
+public class ServiceNotFoundException extends LearningManagementSystemException {
 
     /**
      * Constructor for the {@link ServiceNotFoundException}.

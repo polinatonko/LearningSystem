@@ -15,6 +15,9 @@ import javax.sql.DataSource;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
+
+import static java.util.Map.Entry;
 
 /**
  * Implementation of {@link AbstractRoutingDataSource} that selects the appropriate target data source
@@ -29,15 +32,14 @@ public class MultiTenantDataSource extends AbstractRoutingDataSource implements 
     private final DataSource defaultDataSource;
     private final TenantDataSourceManager tenantDataSourceManager;
 
-    private Map<Object, Object> targetDataSources;
+    private Map<TenantInfo, DataSource> targetDataSources;
 
     @Override
     public void afterPropertiesSet() {
-        var dataSources = tenantDataSourceManager.getAll();
+        Map<TenantInfo, DataSource> dataSources = tenantDataSourceManager.getAll();
         targetDataSources = new ConcurrentHashMap<>(dataSources);
         setDefaultTargetDataSource(defaultDataSource);
-        setTargetDataSources(targetDataSources);
-        initialize();
+        updateTargetDataSources();
     }
 
     @Override
@@ -56,10 +58,10 @@ public class MultiTenantDataSource extends AbstractRoutingDataSource implements 
      */
     public synchronized DataSource create(TenantInfo tenantInfo) {
         if (targetDataSources.containsKey(tenantInfo)) {
-            return (DataSource) targetDataSources.get(tenantInfo);
+            return targetDataSources.get(tenantInfo);
         }
 
-        var dataSource = tenantDataSourceManager.create(tenantInfo);
+        DataSource dataSource = tenantDataSourceManager.create(tenantInfo);
         targetDataSources.put(tenantInfo, dataSource);
         updateTargetDataSources();
         return dataSource;
@@ -84,13 +86,16 @@ public class MultiTenantDataSource extends AbstractRoutingDataSource implements 
     }
 
     private void updateTargetDataSources() {
-        setTargetDataSources(targetDataSources);
+        Map<Object, Object> dataSources = targetDataSources.entrySet()
+                .stream()
+                .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
+        setTargetDataSources(dataSources);
         initialize();
     }
 
-    private void tryToCloseDataSource(Object dataSource) {
+    private void tryToCloseDataSource(DataSource dataSource) {
         try {
-            ((DataSource) dataSource).unwrap(AutoCloseable.class).close();
+            dataSource.unwrap(AutoCloseable.class).close();
         } catch (Exception e) {
             log.error("Failed to close data source: {}", e.getMessage());
         }

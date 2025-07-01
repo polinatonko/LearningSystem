@@ -26,7 +26,7 @@ public class ServiceInstanceManager {
     private final BaseServiceManager baseServiceManager;
     private final String databaseId;
     private final ServiceManagerRestClient serviceManagerRestClient;
-    private final ServiceManagerUriBuilder serviceManagerURIBuilder;
+    private final ServiceManagerUriBuilder serviceManagerUriBuilder;
 
     public ServiceInstanceManager(@Value("${vcap.services.lms-hana-schema.credentials.database_id}") String databaseId,
                                   BaseServiceManager baseServiceManager,
@@ -34,7 +34,7 @@ public class ServiceInstanceManager {
                                   ServiceManagerUriBuilder serviceManagerURIBuilder) {
         this.baseServiceManager = baseServiceManager;
         this.serviceManagerRestClient = serviceManagerRestClientImpl;
-        this.serviceManagerURIBuilder = serviceManagerURIBuilder;
+        this.serviceManagerUriBuilder = serviceManagerURIBuilder;
         this.databaseId = databaseId;
     }
 
@@ -47,7 +47,7 @@ public class ServiceInstanceManager {
      * @return the {@link ServiceInstanceResponseDto} instance
      */
     public ServiceInstanceResponseDto createByOfferingAndPlanName(String name, String offering, String servicePlan) {
-        var uri = serviceManagerURIBuilder.builder(SERVICE_INSTANCES)
+        var uri = serviceManagerUriBuilder.builder(SERVICE_INSTANCES)
                 .async(false)
                 .build();
         var parameters = Map.of(DATABASE_ID, databaseId);

@@ -1,5 +1,6 @@
 package org.example.learningsystem.btp.xsuaa.config;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -18,9 +19,21 @@ import org.springframework.stereotype.Component;
 @Setter
 public class XsuaaProperties {
 
+    /**
+     * URL for obtaining tokens.
+     */
+    @NotNull
     private String tokenUrl;
 
+    /**
+     * client_id for the XSUAA Service.
+     */
+    @NotNull
     private String clientId;
 
+    /**
+     * client_secret for the XSUAA Service.
+     */
+    @NotNull
     private String clientSecret;
 }

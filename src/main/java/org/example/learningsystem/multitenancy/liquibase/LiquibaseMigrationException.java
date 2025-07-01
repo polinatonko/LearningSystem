@@ -1,9 +1,11 @@
 package org.example.learningsystem.multitenancy.liquibase;
 
+import org.example.learningsystem.core.exception.model.LearningManagementSystemException;
+
 /**
  * Exception thrown when an error occurs during running Liquibase database migration.
  */
-public class LiquibaseMigrationException extends RuntimeException {
+public class LiquibaseMigrationException extends LearningManagementSystemException {
 
     /**
      * Constructor for the {@link LiquibaseMigrationException}.

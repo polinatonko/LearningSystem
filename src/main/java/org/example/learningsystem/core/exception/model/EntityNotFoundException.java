@@ -5,7 +5,7 @@ import java.util.UUID;
 /**
  * Exception thrown when a requested entity was not found in the data source.
  */
-public class EntityNotFoundException extends RuntimeException {
+public class EntityNotFoundException extends LearningManagementSystemException {
 
     /**
      * Constructor for the {@link EntityNotFoundException}.
