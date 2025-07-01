@@ -31,10 +31,10 @@ public class ServiceInstanceManager {
     public ServiceInstanceManager(@Value("${vcap.services.lms-hana-schema.credentials.database_id}") String databaseId,
                                   BaseServiceManager baseServiceManager,
                                   ServiceManagerRestClientImpl serviceManagerRestClientImpl,
-                                  ServiceManagerUriBuilder serviceManagerURIBuilder) {
+                                  ServiceManagerUriBuilder serviceManagerUriBuilder) {
         this.baseServiceManager = baseServiceManager;
         this.serviceManagerRestClient = serviceManagerRestClientImpl;
-        this.serviceManagerUriBuilder = serviceManagerURIBuilder;
+        this.serviceManagerUriBuilder = serviceManagerUriBuilder;
         this.databaseId = databaseId;
     }
 

@@ -23,7 +23,7 @@ public class BaseServiceManager {
 
     protected final ServiceManagerResponseValidator serviceManagerResponseValidator;
     protected final ServiceManagerRestClient serviceManagerRestClient;
-    protected final ServiceManagerUriBuilder serviceManagerURIBuilder;
+    protected final ServiceManagerUriBuilder serviceManagerUriBuilder;
 
     /**
      * Retrieves a service by searching with a field query.
@@ -36,7 +36,7 @@ public class BaseServiceManager {
      * @return the found service response
      */
     public <T> T getByField(String field, String value, String path, Class<T> serviceResponseType) {
-        var uri = serviceManagerURIBuilder.builder(path)
+        var uri = serviceManagerUriBuilder.builder(path)
                 .fieldQuery(field, value)
                 .build();
         return get(uri, serviceResponseType, field, value);
@@ -53,7 +53,7 @@ public class BaseServiceManager {
      * @return the found service response
      */
     public <T> T getByLabel(String label, String value, String path, Class<T> serviceResponseType) {
-        var uri = serviceManagerURIBuilder.builder(path)
+        var uri = serviceManagerUriBuilder.builder(path)
                 .labelQuery(label, value)
                 .build();
         return get(uri, serviceResponseType, label, value);
@@ -79,7 +79,7 @@ public class BaseServiceManager {
      */
     public void deleteById(String path, UUID id) {
         var pathSegments = String.join("/", path, id.toString());
-        var uri = serviceManagerURIBuilder.builder(pathSegments)
+        var uri = serviceManagerUriBuilder.builder(pathSegments)
                 .build();
         serviceManagerRestClient.delete(uri);
     }

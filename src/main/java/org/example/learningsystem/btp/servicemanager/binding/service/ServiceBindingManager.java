@@ -29,7 +29,7 @@ public class ServiceBindingManager {
 
     private final BaseServiceManager baseServiceManager;
     private final ServiceManagerRestClient serviceManagerRestClient;
-    private final ServiceManagerUriBuilder serviceManagerURIBuilder;
+    private final ServiceManagerUriBuilder serviceManagerUriBuilder;
 
     /**
      * Creates a new service binding.
@@ -40,7 +40,7 @@ public class ServiceBindingManager {
      * @return the {@link ServiceBindingResponseDto} instance
      */
     public ServiceBindingResponseDto create(String name, UUID serviceInstanceId, TenantInfo tenantInfo) {
-        var uri = serviceManagerURIBuilder.builder(SERVICE_BINDINGS)
+        var uri = serviceManagerUriBuilder.builder(SERVICE_BINDINGS)
                 .async(false)
                 .build();
         var labels = Map.of(
@@ -77,7 +77,7 @@ public class ServiceBindingManager {
      * @return a {@link List} of all service bindings
      */
     public List<ServiceBindingResponseDto> getAll() {
-        var uri = serviceManagerURIBuilder.builder(SERVICE_BINDINGS).build();
+        var uri = serviceManagerUriBuilder.builder(SERVICE_BINDINGS).build();
         var response = baseServiceManager.getAll(uri, ServiceBindingResponseDto.class);
         return response.items();
     }
